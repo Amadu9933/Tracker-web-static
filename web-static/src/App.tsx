@@ -30,7 +30,7 @@ function App() {
       </p>
 
       <h1 className="text-3xl font-bold underline">
-      Hello world! another one
+      Hello world! another two
     </h1>
     </>
   )
