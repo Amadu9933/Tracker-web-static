@@ -1,7 +1,10 @@
 
 import React from 'react';
 import './App.css'
+import './index.css'
 import MyButton from './components/common/buttons/AskMeButton';
+import Header from './components/common/header/Header';
+
 
 const App: React.FC = () => {
   const handleClick = () => {
@@ -10,16 +13,9 @@ const App: React.FC = () => {
 
   return (
     <div className="App ">
-      <MyButton
-        onClick={handleClick}
-        label="Primary button"
-        state="Primary"
-        size="Small"
-        background="#FF833C"
-      />
-      
-     
-  
+
+      <Header />
+
      
     </div>
   );

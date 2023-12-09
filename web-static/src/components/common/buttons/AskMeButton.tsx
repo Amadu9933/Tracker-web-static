@@ -19,7 +19,7 @@ const MyButton: React.FC<MyButtonProps> = ({
   const getSizeClass = () => {
     switch (size) {
       case 'Small':
-        return 'text-sm p-3 lg:p-4.5 gap-2 rounded-2 w-62.5 h-12 top-142.5 left-33.75  border-none focus:border-none gap-8';
+        return 'text-sm  p-3 lg:p-4.5 gap-2 rounded-2 w-62.5 h-12 top-142.5 left-33.75  border-none focus:border-none gap-8';
       case 'Large':
         return 'text-lg px-4 py-2';
       // Medium is the default
