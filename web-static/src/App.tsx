@@ -1,9 +1,12 @@
 
 import React from 'react';
 import './App.css'
+import './index.css'
 import MyButton from './components/common/buttons/AskMeButton';
-import NavBar from "./components/common/global/NavBar"
-import 'normalize.css';
+
+import Header from './components/common/header/Header';
+
+
 
 const App: React.FC = () => {
   const handleClick = () => {
@@ -11,6 +14,7 @@ const App: React.FC = () => {
   };
 
   return (
+
     <div className="App">
       <NavBar/>
       <MyButton
@@ -22,6 +26,7 @@ const App: React.FC = () => {
       />
       
       
+
     </div>
   );
 };

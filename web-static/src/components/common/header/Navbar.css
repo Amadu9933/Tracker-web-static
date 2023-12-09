@@ -1,0 +1,8 @@
+/* header component styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+  .nav-business{
+    margin-left: 20px;
+  }
