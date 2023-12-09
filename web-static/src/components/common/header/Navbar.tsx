@@ -6,7 +6,7 @@ import Logo from "./Logo.png";
 
 const NavBar = () => {
   return (
-    <nav className="nav bg-black text-white flex justify-between items-center">
+    <nav className="nav bg-black  flex justify-between items-center">
       <div className="text-2xl font-bold flex items-center" >
         <img
           src={Logo}
@@ -15,7 +15,7 @@ const NavBar = () => {
         /><div className="logo-name">Trackker</div>
         
       </div>
-      <div className="flex ">
+      <div className="flex">
         <div className="nav-customer mr-4 cursor-pointer">Customer</div>
         <div className="nav-business cursor-pointer">Business Owner</div>
       </div>
