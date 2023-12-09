@@ -1,8 +1,17 @@
 /* header component styles */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-  .nav-business{
+.nav-business {
     margin-left: 20px;
-  }
+}
+
+.nav-customer,
+.nav-business {
+    color: black;
+}
+
+.logo-name {
+    color: #FF833C;
+}

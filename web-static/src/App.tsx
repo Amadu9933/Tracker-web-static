@@ -16,7 +16,8 @@ const App: React.FC = () => {
   return (
 
     <div className="App">
-      <NavBar/>
+     
+      <Header/>
       <MyButton
         onClick={handleClick}
         label="Primary button"

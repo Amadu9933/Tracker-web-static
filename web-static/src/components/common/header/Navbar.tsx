@@ -1,12 +1,20 @@
 // Navbar.tsx
 import React from 'react';
 import './Navbar.css'
+import Logo from "./Logo.png";
 
 
-const Navbar: React.FC = () => {
+const NavBar = () => {
   return (
-    <nav className="nav bg-black text-black flex justify-between items-center">
-      <div className="text-2xl font-bold ">Logo</div>
+    <nav className="nav bg-black text-white flex justify-between items-center">
+      <div className="text-2xl font-bold flex items-center" >
+        <img
+          src={Logo}
+          alt="Logo"
+          style={{ height: "40px", marginRight: "10px" }}
+        /><div className="logo-name">Trackker</div>
+        
+      </div>
       <div className="flex ">
         <div className="nav-customer mr-4 cursor-pointer">Customer</div>
         <div className="nav-business cursor-pointer">Business Owner</div>
@@ -15,4 +23,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
