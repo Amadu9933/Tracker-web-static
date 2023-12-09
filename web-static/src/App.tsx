@@ -2,6 +2,8 @@
 import React from 'react';
 import './App.css'
 import MyButton from './components/common/buttons/AskMeButton';
+import NavBar from "./components/common/global/NavBar"
+import 'normalize.css';
 
 const App: React.FC = () => {
   const handleClick = () => {
@@ -9,7 +11,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="App ">
+    <div className="App">
+      <NavBar/>
       <MyButton
         onClick={handleClick}
         label="Primary button"
@@ -18,9 +21,7 @@ const App: React.FC = () => {
         background="#FF833C"
       />
       
-     
-  
-     
+      
     </div>
   );
 };
