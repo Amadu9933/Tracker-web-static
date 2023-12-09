@@ -1,0 +1,17 @@
+.container{
+   height: 40px;
+   width: 100%;
+   margin-top: 2%;
+
+}
+
+.large-container{
+    background: #354755;
+    width: 85%;
+    
+
+}
+
+.small-container{
+    background: #D9E1E7;
+}
