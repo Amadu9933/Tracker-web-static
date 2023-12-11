@@ -1,4 +1,4 @@
-// LastChild.tsx
+
 import React from 'react';
 import './HeaderLastChild.css'
 
