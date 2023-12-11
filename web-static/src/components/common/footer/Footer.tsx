@@ -10,11 +10,12 @@ const handleClick = () => {
 
 const Footer: React.FC = () => {
   return (
+   <div className='container'>
    <footer className='bg-gray-600'>
      <div className='firt-item item'>
-        <h1>Join To Get Started</h1> 
+        <h2 >Join To Get Started</h2> 
         
-         <p>Your Parcel's journey your way </p>
+         <p>Your Parcel's journey your way. </p>
      <MyButton
         onClick={handleClick}
         label="Click Me"
@@ -22,7 +23,8 @@ const Footer: React.FC = () => {
         size="Small"
         background="#FF833C"
       />
-      <p>Trackerr &copy; 2023. All rights reserved</p>
+       
+      
      </div>
 
      <div className='second-item item'>
@@ -47,6 +49,8 @@ const Footer: React.FC = () => {
         </div>
      
    </footer>
+   <p className='copy-right'>Trackerr &copy; 2023. All rights reserved</p>
+   </div>
   );
 };
 

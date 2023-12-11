@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
+body{
+
+  padding: 0;
+  
+}
 
 
 /* button component styles */
@@ -24,11 +26,16 @@
 }
 
 .bg-primary {
-  background-color: #FF833C;
   color: white;
+  height: 1.4;
+  width: 14rem;
 }
 
 .bg-secondary {
+
+  height: 2.5;
+  width: 29rem;
+
   
 }
 

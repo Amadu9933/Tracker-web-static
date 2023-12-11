@@ -1,12 +1,12 @@
 
   .nav{
-    height: 35px;
-    font-weight: 400px;
-    font-size: 16px;
-    line-height: 24px;
+    height: 2.2rem;
+    font-weight: 25rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
   .nav-business{
-    margin-left: 20px;
+    margin-left: 1.25rem;
   }
 
   .nav-customer,
@@ -18,7 +18,7 @@
   .nav-customer:hover {
     font-weight: bold;
     text-decoration: underline;
-    text-underline-offset: 10px; 
+    text-underline-offset: 0.6rem; 
     text-decoration-color: #FF833C;
   }
   
@@ -26,6 +26,6 @@
   .nav-business:hover {
     font-weight: bold;
     text-decoration: underline;
-    text-underline-offset: 10px; 
+    text-underline-offset: 0.6rem; 
     text-decoration-color: #FF833C;
   }
