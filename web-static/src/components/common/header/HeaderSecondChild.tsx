@@ -10,7 +10,7 @@ const CenterContent: React.FC = () => {
       <div className=" first-child    mb-2"><span className='H'>How it works</span> <span className='T'>Track my parcel</span> </div>
       <div className="second-child items-center justify-end">
         
-        <div className="search-icon mr-4 cursor-pointer"><img src={search} alt="search" className="search-icon" /></div>
+       
         <div className="Help pmr-4">Need help?</div>
         <div className="profile mr-4"><img src={profile} alt="profile" className="profile-icon" /></div>
         <div>Login</div>

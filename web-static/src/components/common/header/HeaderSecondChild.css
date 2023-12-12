@@ -21,6 +21,9 @@ span{
     font-size: 0.9rem;
     width: 12rem;
     justify-content: space-around;
+   
+    font-size: 16px;
+    
 }
 .cont2{
     display: flex;

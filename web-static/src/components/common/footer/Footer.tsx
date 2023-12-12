@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
          <p>Your Parcel's journey your way. </p>
      <MyButton
         onClick={handleClick}
-        label="Click Me"
+        label="Get started"
         state="Primary"
         size="Small"
         background="#FF833C"
