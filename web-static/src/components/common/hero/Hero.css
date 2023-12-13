@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+.hero{
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    margin-left: 136px;
+    margin-right: 136px;
+    margin-top: 56px;
+}
+
+.description-item{
+    background-color: bisque;
+    width: 100%;
+    height: 503px;
+    width: 517px;
+    
+   
+
+}
+.description-item h2 {
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 48px;
+    color: #FF833C;
+    margin-top: 56px;
+
+
+}
+.description-item p {
+    font-weight: 500;
+    color: #8E8A73;
+}
+.lp{
+    margin-bottom: 60px;
+}
+
+.image-item{
+    border: 2px solid red;
+    background-color: gold;
+    width: 517px;
+    height: 503px;
+    
+}
