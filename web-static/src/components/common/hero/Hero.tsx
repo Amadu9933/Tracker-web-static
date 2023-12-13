@@ -2,6 +2,10 @@
 import React from 'react';
 import MyButton from '../buttons/Mybutton';
 import './Hero.css'
+import first from '../../../assets/first-image.png'
+import second from '../../../assets/second-image.png'
+import third from '../../../assets/third-image.png'
+import fourth from '../../../assets/fourth-image.png'
 
 
 
@@ -31,7 +35,10 @@ const Hero: React.FC = () => {
    </div>
 
    <div className='image-item item'>
-   
+   <img src={first} alt="first" className="first" />
+   <img src={second} alt="second" className="second" />
+   <img src={third} alt="second" className="third" />
+   <img src={fourth} alt="fourth" className="fourth" />
    
    </div>
 
