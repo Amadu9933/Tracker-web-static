@@ -6,7 +6,7 @@ import LastChild from './HeaderLastChild';
 
 const Header: React.FC = () => {
   return (
-    <header className=" bg-red-800 text-white p-4">
+    <header className="bg-red-800 text-white p-4">
       <Navbar />
       <HeaderSecond />
       <LastChild />
