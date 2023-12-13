@@ -20,10 +20,7 @@ const App: React.FC = () => {
       <LastChild />
       <Hero />
       <Footer />
-      
     
-
-     
     </div>
   );
 };
