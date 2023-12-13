@@ -11,13 +11,12 @@ import MyButton from './components/common/buttons/Mybutton';
 import Header from './components/common/header/Header';
 import Footer from './components/common/footer/Footer';
 import LastChild from './components/common/header/HeaderLastChild';
+import Hero from './components/common/hero/Hero';
 
 
 
 const App: React.FC = () => {
-  const handleClick = () => {
-    console.log('Button clicked!');
-  };
+  
 
   return (
 <<<<<<< HEAD
@@ -27,7 +26,9 @@ const App: React.FC = () => {
 
       <Header />
       <LastChild />
+      <Hero />
       <Footer />
+      
     
 >>>>>>> 02336e40be6e26c373e23b697530b684779941af
 
