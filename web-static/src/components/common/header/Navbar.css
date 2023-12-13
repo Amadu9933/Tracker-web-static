@@ -1,5 +1,6 @@
 /* header component styles */
 
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,3 +22,39 @@
 .logo-name {
     color: #FF833C;
 }
+=======
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+
+  
+  .nav{
+    height: 2.2rem;
+    font-weight: 25rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: 'Inter', sans-serif;
+  }
+  .nav-business{
+    margin-left: 1.25rem;
+  }
+
+  .nav-customer,
+  .nav-business{
+    cursor: pointer;
+  
+}
+
+  .nav-customer:hover {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 0.6rem; 
+    text-decoration-color: #FF833C;
+  }
+  
+  
+  .nav-business:hover {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 0.6rem; 
+    text-decoration-color: #FF833C;
+  }
+>>>>>>> 02336e40be6e26c373e23b697530b684779941af
