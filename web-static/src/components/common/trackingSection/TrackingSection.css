@@ -1,0 +1,19 @@
+.track-section{
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    padding-left: 337px;
+    padding-right: 333px;
+
+}
+.track-container{
+    background-color: #FFD6BE;
+    width: 770px;
+    height: 304px;
+}
+
+input {
+    border: 2px solid red;
+    
+}

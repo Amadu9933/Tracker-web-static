@@ -7,3 +7,8 @@ header{
     height: 9rem;
     font-family: 'Inter', sans-serif;
 }
+.line-pointer{
+    height: 60px;
+    width: 200px;
+    background-color: brown;
+}

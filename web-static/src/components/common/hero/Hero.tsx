@@ -5,7 +5,11 @@ import './Hero.css'
 import first from '../../../assets/first-image.png'
 import second from '../../../assets/second-image.png'
 import third from '../../../assets/third-image.png'
+import arrow from '../../../assets/Arrow 3.png'
 import fourth from '../../../assets/fourth-image.png'
+import pointer from '../../../assets/Group.png'
+
+
 
 
 
@@ -31,7 +35,7 @@ const Hero: React.FC = () => {
         size="Small"
         background="#FF833C"
       />
-
+        <img src={pointer} alt="pointer" className="pointer" />
    </div>
 
    <div className='image-item item'>
@@ -41,6 +45,10 @@ const Hero: React.FC = () => {
    <img src={fourth} alt="fourth" className="fourth" />
    
    </div>
+
+  
+   
+   <img src={arrow} alt="arrow" className="line" />
 
    </div>
   );
