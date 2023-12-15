@@ -8,12 +8,29 @@
 
 }
 .track-container{
-    background-color: #FFD6BE;
+    background-color: #fdefe8;
     width: 770px;
     height: 304px;
+    padding: 48px;
+    text-align: left;
+    border-radius: 22px;
+    margin-top: 50px;
+
+}
+.enter-tracking{
+    display: flex;
+    justify-content: space-between;
+    
+    width: 100%;
+    
 }
 
 input {
     border: 2px solid red;
+    width: 100%;
     
+}
+.track-container img{
+    background-color: #FFD6BE;
+    border-radius: 50%;
 }
