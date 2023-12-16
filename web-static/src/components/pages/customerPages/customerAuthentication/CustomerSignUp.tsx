@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import './CustomerSignUp.css'
 
 interface RegistrationFormData {
   username: string;
@@ -51,7 +52,10 @@ const RegistrationPage: React.FC = () => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <div style={{ backgroundColor: 'red', border: '1px solid #ddd', borderRadius: '10px', padding: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-        <h2>Create Account</h2>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+          <ArrowBackIcon /> {/* Add the ArrowBackIcon here */}
+          <h2 style={{ marginLeft: '10px' }}>Create Account</h2>
+        </div>
         <div style={{ justifyContent: 'center' }}>
           <p>
             <label>
