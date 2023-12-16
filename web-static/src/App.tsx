@@ -7,6 +7,7 @@ import Header from './components/common/header/Header';
 import Footer from './components/common/footer/Footer';
 import LastChild from './components/common/header/HeaderLastChild';
 import Hero from './components/common/hero/Hero';
+import CustomerSignUp from './components/pages/customerPages/customerAuthentication/CustomerSignUp'
 import TrackingSection from './components/common/trackingSection/TrackingSection';
 
 const App: React.FC = () => {
@@ -19,6 +20,7 @@ const App: React.FC = () => {
       <Header />
       <LastChild />
       <Hero />
+      <CustomerSignUp/>
       <TrackingSection />
       <Footer />
     
