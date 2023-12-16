@@ -20,7 +20,7 @@ const App: React.FC = () => {
       <Header />
       <LastChild />
       <Hero />
-      <CustomerSignUp/>
+      
       <TrackingSection />
       <Footer />
     
