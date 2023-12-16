@@ -11,6 +11,9 @@ import CustomerSignUp from './components/pages/customerPages/customerAuthenticat
 import TrackingSection from './components/common/trackingSection/TrackingSection';
 
 const App: React.FC = () => {
+  const handleClick = () => {
+    console.log('Button clicked!');
+  };
   
 
   return (
@@ -20,7 +23,11 @@ const App: React.FC = () => {
       <Header />
       <LastChild />
       <Hero />
-      
+      <MyButton onClick={handleClick}
+        label="Login"
+        state="Secondary"
+        size="Small"
+        background="#FF833C"/>
       <TrackingSection />
       <Footer />
     

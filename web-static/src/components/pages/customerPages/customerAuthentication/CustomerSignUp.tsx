@@ -13,6 +13,10 @@ interface RegistrationFormData {
 }
 
 const CustomerSignUp: React.FC = () => {
+  const handleClick = () => {
+    console.log('Button clicked!');
+  };
+  
   const initialFormData: RegistrationFormData = {
     username: '',
     email: '',
