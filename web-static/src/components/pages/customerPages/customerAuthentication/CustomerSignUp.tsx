@@ -60,14 +60,14 @@ const CustomerSignUp: React.FC = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <div style={{ backgroundColor: 'red', border: '1px solid #ddd', borderRadius: '10px', padding: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <div style={{ backgroundColor: '#D9E1E7', border: '1px solid #ddd', borderRadius: '10px', padding: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
           <ArrowBackIcon /> {/* Add the ArrowBackIcon here */}
           <h2 style={{ marginLeft: '10px' }}>Create Account</h2>
         </div>
-        <div style={{ justifyContent: 'center' }}>
-          <p>
-            <label>
+        <div style={{ display:'flex', justifyContent:'center' }}>
+
+            <label >
               <input type="radio" name="myRadio" value="option1" />
               Customer
             </label>
@@ -75,7 +75,7 @@ const CustomerSignUp: React.FC = () => {
               <input type="radio" name="myRadio" value="option2" />
               Business Owner
             </label>
-          </p>
+        
         </div>
         <form onSubmit={handleSubmit}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem' }}>

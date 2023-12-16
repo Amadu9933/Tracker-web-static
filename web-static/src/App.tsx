@@ -28,6 +28,7 @@ const App: React.FC = () => {
         state="Secondary"
         size="Small"
         background="#FF833C"/>
+        <CustomerSignUp/>
       <TrackingSection />
       <Footer />
     
