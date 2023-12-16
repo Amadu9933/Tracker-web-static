@@ -4,6 +4,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './CustomerSignUp.css'
 import MyButton from '../../../common/buttons/Mybutton';
 
+
+
+    
+      
+
 interface RegistrationFormData {
   username: string;
   email: string;
@@ -16,6 +21,8 @@ const RegistrationPage: React.FC = () => {
     email: '',
     password: '',
   };
+  const handleClick = () => {
+    console.log('Button clicked!');
 
   const [formData, setFormData] = useState<RegistrationFormData>(initialFormData);
   const [showPassword, setShowPassword] = useState(false);
