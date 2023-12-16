@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './CustomerSignUp.css'
+import MyButton from '../../../common/buttons/Mybutton';
 
 interface RegistrationFormData {
   username: string;
@@ -112,7 +113,13 @@ const RegistrationPage: React.FC = () => {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem' }}>
-            <button type="submit">Sign Up</button>
+          <MyButton
+        onClick={handleClick}
+        label="Sign Up"
+        state="Primary"
+        size="Small"
+        background="#FF833C"
+      />
             <p>Already have an Account? Sign in</p>
           </div>
         </form>
