@@ -65,7 +65,7 @@ const CustomerSignUp: React.FC = () => {
           <ArrowBackIcon /> {/* Add the ArrowBackIcon here */}
           <h2 style={{ marginLeft: '10px' }}>Create Account</h2>
         </div>
-        <div style={{ display:'flex', justifyContent:'center' }}>
+        <div className="radio-container">
 
             <label >
               <input type="radio" name="myRadio" value="option1" />

@@ -14,3 +14,8 @@ body {
     color: "black";
     ;
 }
+
+.radio-container {
+    display: inline-flex;
+    margin-right: 10px;
+}
