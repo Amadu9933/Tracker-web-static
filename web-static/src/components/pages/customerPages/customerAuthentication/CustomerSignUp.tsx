@@ -8,9 +8,9 @@ interface RegistrationFormData {
   username: string;
   email: string;
   password: string;
-  companyName?: string; // New field for Business Owner
-  companyDescription?: string; // New field for Business Owner
-  phoneEmail?: string; // New field for Business Owner
+  companyName?: string; 
+  companyDescription?: string; 
+  phoneEmail?: string; 
 }
 
 const CustomerSignUp: React.FC = () => {
@@ -68,14 +68,14 @@ const CustomerSignUp: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <div className='box-item' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <div style={{ backgroundColor: '#D9E1E7', border: '1px solid #ddd', borderRadius: '10px', padding: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+        <div className='header-item' style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
           <ArrowBackIcon /> {/* Add the ArrowBackIcon here */}
-          <h2 style={{ marginLeft: '10px' }}>Create Account</h2>
+          <h2  style={{ marginLeft: '10px' }}>Create Account</h2>
         </div>
-        <div className="radio-container">
-          <label>
+        <div className='radio'>
+          <label >
             <input
               type="radio"
               name="userType"
@@ -85,7 +85,7 @@ const CustomerSignUp: React.FC = () => {
             />
             Customer
           </label>
-          <label>
+          <label >
             <input
               type="radio"
               name="userType"
@@ -96,19 +96,21 @@ const CustomerSignUp: React.FC = () => {
             Business Owner
           </label>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem' }}>
+        <form onSubmit={handleSubmit} >
+          <div  >
+            <div style={{ display: 'block', flexDirection: 'column', alignItems: 'center', padding: '1rem' }}>
             <label>
               Username:
-              <input type="text" name="username" onChange={handleChange} />
+              <input className='input-filed' type="text" name="username" onChange={handleChange} />
             </label>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem' }}>
+          <div style={{ display: 'block', flexDirection: 'column', alignItems: 'center', padding: '1rem' }}>
             <label>
-              Email/Phone number:
-              <input type="email" name="email" onChange={handleChange} />
+            Email/Phone number:
+              <input className='input-filed' type="text" name="email" onChange={handleChange} />
             </label>
+          </div>
           </div>
 
           {isBusinessOwner && (
@@ -121,13 +123,7 @@ const CustomerSignUp: React.FC = () => {
                 </label>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem' }}>
-                <label>
-                  Description of Company:
-                  <textarea name="companyDescription" onChange={handleChange} />
-                </label>
-              </div>
-
+             
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem' }}>
                 <label>
                   Phone/Email:
@@ -140,8 +136,8 @@ const CustomerSignUp: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem', position: 'relative' }}>
             <label style={{ width: '100%' }}>
               Password:
-              <div style={{ position: 'relative', width: '100%' }}>
-                <input
+              <div className='password' style={{ position: 'relative', width: '500px' }}>
+                <input 
                   type={showPassword ? 'text' : 'password'}
                   name="password"
                   onChange={handleChange}
@@ -150,13 +146,13 @@ const CustomerSignUp: React.FC = () => {
                 {/* Eye icon to toggle password visibility */}
                 {showPassword ? (
                   <FiEyeOff
-                    style={{ position: 'absolute', right: '5px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                    style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
                     onClick={handleTogglePassword}
                     aria-label="Hide Password"
                   />
                 ) : (
                   <FiEye
-                    style={{ position: 'absolute', right: '5px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                    style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
                     onClick={handleTogglePassword}
                     aria-label="Show Password"
                   />

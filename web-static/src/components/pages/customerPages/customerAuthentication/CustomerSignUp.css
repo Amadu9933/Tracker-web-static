@@ -15,7 +15,29 @@ body {
     ;
 }
 
-.radio-container {
+.radio {
+    width: Hug (292px);
+    height: Hug (24px);
+    gap: 32px;
     display: inline-flex;
-    margin-right: 10px;
+}
+
+.header-item {
+    width: 182px;
+    height: 30px;
+}
+
+.form-body {
+    width: Hug (500px);
+    height: Hug (298px);
+}
+
+.box-item {
+    width: Hug (828px);
+    height: Fixed (700px);
+    top: 195px;
+    left: 306px;
+    padding: 64px, 164px, 100px, 164px;
+    border-radius: 16px;
+    gap: 32px;
 }
