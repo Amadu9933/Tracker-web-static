@@ -22,15 +22,6 @@ const App: React.FC = () => {
       <Header />
       <LastChild />
       <Hero />
-<<<<<<< HEAD
-      <MyButton onClick={handleClick}
-        label="Login"
-        state="Secondary"
-        size="Small"
-        background="#FF833C"/>
-        <CustomerSignUp/>
-=======
->>>>>>> 35bf7b6b42ba5e9e4b41895790c9b98904142ef3
       <TrackingSection />
       <CardSection/>
       <Footer />
