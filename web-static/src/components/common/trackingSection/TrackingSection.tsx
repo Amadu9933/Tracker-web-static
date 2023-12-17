@@ -17,7 +17,10 @@ const TrackingSection: React.FC = () => {
                     <p>Enter Tracking I.D</p>
                     <p className='my-parcels'>My Parcels</p>
                 </div>
-                <input  className='input' type="text" placeholder='Text' />
+                <div className="search-container">
+                <input type="text" placeholder='Text' />
+                <i className="search-icon"></i>
+                </div>
 
             </div>
         </section>
