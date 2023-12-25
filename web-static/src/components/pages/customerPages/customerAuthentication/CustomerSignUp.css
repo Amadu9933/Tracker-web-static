@@ -32,6 +32,10 @@ body {
     height: Hug (298px);
 }
 
+.input[name="companyName"] {
+    width: 500px;
+}
+
 .box-item {
     width: Hug (828px);
     height: Fixed (700px);

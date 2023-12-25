@@ -115,11 +115,11 @@ const CustomerSignUp: React.FC = () => {
 
           {isBusinessOwner && (
             <>
-              {/* Additional fields for Business Owner */}
+            {/* Additional fields for Business Owner */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem' }}>
-                <label>
+                <label style={{width:'500px'}}>
                   Company Name:
-                  <input type="text" name="companyName" onChange={handleChange} />
+                  <input  type="text" name="companyName" onChange={handleChange} />
                 </label>
               </div>
               
@@ -134,7 +134,7 @@ const CustomerSignUp: React.FC = () => {
                   type={showPassword ? 'text' : 'password'}
                   name="password"
                   onChange={handleChange}
-                  style={{ width: 'calc(100% - 30px)', padding: '5px' }}
+                  style={{ width: '500px', padding: '8px', borderRadius: '8px', margin: '4px 0' }}
                 />
                 {/* Eye icon to toggle password visibility */}
                 {showPassword ? (
