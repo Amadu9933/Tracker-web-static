@@ -24,6 +24,7 @@ const ForgetPassword: React.FC = () => {
   const handleRadioChange = (value: 'Customer' | 'BusinessOwner') => {
     setIsBusinessOwner(value === 'BusinessOwner');
   };
+ 
   const handleNext = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // You can add password recovery logic here
