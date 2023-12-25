@@ -122,14 +122,7 @@ const CustomerSignUp: React.FC = () => {
                   <input type="text" name="companyName" onChange={handleChange} />
                 </label>
               </div>
-
-             
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem' }}>
-                <label>
-                  Phone/Email:
-                  <input type="text" name="phoneEmail" onChange={handleChange} />
-                </label>
-              </div>
+              
             </>
           )}
 
