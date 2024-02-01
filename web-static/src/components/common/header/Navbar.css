@@ -1,36 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
-
-  
-  .nav{
-    height: 2.2rem;
-    font-weight: 25rem;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-family: 'Inter', sans-serif;
-    
-  }
-  .nav-business{
-    margin-left: 1.25rem;
-  }
-
-  .nav-customer,
-  .nav-business{
-    cursor: pointer;
-  
+.nav {
+	height: 2.2rem;
+	font-weight: 25rem;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	font-family: "Inter", sans-serif;
+}
+.nav-business {
+	margin-left: 1.25rem;
 }
 
-  .nav-customer:hover {
-    font-weight: bold;
-    text-decoration: underline;
-    text-underline-offset: 0.6rem; 
-    text-decoration-color: #FF833C;
-  }
-  
-  
-  .nav-business:hover {
-    font-weight: bold;
-    text-decoration: underline;
-    text-underline-offset: 0.6rem; 
-    text-decoration-color: #FF833C;
-  }
+.nav-customer,
+.nav-business {
+	cursor: pointer;
+}
+
+.nav-customer:hover {
+	font-weight: bold;
+	text-decoration: underline;
+	text-underline-offset: 0.6rem;
+	text-decoration-color: black;
+	color: black;
+}
+
+.nav-business:hover {
+	font-weight: bold;
+	text-decoration: underline;
+	text-underline-offset: 0.6rem;
+	text-decoration-color: #ff833c;
+}
