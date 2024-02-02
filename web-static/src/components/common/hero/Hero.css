@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 
 .hero {
+	background-image: url("../../../assets/Header-bg-Img.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 45.25rem;
+	margin-bottom: 200px;
+	font-family: "Inter", sans-serif;
 }

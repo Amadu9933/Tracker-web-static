@@ -3,11 +3,13 @@ import MyButton from "../buttons/Mybutton";
 import "./Hero.css";
 
 const Hero: React.FC = () => {
-	const handleClick = () => {
-		console.log("Button clicked!");
-	};
-
-	return <div className="hero h-96 bg-slate-600 m-0"></div>;
+	return (
+		<div className="hero  pt-40 m-0">
+			<h1 className="text-white font-bold text-8xl h-48 mx-72 ">
+				Track your parcel today!
+			</h1>
+		</div>
+	);
 };
 
 export default Hero;
