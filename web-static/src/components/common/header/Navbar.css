@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 
+heade {
+	background-image: linear-gradient(rgba(78, 78, 83, 0), rgb(18, 3, 73)),
+		url("../src/assets/IMG_5304.jpeg");
+	padding-right: 10%;
+	padding-left: 10%;
+}
 .nav {
 	height: 2.2rem;
 	font-weight: 25rem;
