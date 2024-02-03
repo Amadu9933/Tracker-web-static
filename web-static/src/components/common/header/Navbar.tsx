@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
 			<div className="text-2xl font-bold ">
 				<img src={logo} alt="Logo" className="nav-logo" />
 			</div>
-			<div className="flex text-neutral-400  h-9 leading-5 ">
+			<div className="flex text-neutral-400  h-9 leading-5  ">
 				<div className="nav-customer mr-4">Track my parcel</div>
 				<div className="mr-4 nav-customer ">Ship</div>
 				<div className="mr-4 nav-customer">Logistics solution</div>
