@@ -12,6 +12,8 @@ import { Typography } from "@mui/material";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import profileIcon from "../../../assets/iconoir_profile-circle.png";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Header: React.FC = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,30 +26,119 @@ const Header: React.FC = () => {
 	};
 	return (
 		<div>
-			<AppBar position="static">
-				<Toolbar>
+			<AppBar
+				position="static"
+				sx={{
+					display: "flex",
+					backgroundColor: "white",
+				}}>
+				<Toolbar
+					sx={{
+						display: "flex",
+
+						justifyContent: "space-between",
+					}}>
 					<IconButton
 						size="large"
 						edge="start"
 						aria-label="logo"
-						sx={{ display: { xs: "none", md: "flex" } }}>
+						sx={{ flexFlow: 1, display: { xs: "none", md: "flex" } }}>
 						<img src={logo} alt="Logo" className="nav-logo" />
 					</IconButton>
-					<Typography component="div" sx={{ flexGrow: 1 }}></Typography>
+
 					<Box sx={{ display: { xs: "none", md: "flex" } }}>
 						<Link
 							color="inherit"
-							underline="always"
+							underline="none"
 							arial-aria-label="link"
+							sx={{
+								color: "gray",
+								"&:hover": {
+									textDecoration: "underline",
+									textDecorationColor: "black",
+								},
+							}}
 							href="#">
-							Link
+							Track my parcel
 						</Link>
-
-						<Button color="inherit">Track my parcel</Button>
-						<Button color="inherit">Ship</Button>
-						<Button color="inherit">Logistics solution</Button>
-						<Button color="inherit">Integration</Button>
-						<Button color="inherit">Need help ?</Button>
+						<Link
+							color="inherit"
+							underline="none"
+							arial-aria-label="link"
+							sx={{
+								color: "gray",
+								"&:hover": {
+									textDecoration: "underline",
+									textDecorationColor: "black",
+								},
+								marginLeft: "16px",
+							}}
+							href="#">
+							Ship
+						</Link>
+						<Link
+							color="inherit"
+							underline="none"
+							arial-aria-label="link"
+							sx={{
+								color: "gray",
+								"&:hover": {
+									textDecoration: "underline",
+									textDecorationColor: "black",
+								},
+								marginLeft: "16px",
+							}}
+							href="#">
+							Logistics solution
+						</Link>
+						<Link
+							color="inherit"
+							underline="none"
+							arial-aria-label="link"
+							sx={{
+								color: "gray",
+								"&:hover": {
+									textDecoration: "underline",
+									textDecorationColor: "black",
+								},
+								marginLeft: "16px",
+							}}
+							href="#">
+							Integration
+						</Link>
+						<Link
+							color="inherit"
+							underline="none"
+							arial-aria-label="link"
+							sx={{
+								color: "gray",
+								"&:hover": {
+									textDecoration: "underline",
+									textDecorationColor: "black",
+								},
+								marginLeft: "16px",
+							}}
+							href="#">
+							Need help ?
+						</Link>
+						<Box
+							sx={{
+								marginLeft: "16px",
+								display: "flex",
+								padding: "10px",
+								border: "1px solid gray",
+								borderRadius: "5px",
+							}}>
+							<img src={profileIcon} alt="profile-icon" />
+							<Link
+								color="inherit"
+								underline="always"
+								arial-aria-label="link"
+								sx={{ color: "gray", marginLeft: "10px" }}
+								href="#">
+								Login
+							</Link>
+						</Box>
 					</Box>
 
 					<IconButton
@@ -84,11 +175,114 @@ const Header: React.FC = () => {
 								horizontal: "left",
 							}}>
 							<MenuList>
-								<MenuItem onClick={handleClose}>close</MenuItem>
-								<MenuItem>hello</MenuItem>
-								<MenuItem>hello</MenuItem>
-								<MenuItem>hello</MenuItem>
-								<MenuItem>hello</MenuItem>
+								<MenuItem onClick={handleClose}>
+									<CloseIcon />
+								</MenuItem>
+								<MenuItem>
+									<Link
+										color="inherit"
+										underline="none"
+										arial-aria-label="link"
+										sx={{
+											color: "gray",
+											"&:hover": {
+												textDecoration: "underline",
+												textDecorationColor: "black",
+											},
+										}}
+										href="#">
+										Track my parcel
+									</Link>
+								</MenuItem>
+								<MenuItem>
+									<Link
+										underline="none"
+										arial-aria-label="link"
+										sx={{
+											color: "gray",
+											marginLeft: "16px",
+											"&:hover": {
+												textDecoration: "underline",
+												textDecorationColor: "black",
+											},
+											margin: "0px",
+										}}
+										href="#">
+										Ship
+									</Link>
+								</MenuItem>
+								<MenuItem>
+									<Link
+										color="inherit"
+										underline="none"
+										arial-aria-label="link"
+										sx={{
+											color: "gray",
+											"&:hover": {
+												textDecoration: "underline",
+												textDecorationColor: "black",
+											},
+										}}
+										href="#">
+										Logistic
+									</Link>
+								</MenuItem>
+								<MenuItem>
+									<Link
+										color="inherit"
+										underline="none"
+										arial-aria-label="link"
+										sx={{
+											color: "gray",
+											"&:hover": {
+												textDecoration: "underline",
+												textDecorationColor: "black",
+											},
+										}}
+										href="#">
+										Solution
+									</Link>
+								</MenuItem>
+								<MenuItem>
+									<Link
+										color="inherit"
+										underline="none"
+										arial-aria-label="link"
+										sx={{ color: "gray" }}
+										href="#">
+										Integration
+									</Link>
+								</MenuItem>
+								<MenuItem>
+									<Link
+										color="inherit"
+										underline="none"
+										arial-aria-label="link"
+										sx={{ color: "gray" }}
+										href="#">
+										Need help ?
+									</Link>
+								</MenuItem>
+								<MenuItem>
+									<Box
+										sx={{
+											display: "flex",
+
+											padding: "10px",
+											border: "1px solid gray",
+											borderRadius: "5px",
+										}}>
+										<img src={profileIcon} alt="profile-icon" />
+										<Link
+											color="inherit"
+											underline="none"
+											arial-aria-label="link"
+											sx={{ color: "gray", marginLeft: "10px" }}
+											href="#">
+											login
+										</Link>
+									</Box>
+								</MenuItem>
 							</MenuList>
 						</Menu>
 					</Box>
