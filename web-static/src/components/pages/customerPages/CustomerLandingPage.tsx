@@ -11,8 +11,11 @@ const CustomerLandingPage: React.FC = () => {
 	return (
 		<div>
 			<header>
-				<Headerr />
+				{/* Navigationtiiion bar component */}
+				<Navbar />
+				<Track />
 			</header>
+			<main></main>
 		</div>
 	);
 };

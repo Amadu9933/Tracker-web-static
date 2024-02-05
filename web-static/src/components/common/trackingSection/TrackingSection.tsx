@@ -11,7 +11,7 @@ const TrackingSection: React.FC = () => {
 				<img src={logo} alt="Logo" className="carbon-delivery" />
 				<h2>Parcel Tracking</h2>
 				<div className="enter-tracking">
-					<p>Enter Tracking I.D</p>
+					<p> Tracking I.D</p>
 					<a href="" className="my-parcels">
 						View my order history
 					</a>
