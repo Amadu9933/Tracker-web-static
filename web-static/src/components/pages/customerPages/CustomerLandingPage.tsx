@@ -5,7 +5,7 @@ import "../../../components/common/hero/Hero.css";
 import Navbar from "../../common/header/Navbar";
 import Hero from "../../common/hero/Hero";
 import Track from "../../common/trackingSection/TrackingSection";
-import Headerr from "../../common/header/Header";
+import DidYouKnow from "../../pages/customerPages/CustomerDidYouKnow";
 
 const CustomerLandingPage: React.FC = () => {
 	return (
@@ -16,7 +16,9 @@ const CustomerLandingPage: React.FC = () => {
 				<Hero />\
 				<Track />
 			</header>
-			<main></main>
+			<main>
+				<DidYouKnow />
+			</main>
 		</div>
 	);
 };
