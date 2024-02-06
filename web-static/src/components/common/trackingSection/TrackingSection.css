@@ -7,6 +7,7 @@
 	align-items: center;
 	padding: 5vh; /* Adjust padding based on viewport height */
 	font-family: "Inter", sans-serif;
+	margin-top: -185px;
 }
 
 .track-container {
