@@ -1,6 +1,9 @@
 // Navbar.tsx
 import React from "react";
-import Box from "@mui/material/Box";
+import fristImage from "../../../assets/first-image.png";
+import thirdImage from "../../../assets/third-image.png";
+import secondImage from "../../../assets/second-image.png";
+import fourthImage from "../../../assets/fourth-image.png";
 
 const CustomerDidYouKnow: React.FC = () => {
 	return (
@@ -9,19 +12,23 @@ const CustomerDidYouKnow: React.FC = () => {
 			<div>
 				{/* first item */}
 				<div>
-					<img src="" alt="" />
-					<img src="" alt="" />
+					<img className="" src={fristImage} alt="" />
+					<img src={thirdImage} alt="" />
 				</div>
 				{/* second item, text container */}
 				<div>
-					<h1></h1>
-					<p></p>
+					<h1>Did You Know?</h1>
+					<p>
+						Trackerr also offers tracking services using tracking I.Ds generated
+						using other logistics partners such as DHL, GIG, etc. Just enter
+						your parcel i.d and click enter.
+					</p>
 				</div>
 
 				{/* third container */}
 				<div>
-					<img src="" alt="" />
-					<img src="" alt="" />
+					<img src={secondImage} alt="" />
+					<img src={fourthImage} alt="" />
 				</div>
 			</div>
 		</section>
