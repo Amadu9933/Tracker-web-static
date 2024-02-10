@@ -27,7 +27,7 @@
 	color: #354755;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: 2vh; /* Adjust margin based on viewport height */
+	margin-top: 4vh; /* Adjust margin based on viewport height */
 	font-family: "Inter", sans-serif;
 }
 input::placeholder {
@@ -49,6 +49,7 @@ input:focus {
 	.track-section {
 		padding-left: 5vw;
 		padding-right: 5vw;
+		margin-top: -275px;
 	}
 
 	.enter-tracking {

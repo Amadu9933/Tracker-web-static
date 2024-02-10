@@ -6,7 +6,7 @@ import search from "../../../assets/Vector.png";
 
 const TrackingSection: React.FC = () => {
 	return (
-		<section className="track-section mb-24 ">
+		<section className="track-section  ">
 			<div className="track-container">
 				<img src={logo} alt="Logo" className="carbon-delivery" />
 				<h2>Parcel Tracking</h2>
