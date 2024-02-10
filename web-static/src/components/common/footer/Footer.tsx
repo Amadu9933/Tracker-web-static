@@ -9,9 +9,9 @@ const handleClick = () => {
 const Footer: React.FC = () => {
 	return (
 		<footer
-			className="footer pt-12 px-32 "
+			className="footer pt-8 px-6 column md:pt-12 md:px-32 "
 			style={{ backgroundColor: "#354755", color: "#C6C5B9" }}>
-			<div className="flex justify-between   font-medium">
+			<div className=" flex flex-wrap justify-between md:flex md:justify-between  md:font-medium">
 				<div className="item">
 					<h2 className="font-medium text-white text text-2xl pb-4">
 						Join To Get Started
@@ -26,21 +26,21 @@ const Footer: React.FC = () => {
 					/>
 				</div>
 
-				<div className="item">
+				<div className="item mr-9 md:mr-0">
 					<h1 className="text-lg text-white pb-4 text-left">Company</h1>
 					<p className="pb-4 text-left">How it works</p>
 					<p className="pb-4 text-left">Career</p>
 					<p className="pb-4 text-left">Legal</p>
 				</div>
 
-				<div className="item text-left">
+				<div className=" mt-10 md:mt-0 md:text-left text-left">
 					<h1 className="text-lg text-white pb-4 ">Help</h1>
 					<p className="pb-4 ">Privacy Policy</p>
 					<p className="pb-4 ">Refund Policy</p>
 					<p className="pb-4 ">Track Your Order</p>
 				</div>
 
-				<div className="item text-left">
+				<div className="mt-10 md:mt-0  md:item md:text-left text-left">
 					<h1 className="text-lg text-white pb-4 ">Support</h1>
 					<p className="pb-4 ">Feedback</p>
 					<p className="pb-4 ">Contact Us</p>
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
 					<p className="pb-4 ">Terms & condition</p>
 				</div>
 			</div>
-			<p className="copy-right flex justify-start mt-12 pb-24">
+			<p className="copy-right flex justify-start mt-12 pb-24 text-white">
 				Trackerr &copy; 2023. All rights reserved
 			</p>
 		</footer>

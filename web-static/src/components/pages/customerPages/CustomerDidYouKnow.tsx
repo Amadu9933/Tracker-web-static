@@ -7,7 +7,7 @@ import fourthImage from "../../../assets/fourth-image.png";
 
 const CustomerDidYouKnow: React.FC = () => {
 	return (
-		<section className="  hidden md:h-1/4 md:mt-56 ">
+		<section className="  md:h-1/4 md:mt-56 ">
 			{/* container  */}
 			<div className="flex justify-between">
 				{/* first item */}

@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
 					display: "flex",
 					backgroundColor: "white",
 					height: "5rem",
-
+					borderColor: "1px solid #D9E1E7",
 					paddingLeft: { sm: "1.5rem", md: "1.5rem", lg: "5rem" },
 					paddingRight: { sm: "1.5rem", md: "1.5rem", lg: "5rem" },
 				}}>
