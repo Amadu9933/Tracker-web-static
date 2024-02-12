@@ -7,12 +7,16 @@ import fourthImage from "../../../assets/fourth-image.png";
 
 const CustomerDidYouKnow: React.FC = () => {
 	return (
-		<section className="  md:h-1/4 md:mt-56 ">
+		<section className="  md:h-1/4 md:mt-56 md:bg-slate-500 ">
 			{/* container  */}
-			<div className="flex justify-between">
+			<div className="md:flex md:justify-between">
 				{/* first item */}
-				<div className="column ml-44 w-44">
-					<img className="w-36 h-36 rounded-full" src={fristImage} alt="" />
+				<div className="md:column md:ml-44 md:w-44">
+					<img
+						className="md:w-36 md:h-36 md:rounded-full w-16 h-16 rounded-full"
+						src={fristImage}
+						alt=""
+					/>
 					<img
 						className="w-20 h-20 rounded-full mt-64 ml-24 bg-red-100"
 						src={thirdImage}
@@ -20,7 +24,7 @@ const CustomerDidYouKnow: React.FC = () => {
 					/>
 				</div>
 				{/* second item, text container */}
-				<div className="w-1/3 mt-9">
+				<div className="md:w-1/3 md:mt-9">
 					<h1 className="mb-7 font-medium text-2xl">Did You Know?</h1>
 					<p className="font-normal">
 						Trackerr also offers tracking services using tracking I.Ds generated
@@ -30,14 +34,14 @@ const CustomerDidYouKnow: React.FC = () => {
 				</div>
 
 				{/* third container */}
-				<div className="mr-44  w-60">
+				<div className="md:mr-44  md:w-60">
 					<img
 						className="w-20 h-20 rounded-full -mt-36 ml-40 bg-red-100"
 						src={secondImage}
 						alt=""
 					/>
 					<img
-						className="w-36 h-36 rounded-full mt-96"
+						className="md:w-36  md:h-36 md:rounded-full md:mt-96 w-36 h-36 rounded-full hidden"
 						src={fourthImage}
 						alt=""
 					/>
