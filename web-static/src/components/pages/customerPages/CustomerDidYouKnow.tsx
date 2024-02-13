@@ -8,11 +8,11 @@ import Button from "@mui/material/Button";
 
 const CustomerDidYouKnow: React.FC = () => {
 	return (
-		<section className="  md:h-1/4 md:mt-56  md:px-0 px-7">
+		<section className="  md:h-1/4 md:mt-56   md:px-0 px-7 ">
 			{/* container  */}
 			<div className="md:flex md:justify-between">
 				{/* first item */}
-				<div className="md:block md:ml-44 md:w-44 flex justify-between">
+				<div className="md:block md:ml-44 md:w-44 flex justify-between ">
 					<img
 						className="md:w-36 md:h-36 md:rounded-full w-16 h-16 rounded-full"
 						src={fristImage}
@@ -34,7 +34,7 @@ const CustomerDidYouKnow: React.FC = () => {
 				{/* second item, text container */}
 				<div className="md:w-1/3 md:mt-9  ">
 					<h1 className="mb-7 font-medium text-2xl">Did You Know?</h1>
-					<p className="font-normal">
+					<p className="font-normal mb-4">
 						Trackerr also offers tracking services using tracking I.Ds generated
 						using other logistics partners such as DHL, GIG, etc. Just enter
 						your parcel i.d and click enter.
@@ -55,14 +55,14 @@ const CustomerDidYouKnow: React.FC = () => {
 								borderColor: "#FF833C",
 							},
 							fontSize: "16px",
-							fontWeight: "bold",
+							fontWeight: "medium",
 						}}>
 						Track my parcel
 					</Button>
 				</div>
 
 				{/* third container */}
-				<div className="md:mr-44  md:w-60 md:block">
+				<div className="md:mr-44  md:w-60 md:block ">
 					<img
 						className="w-20 h-20 rounded-full -mt-36 ml-40 bg-red-100 md:visible invisible"
 						src={secondImage}
@@ -75,7 +75,7 @@ const CustomerDidYouKnow: React.FC = () => {
 					/>
 					{/* moile picture */}
 				</div>
-				<div className="flex justify-center items-center">
+				<div className=" justify-center items-center md:hidden flex">
 					<img
 						className="md:w-20 md:h-20 rounded-full md:mt-64 md:ml-24 w-12 h-12 bg-red-100 md:invisible "
 						src={thirdImage}

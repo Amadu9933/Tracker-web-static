@@ -1,5 +1,6 @@
 import React from "react";
 import MyButton from "../buttons/Mybutton";
+import Button from "@mui/material/Button";
 // import "./Footer.css";
 
 const handleClick = () => {
@@ -12,18 +13,34 @@ const Footer: React.FC = () => {
 			className="footer pt-8 px-6 column md:pt-12 md:px-32 "
 			style={{ backgroundColor: "#354755", color: "#C6C5B9" }}>
 			<div className=" flex flex-wrap justify-between md:flex md:justify-between  md:font-medium">
-				<div className="item">
+				<div className="item text-left">
 					<h2 className="font-medium text-white text text-2xl pb-4">
 						Join To Get Started
 					</h2>
 					<p className="pb-4    font-medium">Your Parcel's journey your way.</p>
-					<MyButton
-						onClick={handleClick}
-						label="Get started"
-						state="Primary"
-						size="Small"
-						background="#FF833C"
-					/>
+					<Button
+						variant="outlined"
+						sx={{
+							backgroundColor: "#FF833C",
+							color: "white",
+							borderColor: "#FF833C",
+							paddingTop: "12px",
+							paddingRight: "18px",
+							paddingBottom: "12px",
+							paddingLeft: "18px",
+							borderRadius: "8px",
+							"&:focus": {
+								borderColor: "#FF833C",
+								backgroundColor: "#FF833C",
+								color: "white",
+							},
+							fontSize: "16px",
+							fontWeight: "bold",
+							width: { xs: "contain", md: "100%" },
+							marginLeft: { xs: "0", md: "0" },
+						}}>
+						Get started
+					</Button>
 				</div>
 
 				<div className="item mr-9 md:mr-0">
