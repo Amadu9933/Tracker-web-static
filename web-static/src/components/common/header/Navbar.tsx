@@ -1,22 +1,18 @@
 import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
+import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Importing assets
 import profileIcon from "../../../assets/iconoir_profile-circle.png";
 import logo from "../../../assets/Logo.png";
 
-//Importing material Ui
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Link from "@mui/material/Link";
-import MenuIcon from "@mui/icons-material/Menu";
-import MenuList from "@mui/material/MenuList";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-
-// Functional component for the Navigation bar
 const Navbar: React.FC = () => {
 	// State for handling the Menu component
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -26,11 +22,21 @@ const Navbar: React.FC = () => {
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
+
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
 
-	// JSX structure for the Navigation bar
+	// Styles for links
+	const linkStyles = {
+		color: "#B1B2B2",
+		"&:hover": {
+			textDecoration: "underline",
+			textDecorationColor: "#354755",
+			color: "#354755",
+		},
+	};
+
 	return (
 		<div>
 			{/* Top-level container for the entire Navigation bar */}
@@ -68,96 +74,21 @@ const Navbar: React.FC = () => {
 							fontWeight: 500,
 							fontSize: "1rem",
 						}}>
-						{/* Track my parcel link*/}
-						<Link
-							color="inherit"
-							underline="none"
-							arial-aria-label="link"
-							sx={{
-								color: "#B1B2B2",
-
-								"&:hover": {
-									textDecoration: "underline",
-									textDecorationColor: "black",
-									color: "black",
-								},
-							}}
-							href="#">
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
 							Track my parcel
 						</Link>
-
-						{/* Shiping link*/}
-						<Link
-							color="inherit"
-							underline="none"
-							arial-aria-label="link"
-							sx={{
-								color: "#B1B2B2",
-								"&:hover": {
-									textDecoration: "underline",
-									textDecorationColor: "black",
-									color: "black",
-								},
-								marginLeft: "2rem",
-							}}
-							href="#">
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
 							Ship
 						</Link>
-
-						{/* Logistic link*/}
-						<Link
-							color="inherit"
-							underline="none"
-							arial-aria-label="link"
-							sx={{
-								color: "#B1B2B2",
-								"&:hover": {
-									textDecoration: "underline",
-									textDecorationColor: "black",
-									color: "black",
-								},
-								marginLeft: "2rem",
-							}}
-							href="#">
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
 							Logistics solution
 						</Link>
-
-						{/* Integration link*/}
-						<Link
-							color="inherit"
-							underline="none"
-							arial-aria-label="link"
-							sx={{
-								color: "#B1B2B2",
-								"&:hover": {
-									textDecoration: "underline",
-									textDecorationColor: "black",
-									color: "black",
-								},
-								marginLeft: "2rem",
-							}}
-							href="#">
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
 							Integration
 						</Link>
-
-						{/* Need help link*/}
-						<Link
-							color="inherit"
-							underline="none"
-							arial-aria-label="link"
-							sx={{
-								color: "#B1B2B2",
-								"&:hover": {
-									textDecoration: "underline",
-									textDecorationColor: "black",
-									color: "black",
-								},
-								marginLeft: "2rem",
-							}}
-							href="#">
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
 							Need help ?
 						</Link>
-
 						{/* Profile section*/}
 						<Box
 							sx={{
@@ -174,21 +105,8 @@ const Navbar: React.FC = () => {
 								alt="profile-icon"
 								style={{ height: "20px", width: "20px" }}
 							/>
-
-							{/*Login link */}
 							<Link
-								color="inherit"
-								underline="none"
-								arial-aria-label="link"
-								sx={{
-									color: "#B1B2B2",
-									marginLeft: "10px",
-									height: "20px",
-									"&:hover": {
-										textDecorationColor: "black",
-										color: "black",
-									},
-								}}
+								sx={{ ...linkStyles, marginLeft: "10px", height: "20px" }}
 								href="#">
 								Login
 							</Link>
@@ -205,7 +123,6 @@ const Navbar: React.FC = () => {
 						}}>
 						<img src={logo} alt="Logo" className="nav-logo" />
 					</IconButton>
-
 					{/* Mobile menu for small screens */}
 					<Box sx={{ display: { xs: "flex", md: "none" } }}>
 						<IconButton
@@ -216,7 +133,6 @@ const Navbar: React.FC = () => {
 							onClick={handleClick}>
 							<MenuIcon />
 						</IconButton>
-
 						{/* Mobile menu content */}
 						<Menu
 							id="demo-positioned-menu"
@@ -224,174 +140,68 @@ const Navbar: React.FC = () => {
 							anchorEl={anchorEl}
 							open={open}
 							onClose={handleClose}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "left",
-							}}
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "left",
-							}}>
+							anchorOrigin={{ vertical: "top", horizontal: "left" }}
+							transformOrigin={{ vertical: "top", horizontal: "left" }}>
 							{/* Menu list */}
-							<MenuList>
-								{/* close menu click icon */}
-								<MenuItem onClick={handleClose}>
-									<CloseIcon />
-								</MenuItem>
-
-								{/* Track my parcel menu link item */}
-								<MenuItem>
+							<MenuItem onClick={handleClose}>
+								<CloseIcon />
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Track my parcel
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Ship
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Logistic
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Solution
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Integration
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Need help ?
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Box
+									sx={{
+										display: "flex",
+										padding: "0.625rem",
+										border: "1px solid #B1B2B2",
+										borderRadius: "5px",
+										height: "40px",
+										justifyContent: "space-between",
+									}}>
+									<img
+										src={profileIcon}
+										alt="profile-icon"
+										style={{ height: "20px", width: "20px" }}
+									/>
 									<Link
-										color="inherit"
-										underline="none"
-										arial-aria-label="link"
 										sx={{
-											color: "#B1B2B2",
-											"&:hover": {
-												textDecoration: "underline",
-												textDecorationColor: "#354755",
-												color: "#354755",
-											},
-										}}
-										href="#">
-										Track my parcel
-									</Link>
-								</MenuItem>
-
-								{/* Ship menu link item */}
-								<MenuItem>
-									<Link
-										underline="none"
-										arial-aria-label="link"
-										sx={{
-											color: "#B1B2B2",
-
-											"&:hover": {
-												textDecoration: "underline",
-												textDecorationColor: "#354755",
-												color: "#354755",
-											},
-											margin: "0px",
-										}}
-										href="#">
-										Ship
-									</Link>
-								</MenuItem>
-
-								{/* Logistic menu link item */}
-								<MenuItem>
-									<Link
-										color="inherit"
-										underline="none"
-										arial-aria-label="link"
-										sx={{
-											color: "#B1B2B2",
-											"&:hover": {
-												textDecoration: "underline",
-												textDecorationColor: "#354755",
-												color: "#354755",
-											},
-										}}
-										href="#">
-										Logistic
-									</Link>
-								</MenuItem>
-
-								{/* Solution menu link */}
-								<MenuItem>
-									<Link
-										color="inherit"
-										underline="none"
-										arial-aria-label="link"
-										sx={{
-											color: "#B1B2B2",
-											"&:hover": {
-												textDecoration: "underline",
-												textDecorationColor: "#354755",
-												color: "#354755",
-											},
-										}}
-										href="#">
-										Solution
-									</Link>
-								</MenuItem>
-
-								{/* Integration menu link item */}
-								<MenuItem>
-									<Link
-										color="inherit"
-										underline="none"
-										arial-aria-label="link"
-										sx={{
-											color: "#B1B2B2",
-											"&:hover": {
-												textDecoration: "underline",
-												textDecorationColor: "#354755",
-												color: "#354755",
-											},
-										}}
-										href="#">
-										Integration
-									</Link>
-								</MenuItem>
-
-								{/* Need help ? menu link item */}
-								<MenuItem>
-									<Link
-										color="inherit"
-										underline="none"
-										arial-aria-label="link"
-										sx={{
-											color: "#B1B2B2",
-											"&:hover": {
-												textDecoration: "underline",
-												textDecorationColor: "#354755",
-												color: "#354755",
-											},
-										}}
-										href="#">
-										Need help ?
-									</Link>
-								</MenuItem>
-
-								{/* Profile menu link item */}
-								<MenuItem>
-									<Box
-										sx={{
-											display: "flex",
-
-											padding: "0.625rem",
-											border: "1px solid #B1B2B2",
-											borderRadius: "5px",
+											...linkStyles,
+											marginLeft: "0.625rem",
 											height: "40px",
-											justifyContent: "space-between",
-										}}>
-										<img
-											className=" hover:bg-gray-400,"
-											src={profileIcon}
-											alt="profile-icon"
-											style={{ height: "20px", width: "20px" }}
-										/>
-										<Link
-											color="inherit"
-											underline="none"
-											arial-aria-label="link"
-											sx={{
-												color: "#B1B2B2",
-												marginLeft: "0.625rem",
-												"&:hover": {
-													textDecoration: "underline",
-													textDecorationColor: "#354755",
-													color: "black",
-												},
-												height: "40px",
-											}}
-											href="#">
-											login
-										</Link>
-									</Box>
-								</MenuItem>
-							</MenuList>
+										}}
+										href="#">
+										Login
+									</Link>
+								</Box>
+							</MenuItem>
 						</Menu>
 					</Box>
 				</Toolbar>

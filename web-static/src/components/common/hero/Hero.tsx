@@ -1,5 +1,4 @@
 import React from "react";
-import MyButton from "../buttons/Mybutton";
 import "./Hero.css";
 
 const Hero: React.FC = () => {

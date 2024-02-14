@@ -2,9 +2,27 @@
 import React from "react";
 import "./TrackingSection.css";
 import logo from "../../../assets/carbon_delivery-parcel.png";
-import search from "../../../assets/Vector.png";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+	position: "absolute" as "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+	width: 400,
+	bgcolor: "background.paper",
+	border: "2px solid #000",
+	boxShadow: 24,
+	p: 4,
+};
 
 const TrackingSection: React.FC = () => {
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 	return (
 		<section className="track-section  ">
 			<div className="track-container">
@@ -12,9 +30,25 @@ const TrackingSection: React.FC = () => {
 				<h2>Parcel Tracking</h2>
 				<div className="enter-tracking">
 					<p> Tracking I.D</p>
-					<a href="" className="my-parcels">
-						View my order history
-					</a>
+
+					<div className="my-parcels">
+						<Button onClick={handleOpen}>Open modal</Button>
+						<Modal
+							open={open}
+							onClose={handleClose}
+							aria-labelledby="modal-modal-title"
+							aria-describedby="modal-modal-description">
+							<Box sx={style}>
+								<Typography id="modal-modal-title" variant="h6" component="h2">
+									Text in a modal
+								</Typography>
+								<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+									Duis mollis, est non commodo luctus, nisi erat porttitor
+									ligula.
+								</Typography>
+							</Box>
+						</Modal>
+					</div>
 				</div>
 				<div className="search-container  mt-3">
 					<input type="text" placeholder="Text" />
