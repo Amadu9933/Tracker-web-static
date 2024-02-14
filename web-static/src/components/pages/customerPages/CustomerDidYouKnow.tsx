@@ -54,8 +54,14 @@ const CustomerDidYouKnow: React.FC = () => {
 							"&:focus": {
 								borderColor: "#FF833C",
 							},
+							"&:hover": {
+								backgroundColor: "#FF833C",
+								color: "white",
+								borderColor: "#FF833C",
+							},
 							fontSize: "16px",
 							fontWeight: "medium",
+							textTransform: "none",
 						}}>
 						Track my parcel
 					</Button>

@@ -34,8 +34,14 @@ const Footer: React.FC = () => {
 								backgroundColor: "#FF833C",
 								color: "white",
 							},
+							"&:hover": {
+								backgroundColor: "#FF833C",
+								color: "white",
+								borderColor: "#FF833C",
+							},
 							fontSize: "16px",
-							fontWeight: "bold",
+							fontWeight: "medium",
+							textTransform: "none",
 							width: { xs: "contain", md: "100%" },
 							marginLeft: { xs: "0", md: "0" },
 						}}>

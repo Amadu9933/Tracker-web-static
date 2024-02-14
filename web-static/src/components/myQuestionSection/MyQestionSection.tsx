@@ -16,7 +16,7 @@ const MyQestionSection: React.FC = () => {
 				</p>
 			</div>
 			<div className="   md:ml-36 md:visible invisible ">
-				<img className="md:w-28 md:h-40 w-0 h-0 " src={robot} alt="robot" />
+				<img className="md:w-36 md:h-40 w-0 h-0 " src={robot} alt="robot" />
 			</div>
 		</section>
 	);
