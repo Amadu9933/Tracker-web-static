@@ -6,6 +6,7 @@ import Hero from "../../common/hero/Hero";
 import Track from "../../common/trackingSection/TrackingSection";
 import DidYouKnow from "../../pages/customerPages/CustomerDidYouKnow";
 import Footer from "../../common/footer/Footer";
+import MyQestionSection from "../../myQuestionSection/MyQestionSection";
 
 const CustomerLandingPage: React.FC = () => {
 	return (
@@ -18,6 +19,7 @@ const CustomerLandingPage: React.FC = () => {
 			</header>
 			<main>
 				<DidYouKnow />
+				<MyQestionSection />
 			</main>
 
 			<Footer />

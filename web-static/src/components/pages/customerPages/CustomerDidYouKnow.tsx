@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 
 const CustomerDidYouKnow: React.FC = () => {
 	return (
-		<section className="  md:h-1/4 md:mt-56   md:px-0 px-7 ">
+		<section className="  md:h-1/4 md:mt-56   md:px-0 px-7 text-[#354755]">
 			{/* container  */}
 			<div className="md:flex md:justify-between">
 				{/* first item */}
@@ -34,7 +34,7 @@ const CustomerDidYouKnow: React.FC = () => {
 				{/* second item, text container */}
 				<div className="md:w-1/3 md:mt-9  ">
 					<h1 className="mb-7 font-medium text-2xl">Did You Know?</h1>
-					<p className="font-normal mb-4">
+					<p className="font-normal mb-4 text-base">
 						Trackerr also offers tracking services using tracking I.Ds generated
 						using other logistics partners such as DHL, GIG, etc. Just enter
 						your parcel i.d and click enter.
