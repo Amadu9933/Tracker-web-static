@@ -85,6 +85,9 @@ input[type="text"] {
 	); /* Responsive padding-left with clamp() and vw */
 	background-color: #fdefe8;
 }
+.modalInput {
+	background-color: white;
+}
 input::placeholder {
 	color: #585858;
 	font-weight: 400;

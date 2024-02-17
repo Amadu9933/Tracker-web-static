@@ -6,17 +6,48 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { Height } from "@mui/icons-material";
 
 const style = {
 	position: "absolute" as "absolute",
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 400,
-	bgcolor: "background.paper",
-	border: "2px solid #000",
+	width: "29.4rem",
+	Height: "23.25rem",
+	bgcolor: "white",
+	border: "none",
 	boxShadow: 24,
 	p: 4,
+	borderRadius: "0.5rem",
+	padding: "2.5rem",
+};
+// Define Button styling
+const buttonStyles = {
+	backgroundColor: "#FF833C",
+	color: "white",
+	borderColor: "#FF833C",
+	paddingTop: "12px",
+	paddingRight: "18px",
+	paddingBottom: "12px",
+	paddingLeft: "18px",
+	borderRadius: "8px",
+	"&:focus": {
+		borderColor: "#FF833C",
+		backgroundColor: "#FF833C",
+		color: "white",
+	},
+	"&:hover": {
+		backgroundColor: "#FF833C",
+		color: "white",
+		borderColor: "#FF833C",
+	},
+	fontSize: "16px",
+	fontWeight: "medium",
+	textTransform: "none",
+	width: { xs: "100%", md: "100%" },
+	marginLeft: { xs: "0", md: "0" },
+	marginTop: "1.5rem",
 };
 
 const TrackingSection: React.FC = () => {
@@ -32,20 +63,56 @@ const TrackingSection: React.FC = () => {
 					<p> Tracking I.D</p>
 
 					<div className="my-parcels">
-						<Button onClick={handleOpen}>Open modal</Button>
+						<Button
+							onClick={handleOpen}
+							sx={{ color: "#ff833c", textTransform: "none" }}>
+							View Tracking History
+						</Button>
 						<Modal
 							open={open}
 							onClose={handleClose}
 							aria-labelledby="modal-modal-title"
 							aria-describedby="modal-modal-description">
 							<Box sx={style}>
-								<Typography id="modal-modal-title" variant="h6" component="h2">
-									Text in a modal
+								<Typography
+									id="modal-modal-title"
+									variant="h6"
+									component="h1"
+									sx={{
+										color: "#354755",
+										fontSize: "2rem",
+										fontWeight: "700",
+									}}>
+									View order history
 								</Typography>
-								<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-									Duis mollis, est non commodo luctus, nisi erat porttitor
-									ligula.
+								<Typography
+									id="modal-modal-description"
+									sx={{
+										mt: 2,
+										fontWeight: "400",
+										fontSize: "1rem",
+										color: "#354755",
+										marginTop: "1.5rem",
+										marginBottom: "1.5rem",
+									}}>
+									To view your order history please enter your email address
+									associated with your orders.
 								</Typography>
+
+								<label className="text-[#354755] " htmlFor="">
+									Email
+								</label>
+								<div className="search-container   mt-3">
+									<input
+										className=""
+										type="text"
+										placeholder="example@gmail.com"
+									/>
+									<i className="search-icon"></i>
+								</div>
+								<Button variant="outlined" sx={buttonStyles}>
+									Proceed
+								</Button>
 							</Box>
 						</Modal>
 					</div>
