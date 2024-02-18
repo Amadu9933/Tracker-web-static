@@ -30,6 +30,7 @@ const Navbar: React.FC = () => {
 	// Styles for links
 	const linkStyles = {
 		color: "#B1B2B2",
+		textDecoration: "none",
 		"&:hover": {
 			textDecoration: "underline",
 			textDecorationColor: "#354755",
