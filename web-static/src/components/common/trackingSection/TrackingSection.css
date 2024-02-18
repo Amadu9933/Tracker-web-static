@@ -100,7 +100,7 @@ input::placeholder {
 .search-icon {
 	position: absolute;
 	top: 50%;
-	left: 1vw; /* Adjust left position based on viewport width hjjj */
+	left: 1vw; /* Adjust left position based on viewport width  */
 	transform: translateY(-50%);
 	width: 1.2rem;
 	height: 1.1rem; /* Adjust height based on viewport width bbb */

@@ -7,6 +7,7 @@ const MyQuestionSection: React.FC = () => {
 		<section className="justify-center md:flex block md:mt-56 md:mb-60 mt-16 mb-16 text-[#354755] md:px-0 px-5">
 			{/* Left section containing text */}
 			<div className="md:block text-center md:ml-36 md:w-[39.25rem] md:h-[5.5rem]">
+				{/* header */}
 				<h1 className="text-2xl font-bold mb-6">Have A Question ?</h1>
 				<p className="text-base">
 					Check out the FAQ section for already answered questions that will
