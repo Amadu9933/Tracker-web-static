@@ -85,9 +85,7 @@ input[type="text"] {
 	); /* Responsive padding-left with clamp() and vw */
 	background-color: #fdefe8;
 }
-.modalInput {
-	background-color: white;
-}
+
 input::placeholder {
 	color: #585858;
 	font-weight: 400;
@@ -102,10 +100,10 @@ input::placeholder {
 .search-icon {
 	position: absolute;
 	top: 50%;
-	left: 1vw; /* Adjust left position based on viewport width */
+	left: 1vw; /* Adjust left position based on viewport width hjjj */
 	transform: translateY(-50%);
 	width: 1.2rem;
-	height: 1.1rem; /* Adjust height based on viewport width */
+	height: 1.1rem; /* Adjust height based on viewport width bbb */
 	background: url("../../../assets/Vector.png") no-repeat center center;
 	background-size: contain;
 }
