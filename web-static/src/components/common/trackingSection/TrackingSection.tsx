@@ -102,13 +102,13 @@ const TrackingSection: React.FC = () => {
 								<label className="text-[#354755] " htmlFor="">
 									Email
 								</label>
-								<div className="search-container   mt-3">
+								<div className="search-container   mt-3 ">
 									<input
-										className=""
+										className=" "
 										type="text"
 										placeholder="example@gmail.com"
 									/>
-									<i className="search-icon"></i>
+									<i className="search-icon "></i>
 								</div>
 								<Button variant="outlined" sx={buttonStyles}>
 									Proceed
@@ -117,8 +117,12 @@ const TrackingSection: React.FC = () => {
 						</Modal>
 					</div>
 				</div>
-				<div className="search-container  mt-3">
-					<input type="text" placeholder="Text" />
+				<div className="search-container  mt-3 ">
+					<input
+						style={{ backgroundColor: "#fdefe8" }}
+						type="text"
+						placeholder="Enter tracking ID"
+					/>
 					<i className="search-icon"></i>
 				</div>
 			</div>

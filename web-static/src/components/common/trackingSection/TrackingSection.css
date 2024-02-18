@@ -83,7 +83,6 @@ input[type="text"] {
 		4vw,
 		40px
 	); /* Responsive padding-left with clamp() and vw */
-	background-color: #fdefe8;
 }
 
 input::placeholder {

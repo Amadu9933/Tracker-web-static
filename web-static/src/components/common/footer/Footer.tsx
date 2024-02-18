@@ -35,8 +35,8 @@ const Footer: React.FC = () => {
 			style={{ backgroundColor: "#354755", color: "#C6C5B9" }}>
 			<div className="flex flex-wrap justify-between md:flex md:justify-between md:font-medium">
 				{/* First column */}
-				<div className="item text-left">
-					<h2 className="font-medium text-white text text-2xl pb-4">
+				<div className="item text-left ">
+					<h2 className="font-medium text-white text text-4xl pb-4 ">
 						Join To Get Started
 					</h2>
 					<p className="pb-4 font-medium">Your Parcel's journey your way.</p>
