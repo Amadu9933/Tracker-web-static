@@ -36,10 +36,12 @@ const Footer: React.FC = () => {
 			<div className="flex flex-wrap justify-between md:flex md:justify-between md:font-medium">
 				{/* First column */}
 				<div className="item text-left ">
-					<h2 className="font-medium text-white text text-4xl pb-4 ">
+					<h2 className="font-medium text-white  text-2xl md:text-4xl pb-4 ">
 						Join To Get Started
 					</h2>
-					<p className="pb-4 font-medium">Your Parcel's journey your way.</p>
+					<p className="pb-4  font-medium w-44 md:w-full">
+						Your Parcel's journey your way.
+					</p>
 					{/* Button */}
 					<Button variant="outlined" sx={buttonStyles}>
 						Get started

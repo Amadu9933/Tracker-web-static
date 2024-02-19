@@ -25,6 +25,7 @@ const CustomerDidYouKnow: React.FC = () => {
 					/>
 
 					{/* mobile pic */}
+
 					<img
 						className="md:w-20 md:h-20 rounded-full md:-mt-36 nd:ml-40 bg-red-100 md:invisible w-12 h-12 "
 						src={secondImage}

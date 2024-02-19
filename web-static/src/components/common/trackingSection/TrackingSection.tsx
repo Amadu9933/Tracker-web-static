@@ -13,14 +13,19 @@ const style = {
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: "29.4rem",
+
 	Height: "23.25rem",
+	width: { xs: "285px", md: "29.4rem" },
+
 	bgcolor: "white",
 	border: "none",
 	boxShadow: 24,
 	p: 4,
 	borderRadius: "0.5rem",
-	padding: "2.5rem",
+	paddingTop: "2.5rem",
+	paddingButtom: "2.5rem",
+	paddingleft: { xs: "24px" },
+	paddingRight: { xs: "24px" },
 };
 // Define Button styling
 const buttonStyles = {
@@ -80,8 +85,8 @@ const TrackingSection: React.FC = () => {
 									component="h1"
 									sx={{
 										color: "#354755",
-										fontSize: "2rem",
 										fontWeight: "700",
+										fontSize: { xs: "20px", md: "2rem" },
 									}}>
 									View order history
 								</Typography>
@@ -99,7 +104,7 @@ const TrackingSection: React.FC = () => {
 									associated with your orders.
 								</Typography>
 
-								<label className="text-[#354755] " htmlFor="">
+								<label className="text-[#354755] font-bold" htmlFor="">
 									Email
 								</label>
 								<div className="search-container   mt-3 ">

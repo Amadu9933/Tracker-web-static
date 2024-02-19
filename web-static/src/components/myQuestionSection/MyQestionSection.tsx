@@ -11,7 +11,7 @@ const MyQuestionSection: React.FC = () => {
 				<h1 className="text-2xl font-bold mb-6">Have A Question ?</h1>
 				<p className="text-base">
 					Check out the FAQ section for already answered questions that will
-					give you clarity or reach out to our contact centre via email:
+					give you clarity or reach out to our contact centre via email:{" "}
 					<span className="text-[#FF833C] underline">
 						helptrackerr@gmail.com
 					</span>{" "}
