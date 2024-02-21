@@ -1,4 +1,5 @@
 import React from "react";
+import DetailTable from "./DetailTable";
 
 const CustomerTrackingDetails: React.FC = () => {
 	return (
@@ -14,7 +15,9 @@ const CustomerTrackingDetails: React.FC = () => {
 				<p>Your Parcel is on its way to you!</p>
 			</div>
 
-			<div></div>
+			<div>
+				<DetailTable />
+			</div>
 		</div>
 	);
 };
