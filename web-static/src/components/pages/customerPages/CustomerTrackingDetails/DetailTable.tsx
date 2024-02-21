@@ -2,24 +2,58 @@ import React from 'react';
 
 const DetailTable: React.FC = () => {
     // Define your data
-    const tableData = [
-        { key: 'Parcel number', value: 'N3858678564S' },
-        { key: 'Date of purchase', value: '03/09/2023' },
-        { key: 'Estimated delivery date', value: '05/09/2023' },
-        { key: 'Shipping address', value: 'No. 5 Osapa London, Lekki phase 1' },
-        { key: 'Vendor', value: 'Sandwear Company' },
-        { key: 'Status', value: 'Pending' }
-    ];
+    const tableData = {
+        'Parcel number': 'N3858678564S',
+        'Date of purchase': '03/09/2023',
+        'Estimated delivery date': '05/09/2023',
+        'Shipping address': 'No. 5 Osapa London, Lekki phase 1',
+        'Vendor': 'Sandwear Company',
+        'Status': 'Pending'
+    };
 
     return (
         <div>
             <table>
                 <tbody>
-                    {/* Map through the data array to create rows */}
-                    {tableData.map((item, index) => (
+                    {/* Iterate over the object keys to create rows */}
+                    {Object.entries(tableData).map(([key, value], index) => (
                         <tr key={index}>
-                            <td>{item.key}</td>
-                            <td>{item.value}</td>
+                            <td className={key === 'Parcel number' ? 'text-blue-500' : 'text-left'}>{key}</td>
+                            <td className={key === 'Status' && value === 'Pending' ? 'text-green-500' : 'text-left'}>{value}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+    );
+};
+
+export default DetailTable;
+
+
+import React from 'react';
+
+const SimpleTable = () => {
+    // Define your data
+    const tableData = {
+        'Parcel number': 'N3858678564S',
+        'Date of purchase': '03/09/2023',
+        'Estimated delivery date': '05/09/2023',
+        'Shipping address': 'No. 5 Osapa London, Lekki phase 1',
+        'Vendor': 'Sandwear Company',
+        'Status': 'Pending'
+    };
+
+    return (
+        <div>
+            <table>
+                <tbody>
+                    {/* Iterate over the object keys to create rows */}
+                    {Object.entries(tableData).map(([key, value], index) => (
+                        <tr key={index}>
+                            <td className={key === 'Parcel number' ? 'text-blue-500' : 'text-left'}>{key}</td>
+                            <td className={key === 'Status' && value === 'Pending' ? 'text-green-500' : 'text-left'}>{value}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -28,5 +62,6 @@ const DetailTable: React.FC = () => {
     );
 };
 
-export default DetailTable;
+export default SimpleTable;
+
 
