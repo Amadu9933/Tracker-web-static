@@ -22,8 +22,9 @@ const CustomerLandingPage: React.FC = () => {
 				<DidYouKnow />
 				<MyQestionSection />
 			</main>
-
-			<CustomerTrackingDetails />
+			<div className="flex justify-center">
+				<CustomerTrackingDetails />
+			</div>
 
 			<Footer />
 		</div>
