@@ -4,7 +4,7 @@ import robot from "../../../src/assets/robot.png";
 // MyQuestionSection component renders a section for asking questions
 const MyQuestionSection: React.FC = () => {
 	return (
-		<section className="justify-center md:flex block md:mt-56 md:mb-60 mt-16 mb-16 text-[#354755] md:px-0 px-5">
+		<section className="justify-center md:flex block  text-[#354755] md:px-0 px-5">
 			{/* Left section containing text */}
 			<div className="md:block text-center md:ml-36 md:w-[39.25rem] md:h-[5.5rem]">
 				{/* header */}

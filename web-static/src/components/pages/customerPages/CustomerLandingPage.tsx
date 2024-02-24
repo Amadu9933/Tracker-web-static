@@ -15,16 +15,15 @@ const CustomerLandingPage: React.FC = () => {
 			<header>
 				{/* Navigationtiiion bar component */}
 				<Navbar />
-				<Hero />\
+				<Hero />
 				<Track />
 			</header>
 			<main>
 				<DidYouKnow />
-				<MyQestionSection />
+				<div className="md:mt-56 md:mb-60 mt-16 mb-16">
+					<MyQestionSection />
+				</div>
 			</main>
-			<div className="flex justify-center">
-				<CustomerTrackingDetails />
-			</div>
 
 			<Footer />
 		</div>
