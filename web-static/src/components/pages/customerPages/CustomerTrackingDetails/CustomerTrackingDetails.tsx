@@ -36,7 +36,7 @@ const CustomerTrackingDetails: React.FC = () => {
 			<div className="flex justify-center mb-10 ">
 				<a href="">
 					<img
-						className="md:w-[48px] md:h-[48px] w-6 h-6 md:mt-5 mt-[6px] mr-4"
+						className="md:w-[48px] md:h-[48px] w-6 h-6 md:mt-0 mt-[6px] mr-4"
 						src={Back}
 						alt="return"
 					/>
