@@ -36,19 +36,19 @@ const CustomerTrackingDetails: React.FC = () => {
 			<div className="flex justify-center mb-10 ">
 				<a href="">
 					<img
-						className="w-[48px] h-[48px] mt-5 mr-4"
+						className="md:w-[48px] md:h-[48px] w-6 h-6 md:mt-5 mt-[6px] mr-4"
 						src={Back}
 						alt="return"
 					/>
 				</a>{" "}
-				<h1 className="font-bold text-[#354755] text-[3.5rem]">
+				<h1 className="font-bold  text-[#354755] md:text-[3.5rem] text-2xl  ">
 					Track your parcel today!
 				</h1>{" "}
 			</div>
 
 			<div
-				className="bg-[#FFF6F2] mb-44 py-14 text-base font-normal text-[#8E8A73]
-                rounded-[22px] px-[4.5rem] w-[48.125rem]
+				className="bg-[#FFF6F2] mb-44 py-14 text-base font-normal text-[#8E8A73] md:text-[16px] text-[14px]
+                rounded-[22px] md:px-[4.5rem] px-[30px] md:w-[48.125rem]  w-[346px]
                 ">
 				<div className=" text-left">
 					<img
@@ -56,10 +56,10 @@ const CustomerTrackingDetails: React.FC = () => {
 						src={Carbon}
 						alt=""
 					/>
-					<h1 className="text-[2rem] font-medium text-[#37372D]">
+					<h1 className="md:text-[2rem] text-[1.125rem] font-medium text-[#37372D]">
 						Parcel Tracking
 					</h1>
-					<p className="text-[1rem] text-[#37372D] font-normal pt-2">
+					<p className="md:text-[1rem] text-[12px] text-[#37372D] font-normal pt-2">
 						Your Parcel is on its way to you!
 					</p>
 				</div>

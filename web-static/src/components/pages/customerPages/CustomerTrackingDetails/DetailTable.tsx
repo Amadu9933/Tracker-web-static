@@ -18,14 +18,14 @@ const DetailTable: React.FC = () => {
 					{/* Iterate over the object keys to create rows */}
 					{Object.entries(tableData).map(([key, value], index) => (
 						<tr key={index}>
-							<td className={"text-left  pr-36"}>{key}</td>
+							<td className={"text-left  md:pr-36  pr-4  "}>{key}</td>
 							<td
 								className={
 									key === "Status" && value === "Pending"
 										? "text-[#6EA011] text-left"
 										: key == "Parcel number"
 										? "text-[#FF833C] text-left"
-										: "text-left"
+										: "text-left py-[8px] "
 								}>
 								{value}
 							</td>
