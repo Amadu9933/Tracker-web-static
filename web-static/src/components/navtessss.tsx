@@ -8,6 +8,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import CloseIcon from "@mui/icons-material/Close";
+
+// Importing assets
 import profileIcon from "../../../assets/iconoir_profile-circle.png";
 import logo from "../../../assets/Logo.png";
 
@@ -25,15 +27,6 @@ const Navbar: React.FC = () => {
 		setAnchorEl(null);
 	};
 
-	// Define navigation links
-	const links = [
-		{ text: "Track my parcel", href: "#" },
-		{ text: "Ship", href: "/about" },
-		{ text: "Logistics solution", href: "#" },
-		{ text: "Integration", href: "#" },
-		{ text: "Need help ?", href: "#" },
-	];
-
 	// Styles for links
 	const linkStyles = {
 		color: "#B1B2B2",
@@ -47,6 +40,7 @@ const Navbar: React.FC = () => {
 
 	return (
 		<div>
+			{/* Top-level container for the entire Navigation bar */}
 			<AppBar
 				position="static"
 				sx={{
@@ -57,12 +51,14 @@ const Navbar: React.FC = () => {
 					paddingLeft: { sm: "1.5rem", md: "1.5rem", lg: "5rem" },
 					paddingRight: { sm: "1.5rem", md: "1.5rem", lg: "5rem" },
 				}}>
+				{/* Toolbar containing various sections */}
 				<Toolbar
 					sx={{
 						display: "flex",
 						padding: "1.5rem",
 						justifyContent: "space-between",
 					}}>
+					{/* Logo section */}
 					<IconButton
 						size="large"
 						edge="start"
@@ -70,6 +66,7 @@ const Navbar: React.FC = () => {
 						sx={{ flexFlow: 1, display: { xs: "none", md: "flex" } }}>
 						<img src={logo} alt="Logo" className="nav-logo" />
 					</IconButton>
+					{/* Navigation links section */}
 
 					<Box
 						sx={{
@@ -79,14 +76,21 @@ const Navbar: React.FC = () => {
 							fontWeight: 500,
 							fontSize: "1rem",
 						}}>
-						{links.map((link, index) => (
-							<Link
-								key={index}
-								sx={{ ...linkStyles, marginLeft: "2rem" }}
-								href={link.href}>
-								{link.text}
-							</Link>
-						))}
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
+							Track my parcel
+						</Link>
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
+							Ship
+						</Link>
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
+							Logistics solution
+						</Link>
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
+							Integration
+						</Link>
+						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
+							Need help ?
+						</Link>
 
 						{/* Profile section*/}
 						<Box
@@ -112,6 +116,7 @@ const Navbar: React.FC = () => {
 						</Box>
 					</Box>
 
+					{/* Logo for small and medium screens*/}
 					<IconButton
 						size="large"
 						edge="end"
@@ -122,7 +127,7 @@ const Navbar: React.FC = () => {
 						}}>
 						<img src={logo} alt="Logo" className="nav-logo" />
 					</IconButton>
-
+					{/* Mobile menu for small screens */}
 					<Box sx={{ display: { xs: "flex", md: "none" } }}>
 						<IconButton
 							id="demo-positioned-button"
@@ -145,13 +150,36 @@ const Navbar: React.FC = () => {
 							<MenuItem onClick={handleClose}>
 								<CloseIcon />
 							</MenuItem>
-							{links.map((link, index) => (
-								<MenuItem key={index}>
-									<Link sx={{ ...linkStyles }} href={link.href}>
-										{link.text}
-									</Link>
-								</MenuItem>
-							))}
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Track my parcel
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Ship
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Logistic
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Solution
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Integration
+								</Link>
+							</MenuItem>
+							<MenuItem>
+								<Link sx={{ ...linkStyles }} href="#">
+									Need help ?
+								</Link>
+							</MenuItem>
 							<MenuItem>
 								<Box
 									sx={{

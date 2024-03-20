@@ -28,7 +28,7 @@ const CustomerTrackingDetails: React.FC = () => {
 		fontSize: "16px",
 		fontWeight: "medium",
 		textTransform: "none",
-		width: { xs: "contain", md: "100%" },
+		width: { xs: "100%", md: "100%" },
 		marginLeft: { xs: "0", md: "0" },
 	};
 	return (
@@ -45,7 +45,7 @@ const CustomerTrackingDetails: React.FC = () => {
 					Track your parcel today!
 				</h1>{" "}
 			</div>
-			<div className=" flex justify-center">
+			<div className=" flex justify-center ">
 				<div
 					className="bg-[#FFF6F2]  py-14 text-base font-normal text-[#423e26] md:text-[16px] text-[14px]
                 rounded-[22px] md:px-[4.5rem] px-[30px] md:w-[48.125rem]  w-[346px] 
