@@ -1,83 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 
 .hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Inter', sans-serif;
-    margin-left: 1rem; /* 16px */
-    margin-right: 1rem; /* 16px */
-    margin-top: 3.5rem; /* 56px */
-    justify-content: space-between;
-    flex-wrap: wrap;
-    position: relative;
-    padding-left: 7.5rem;
-    padding-right: 7.5rem;
+	background-image: linear-gradient(
+			rgba(0, 49, 87, 0.25),
+			rgba(0, 49, 87, 0.25)
+		),
+		url("../../../assets/Header-bg-Img.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 45.25rem; /* Default height for larger screens */
+
+	font-family: "Inter", sans-serif;
 }
 
-.description-item {
-    width: 100%;
-    max-width: 32rem; /* 517px */
-    height: 31.44rem; /* 503px */
-    margin-bottom: 2rem; /* 32px */
-}
-
-.description-item h2 {
-    font-weight: 600;
-    font-size: 3rem; /* 48px */
-    line-height: 1.2;
-    color: #FF833C;
-    margin-top: 3.5rem; /* 56px */
-    margin-bottom: 1.25rem; /* 20px */
-}
-
-.description-item p {
-    font-weight: 500;
-    color: #8E8A73;
-    line-height: 1.11;
-    font-size: 1.125rem; /* 18px */
-}
-
-.lp {
-    margin-bottom: 3.75rem; /* 60px */
-}
-
-.image-item {
-    max-width: 32rem; /* 517px */
-    height: 31.44rem; /* 503px */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.first {
-    width: 15.625rem; /* 250px */
-    height: 15.625rem; /* 250px */
-    border-radius: 50%;
-}
-
-.second,
-.third {
-    width: 8.4375rem; /* 135px */
-    height: 8.4375rem; /* 135px */
-    background-color: rgb(252, 221, 227);
-    border-radius: 50%;
-}
-
-.fourth {
-    width: 15.625rem; /* 250px */
-    height: 15.625rem; /* 250px */
-    border-radius: 50%;
-}
-
-.line {
-    width: 25rem; /* 400px */
-    margin-left: 12.5rem; /* 200px */
-    margin-top: -26.875rem; /* -430px */
-}
-
-.pointer {
-    margin-left: 10.625rem; /* 170px */
-    margin-top: 0.8rem; /* 20px */
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+	.hero {
+		background-size: cover; /* Change background size to contain for smaller screens */
+		height: 19.563rem; /* Allow height to adjust based on content for smaller screens */
+	}
 }

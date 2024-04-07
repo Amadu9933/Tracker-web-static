@@ -1,57 +1,18 @@
-
-import React from 'react';
-import MyButton from '../buttons/Mybutton';
-import './Hero.css'
-import first from '../../../assets/first-image.png'
-import second from '../../../assets/second-image.png'
-import third from '../../../assets/third-image.png'
-import arrow from '../../../assets/Arrow 3.png'
-import fourth from '../../../assets/fourth-image.png'
-import pointer from '../../../assets/Group.png'
-
-
-
-
-
+import React from "react";
+import "./Hero.css";
 
 const Hero: React.FC = () => {
-
-    const handleClick = () => {
-        console.log('Button clicked!');
-      };
-      
-
-  return (
-   <div className='hero'>
-    <div className='description-item item'>
-        <h2>Track with confidence</h2>
-        <p>Never loose sleep over your order. Unleash  the </p>
-        <p className='lp'>power of percision with Trackerr-Your personal heros</p>
-        
-        <MyButton
-        onClick={handleClick}
-        label="Get started"
-        state="Primary"
-        size="Small"
-        background="#FF833C"
-      />
-        <img src={pointer} alt="pointer" className="pointer" />
-   </div>
-
-   <div className='image-item item'>
-   <img src={first} alt="first" className="first" />
-   <img src={second} alt="second" className="second" />
-   <img src={third} alt="second" className="third" />
-   <img src={fourth} alt="fourth" className="fourth" />
-   
-   </div>
-
-  
-   
-   <img src={arrow} alt="arrow" className="line" />
-
-   </div>
-  );
+	return (
+		<div className="hero pt-10 md:pt-40 pb-28 ">
+			<h1 className="text-white font-bold text-5xl md:text-8xl text-center md:text-center mx-6 md:mx-72">
+				Track your parcel today!
+			</h1>
+			<h4 className="text-white text-sm md:text-2xl text-center md:text-center mt-6  md:mt-9 mx-10 px-0 md:mx-80">
+				Get real-time location of your parcel from the comfort of your home with
+				trackerr.
+			</h4>
+		</div>
+	);
 };
 
 export default Hero;

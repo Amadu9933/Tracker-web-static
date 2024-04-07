@@ -1,14 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 /* Define a base font size for the entire document */
 html {
-    font-size: 16px;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  
+	font-size: 16px;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
