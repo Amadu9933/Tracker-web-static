@@ -38,26 +38,23 @@ const Navbar: React.FC = () => {
 		},
 	};
 
+	// Menu items data
+	const menuItems = [
+		{ label: "Track my parcel", link: "#" },
+		{ label: "Ship", link: "#" },
+		{ label: "Logistics solution", link: "#" },
+		{ label: "Integration", link: "#" },
+		{ label: "Need help ?", link: "#" },
+	];
+
 	return (
 		<div>
 			{/* Top-level container for the entire Navigation bar */}
 			<AppBar
 				position="static"
-				sx={{
-					display: "flex",
-					backgroundColor: "white",
-					height: "5rem",
-					borderColor: "1px solid #D9E1E7",
-					paddingLeft: { sm: "1.5rem", md: "1.5rem", lg: "5rem" },
-					paddingRight: { sm: "1.5rem", md: "1.5rem", lg: "5rem" },
-				}}>
+				sx={{ backgroundColor: "white", borderColor: "1px solid #D9E1E7" }}>
 				{/* Toolbar containing various sections */}
-				<Toolbar
-					sx={{
-						display: "flex",
-						padding: "1.5rem",
-						justifyContent: "space-between",
-					}}>
+				<Toolbar sx={{ justifyContent: "space-between", padding: "1.5rem" }}>
 					{/* Logo section */}
 					<IconButton
 						size="large"
@@ -71,25 +68,17 @@ const Navbar: React.FC = () => {
 						sx={{
 							display: { xs: "none", md: "flex", lg: "flex" },
 							alignItems: "center",
-							justifyContent: "space-between",
 							fontWeight: 500,
 							fontSize: "1rem",
 						}}>
-						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
-							Track my parcel
-						</Link>
-						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
-							Ship
-						</Link>
-						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
-							Logistics solution
-						</Link>
-						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
-							Integration
-						</Link>
-						<Link sx={{ ...linkStyles, marginLeft: "2rem" }} href="#">
-							Need help ?
-						</Link>
+						{menuItems.map((item, index) => (
+							<Link
+								key={index}
+								sx={{ ...linkStyles, marginLeft: "2rem" }}
+								href={item.link}>
+								{item.label}
+							</Link>
+						))}
 						{/* Profile section*/}
 						<Box
 							sx={{
@@ -147,36 +136,13 @@ const Navbar: React.FC = () => {
 							<MenuItem onClick={handleClose}>
 								<CloseIcon />
 							</MenuItem>
-							<MenuItem>
-								<Link sx={{ ...linkStyles }} href="#">
-									Track my parcel
-								</Link>
-							</MenuItem>
-							<MenuItem>
-								<Link sx={{ ...linkStyles }} href="#">
-									Ship
-								</Link>
-							</MenuItem>
-							<MenuItem>
-								<Link sx={{ ...linkStyles }} href="#">
-									Logistic
-								</Link>
-							</MenuItem>
-							<MenuItem>
-								<Link sx={{ ...linkStyles }} href="#">
-									Solution
-								</Link>
-							</MenuItem>
-							<MenuItem>
-								<Link sx={{ ...linkStyles }} href="#">
-									Integration
-								</Link>
-							</MenuItem>
-							<MenuItem>
-								<Link sx={{ ...linkStyles }} href="#">
-									Need help ?
-								</Link>
-							</MenuItem>
+							{menuItems.map((item, index) => (
+								<MenuItem key={index}>
+									<Link sx={{ ...linkStyles }} href={item.link}>
+										{item.label}
+									</Link>
+								</MenuItem>
+							))}
 							<MenuItem>
 								<Box
 									sx={{
