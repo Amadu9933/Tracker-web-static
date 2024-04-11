@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-
-
-import React from 'react';
-import './App.css'
-import './index.css'
-import MyButton from './components/common/buttons/Mybutton';
-import Header from './components/common/header/Header';
-import Footer from './components/common/footer/Footer';
-import LastChild from './components/common/header/HeaderLastChild';
-import Hero from './components/common/hero/Hero';
-import ForgetPassword from './components/pages/customerPages/customerAuthentication/ForgetPassword';
-import CustomerSignUp from './components/pages/customerPages/customerAuthentication/CustomerSignUp';
-import TrackingSection from './components/common/trackingSection/TrackingSection';
-import CardSection from './components/common/cards/CardSection';
-
-
-=======
 import React from "react";
 import "./App.css";
 import "./index.css";
@@ -31,7 +13,8 @@ import Intergration from "./components/NavigationBarLinksComponents/Intergration
 import NeedHelp from "./components/NavigationBarLinksComponents/NeedHelp";
 import Login from "./components/NavigationBarLinksComponents/Login";
 import CustomerLandingPage from "./components/pages/customerPages/CustomerLandingPage";
->>>>>>> c041d0bbe44b0e9ea6c8552d70489fd99d9a189c
+import NotFoundPage from "./components/pages/customerPages/NotFoundPage";
+
 const App: React.FC = () => {
 	return (
 		<div className="App ">
@@ -45,6 +28,7 @@ const App: React.FC = () => {
 				<Route path="/" element={<Layout />}>
 					{/* Home default component */}
 					<Route path="" element={<CustomerLandingPage />} />
+					<Route path="*" element={<NotFoundPage />} />
 					<Route path="Ship" element={<Ship />} />
 					<Route path="LogisticSolution" element={<LogisticSolution />} />
 					<Route path="Intergration" element={<Intergration />} />
