@@ -14,7 +14,7 @@ const CustomerLandingPage: React.FC = () => {
 		<div>
 			<header>
 				{/* Navigationtiiion bar component */}
-				<Navbar />
+
 				<Hero />
 				<Track />
 			</header>

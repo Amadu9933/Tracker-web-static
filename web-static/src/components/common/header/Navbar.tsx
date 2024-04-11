@@ -3,7 +3,8 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
+//import Link from "@mui/material/Link";
+import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -40,11 +41,11 @@ const Navbar: React.FC = () => {
 
 	// Menu items data
 	const menuItems = [
-		{ label: "Track my parcel", link: "#" },
-		{ label: "Ship", link: "#" },
-		{ label: "Logistics solution", link: "#" },
-		{ label: "Integration", link: "#" },
-		{ label: "Need help ?", link: "#" },
+		{ label: "Track my parcel", link: "/" },
+		{ label: "Ship", link: "/Ship" },
+		{ label: "Logistics solution", link: "/LogisticSolution" },
+		{ label: "Integration", link: "/Intergration" },
+		{ label: "Need help ?", link: "/NeedHelp" },
 	];
 
 	return (
@@ -72,12 +73,12 @@ const Navbar: React.FC = () => {
 							fontSize: "1rem",
 						}}>
 						{menuItems.map((item, index) => (
-							<Link
+							<NavLink
 								key={index}
-								sx={{ ...linkStyles, marginLeft: "2rem" }}
-								href={item.link}>
+								style={{ ...linkStyles, marginLeft: "2rem" }}
+								to={item.link}>
 								{item.label}
-							</Link>
+							</NavLink>
 						))}
 						{/* Profile section*/}
 						<Box
@@ -95,11 +96,11 @@ const Navbar: React.FC = () => {
 								alt="profile-icon"
 								style={{ height: "20px", width: "20px" }}
 							/>
-							<Link
-								sx={{ ...linkStyles, marginLeft: "10px", height: "20px" }}
-								href="#">
+							<NavLink
+								style={{ ...linkStyles, marginLeft: "10px", height: "20px" }}
+								to="/Login">
 								Login
-							</Link>
+							</NavLink>
 						</Box>
 					</Box>
 					{/* Logo for small and medium screens*/}
@@ -138,9 +139,9 @@ const Navbar: React.FC = () => {
 							</MenuItem>
 							{menuItems.map((item, index) => (
 								<MenuItem key={index}>
-									<Link sx={{ ...linkStyles }} href={item.link}>
+									<NavLink style={{ ...linkStyles }} to={item.link}>
 										{item.label}
-									</Link>
+									</NavLink>
 								</MenuItem>
 							))}
 							<MenuItem>
@@ -158,15 +159,15 @@ const Navbar: React.FC = () => {
 										alt="profile-icon"
 										style={{ height: "20px", width: "20px" }}
 									/>
-									<Link
-										sx={{
+									<NavLink
+										style={{
 											...linkStyles,
 											marginLeft: "0.625rem",
 											height: "40px",
 										}}
-										href="#">
+										to="/Login">
 										Login
-									</Link>
+									</NavLink>
 								</Box>
 							</MenuItem>
 						</Menu>
