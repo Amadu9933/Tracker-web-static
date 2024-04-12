@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FormControlLabel, Radio, RadioGroup, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Link } from 'react-router-dom'; // Import Link
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -21,9 +22,11 @@ const LoginPage: React.FC = () => {
       <div>
         <div className="form-container flex-col">
           {/* Label with arrow icon */}
-          <div className="welcome-back">
-            <ArrowBackIcon /> Welcome Back!
-          </div>
+          <Link to="/">
+            <div className="welcome-back">
+              <ArrowBackIcon /> Welcome Back!
+            </div>
+          </Link>
           <div className='radio-group'>
             <RadioGroup aria-label="userType" defaultValue="businessOwner" >
               <FormControlLabel
@@ -58,11 +61,11 @@ const LoginPage: React.FC = () => {
                   )
                 }}
               />
-              <a href="/forgot-password" className="forget-password">Forget password?</a>
+              <Link to="/forgot-password" className="forget-password">Forget password?</Link>
               <button type="submit" className="submit-button">Sign In</button>
             </form>
           </div>
-          <p>Do not have an account? <a href="/signup">Sign Up</a></p>
+          <p>Do not have an account? <Link to="/signup">Sign Up</Link></p>
         </div>
       </div>
     </div>
