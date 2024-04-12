@@ -15,11 +15,23 @@
     background-color: #9EB3FF;
 }
 
+.radio-group {
+    display: flex;
+}
+
+.radio-label {
+    margin-right: 20px;
+    /* Adjust margin as needed */
+}
+
 .login-image {
-    max-width: 100%;
+    max-width: 80%;
     max-height: 100%;
     width: auto;
     height: auto;
+    position: relative;
+    left: 0;
+    top: 0;
 }
 
 .login-form {
