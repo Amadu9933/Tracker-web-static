@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
     <div className="login-container">
       <div className="image-container">
         {/* Your image goes here */}
-        <img src="BOI.png" alt="Login" className="login-image" />
+        <img src="LoginImage.png" alt="Login" className="login-image" />
       </div>
       <div>
       <div className="form-container flex-col">
