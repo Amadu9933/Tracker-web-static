@@ -19,16 +19,15 @@ const LoginPage: React.FC = () => {
         {/* Your image goes here */}
         <img src="./src/assets/LoginImage.png" alt="Login" className="login-image" />
       </div>
-      <div>
-        <div className="form-container flex-col">
-          {/* Label with arrow icon */}
+      <div className="form-container">
+        <div className="flex-col">
           <Link to="/">
-            <div className="welcome-back">
-              <ArrowBackIcon /> Welcome Back!
+            <div className="welcome-back" >
+              <ArrowBackIcon /><span>Welcome Back!</span>
             </div>
           </Link>
           <div className='radio-group'>
-            <RadioGroup aria-label="userType" defaultValue="businessOwner" >
+            <RadioGroup aria-label="userType" row defaultValue="businessOwner"  >
               <FormControlLabel
                 value="businessOwner"
                 control={<Radio />}
@@ -41,9 +40,12 @@ const LoginPage: React.FC = () => {
                 label="Logistics Partner"
                 className="radio-label"
               />
+              
             </RadioGroup>
           </div>
-          <p>Sign In</p>
+          <div  >
+            <label>Sign In</label>
+          </div>
           <div>
             <form className="login-form">
               <input type="text" placeholder="janedoe@gmail.com" className="input-field" />
