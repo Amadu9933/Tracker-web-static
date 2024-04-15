@@ -1,10 +1,10 @@
 import React from "react";
+import ParcelHistory from "../pages/ParcelHistory";
 
 const Intergration: React.FC = () => {
 	return (
 		<div>
-			{" "}
-			<h1 className="text-6xl">Intergration page</h1>{" "}
+			<ParcelHistory />
 		</div>
 	);
 };
