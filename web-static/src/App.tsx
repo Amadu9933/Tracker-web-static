@@ -16,6 +16,7 @@ import CustomerLandingPage from "./components/pages/customerPages/CustomerLandin
 
 import NotFoundPage from "./components/pages/customerPages/NotFoundPage";
 import LoginPage from "./components/pages/customerPages/BusLogPages/LoginPage";
+import SignUp from "./components/pages/customerPages/customerAuthentication/CustomerSignUp"
 
 const App: React.FC = () => {
 	return (
@@ -37,6 +38,7 @@ const App: React.FC = () => {
 					<Route path="NeedHelp" element={<NeedHelp />} />
 					<Route path="Login" element={<Login />} />
 					<Route path="LoginPage" element={<LoginPage/>} />
+					<Route path="SignUp" element={<SignUp/>} />
 				</Route>
 			</Routes>
 		</div>
