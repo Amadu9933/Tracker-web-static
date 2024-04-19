@@ -11,7 +11,7 @@ const Login: React.FC = () => {
 	return (
 		<div>
 			{" "}
-			<p> The login page </p>
+			<p> The login page hello</p>
 		</div>
 	);
 };
