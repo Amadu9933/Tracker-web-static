@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'; // Import Link
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import Button from "@mui/material/Button";
 import './LoginPage.css'; 
 
 const LoginPage: React.FC = () => {
@@ -17,29 +16,17 @@ const LoginPage: React.FC = () => {
   return (
     <div className="login-container">
       <div className="image-container">
-        <img src="./src/assets/LoginImage.png" 
-        style={{ 
-          width: '612px',
-          height: '1026px',
-          left: '-2px',
-         }}
-        alt="Login" className="login-image" />
+        {/* Your image goes here */}
+        <img src="./src/assets/LoginImage.png" alt="Login" className="login-image" />
       </div>
       <div className="form-container">
         <div className="flex-col">
           <Link to="/">
-            <div className="welcome-back" style={{marginBottom:'30px', fontSize: '25px'}}>
+            <div className="welcome-back" >
               <ArrowBackIcon /><span>Welcome Back!</span>
             </div>
           </Link>
-          <div className='radio-group' style={{
-            width: '346px',
-            height: '24px',
-            top: '272px',
-            left: '730px',
-            gap: '32px',
-            marginBottom:'30px',
-          }}>
+          <div className='radio-group'>
             <RadioGroup aria-label="userType" row defaultValue="businessOwner"  >
               <FormControlLabel
                 value="businessOwner"
@@ -56,35 +43,16 @@ const LoginPage: React.FC = () => {
               
             </RadioGroup>
           </div>
-          
-           <div className="sign" style={{ 
-            width: '58px',
-            height: '27px',
-            top: '320px',
-            left: '730px',
-            gap: '250px',
-            opacity: 1,
-           }}>Sign In</div>
-          
+          <div  >
+            <label>Sign In</label>
+          </div>
           <div>
-            <form className="login-form" style={{
-            width: '522px',
-            height: '341px',
-            top: '392px',
-            left: '730px',
-            gap: '32px'
-           }}
-            
-            ><label >Email
-              <input type="text" placeholder="janedoe@gmail.com" className="input-field" style={{ marginBottom: '30px' }}/>
-              </label>
-              <label >Password
-              <TextField 
-              
+            <form className="login-form">
+              <input type="text" placeholder="janedoe@gmail.com" className="input-field" />
+              <TextField
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
                 className="input-field"
-                style={{ marginBottom: '5px' }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -95,19 +63,12 @@ const LoginPage: React.FC = () => {
                   )
                 }}
               />
-              </label>
-              <Link to="/forgot-password" className="forget-password" >Forget password?</Link>
+              <Link to="/forgot-password" className="forget-password">Forget password?</Link>
               <button type="submit" className="submit-button">Sign In</button>
-
-              
-              Do not have an account? <Link to="/signup">Sign Up</Link>
             </form>
-            
           </div>
+          <p>Do not have an account? <Link to="/signup">Sign Up</Link></p>
         </div>
-        
-              
-              
       </div>
     </div>
   );
