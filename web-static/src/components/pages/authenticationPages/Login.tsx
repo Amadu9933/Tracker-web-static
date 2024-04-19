@@ -1,11 +1,4 @@
-import React, { useState } from 'react';
-import { FormControlLabel, Radio, RadioGroup, IconButton, InputAdornment, TextField } from '@mui/material';
-import { Link } from 'react-router-dom'; // Import Link
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
-import './Login.css'; 
+import React from "react";
 
 const Login: React.FC = () => {
 	return (
@@ -15,5 +8,4 @@ const Login: React.FC = () => {
 		</div>
 	);
 };
-
 export default Login;
