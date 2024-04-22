@@ -4,6 +4,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FormControlLabel, Radio, RadioGroup, IconButton, InputAdornment, TextField } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import Button from "@mui/material/Button";
 
 const Login: React.FC = () => {
 
@@ -12,37 +13,62 @@ const Login: React.FC = () => {
 	const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
+  const buttonStyles = {
+    backgroundColor: "#FF833C",
+    color: "white",
+    borderColor: "#FF833C",
+    paddingTop: "12px",
+    paddingRight: "18px",
+    paddingBottom: "12px",
+    paddingLeft: "18px",
+    borderRadius: "8px",
+    "&:focus": {
+      borderColor: "#FF833C",
+      backgroundColor: "#FF833C",
+      color: "white",
+    },
+    "&:hover": {
+      backgroundColor: "#FF833C",
+      color: "white",
+      borderColor: "#FF833C",
+    },
+    fontSize: "16px",
+    fontWeight: "medium",
+    textTransform: "none",
+    width: { xs: "100%", md: "100%" },
+    marginLeft: { xs: "0", md: "0" },
+    marginTop: "1.5rem",
+  };
 	return (
-	<div className="grid grid-cols-1 sm:grid-cols-12  m-4 mt-0 ml-0 mr-0">
-  		<div className="rounded-none  col-span-5 h-64  bg-blue-500">
-		  <img
-    		src="./src/assets/LoginImage.png"
-    		alt="Login"
-    		className="bg-contain"/>
-		</div>
-  		<div className="rounded-none col-span-7 h-256 bg-white py-20 px-20">
-			<div>
-          	<Link to="/">
-            	<div className="welcome-back font-inter mb-5 text-black text-2xl font-medium leading-10 w-56 h-10 gap-0" >
-              	<ArrowBackIcon /><span>Welcome Back!</span>
-            	</div>
-			</Link>
-				<div className='radio-group inline-flex items-center gap-8 mb-5'>
-            	<RadioGroup aria-label="userType" row defaultValue="businessOwner"  >
-              		<FormControlLabel
-                		value="businessOwner"
-                		control={<Radio />}
-                		label="Business Owner"
-                		className="radio-label"/>
-              		<FormControlLabel
-                		value="logisticsPartner"
-                		control={<Radio />}
-                		label="Logistics Partner"
-                		className="radio-label"/>
-            	</RadioGroup>
-          		</div>
-				<div className="w-14 h-7  font-inter  text-lg font-medium leading-7 text-left"><label>Sign In</label></div>	
+		<div className="grid grid-cols-1 sm:grid-cols-12  m-4 mt-0 ml-0 mr-0">
+			<div className="rounded-none  col-span-5 h-64  bg-blue-500">
+			<img
+				src="./src/assets/LoginImage.png"
+				alt="Login"
+				className="bg-contain"/>
+			</div>
+			<div className="rounded-none col-span-7 h-256 bg-white py-20 px-20">
+				<div>
+				<Link to="/">
+					<div className="welcome-back font-inter mb-5 text-black text-2xl font-medium leading-10 w-56 h-10 gap-0" >
+					<ArrowBackIcon /><span>Welcome Back!</span>
+					</div>
+				</Link>
+					<div className='radio-group inline-flex items-center gap-8 mb-5'>
+					<RadioGroup aria-label="userType" row defaultValue="businessOwner"  >
+						<FormControlLabel
+							value="businessOwner"
+							control={<Radio />}
+							label="Business Owner"
+							className="radio-label"/>
+						<FormControlLabel
+							value="logisticsPartner"
+							control={<Radio />}
+							label="Logistics Partner"
+							className="radio-label"/>
+					</RadioGroup>
+					</div>
+					<div className="w-14 h-7  flex flex-col    text-lg font-medium leading-7 text-left"><label>Sign In</label></div>	
 				
             {/* <div className="w-522px h-auto gap-0 py-10">
 			<form >
@@ -70,24 +96,24 @@ const Login: React.FC = () => {
 			
 			</div> */}
 			<div className=" w-522 h-341 top-392 left-730 gap-32">
-  <form className="bg-white rounded px-8 pt-6 pb-8 mb-4">
+  <form className="flex flex-col bg-white px-8 pt-6 pb-8 mb-4">
     <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="username">
+      <label className="w-full block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="username">
         Email
       </label>
-      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
+      <input className="text-left shadow appearance-none border rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
     </div>
     <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="password">
+      <label className=" w-full block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="password">
         Password
       </label>
-      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" />
+      <input className="shadow appearance-none border rounded w-full  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" />
     
 	  <p className="text-black-500 text-xs italic text-right">Forget Password?</p>
-	  <button className="bg-pink-400 w-full hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+	  <Button variant="outlined" sx={buttonStyles} type="button">
         Sign In
-		</button>
-		<p>Do not have an account? <Link to="/signup">Sign Up</Link></p>
+		</Button>
+		<p>Do not have an account? <Link  to="/signup">Sign Up</Link></p>
     </div>
     	
   	</form>
