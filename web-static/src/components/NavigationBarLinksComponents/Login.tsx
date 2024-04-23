@@ -40,7 +40,7 @@ const Login: React.FC = () => {
     marginTop: "1.5rem",
   };
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-12  m-4 mt-0 ml-0 mr-0">
+		<div className="grid grid-cols-1 sm:grid-cols-12  m-4 mt-0 ml-0 mr-0 mb-0" >
 			<div className="rounded-none  col-span-5 h-64  bg-blue-500">
 			<img
 				src="./src/assets/LoginImage.png"

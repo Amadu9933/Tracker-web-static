@@ -13,14 +13,11 @@ import Intergration from "./components/NavigationBarLinksComponents/Intergration
 import NeedHelp from "./components/NavigationBarLinksComponents/NeedHelp";
 import Login from "./components/NavigationBarLinksComponents/Login";
 import CustomerLandingPage from "./components/pages/customerPages/CustomerLandingPage";
-<<<<<<< HEAD
 
 import NotFoundPage from "./components/pages/customerPages/NotFoundPage";
 import LoginPage from "./components/pages/customerPages/BusLogPages/LoginPage";
 import SignUp from "./components/pages/authenticationPages/SignUp";
 
-=======
->>>>>>> parent of 23c4c51 (good)
 const App: React.FC = () => {
 	return (
 		<div className="App ">
