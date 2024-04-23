@@ -13,6 +13,7 @@ import Intergration from "./components/NavigationBarLinksComponents/Intergration
 import NeedHelp from "./components/NavigationBarLinksComponents/NeedHelp";
 import Login from "./components/NavigationBarLinksComponents/Login";
 import CustomerLandingPage from "./components/pages/customerPages/CustomerLandingPage";
+import ForgetPassword from "./components/pages/customerPages/customerAuthentication/ForgetPassword";
 
 import NotFoundPage from "./components/pages/customerPages/NotFoundPage";
 import LoginPage from "./components/pages/customerPages/BusLogPages/LoginPage";
@@ -39,6 +40,7 @@ const App: React.FC = () => {
 					<Route path="Login" element={<Login />} />
 					<Route path="LoginPage" element={<LoginPage/>} />
 					<Route path="SignUp" element={<SignUp/>}/>
+					<Route path="ForgetPassword" element={<ForgetPassword/>}/>
 				</Route>
 			</Routes>
 		</div>
