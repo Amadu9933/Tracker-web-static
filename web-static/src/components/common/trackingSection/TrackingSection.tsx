@@ -1,12 +1,11 @@
-// Navbar.tsx
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./TrackingSection.css";
 import logo from "../../../assets/carbon_delivery-parcel.png";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Height } from "@mui/icons-material";
 
 const style = {
 	position: "absolute" as "absolute",
@@ -59,6 +58,20 @@ const TrackingSection: React.FC = () => {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
+
+	const [trackingNumber, setTrackingNumber] = useState<string>("");
+	const navigate = useNavigate();
+
+	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setTrackingNumber(event.target.value);
+	};
+
+	const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === "Enter") {
+			navigate(`/tracking/${trackingNumber}`);
+		}
+	};
+
 	return (
 		<section className="track-section  ">
 			<div className="track-container">
@@ -126,7 +139,10 @@ const TrackingSection: React.FC = () => {
 					<input
 						style={{ backgroundColor: "#fdefe8" }}
 						type="text"
-						placeholder="Enter tracking ID"
+						placeholder="Enter tracking number and press Enter"
+						value={trackingNumber}
+						onChange={handleInputChange}
+						onKeyDown={handleKeyPress}
 					/>
 					<i className="search-icon"></i>
 				</div>

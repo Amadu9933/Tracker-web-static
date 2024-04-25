@@ -13,10 +13,8 @@ import Intergration from "./components/NavigationBarLinksComponents/Intergration
 import NeedHelp from "./components/NavigationBarLinksComponents/NeedHelp";
 import Login from "./components/NavigationBarLinksComponents/Login";
 import CustomerLandingPage from "./components/pages/customerPages/CustomerLandingPage";
-import ForgetPassword from "./components/pages/customerPages/customerAuthentication/ForgetPassword";
-
-import NotFoundPage from "./components/pages/customerPages/NotFoundPage";
-import LoginPage from "./components/pages/customerPages/BusLogPages/LoginPage";
+import DetailTable from "./components/pages/customerPages/CustomerTrackingDetails/DetailTable";
+import CustomerTrackingDetailLayout from "./components/pages/customerPages/CustomerTrackingDetails/CustomerTrackingDetailLayout";
 
 const App: React.FC = () => {
 	return (
@@ -31,7 +29,10 @@ const App: React.FC = () => {
 				<Route path="/" element={<Layout />}>
 					{/* Home default component */}
 					<Route path="" element={<CustomerLandingPage />} />
-					<Route path="*" element={<NotFoundPage />} />
+					<Route
+						path="tracking/:trackingNumber"
+						element={<CustomerTrackingDetailLayout />}
+					/>
 					<Route path="Ship" element={<Ship />} />
 					<Route path="LogisticSolution" element={<LogisticSolution />} />
 					<Route path="Intergration" element={<Intergration />} />

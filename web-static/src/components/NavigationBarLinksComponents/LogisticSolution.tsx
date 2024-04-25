@@ -1,10 +1,10 @@
 import React from "react";
+import CustomerNotification from "../pages/customerPages/CustomerTrackingDetails/CustomerNotification/CustomerNotification";
 
 const LogisticSolution: React.FC = () => {
 	return (
 		<div>
-			{" "}
-			<h1>Logistic Solution page</h1>{" "}
+			<CustomerNotification />
 		</div>
 	);
 };
