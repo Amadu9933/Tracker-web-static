@@ -17,7 +17,6 @@ import ForgetPassword from "./components/pages/customerPages/customerAuthenticat
 
 import NotFoundPage from "./components/pages/customerPages/NotFoundPage";
 import LoginPage from "./components/pages/customerPages/BusLogPages/LoginPage";
-import SignUp from "./components/pages/authenticationPages/SignUp";
 
 const App: React.FC = () => {
 	return (
@@ -40,7 +39,6 @@ const App: React.FC = () => {
 					<Route path="Login" element={<Login />} />
 					<Route path="LoginPage" element={<LoginPage/>} />
 					<Route path="SignUp" element={<SignUp/>}/>
-					<Route path="ForgetPassword" element={<ForgetPassword/>}/>
 				</Route>
 			</Routes>
 		</div>

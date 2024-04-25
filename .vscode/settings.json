@@ -1,8 +1,5 @@
 {
     "prettier.bracketSameLine": true,
     "prettier.enableDebugLogs": true,
-    "prettier.useTabs": true,
-    "cSpell.words": [
-        "tailwindcss"
-    ]
+    "prettier.useTabs": true
 }
