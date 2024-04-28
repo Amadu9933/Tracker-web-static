@@ -16,6 +16,7 @@ import CustomerLandingPage from "./components/pages/customerPages/CustomerLandin
 import DetailTable from "./components/pages/customerPages/CustomerTrackingDetails/DetailTable";
 import CustomerTrackingDetailLayout from "./components/pages/customerPages/CustomerTrackingDetails/CustomerTrackingDetailLayout";
 import LoginPage from "./components/pages/customerPages/BusLogPages/LoginPage";
+import SignUp from "./components/pages/authenticationPages/SignUp";
 
 const App: React.FC = () => {
 	return (
@@ -40,7 +41,7 @@ const App: React.FC = () => {
 					<Route path="NeedHelp" element={<NeedHelp />} />
 					<Route path="Login" element={<Login />} />
 					<Route path="LoginPage" element={<LoginPage/>} />
-					{/* <Route path="SignUp" element={<SignUp/>}/> */}
+					<Route path="SignUp" element={<SignUp/>}/>
 				</Route>
 			</Routes>
 		</div>
