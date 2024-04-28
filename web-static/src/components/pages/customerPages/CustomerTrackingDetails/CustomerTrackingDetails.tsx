@@ -3,6 +3,7 @@ import DetailTable from "./DetailTable";
 import Back from "../../../../assets/ep_back.png";
 import Carbon from "../../../../assets/carbon_delivery-parcel.png";
 import Button from "@mui/material/Button"; // Importing Button component from Material-UI
+import { Link } from "react-router-dom";
 
 const CustomerTrackingDetails: React.FC = () => {
 	// Define Button styling
@@ -34,13 +35,13 @@ const CustomerTrackingDetails: React.FC = () => {
 	return (
 		<div className="  justify-right ">
 			<div className="flex justify-center mb-10 ">
-				<a href="">
+				<Link to="/">
 					<img
 						className="md:w-[48px] md:h-[48px] w-6 h-6 md:mt-0 mt-[6px] mr-4"
 						src={Back}
 						alt="return"
 					/>
-				</a>{" "}
+				</Link>{" "}
 				<h1 className="font-bold  text-[#354755] md:text-[3.5rem] text-2xl ">
 					Track your parcel today!
 				</h1>{" "}
