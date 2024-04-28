@@ -85,22 +85,29 @@ const Navbar: React.FC = () => {
 							sx={{
 								marginLeft: "2rem",
 								display: "flex",
-								padding: "10px",
 								border: "1px solid #B1B2B2",
 								borderRadius: "5px",
 								height: "40px",
 								justifyContent: "space-between",
+								padding: "9px",
 							}}>
-							<img
-								src={profileIcon}
-								alt="profile-icon"
-								style={{ height: "20px", width: "20px" }}
-							/>
-							<NavLink
-								style={{ ...linkStyles, marginLeft: "10px", height: "20px" }}
-								to="/Login">
-								Login
-							</NavLink>
+							<div className="flex h-8 9">
+								<img
+									src={profileIcon}
+									alt="profile-icon"
+									style={{ height: "20px", width: "20px" }}
+								/>
+								<NavLink
+									style={{
+										...linkStyles,
+										marginLeft: "10px",
+										marginTop: "-3px",
+										height: "20px",
+									}}
+									to="/Login">
+									Login
+								</NavLink>
+							</div>
 						</Box>
 					</Box>
 					{/* Logo for small and medium screens*/}
