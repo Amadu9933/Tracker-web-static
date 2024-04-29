@@ -82,7 +82,7 @@ input[type="text"] {
 		20px,
 		4vw,
 		40px
-	); /* Responsive padding-left with clamp() and vw */
+	); /* Responsive padding-left with clamp() and */
 }
 
 input::placeholder {
