@@ -13,11 +13,14 @@ const CustomerDidYouKnow: React.FC = () => {
 			<div className="md:flex md:justify-between">
 				{/* first item */}
 				<div className="md:block md:ml-44 md:w-44 flex justify-between ">
-					<img
-						className="md:w-36 md:h-36 md:rounded-full w-16 h-16 rounded-full"
-						src={fristImage}
-						alt=""
-					/>
+					<div className="md:w-36 md:h-36 md:rounded-full w-16 h-16 rounded-full">
+						<img
+							className="md:w-36 md:h-36 md:rounded-full w-16 h-16 rounded-full"
+							src={fristImage}
+							alt=""
+						/>
+					</div>
+
 					<img
 						className="md:w-20 md:h-20 rounded-full md:mt-64 md:ml-24 w-12 h-12  bg-red-100 md:visible invisible"
 						src={thirdImage}
@@ -25,12 +28,13 @@ const CustomerDidYouKnow: React.FC = () => {
 					/>
 
 					{/* mobile pic */}
-
-					<img
-						className="md:w-20 md:h-20 rounded-full md:-mt-36 nd:ml-40 bg-red-100 md:invisible w-12 h-12 "
-						src={secondImage}
-						alt=""
-					/>
+					<div className="">
+						<img
+							className="md:w-20 md:h-20 rounded-full md:-mt-36 nd:ml-40 bg-red-100 md:invisible w-12 h-12 "
+							src={secondImage}
+							alt=""
+						/>
+					</div>
 				</div>
 				{/* second item, text container */}
 				<div className="md:w-1/3 md:mt-9  ">
@@ -70,11 +74,9 @@ const CustomerDidYouKnow: React.FC = () => {
 
 				{/* third container */}
 				<div className="md:mr-44  md:w-60 md:block ">
-					<img
-						className="w-20 h-20 rounded-full -mt-36 ml-40 bg-red-100 md:visible invisible"
-						src={secondImage}
-						alt=""
-					/>
+					<div className="flex justify-center items-center w-20 h-20 rounded-full -mt-36 ml-40 bg-red-100  md:visible invisible">
+						<img className="w-16 h-17 " src={secondImage} alt="" />
+					</div>
 					<img
 						className="md:w-36  md:h-36 md:rounded-full md:mt-96 w-36 h-36 rounded-full md:content md:visible invisible"
 						src={fourthImage}
