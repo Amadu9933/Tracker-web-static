@@ -22,7 +22,7 @@ const CustomerDidYouKnow: React.FC = () => {
 					</div>
 
 					<img
-						className="md:w-20 md:h-20 rounded-full md:mt-64 md:ml-24 w-12 h-12  bg-red-100 md:visible invisible"
+						className="md:w-20 md:h-20 rounded-full md:mt-64 md:ml-24 w-12 h-12 p-2  bg-red-100 md:visible invisible"
 						src={thirdImage}
 						alt=""
 					/>
@@ -81,7 +81,7 @@ const CustomerDidYouKnow: React.FC = () => {
 						className="md:w-36  md:h-36 md:rounded-full md:mt-96 w-36 h-36 rounded-full md:content md:visible invisible"
 						src={fourthImage}
 						alt=""
-					/>
+					/>{" "}
 					{/* moile picture */}
 				</div>
 				<div className=" justify-center items-center md:hidden flex">

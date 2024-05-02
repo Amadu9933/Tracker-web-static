@@ -1,40 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 
-heade {
-	background-image: linear-gradient(rgba(78, 78, 83, 0), rgb(18, 3, 73)),
-		url("../src/assets/IMG_5304.jpeg");
-	padding-right: 10%;
-	padding-left: 10%;
-}
-.nav {
-	height: 2.2rem;
-	font-weight: 25rem;
-	font-size: 1rem;
-	line-height: 1.5rem;
-	font-family: "Inter", sans-serif;
-}
-.nav-business {
-	margin-left: 1.25rem;
-}
-
-.nav-customer,
-.nav-business {
-	cursor: pointer;
-	padding-top: 10px;
-	font-family: "Inter", sans-serif;
-}
-
-.nav-customer:hover {
-	font-weight: bold;
+.active {
 	text-decoration: underline;
-	text-underline-offset: 0.6rem;
-	text-decoration-color: black;
-	color: black;
-}
-
-.nav-business:hover {
+	text-decoration-color: #354755;
+	color: #354755;
 	font-weight: bold;
-	text-decoration: underline;
-	text-underline-offset: 0.6rem;
-	text-decoration-color: #ff833c;
 }

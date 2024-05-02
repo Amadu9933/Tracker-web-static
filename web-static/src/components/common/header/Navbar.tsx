@@ -9,6 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import CloseIcon from "@mui/icons-material/Close";
+import "./Navbar.css";
 
 // Importing assets
 import profileIcon from "../../../assets/iconoir_profile-circle.png";
@@ -32,10 +33,12 @@ const Navbar: React.FC = () => {
 	const linkStyles = {
 		color: "#B1B2B2",
 		textDecoration: "none",
-		"&:hover": {
+
+		"&:active": {
 			textDecoration: "underline",
 			textDecorationColor: "#354755",
 			color: "#354755",
+			fontWeight: "bold",
 		},
 	};
 
@@ -74,13 +77,21 @@ const Navbar: React.FC = () => {
 						}}>
 						{menuItems.map((item, index) => (
 							<NavLink
+								className={({ isActive }) =>
+									isActive
+										? "underline decoration-[#354755] decoration-2  font-bold"
+										: "text-[#B1B2B2]"
+								}
 								key={index}
-								style={{ ...linkStyles, marginLeft: "2rem" }}
+								style={{
+									color: "#B1B2B2",
+									marginLeft: "2rem",
+								}}
 								to={item.link}>
 								{item.label}
 							</NavLink>
 						))}
-						{/* Profile section*/}
+						{/*user  Profile section */}
 						<Box
 							sx={{
 								marginLeft: "2rem",
@@ -98,8 +109,13 @@ const Navbar: React.FC = () => {
 									style={{ height: "20px", width: "20px" }}
 								/>
 								<NavLink
+									className={({ isActive }) =>
+										isActive
+											? "underline decoration-[#354755] decoration-2  font-bold"
+											: "text-[#B1B2B2]"
+									}
 									style={{
-										...linkStyles,
+										color: "#B1B2B2",
 										marginLeft: "10px",
 										marginTop: "-3px",
 										height: "20px",

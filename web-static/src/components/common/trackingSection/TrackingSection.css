@@ -43,6 +43,9 @@ input:focus {
 input:focus {
 	border: 1px solid #354755;
 }
+input[type="text"] {
+	text-indent: 15px;
+}
 
 /* Styles for tablets and larger screens */
 @media screen and (min-width: 768px) {
