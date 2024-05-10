@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,11 +11,28 @@ import Paper from "@mui/material/Paper";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
 		backgroundColor: "#F2F5F7",
-
 		color: "#537086",
+		width: "215px", // Width for the first column
+		height: "47px", // Height for the header cells
+		padding: "12px 24px", // Padding for the header cells
+		gap: "12px",
+		border: "1px solid #dee2e6", // Border style for the header cells
+		opacity: "0px",
+		textAlign: "left", // Align body text to the left
 	},
 	[`&.${tableCellClasses.body}`]: {
 		fontSize: 14,
+		height: "47px", // Height for the body cells
+		padding: "12px 24px", // Padding for the body cells
+		gap: "12px",
+		border: "1px solid #dee2e6", // Border style for the body cells
+		textAlign: "left", // Align body text to the left
+	},
+	"&:first-child": {
+		width: "auto", // Reset width for the first column
+	},
+	"&:nth-child(2)": {
+		width: "auto", // Reset width for the second column
 	},
 }));
 
@@ -30,29 +47,33 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function createData(
+	id: number,
 	name: string,
 	calories: number,
 	fat: number,
 	carbs: number,
 	protein: number
 ) {
-	return { name, calories, fat, carbs, protein };
+	return { id, name, calories, fat, carbs, protein };
 }
 
 const rows = [
-	createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-	createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-	createData("Eclair", 262, 16.0, 24, 6.0),
-	createData("Cupcake", 305, 3.7, 67, 4.3),
-	createData("Gingerbread", 356, 16.0, 49, 3.9),
+	createData(1, "Frozen yoghurt", 159, 6.0, 24, 4.0),
+	createData(2, "Ice cream sandwich", 237, 9.0, 37, 4.3),
+	createData(3, "Eclair", 262, 16.0, 24, 6.0),
+	createData(4, "Cupcake", 305, 3.7, 67, 4.3),
+	createData(5, "Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
 export default function CustomizedTables() {
 	return (
 		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 700 }} aria-label="customized table">
+			<Table
+				sx={{ minWidth: 700, border: "1px solid #dee2e6" }}
+				aria-label="customized table">
 				<TableHead>
 					<TableRow>
+						<StyledTableCell>#</StyledTableCell>
 						<StyledTableCell>Dessert (100g serving)</StyledTableCell>
 						<StyledTableCell align="right">Calories</StyledTableCell>
 						<StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
@@ -61,11 +82,12 @@ export default function CustomizedTables() {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map((row) => (
+					{rows.map((row, index) => (
 						<StyledTableRow key={row.name}>
 							<StyledTableCell component="th" scope="row">
-								{row.name}
+								{index + 1}
 							</StyledTableCell>
+							<StyledTableCell>{row.name}</StyledTableCell>
 							<StyledTableCell align="right">{row.calories}</StyledTableCell>
 							<StyledTableCell align="right">{row.fat}</StyledTableCell>
 							<StyledTableCell align="right">{row.carbs}</StyledTableCell>
