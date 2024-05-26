@@ -4,7 +4,7 @@ import CustomerTrackingDetailLayout from "../pages/customerPages/CustomerTrackin
 const Ship: React.FC = () => {
 	return (
 		<div>
-			<CustomerTrackingDetailLayout />
+			<p>Ship</p>
 		</div>
 	);
 };

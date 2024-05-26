@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 //import Link from "@mui/material/Link";
-import { NavLink } from "react-router-dom";
+import { NavLink, NavLinkProps } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -77,17 +77,12 @@ const Navbar: React.FC = () => {
 						}}>
 						{menuItems.map((item, index) => (
 							<NavLink
-								className={({ isActive }) =>
-									isActive
-										? "underline decoration-[#354755] decoration-2  font-bold"
-										: "text-[#B1B2B2]"
-								}
 								key={index}
+								to={item.link}
 								style={{
 									color: "#B1B2B2",
 									marginLeft: "2rem",
-								}}
-								to={item.link}>
+								}}>
 								{item.label}
 							</NavLink>
 						))}

@@ -16,7 +16,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 		height: "47px", // Height for the header cells
 		padding: "12px 24px", // Padding for the header cells
 		gap: "12px",
-		border: "1px solid #dee2e6", // Border style for the header cells
+		borderTop: "1px solid #D2D3D3", // Border style for the header cells
+		borderButtom: "1px solid #F9F9F9",
 		opacity: "0px",
 		textAlign: "left", // Align body text to the left
 	},
@@ -25,7 +26,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 		height: "47px", // Height for the body cells
 		padding: "12px 24px", // Padding for the body cells
 		gap: "12px",
-		border: "1px solid #dee2e6", // Border style for the body cells
+		border: "1px solid #F9F9F9", // Border style for the body cells
 		textAlign: "left", // Align body text to the left
 	},
 	"&:first-child": {
@@ -69,7 +70,7 @@ export default function CustomizedTables() {
 	return (
 		<TableContainer component={Paper}>
 			<Table
-				sx={{ minWidth: 700, border: "1px solid #dee2e6" }}
+				sx={{ minWidth: 700, border: "1px solid #D2D3D3" }}
 				aria-label="customized table">
 				<TableHead>
 					<TableRow>

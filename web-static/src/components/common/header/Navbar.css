@@ -1,8 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 
-.active {
+/* Navbar.css */
+
+.active-links:active {
 	text-decoration: underline;
-	text-decoration-color: #354755;
-	color: #354755;
+	text-decoration-color: red;
+	color: red;
 	font-weight: bold;
+	padding-bottom: 5px;
 }
