@@ -17,11 +17,10 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
 		"typeRoots": ["node_modules/@types", "src/types"], // <-- Add this line
-		"baseUrl": "./",
+		"baseUrl": "./src",
 		"paths": {
+			"@/*": ["*"],
 			"@testing-library/jest-dom": ["node_modules/@testing-library/jest-dom"]
 		}
-	},
-	"include": ["src"],
-	"references": [{ "path": "./tsconfig.node.json" }]
+	}
 }

@@ -17,8 +17,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 		padding: "12px 24px", // Padding for the header cells
 		gap: "12px",
 		borderTop: "1px solid #D2D3D3", // Border style for the header cells
-		borderButtom: "1px solid #F9F9F9",
-		opacity: "0px",
+		borderBottom: "1px solid #F9F9F9",
 		textAlign: "left", // Align body text to the left
 	},
 	[`&.${tableCellClasses.body}`]: {
@@ -28,12 +27,13 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 		gap: "12px",
 		border: "1px solid #F9F9F9", // Border style for the body cells
 		textAlign: "left", // Align body text to the left
+		color: "#5D5D4C",
 	},
 	"&:first-child": {
 		width: "auto", // Reset width for the first column
 	},
 	"&:nth-child(2)": {
-		width: "auto", // Reset width for the second column
+		width: "539px", // Set width for the second column (Tracking Number)
 	},
 }));
 
@@ -47,23 +47,76 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
+const getStatusColor = (status: string) => {
+	switch (status) {
+		case "Delivered":
+			return "#6EA011";
+		case "Cancelled":
+			return "#EA8389";
+		case "Returned":
+			return "#FF985D";
+		default:
+			return "#5D5D4C";
+	}
+};
+
+const formatDateTime = (datetime: string) => {
+	const [date, time] = datetime.split(" ");
+	return (
+		<span>
+			{date}
+			<br />
+			<span style={{ color: "#C6C5B9" }}>{time}hrs</span>
+		</span>
+	);
+};
+
 function createData(
 	id: number,
-	name: string,
-	calories: number,
-	fat: number,
-	carbs: number,
-	protein: number
+	trackingNumber: string,
+	ordered: string,
+	delivered: string,
+	status: "Delivered" | "Cancelled" | "Returned"
 ) {
-	return { id, name, calories, fat, carbs, protein };
+	return { id, trackingNumber, ordered, delivered, status };
 }
 
 const rows = [
-	createData(1, "Frozen yoghurt", 159, 6.0, 24, 4.0),
-	createData(2, "Ice cream sandwich", 237, 9.0, 37, 4.3),
-	createData(3, "Eclair", 262, 16.0, 24, 6.0),
-	createData(4, "Cupcake", 305, 3.7, 67, 4.3),
-	createData(5, "Gingerbread", 356, 16.0, 49, 3.9),
+	createData(
+		1,
+		"F3858678564S",
+		"01/01/2023 14:00",
+		"02/01/2023 10:00",
+		"Delivered"
+	),
+	createData(
+		2,
+		"B3847484848D",
+		"01/02/2023 11:00",
+		"02/02/2023 12:00",
+		"Cancelled"
+	),
+	createData(
+		3,
+		"C3847575757E",
+		"01/03/2023 16:00",
+		"02/03/2023 15:00",
+		"Returned"
+	),
+	createData(
+		4,
+		"D3847575757F",
+		"01/04/2023 10:00",
+		"02/04/2023 09:00",
+		"Delivered"
+	),
+	createData(
+		5,
+		"E3847575757G",
+		"01/05/2023 12:00",
+		"02/05/2023 14:00",
+		"Cancelled"
+	),
 ];
 
 export default function CustomizedTables() {
@@ -73,26 +126,26 @@ export default function CustomizedTables() {
 				sx={{ minWidth: 700, border: "1px solid #D2D3D3" }}
 				aria-label="customized table">
 				<TableHead>
-					<TableRow>
+					<TableRow sx={{ fontSize: "18px" }}>
 						<StyledTableCell>#</StyledTableCell>
-						<StyledTableCell>Dessert (100g serving)</StyledTableCell>
-						<StyledTableCell align="right">Calories</StyledTableCell>
-						<StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-						<StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-						<StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+						<StyledTableCell>Tracking Number</StyledTableCell>
+						<StyledTableCell>Date Ordered</StyledTableCell>
+						<StyledTableCell>Date Delivered</StyledTableCell>
+						<StyledTableCell>Status</StyledTableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
 					{rows.map((row, index) => (
-						<StyledTableRow key={row.name}>
+						<StyledTableRow key={row.trackingNumber}>
 							<StyledTableCell component="th" scope="row">
-								{index + 1}
+								#{index + 1}
 							</StyledTableCell>
-							<StyledTableCell>{row.name}</StyledTableCell>
-							<StyledTableCell align="right">{row.calories}</StyledTableCell>
-							<StyledTableCell align="right">{row.fat}</StyledTableCell>
-							<StyledTableCell align="right">{row.carbs}</StyledTableCell>
-							<StyledTableCell align="right">{row.protein}</StyledTableCell>
+							<StyledTableCell>{row.trackingNumber}</StyledTableCell>
+							<StyledTableCell>{formatDateTime(row.ordered)}</StyledTableCell>
+							<StyledTableCell>{formatDateTime(row.delivered)}</StyledTableCell>
+							<StyledTableCell style={{ color: getStatusColor(row.status) }}>
+								{row.status}
+							</StyledTableCell>
 						</StyledTableRow>
 					))}
 				</TableBody>

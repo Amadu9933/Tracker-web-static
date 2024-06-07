@@ -33,13 +33,6 @@ const Navbar: React.FC = () => {
 	const linkStyles = {
 		color: "#B1B2B2",
 		textDecoration: "none",
-
-		"&:active": {
-			textDecoration: "underline",
-			textDecorationColor: "#354755",
-			color: "#354755",
-			fontWeight: "bold",
-		},
 	};
 
 	// Menu items data
@@ -77,6 +70,7 @@ const Navbar: React.FC = () => {
 						}}>
 						{menuItems.map((item, index) => (
 							<NavLink
+								className="Navbar"
 								key={index}
 								to={item.link}
 								style={{
@@ -178,6 +172,7 @@ const Navbar: React.FC = () => {
 										style={{ height: "20px", width: "20px" }}
 									/>
 									<NavLink
+										className="Navbar"
 										style={{
 											...linkStyles,
 											marginLeft: "0.625rem",
