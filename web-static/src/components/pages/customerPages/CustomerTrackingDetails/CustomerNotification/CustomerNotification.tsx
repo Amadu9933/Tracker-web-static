@@ -5,7 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const CustomerNotification: React.FC = () => {
 	return (
-		<div className="mx-[80px]">
+		<div className="m-[80px]">
 			<div className="flex">
 				<ArrowBackIcon />
 				<p>Parcel History</p>
