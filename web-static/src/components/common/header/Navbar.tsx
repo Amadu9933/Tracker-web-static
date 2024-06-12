@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 //import Link from "@mui/material/Link";
-import { NavLink, NavLinkProps } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -49,7 +49,11 @@ const Navbar: React.FC = () => {
 			{/* Top-level container for the entire Navigation bar */}
 			<AppBar
 				position="static"
-				sx={{ backgroundColor: "white", borderColor: "1px solid #D9E1E7" }}>
+				sx={{
+					backgroundColor: "white",
+					borderColor: "1px solid #D9E1E7",
+					boxShadow: "none",
+				}}>
 				{/* Toolbar containing various sections */}
 				<Toolbar sx={{ justifyContent: "space-between", padding: "1.5rem" }}>
 					{/* Logo section */}
@@ -98,11 +102,7 @@ const Navbar: React.FC = () => {
 									style={{ height: "20px", width: "20px" }}
 								/>
 								<NavLink
-									className={({ isActive }) =>
-										isActive
-											? "underline decoration-[#354755] decoration-2  font-bold"
-											: "text-[#B1B2B2]"
-									}
+									className="Navbar"
 									style={{
 										color: "#B1B2B2",
 										marginLeft: "10px",

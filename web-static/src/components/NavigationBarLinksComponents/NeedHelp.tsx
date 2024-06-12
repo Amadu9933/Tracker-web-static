@@ -1,10 +1,10 @@
 import React from "react";
+import CircularProgress from "../pages/customerPages/CustomerTrackingDetails/CustomerNotification/Data";
 
 const NeedHelp: React.FC = () => {
 	return (
 		<div>
-			{" "}
-			<h1 className="text-6xl">Need help page</h1>{" "}
+			<CircularProgress />
 		</div>
 	);
 };

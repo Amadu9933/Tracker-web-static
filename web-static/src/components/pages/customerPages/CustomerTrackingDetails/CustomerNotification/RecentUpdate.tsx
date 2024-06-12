@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,67 +7,33 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function createData(
-	date: string,
-	hours: number,
-	status: "Delivered" | "On the way" | "Cancelled" | "Returned"
-) {
-	return { date, hours, status };
-}
-
-const rows = [
-	createData("01/01/2023", 20, "On the way"),
-	createData("02/02/2023", 18, "Delivered"),
-	createData("03/03/2023", 15, "Cancelled"),
-	createData("04/04/2023", 12, "Returned"),
-	createData("05/05/2023", 10, "On the way"),
-];
-
 const getStatusColor = (status: string) => {
-	switch (status) {
-		case "Delivered":
+	switch (status.toLowerCase()) {
+		case "delivered":
 			return "#B4D479";
-		case "On the way":
+		case "on the way":
 			return "#FFE393";
-		case "Cancelled":
+		case "cancelled":
 			return "#EA8389";
-		case "Returned":
+		case "returned":
 			return "#FFC19E";
 		default:
 			return "#000";
 	}
 };
 
-const getStatusText = (status: string) => {
-	switch (status) {
-		case "Delivered":
-			return "has been delivered\nArrived";
-		case "On the way":
-			return "is on the way\nEstimated time of arrival ~ 3 days";
-		case "Cancelled":
-			return "has been cancelled\nEstimated time of arrival ~ pending";
-		case "Returned":
-			return "has been returned\nEstimated time of arrival ~ pending";
-		default:
-			return "";
+interface RecentUpdateProps {
+	trackingData: any[];
+}
+
+const RecentUpdate: React.FC<RecentUpdateProps> = ({ trackingData = [] }) => {
+	if (!Array.isArray(trackingData)) {
+		console.error(
+			"Invalid data prop passed to RecentUpdate. Expected an array."
+		);
+		return null;
 	}
-};
 
-const Ellipse: React.FC<{ status: string }> = ({ status }) => {
-	return (
-		<span
-			style={{
-				display: "inline-block",
-				width: "16px",
-				height: "16px",
-				backgroundColor: getStatusColor(status),
-				borderRadius: "50%",
-				marginRight: "8px",
-			}}></span>
-	);
-};
-
-export default function BasicTable() {
 	return (
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -78,7 +44,7 @@ export default function BasicTable() {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map((row, index) => (
+					{trackingData.map((item: any, index: number) => (
 						<TableRow
 							key={index}
 							sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -86,16 +52,25 @@ export default function BasicTable() {
 								component="th"
 								scope="row"
 								style={{ color: "#5D5D4C" }}>
-								<Ellipse status={row.status} />
-								Your order - F3858678564S{" "}
-								{getStatusText(row.status).split("\n")[0]}
+								<span
+									style={{
+										display: "inline-block",
+										width: "16px",
+										height: "16px",
+										backgroundColor: getStatusColor(item.status),
+										borderRadius: "50%",
+										marginRight: "8px",
+									}}></span>
+								Your order - {item.parcel_number} {item.details.status1}
 								<div style={{ color: "#A3A38E", marginLeft: "25px" }}>
-									{getStatusText(row.status).split("\n")[1]}
+									{item.details.status2}
 								</div>
 							</TableCell>
 							<TableCell align="right" style={{ color: "#5D5D4C" }}>
-								<div>{row.date}</div>
-								<div className="mr-8   text-[#A3A38E]">{row.hours} hrs</div>
+								<div>{item.date_of_purchase}</div>
+								<div className="mr-8 text-[#A3A38E]">
+									{item.time_of_purchase} hrs
+								</div>
 							</TableCell>
 						</TableRow>
 					))}
@@ -103,4 +78,6 @@ export default function BasicTable() {
 			</Table>
 		</TableContainer>
 	);
-}
+};
+
+export default RecentUpdate;

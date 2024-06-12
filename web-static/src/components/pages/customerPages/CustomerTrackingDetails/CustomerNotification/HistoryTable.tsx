@@ -14,7 +14,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 		color: "#537086",
 		width: "215px", // Width for the first column
 		height: "47px", // Height for the header cells
-		padding: "12px 24px", // Padding for the header cells
+		padding: "12px 24px", // Padding for the hseader cells
 		gap: "12px",
 		borderTop: "1px solid #D2D3D3", // Border style for the header cells
 		borderBottom: "1px solid #F9F9F9",
@@ -48,12 +48,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const getStatusColor = (status: string) => {
-	switch (status) {
-		case "Delivered":
+	switch (status.toLowerCase()) {
+		case "delivered":
 			return "#6EA011";
-		case "Cancelled":
+		case "cancelled":
 			return "#EA8389";
-		case "Returned":
+		case "returned":
 			return "#FF985D";
 		default:
 			return "#5D5D4C";
@@ -71,55 +71,20 @@ const formatDateTime = (datetime: string) => {
 	);
 };
 
-function createData(
-	id: number,
-	trackingNumber: string,
-	ordered: string,
-	delivered: string,
-	status: "Delivered" | "Cancelled" | "Returned"
-) {
-	return { id, trackingNumber, ordered, delivered, status };
+interface CustomizedTablesProps {
+	trackingData: any[];
 }
 
-const rows = [
-	createData(
-		1,
-		"F3858678564S",
-		"01/01/2023 14:00",
-		"02/01/2023 10:00",
-		"Delivered"
-	),
-	createData(
-		2,
-		"B3847484848D",
-		"01/02/2023 11:00",
-		"02/02/2023 12:00",
-		"Cancelled"
-	),
-	createData(
-		3,
-		"C3847575757E",
-		"01/03/2023 16:00",
-		"02/03/2023 15:00",
-		"Returned"
-	),
-	createData(
-		4,
-		"D3847575757F",
-		"01/04/2023 10:00",
-		"02/04/2023 09:00",
-		"Delivered"
-	),
-	createData(
-		5,
-		"E3847575757G",
-		"01/05/2023 12:00",
-		"02/05/2023 14:00",
-		"Cancelled"
-	),
-];
+const CustomizedTables: React.FC<CustomizedTablesProps> = ({
+	trackingData = [],
+}) => {
+	if (!Array.isArray(trackingData)) {
+		console.error(
+			"Invalid data prop passed to CustomizedTables. Expected an array."
+		);
+		return null;
+	}
 
-export default function CustomizedTables() {
 	return (
 		<TableContainer component={Paper}>
 			<Table
@@ -135,16 +100,20 @@ export default function CustomizedTables() {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map((row, index) => (
-						<StyledTableRow key={row.trackingNumber}>
+					{trackingData.map((item: any, index: number) => (
+						<StyledTableRow key={item.id}>
 							<StyledTableCell component="th" scope="row">
 								#{index + 1}
 							</StyledTableCell>
-							<StyledTableCell>{row.trackingNumber}</StyledTableCell>
-							<StyledTableCell>{formatDateTime(row.ordered)}</StyledTableCell>
-							<StyledTableCell>{formatDateTime(row.delivered)}</StyledTableCell>
-							<StyledTableCell style={{ color: getStatusColor(row.status) }}>
-								{row.status}
+							<StyledTableCell>{item.parcel_number}</StyledTableCell>
+							<StyledTableCell>
+								{formatDateTime(item.date_of_purchase)}
+							</StyledTableCell>
+							<StyledTableCell>
+								{formatDateTime(item.delivery_date)}
+							</StyledTableCell>
+							<StyledTableCell style={{ color: getStatusColor(item.status) }}>
+								{item.status}
 							</StyledTableCell>
 						</StyledTableRow>
 					))}
@@ -152,4 +121,6 @@ export default function CustomizedTables() {
 			</Table>
 		</TableContainer>
 	);
-}
+};
+
+export default CustomizedTables;

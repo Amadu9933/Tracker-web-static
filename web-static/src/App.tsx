@@ -10,24 +10,21 @@ import NeedHelp from "./components/NavigationBarLinksComponents/NeedHelp";
 import Login from "./components/NavigationBarLinksComponents/Login";
 import CustomerLandingPage from "./components/pages/customerPages/CustomerLandingPage";
 import CustomerTrackingDetailLayout from "./components/pages/customerPages/CustomerTrackingDetails/CustomerTrackingDetailLayout";
-import CustomerTrackingDetails from "./components/pages/customerPages/CustomerTrackingDetails/CustomerTrackingDetails";
+import CustomerNotification from "./components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CustomerNotification";
 
 const App: React.FC = () => {
 	return (
-		<div className="App ">
+		<div className="App">
 			<Routes>
-				{/* <Route path="/" element={<Layout />}>
-					<Route path="" element={<Home />} />
-					<Route path="About" element={<About />} />
-					<Route path="Contact" element={<Contact />} />
-				</Route> */}
-
 				<Route path="/" element={<Layout />}>
-					{/* Home default component */}
 					<Route path="" element={<CustomerLandingPage />} />
 					<Route
 						path="tracking/:trackingNumber"
 						element={<CustomerTrackingDetailLayout />}
+					/>
+					<Route
+						path="customer-notification/:email"
+						element={<CustomerNotification />}
 					/>
 					<Route path="Ship" element={<Ship />} />
 					<Route path="LogisticSolution" element={<LogisticSolution />} />

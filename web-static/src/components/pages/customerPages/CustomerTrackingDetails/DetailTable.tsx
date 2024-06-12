@@ -5,13 +5,15 @@ import axios from "axios";
 const DetailTable: React.FC = () => {
 	const { trackingNumber } = useParams<{ trackingNumber: string }>();
 	const [trackingData, setTrackingData] = useState<any | null>(null);
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchTrackingDetails = async () => {
 			try {
 				const response = await axios.get(
-					`http://54.161.253.204:3000/api/tracking/${trackingNumber}/`
+					`http://172.232.4.147:8000/api/v1/tracking/${trackingNumber}/`
 				);
+
 				// Filter the tracking data to include only the desired fields
 				const filteredData = {
 					"Parcel number": response.data.parcel_number,
@@ -22,15 +24,21 @@ const DetailTable: React.FC = () => {
 					Status: response.data.status,
 				};
 				setTrackingData(filteredData);
-			} catch (error) {
+				setError(null);
+			} catch (error: any) {
 				console.error("Error fetching tracking details:", error);
+				setError(error.message || "An unknown error occurred");
 			}
 		};
 		fetchTrackingDetails();
 	}, [trackingNumber]);
 
+	if (error) {
+		return <p className="text-2xl">Error: {error}</p>;
+	}
+
 	if (!trackingData) {
-		return <p>Loading...</p>;
+		return <p className="text-2xl">Loading data...</p>;
 	}
 
 	return (
@@ -46,8 +54,8 @@ const DetailTable: React.FC = () => {
 									key === "Status" && value === "Pending"
 										? "text-[#6EA011] text-left"
 										: key === "Parcel number"
-										? "text-[#FF833C] text-left"
-										: "text-left py-[8px] "
+											? "text-[#FF833C] text-left"
+											: "text-left py-[8px]"
 								}>
 								{String(value)}
 							</td>
