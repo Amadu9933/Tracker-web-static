@@ -12,28 +12,28 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
 		backgroundColor: "#F2F5F7",
 		color: "#537086",
-		width: "215px", // Width for the first column
-		height: "47px", // Height for the header cells
-		padding: "12px 24px", // Padding for the hseader cells
+		width: "215px",
+		height: "47px",
+		padding: "12px 24px",
 		gap: "12px",
-		borderTop: "1px solid #D2D3D3", // Border style for the header cells
+		borderTop: "1px solid #D2D3D3",
 		borderBottom: "1px solid #F9F9F9",
-		textAlign: "left", // Align body text to the left
+		textAlign: "left",
 	},
 	[`&.${tableCellClasses.body}`]: {
 		fontSize: 14,
-		height: "47px", // Height for the body cells
-		padding: "12px 24px", // Padding for the body cells
+		height: "47px",
+		padding: "12px 24px",
 		gap: "12px",
-		border: "1px solid #F9F9F9", // Border style for the body cells
-		textAlign: "left", // Align body text to the left
+		border: "1px solid #F9F9F9",
+		textAlign: "left",
 		color: "#5D5D4C",
 	},
 	"&:first-child": {
-		width: "auto", // Reset width for the first column
+		width: "auto",
 	},
 	"&:nth-child(2)": {
-		width: "539px", // Set width for the second column (Tracking Number)
+		width: "539px",
 	},
 }));
 
@@ -41,20 +41,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	"&:nth-of-type(even)": {
 		backgroundColor: theme.palette.action.hover,
 	},
-	// hide last border
 	"&:last-child td, &:last-child th": {
 		border: 0,
 	},
 }));
 
 const getStatusColor = (status: string) => {
-	switch (status.toLowerCase()) {
+	switch (status.trim().toLowerCase()) {
 		case "delivered":
 			return "#6EA011";
 		case "cancelled":
+		case "canceled": // Add alternative spelling
 			return "#EA8389";
 		case "returned":
 			return "#FF985D";
+		case "in transit": // Add additional status
+			return "#87CEEB"; // Example color for "in transit"
+		case "pending": // Add additional status
+			return "#FFA500"; // Example color for "pending"
 		default:
 			return "#5D5D4C";
 	}

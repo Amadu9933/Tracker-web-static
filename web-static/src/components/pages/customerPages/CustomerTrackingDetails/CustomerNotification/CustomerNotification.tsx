@@ -4,6 +4,8 @@ import CustomizedTables from "./HistoryTable";
 import RecentUpdate from "./RecentUpdate";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CircularProgress from "./Data";
+
+
 const CustomerNotification: React.FC = () => {
 	const { email } = useParams<{ email: string }>();
 	const navigate = useNavigate();
