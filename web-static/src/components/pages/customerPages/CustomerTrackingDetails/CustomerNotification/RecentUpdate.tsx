@@ -7,22 +7,40 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+/**
+ * Returns the color associated with the given status.
+ *
+ * @param {string} status - The status to get the color for.
+ * @return {string} The color associated with the given status.
+ */
 const getStatusColor = (status: string) => {
-	switch (status.trim().toLowerCase()) {
+	console.log(`Getting color for status: "${status}"`);
+
+	const trimmedStatus = status.trim().toLowerCase();
+	console.log(`Trimmed status: "${trimmedStatus}"`);
+
+	switch (trimmedStatus) {
 		case "delivered":
+			console.log(`Color for status "delivered": #B4D479`);
 			return "#B4D479";
 		case "on the way":
+			console.log(`Color for status "on the way": #FFE393`);
 			return "#FFE393";
 		case "cancelled":
 		case "canceled": // Add alternative spelling
+			console.log(`Color for status "cancelled" or "canceled": #EA8389`);
 			return "#EA8389";
 		case "returned":
+			console.log(`Color for status "returned": #FFC19E`);
 			return "#FFC19E";
 		case "in transit": // Add additional status
-			return "#87CEEB"; // Example color for "in transit"
+			console.log(`Color for status "in transit": #87CEEB`);
+			return "#87CEEB";
 		case "pending": // Add additional status
-			return "#FFA500"; // Example color for "pending"
+			console.log(`Color for status "pending": #FFA500`);
+			return "#FFA500";
 		default:
+			console.log(`Color for default status: #000000`);
 			return "#000000"; // Default color
 	}
 };
@@ -42,6 +60,12 @@ interface RecentUpdateProps {
 	trackingData: TrackingDataItem[];
 }
 
+/**
+ * Renders a table of recent updates based on the tracking data passed in as a prop.
+ *
+ * @param {RecentUpdateProps} props - The props object containing the tracking data.
+ * @return {JSX.Element|null} The rendered table of recent updates, or null if the tracking data is not an array.
+ */
 const RecentUpdate: React.FC<RecentUpdateProps> = ({ trackingData = [] }) => {
 	if (!Array.isArray(trackingData)) {
 		console.error(

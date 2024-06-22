@@ -1,6 +1,11 @@
 import React from "react";
 import { APIProvider, Map as GoogleMap } from "@vis.gl/react-google-maps";
 
+/**
+ * Renders a map component using the Google Maps API.
+ *
+ * @return {ReactElement} The rendered map component.
+ */
 const MapComponent: React.FC = () => {
 	const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 	console.log("API Key:", apiKey);

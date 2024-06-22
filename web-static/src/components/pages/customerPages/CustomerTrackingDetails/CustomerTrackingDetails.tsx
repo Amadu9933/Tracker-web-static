@@ -5,6 +5,11 @@ import Carbon from "../../../../assets/carbon_delivery-parcel.png";
 import Button from "@mui/material/Button"; // Importing Button component from Material-UI
 import { Link } from "react-router-dom";
 
+/**
+ * Renders the customer tracking details component.
+ *
+ * @return {JSX.Element} The rendered customer tracking details component.
+ */
 const CustomerTrackingDetails: React.FC = () => {
 	// Define Button styling
 	const buttonStyles = {
@@ -32,6 +37,9 @@ const CustomerTrackingDetails: React.FC = () => {
 		width: { xs: "contain", md: "100%" },
 		marginLeft: { xs: "0", md: "0" },
 	};
+
+	console.log("Rendering CustomerTrackingDetails component");
+
 	return (
 		<div className="  justify-right ">
 			<div className="flex justify-center mb-10 ">
@@ -41,10 +49,10 @@ const CustomerTrackingDetails: React.FC = () => {
 						src={Back}
 						alt="return"
 					/>
-				</Link>{" "}
+				</Link>
 				<h1 className="font-bold  text-[#354755] md:text-[3.5rem] text-2xl ">
 					Track your parcel today!
-				</h1>{" "}
+				</h1>
 			</div>
 			<div className=" flex justify-center">
 				<div

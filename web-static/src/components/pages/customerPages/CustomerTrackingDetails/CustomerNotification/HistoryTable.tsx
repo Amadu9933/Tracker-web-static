@@ -46,6 +46,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
+/**
+ * Returns the color associated with the given status.
+ *
+ * @param {string} status - The status to get the color for.
+ * @return {string} The color associated with the given status.
+ */
 const getStatusColor = (status: string) => {
 	switch (status.trim().toLowerCase()) {
 		case "delivered":
@@ -64,6 +70,12 @@ const getStatusColor = (status: string) => {
 	}
 };
 
+/**
+ * Formats a given datetime string into a JSX element with the date on one line and the time on the next line.
+ *
+ * @param {string} datetime - The datetime string to format.
+ * @return {JSX.Element} The formatted JSX element.
+ */
 const formatDateTime = (datetime: string) => {
 	const [date, time] = datetime.split(" ");
 	return (
@@ -79,6 +91,12 @@ interface CustomizedTablesProps {
 	trackingData: any[];
 }
 
+/**
+ * Renders a table of tracking data with columns for tracking number, date ordered, date delivered, and status.
+ *
+ * @param {CustomizedTablesProps} props - The props object containing the tracking data.
+ * @return {JSX.Element|null} The rendered table of tracking data, or null if the tracking data is not an array.
+ */
 const CustomizedTables: React.FC<CustomizedTablesProps> = ({
 	trackingData = [],
 }) => {

@@ -2,17 +2,30 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+/**
+ * Renders a table with tracking details based on the provided tracking number.
+ *
+ * @return {JSX.Element} A table with tracking details or an error message if an error occurred.
+ */
 const DetailTable: React.FC = () => {
 	const { trackingNumber } = useParams<{ trackingNumber: string }>();
 	const [trackingData, setTrackingData] = useState<any | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
+		/**
+		 * Fetches tracking details for a given tracking number and filters the response data to include only the desired fields.
+		 *
+		 * @return {Promise<void>} - A promise that resolves when the tracking details are fetched and filtered successfully, or rejects with an error if an error occurs.
+		 */
 		const fetchTrackingDetails = async () => {
+			console.log("Fetching tracking details for:", trackingNumber);
 			try {
 				const response = await axios.get(
 					`http://172.232.4.147:8000/api/v1/tracking/${trackingNumber}/`
 				);
+
+				console.log("Response data:", response.data);
 
 				// Filter the tracking data to include only the desired fields
 				const filteredData = {
@@ -23,6 +36,7 @@ const DetailTable: React.FC = () => {
 					Vendor: response.data.vendor,
 					Status: response.data.status,
 				};
+				console.log("Filtered data:", filteredData);
 				setTrackingData(filteredData);
 				setError(null);
 			} catch (error: any) {
@@ -34,10 +48,12 @@ const DetailTable: React.FC = () => {
 	}, [trackingNumber]);
 
 	if (error) {
+		console.log("Error:", error);
 		return <p className="text-2xl">Error: {error}</p>;
 	}
 
 	if (!trackingData) {
+		console.log("Loading data...");
 		return <p className="text-2xl">Loading data...</p>;
 	}
 
@@ -46,21 +62,24 @@ const DetailTable: React.FC = () => {
 			<table>
 				<tbody>
 					{/* Iterate over the filtered data to create rows */}
-					{Object.entries(trackingData).map(([key, value], index) => (
-						<tr key={index}>
-							<td className="text-left md:pr-36 pr-4">{key}</td>
-							<td
-								className={
-									key === "Status" && value === "Pending"
-										? "text-[#6EA011] text-left"
-										: key === "Parcel number"
-											? "text-[#FF833C] text-left"
-											: "text-left py-[8px]"
-								}>
-								{String(value)}
-							</td>
-						</tr>
-					))}
+					{Object.entries(trackingData).map(([key, value], index) => {
+						console.log("Row data:", { key, value });
+						return (
+							<tr key={index}>
+								<td className="text-left md:pr-36 pr-4">{key}</td>
+								<td
+									className={
+										key === "Status" && value === "Pending"
+											? "text-[#6EA011] text-left"
+											: key === "Parcel number"
+												? "text-[#FF833C] text-left"
+												: "text-left py-[8px]"
+									}>
+									{String(value)}
+								</td>
+							</tr>
+						);
+					})}
 				</tbody>
 			</table>
 		</div>

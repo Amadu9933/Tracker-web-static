@@ -21,6 +21,11 @@ interface TrackingData {
 	rider: string | null;
 }
 
+/**
+ * Fetch tracking details for a given tracking number.
+ *
+ * @return {void}
+ */
 const UserInfo: React.FC = () => {
 	const [trackingNumber, setTrackingNumber] = useState<string>("");
 	const [trackingData, setTrackingData] = useState<TrackingData | null>(null);
@@ -28,13 +33,16 @@ const UserInfo: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const fetchTrackingDetails = async () => {
+		console.log("Fetching tracking details for:", trackingNumber);
 		setLoading(true);
 		try {
 			const response = await axios.get(
 				`http://54.161.253.204:3000/api/tracking/${trackingNumber}/`
 			);
+			console.log("Tracking details fetched successfully:", response.data);
 			setTrackingData(response.data);
 		} catch (error: any) {
+			console.error("Error fetching tracking details:", error);
 			if (error.response) {
 				setError("Failed to fetch tracking details");
 			} else if (error.request) {
@@ -44,12 +52,12 @@ const UserInfo: React.FC = () => {
 			} else {
 				setError(error.message);
 			}
-			console.error("Error fetching tracking details:", error);
 		}
 		setLoading(false);
 	};
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		console.log("Input value changed:", event.target.value);
 		setTrackingNumber(event.target.value);
 	};
 
@@ -57,6 +65,7 @@ const UserInfo: React.FC = () => {
 		event: React.KeyboardEvent<HTMLInputElement>
 	) => {
 		if (event.key === "Enter") {
+			console.log("Enter key pressed");
 			setError(null); // Clear previous errors
 			await fetchTrackingDetails();
 		}
