@@ -1,11 +1,11 @@
-import React from "react";
+import Hero from "./Hero/Hero";
 
 const LandingPage: React.FC = () => {
 	return (
-		<div>
-			{" "}
-			<p> LandingPage page </p>
+		<div className=" ">
+			<Hero />
 		</div>
 	);
 };
+
 export default LandingPage;

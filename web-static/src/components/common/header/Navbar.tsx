@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
-//import Link from "@mui/material/Link";
+
 import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
 	];
 
 	return (
-		<div>
+		<div className="px-7">
 			{/* Top-level container for the entire Navigation bar */}
 			<AppBar
 				position="static"
@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
 					boxShadow: "none",
 				}}>
 				{/* Toolbar containing various sections */}
-				<Toolbar sx={{ justifyContent: "space-between", padding: "1.5rem" }}>
+				<Toolbar sx={{ justifyContent: "space-between" }}>
 					{/* Logo section */}
 					<IconButton
 						size="large"
@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
 							display: { xs: "none", md: "flex", lg: "flex" },
 							alignItems: "center",
 							fontWeight: 500,
-							fontSize: "1rem",
+							fontSize: "0.875rem",
 						}}>
 						{menuItems.map((item, index) => (
 							<NavLink

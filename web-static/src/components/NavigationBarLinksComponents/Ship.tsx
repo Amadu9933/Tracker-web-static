@@ -1,10 +1,10 @@
-import React from "react";
-import CustomerTrackingDetailLayout from "../pages/customerPages/CustomerTrackingDetails/CustomerTrackingDetailLayout";
-import Data from "../pages/customerPages/CustomerTrackingDetails/CustomerNotification/Data";
+import LandingPage from "@components/pages/BusinessOwnerPages/LandingPage/LandingPage";
+
 const Ship: React.FC = () => {
 	return (
-		<div>
-			<Data />
+		<div className="">
+			{/* landing page for buisness owener */}
+			<LandingPage />
 		</div>
 	);
 };

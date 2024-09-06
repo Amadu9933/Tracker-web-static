@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import CustomizedTables from "./HistoryTable";
 import RecentUpdate from "./RecentUpdate";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";

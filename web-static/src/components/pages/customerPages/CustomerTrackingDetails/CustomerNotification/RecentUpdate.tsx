@@ -1,4 +1,3 @@
-import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -105,10 +104,11 @@ const RecentUpdate: React.FC<RecentUpdateProps> = ({ trackingData = [] }) => {
 											borderRadius: "50%",
 											marginRight: "8px",
 										}}></span>
-									Your order - {item.parcel_number} {item.details.status1}
+									Your order - {item.details.status1}
 									<div style={{ color: "#A3A38E", marginLeft: "25px" }}>
 										{item.details.status2}
 									</div>
+									s
 								</TableCell>
 								<TableCell align="right" style={{ color: "#5D5D4C" }}>
 									<div>{item.date_of_purchase}</div>

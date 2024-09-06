@@ -11,7 +11,7 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "react",
+		"jsx": "react-jsx",
 		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
@@ -19,8 +19,8 @@
 		"typeRoots": ["node_modules/@types", "src/types"], // <-- Add this line
 		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["*"],
-			"@testing-library/jest-dom": ["node_modules/@testing-library/jest-dom"]
+			"@components/*": ["./components/*"]
+			//"@testing-library/jest-dom": ["node_modules/@testing-library/jest-dom"]
 		}
 	}
 }
