@@ -1,11 +1,18 @@
 // TrackingSection.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./TrackingSection.css";
-import logo from "../../../assets/carbon_delivery-parcel.png";
+import { Carbon } from "../../../assets/asset";
 import Button from "@mui/material/Button";
 import ModalSection from "./ModalSection";
 
+/**
+ * The TrackingSection component renders a section for the user to enter a
+ * tracking number and view the tracking history. It also renders a button
+ * to view the tracking history.
+ *
+ * @return {JSX.Element} The rendered TrackingSection component.
+ */
 const TrackingSection: React.FC = () => {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
@@ -27,7 +34,7 @@ const TrackingSection: React.FC = () => {
 	return (
 		<section className="track-section">
 			<div className="track-container">
-				<img src={logo} alt="Logo" className="carbon-delivery" />
+				<img src={Carbon} alt="Logo" className="carbon-delivery" />
 				<h2>Parcel Tracking</h2>
 				<div className="enter-tracking">
 					<p>Tracking I.D</p>

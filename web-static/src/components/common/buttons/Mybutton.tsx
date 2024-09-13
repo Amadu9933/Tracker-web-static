@@ -1,14 +1,6 @@
-import React from "react";
 import "./Mybutton.css";
 
-// Props for MyButton component
-interface MyButtonProps {
-	onClick: () => void; // Function to be executed on button click
-	label: string; // Text content of the button
-	state?: "Primary" | "Secondary"; // Button state, defaults to 'Primary'
-	size?: "Small" | "Medium" | "Large" | "mobile"; // Button size, defaults to 'Medium'
-	background?: string; // Background color of the button, defaults to '#FF833C'
-}
+import { MyButtonProps } from "../../../types/types";
 
 // MyButton functional component
 const MyButton: React.FC<MyButtonProps> = ({

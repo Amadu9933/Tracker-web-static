@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "@mui/material/Button"; // Importing Button component from Material-UI
 
 const Footer: React.FC = () => {

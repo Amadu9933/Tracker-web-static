@@ -1,12 +1,13 @@
 import Container from "@mui/material/Container";
 import ScopedCssBaseline from "@mui/material/ScopedCssBaseline";
-import BownerBaground from "@components/assets/BownerBaground.png";
-import smallBox from "@components/assets/smallBox.svg";
+
+import { BownerBaground, smallBox } from "../.././../../../assets/asset";
+
 import TopContainer from "./TopContainer";
 
 const BusinessOwnerLandingPage: React.FC = () => {
 	return (
-		<div className="mb-[500px] px-0 mx-0">
+		<div className="px-0 mx-0">
 			<ScopedCssBaseline />
 			<Container maxWidth="xl" sx={{ padding: "0 !important" }}>
 				<div

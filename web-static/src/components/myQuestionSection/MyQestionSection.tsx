@@ -1,7 +1,5 @@
-import React from "react";
-import robot from "../../../src/assets/robot.png";
+import { robot } from "../../assets/asset";
 
-// MyQuestionSection component renders a section for asking questions
 const MyQuestionSection: React.FC = () => {
 	return (
 		<section className="justify-center md:flex block  text-[#354755] md:px-0 px-5">

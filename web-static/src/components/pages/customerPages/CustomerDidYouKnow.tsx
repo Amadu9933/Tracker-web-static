@@ -1,10 +1,12 @@
-// Navbar.tsx
-import React from "react";
-import fristImage from "../../../assets/first-image.png";
-import thirdImage from "../../../assets/third-image.png";
-import secondImage from "../../../assets/second-image.png";
-import fourthImage from "../../../assets/fourth-image.png";
+import {
+	firstImage,
+	secondImage,
+	thirdImage,
+	fourthImage,
+} from "../../../assets/asset";
+
 import Button from "@mui/material/Button";
+
 
 const CustomerDidYouKnow: React.FC = () => {
 	return (
@@ -16,7 +18,7 @@ const CustomerDidYouKnow: React.FC = () => {
 					<div className="md:w-36 md:h-36 md:rounded-full w-16 h-16 rounded-full">
 						<img
 							className="md:w-36 md:h-36 md:rounded-full w-16 h-16 rounded-full"
-							src={fristImage}
+							src={firstImage}
 							alt=""
 						/>
 					</div>

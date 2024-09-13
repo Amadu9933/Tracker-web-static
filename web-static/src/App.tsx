@@ -1,16 +1,15 @@
-
-import "@App.css";
-import "@index.css";
+import "./App.css";
+import "./index.css";
 import { Routes, Route } from "react-router-dom";
-import Layout from "@components/Rou/Layout";
-import Ship from "@components/NavigationBarLinksComponents/Ship";
-import LogisticSolution from "@components/NavigationBarLinksComponents/LogisticSolution";
-import Intergration from "@components/NavigationBarLinksComponents/Intergration";
-import NeedHelp from "@components/NavigationBarLinksComponents/NeedHelp";
-import Login from "@components/NavigationBarLinksComponents/Login";
-import CustomerLandingPage from "@components/pages/customerPages/CustomerLandingPage";
-import CustomerTrackingDetailLayout from "@components/pages/customerPages/CustomerTrackingDetails/CustomerTrackingDetailLayout";
-import CustomerNotification from "@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CustomerNotification";
+import Layout from "../src/components/Rou/Layout";
+import Ship from "../src/components/NavigationBarLinksComponents/Ship";
+import LogisticSolution from "../src/components/NavigationBarLinksComponents/LogisticSolution";
+import Intergration from "../src/components/NavigationBarLinksComponents/Intergration";
+import NeedHelp from "../src/components/NavigationBarLinksComponents/NeedHelp";
+import Login from "../src/components/NavigationBarLinksComponents/Login";
+import CustomerLandingPage from "../src/components/pages/customerPages/CustomerLandingPage";
+import CustomerTrackingDetailLayout from "../src/components/pages/customerPages/CustomerTrackingDetails/CustomerTrackingDetailLayout";
+import CustomerNotification from "../src/components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CustomerNotification";
 
 const App: React.FC = () => {
 	return (

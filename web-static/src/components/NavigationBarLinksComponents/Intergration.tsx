@@ -1,5 +1,3 @@
-import React from "react";
-
 import UserInfo from "../pages/ParcelHistory";
 
 const Intergration: React.FC = () => {

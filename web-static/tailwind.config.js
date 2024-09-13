@@ -8,9 +8,6 @@ export default {
 				secondary: "#354755",
 				neutral: "#C6C5B9",
 			},
-			padding: {
-				bodyMargin: "100px",
-			},
 		},
 	},
 	plugins: [],

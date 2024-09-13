@@ -1,8 +1,8 @@
-import React from "react";
 import DetailTable from "./DetailTable";
-import Back from "../../../../assets/ep_back.png";
-import Carbon from "../../../../assets/carbon_delivery-parcel.png";
-import Button from "@mui/material/Button"; // Importing Button component from Material-UI
+
+import { Back, Carbon } from "../../../../assets/asset";
+import Button from "@mui/material/Button";
+
 import { Link } from "react-router-dom";
 
 /**

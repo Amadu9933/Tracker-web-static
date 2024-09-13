@@ -11,9 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import CloseIcon from "@mui/icons-material/Close";
 import "./Navbar.css";
 
-// Importing assets
-import profileIcon from "../../../assets/iconoir_profile-circle.png";
-import logo from "../../../assets/Logo.png";
+import { logo, profileIcon } from "../../../assets/asset";
 
 const Navbar: React.FC = () => {
 	// State for handling the Menu component

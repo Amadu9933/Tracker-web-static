@@ -1,25 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-
-interface TrackingData {
-	id: number;
-	parcel_number: string;
-	date_of_purchase: string;
-	delivery_date: string;
-	shipping_address: string;
-	latitude: string | null;
-	longitude: string | null;
-	destination_lat: string;
-	destination_lng: string;
-	rider_email: string | null;
-	realtime_location: string | null;
-	country: string;
-	product_name: string;
-	quantity: number;
-	status: string;
-	vendor: string;
-	rider: string | null;
-}
+import { TrackingData } from "../../types/types";
 
 /**
  * Fetch tracking details for a given tracking number.
