@@ -1,7 +1,7 @@
 import { howItWorks } from "../guideSection/assets/index";
 const LandingPage: React.FC = () => {
 	return (
-		<div className="px-36">
+		<div className="">
 			<h1 className="text-3xl  text-secondary mt-16">How it works</h1>
 
 			<div className="flex justify-between mt-20">
