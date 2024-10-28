@@ -1,9 +1,9 @@
-import CircularProgress from "../pages/customerPages/CustomerTrackingDetails/CustomerNotification/Data";
+import TabComponent from "@components/pages/BusinessOwnerPages/authentication/createAcount/TabComponent";
 
 const NeedHelp: React.FC = () => {
 	return (
 		<div>
-			<CircularProgress />
+			<TabComponent />
 		</div>
 	);
 };
