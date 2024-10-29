@@ -1,5 +1,12 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@components/*": ["src/components/*"],
+			"@common/*": ["src/components/common/*"],
+			"@NavigationBarLinksComponents/*": ["src/components/NavigationBarLinksComponents/*"],
+			"@pages/*": ["src/components/pages/*"],
+		},
 		"target": "ES2020",
 		"useDefineForClassFields": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -17,12 +24,7 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
 		"typeRoots": ["node_modules/@types", "src/types"],
-		"baseUrl": "./src",
-		"paths": {
-			"@components/*": ["components/*"],
-			"@assets/*": ["assets/*"],
-			"@styles/*": ["styles/*"]
-		}
+		
 	},
 	"include": ["src"]
 }

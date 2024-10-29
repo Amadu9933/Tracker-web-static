@@ -5,7 +5,7 @@ import WhyChooseUs from "./WhyChooseUs/WhyChooseUs";
 import ReadyTo from "./ReadyTo/ReadyTo";
 import YouCanTrustUs from "./YouCanTrustUs/YouCanTrustUs";
 import MyQuestionSection from "../../../myQuestionSection/MyQestionSection";
-import Footer from "../../../common/footer/Footer";
+import Footer from "@common/footer/Footer";
 
 const LandingPage: React.FC = () => {
 	return (
