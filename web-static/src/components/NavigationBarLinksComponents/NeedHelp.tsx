@@ -1,4 +1,4 @@
-import TabComponent from "@components/pages/BusinessOwnerPages/authentication/createAcount/TabComponent";
+import TabComponent from "@components/pages/businessOwnerPages/authentication/createAcount/TabComponent";
 
 const NeedHelp: React.FC = () => {
 	return (

@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import ScopedCssBaseline from "@mui/material/ScopedCssBaseline";
 
-import { BownerBaground, smallBox } from "../.././../../../assets/asset";
+import { BownerBaground, smallBox } from "../../../../../assets/asset";
 
 import TopContainer from "./TopContainer";
 
