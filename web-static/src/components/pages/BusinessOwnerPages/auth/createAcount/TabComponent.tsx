@@ -8,13 +8,15 @@ const TabComponent: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState<string>('business');
 
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Create account</h1>
+        <div className="text-left max-w-md mx-auto text-left   bg-white shadow-md rounded-lg">
+            <h1 className="text-2xl pl-4 font-bold mb-3">Create account</h1>
             {/* Radio Button Selector Component */}
-            <TabSelector selectedTab={selectedTab} onTabChange={setSelectedTab} />
+            <div className="pl-4">
+              <TabSelector  selectedTab={selectedTab} onTabChange={setSelectedTab} />
+            </div>
 
             {/* Conditionally render the correct content */}
-            <div className="mt-6">
+            <div className="">
                 {selectedTab === 'business' ? <FormsContainer /> : <LogisticInformation />}
             </div>
         </div>
