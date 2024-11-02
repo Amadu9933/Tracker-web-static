@@ -16,7 +16,6 @@ const AppRoutes: React.FC = () => (
     <Routes>
       {/* Layout wraps all routes */}
       <Route path="/" element={<Layout />}>
-      
         {/* Index route for the home page */}
         <Route index element={<TrackYourParcel />} />
 

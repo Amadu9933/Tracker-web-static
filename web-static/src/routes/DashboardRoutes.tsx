@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import DashboardLayout from '@components/pages/businessOwnerPages/dashboard/DashboardLayout';
 
 // Lazy load dashboard components
-const Dashboard = lazy(() => import('@components/pages/businessOwnerPages/Dashboard'));
+const Dashboard = lazy(() => import('@components/pages/businessOwnerPages/dashboard/Dashboard'));
 
 const DashboardRoutes: React.FC = () => (
   <Suspense fallback={<div>Loading dashboard...</div>}>
