@@ -4,7 +4,7 @@ import "../../../../index.css";
 import Footer from "../../../common/footer/Footer";
 import MyQestionSection from "../../../myQuestionSection/MyQestionSection";
 import CustomerTrackingDetails from "./CustomerTrackingDetails";
-
+ 
 /**
  * Customer Tracking Detail Layout component.
  *

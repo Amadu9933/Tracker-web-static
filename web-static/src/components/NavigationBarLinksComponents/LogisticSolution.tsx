@@ -1,4 +1,4 @@
-import CustomerNotification from "../pages/customerPages/CustomerTrackingDetails/CustomerNotification/CustomerNotification";
+import CustomerNotification from "../pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification";
 
 const LogisticSolution: React.FC = () => {
 	return (

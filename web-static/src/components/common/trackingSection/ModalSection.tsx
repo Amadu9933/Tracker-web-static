@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import CircularProgress from "../../pages/customerPages/CustomerTrackingDetails/CustomerNotification/Data";
+import CircularProgress from "../../pages/customerPages/customerTrackingDetails/customerNotification/Data";
 
 const style = {
 	position: "absolute" as "absolute",
