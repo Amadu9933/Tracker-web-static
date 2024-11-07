@@ -1,13 +1,12 @@
-import React, { Suspense } from "react";
-import { Outlet } from "react-router-dom";
-import Navbar from "@components/common/header/Navbar";  
-
+import React, { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from '@components/common/header/Navbar';
 
 const Layout: React.FC = () => {
   return (
     <>
       <header>
-        <Navbar />  
+        <Navbar />
       </header>
 
       {/* Wrap the main content with Suspense for lazy-loaded routes */}
@@ -16,12 +15,11 @@ const Layout: React.FC = () => {
           {/* Outlet will render the active route */}
           <Outlet />
         </Suspense>
-        
       </main>
 
       {/* Optional footer if needed */}
       <footer>
-        <p>© 2024 Your Company</p>
+
       </footer>
     </>
   );

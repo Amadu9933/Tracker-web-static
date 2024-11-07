@@ -1,75 +1,65 @@
-
-
-
-.card-section{
-    background-color: hsl(200, 20%, 97%);
-    margin-top: 50px;
-    height: 28rem;
-    padding-top: 57px;
+.card-section {
+  background-color: hsl(200, 20%, 97%);
+  margin-top: 50px;
+  height: 28rem;
+  padding-top: 57px;
 }
-.card-section h2{
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    font-size: 1.5rem;
+.card-section h2 {
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
 }
 
-.cards-container{
-    display: flex;
-    text-align: center;
-    justify-content: space-between;
-    margin-left: 120px;
-    margin-right: 120px;
-    margin-top: 25px;
+.cards-container {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  margin-left: 120px;
+  margin-right: 120px;
+  margin-top: 25px;
 }
 
-.card{
-    display: block;
-    text-align: center;
-    width: 22rem;
-    height: 17rem;
-    
-    
+.card {
+  display: block;
+  text-align: center;
+  width: 22rem;
+  height: 17rem;
 }
 
-.number{
-    background-color: #FFFFFF;
-    color: black;
-    height: 6.25rem;
-    width: 5.719rem;
-    display: inline-block;
-    border-radius: 3.125rem;
-    padding: 2rem;
-    margin-bottom: -2.5rem;
-    font-size: 24px
-;
+.number {
+  background-color: #ffffff;
+  color: black;
+  height: 6.25rem;
+  width: 5.719rem;
+  display: inline-block;
+  border-radius: 3.125rem;
+  padding: 2rem;
+  margin-bottom: -2.5rem;
+  font-size: 24px;
 }
 
-
-.card-content{
-    background-color:#354755;
-    height: 78%;
-    width: 100%;
-    padding-top: 2.5rem;
-    color: white;
-    border-radius: 0.5rem;
-    
+.card-content {
+  background-color: #354755;
+  height: 78%;
+  width: 100%;
+  padding-top: 2.5rem;
+  color: white;
+  border-radius: 0.5rem;
 }
-.card-content h2{
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-family: 'Inter', sans-serif;
-   
+.card-content h2 {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-family: 'Inter', sans-serif;
 }
-.card-content p{
-    font-size: 0.875rem;
-    text-align: center;
-    margin: 0.625rem;
-    line-height: 1.3rem;
+.card-content p {
+  font-size: 0.875rem;
+  text-align: center;
+  margin: 0.625rem;
+  line-height: 1.3rem;
 }
 
-.OrderArrow{
-    margin-left: 250px;
-    height: 13px;
-    
+.OrderArrow {
+  margin-left: 250px;
+  height: 13px;
 }

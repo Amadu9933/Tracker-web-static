@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { Dashboard } from '../Dashboard';
-import * as userApi from '@api/users';  // Mock the user API
+import * as userApi from '@api/users'; // Mock the user API
 
 // Mock the getUserProfile API function
 jest.spyOn(userApi, 'getUserProfile').mockImplementation(async () => ({
@@ -36,7 +36,9 @@ describe('Dashboard Component', () => {
 
     // Wait for the error message to appear
     await waitFor(() => {
-      expect(screen.getByText(/Failed to load user profile/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Failed to load user profile/i)
+      ).toBeInTheDocument();
     });
   });
 });

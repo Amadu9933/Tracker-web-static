@@ -1,7 +1,7 @@
 // src/components/navigationBarLinksComponents/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../api/auth';  // Import mock login API
+import { loginUser } from '../../api/auth'; // Import mock login API
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -11,12 +11,12 @@ const Login: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');  // Clear any previous error
+    setError(''); // Clear any previous error
 
     try {
-      const { token } = await loginUser(email, password);  // Call the mock login API
-      localStorage.setItem('token', token);  // Store the mock token in localStorage
-      navigate('/dashboard');  // Redirect to dashboard after successful login
+      const { token } = await loginUser(email, password); // Call the mock login API
+      localStorage.setItem('token', token); // Store the mock token in localStorage
+      navigate('/dashboard'); // Redirect to dashboard after successful login
     } catch (err) {
       setError('Login failed. Please check your credentials.');
     }

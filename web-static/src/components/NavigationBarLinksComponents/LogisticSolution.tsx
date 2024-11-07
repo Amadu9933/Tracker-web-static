@@ -1,11 +1,11 @@
-import CustomerNotification from "../pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification";
+import CustomerNotification from '../pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification';
 
 const LogisticSolution: React.FC = () => {
-	return (
-		<div>
-			<CustomerNotification />
-		</div>
-	);
+  return (
+    <div>
+      <CustomerNotification />
+    </div>
+  );
 };
 
 export default LogisticSolution;

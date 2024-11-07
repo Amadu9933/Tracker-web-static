@@ -1,36 +1,33 @@
-
 /* button component styles */
 .my-button {
-    border-radius: 0.5rem;
-    gap: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .my-button:hover {
-    filter: brightness(90%);
-  }
-  
-  .bg-primary {
-    color: white;
-    height: 1.4;
-    width: 14rem;
-  }
-  
-  .bg-secondary {
-  
-    height: 2.5;
-    width: 29rem;
+  border-radius: 0.5rem;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  }
-  
-  .text-sm {
-    font-size: 0.875rem;
-  }
-  
-.text-base{
-    color: black;
-    width: 9.375rem;
-    height: 3rem;
-    font-size: 1rem;
+.my-button:hover {
+  filter: brightness(90%);
+}
+
+.bg-primary {
+  color: white;
+  height: 1.4;
+  width: 14rem;
+}
+
+.bg-secondary {
+  height: 2.5;
+  width: 29rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-base {
+  color: black;
+  width: 9.375rem;
+  height: 3rem;
+  font-size: 1rem;
 }

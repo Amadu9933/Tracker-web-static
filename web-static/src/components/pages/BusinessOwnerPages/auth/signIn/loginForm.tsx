@@ -1,7 +1,7 @@
 // src/components/auth/LoginForm.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../../../../api/auth';  // Import mock API
+import { loginUser } from '../../../../../api/auth'; // Import mock API
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -11,12 +11,12 @@ const LoginForm: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');  // Clear any previous error
+    setError(''); // Clear any previous error
 
     try {
-      const { token } = await loginUser(email, password);  // Call mock login
-      localStorage.setItem('token', token);  // Store the mock token
-      navigate('/dashboard');  // Redirect to dashboard
+      const { token } = await loginUser(email, password); // Call mock login
+      localStorage.setItem('token', token); // Store the mock token
+      navigate('/dashboard'); // Redirect to dashboard
     } catch (err) {
       setError('Login failed. Please check your credentials.');
     }

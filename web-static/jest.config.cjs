@@ -6,9 +6,9 @@ module.exports = {
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@api/(.*)$': '<rootDir>/src/api/$1',
   },
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],  
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',  
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],

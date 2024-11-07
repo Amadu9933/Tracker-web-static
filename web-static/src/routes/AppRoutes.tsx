@@ -1,12 +1,12 @@
 // src/routes/AppRoutes.tsx
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Layout from './Layout';             // Common layout (Navbar, Footer)
-import MainRoutes from './MainRoute';     // Public routes
+import Layout from './Layout'; // Common layout (Navbar, Footer)
+import MainRoutes from './MainRoute'; // Public routes
 import CustomerRoutes from './CustomerRoutes'; // Customer-specific routes
 import ProtectedRoute from './ProtectedRoute'; // Route protection logic
 import DashboardRoutes from './DashboardRoutes'; // Dashboard routes
-import UserRoute from './UserRoute';       // User-specific routes
+import UserRoute from './UserRoute'; // User-specific routes
 import TrackYourParcel from '@components/navigationBarLinksComponents/TrackYourParcel';
 
 const Loading = () => <div>Loading...</div>;

@@ -8,8 +8,10 @@ export default defineConfig({
     alias: {
       '@components': resolve(__dirname, 'src/components'),
       '@common': resolve(__dirname, 'src/components/common'),
-      '@NavigationBarLinksComponents': resolve(__dirname, 'src/components/NavigationBarLinksComponents'),
-
-    }
-  }
+      '@NavigationBarLinksComponents': resolve(
+        __dirname,
+        'src/components/NavigationBarLinksComponents'
+      ),
+    },
+  },
 });

@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
 const IDGeneration: React.FC = () => {
-	return (
-		<div>
-			{" "}
-			<p> IDGeneration page </p>
-		</div>
-	);
+  return (
+    <div>
+      {' '}
+      <p> IDGeneration page </p>
+    </div>
+  );
 };
 export default IDGeneration;

@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
 const ManageID: React.FC = () => {
-	return (
-		<div>
-			{" "}
-			<p> ManageID page </p>
-		</div>
-	);
+  return (
+    <div>
+      {' '}
+      <p> ManageID page </p>
+    </div>
+  );
 };
 export default ManageID;

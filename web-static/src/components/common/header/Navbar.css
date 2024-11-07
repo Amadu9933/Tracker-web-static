@@ -1,21 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
 
 /* Navbar.css */
 
 .Navbar:active {
-	color: black;
-	text-decoration: underline;
-	text-decoration-color: black;
-	color: red;
-	font-weight: bold;
-	padding-bottom: 5px;
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: black;
+  color: red;
+  font-weight: bold;
+  padding-bottom: 5px;
 }
 
 .Navbar:hover {
-	color: black;
-	text-decoration: underline;
-	text-decoration-color: black;
-	color: red;
-	font-weight: bold;
-	padding-bottom: 5px;
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: black;
+  color: red;
+  font-weight: bold;
+  padding-bottom: 5px;
 }
