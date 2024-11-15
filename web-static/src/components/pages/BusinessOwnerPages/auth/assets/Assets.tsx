@@ -1,0 +1,1 @@
+export { default as createAccont } from './createAccont.png';

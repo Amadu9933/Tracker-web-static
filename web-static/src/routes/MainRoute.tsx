@@ -19,6 +19,13 @@ const NeedHelp = lazy(
 const Login = lazy(
   () => import('@components/navigationBarLinksComponents/Login')
 );
+const BuissnessInfoForm = lazy(
+  () => import('@components/pages/businessOwnerPages/auth/createAcount/BuissnessOwnerForms/BuissnessInfoForm')
+);
+const LoginForm = lazy(
+  () => import('@components/pages/businessOwnerPages/auth/signIn/loginForm')
+);
+
 
 const MainRoutes: React.FC = () => (
   <Suspense fallback={<CircularProgress />}>
@@ -28,6 +35,9 @@ const MainRoutes: React.FC = () => (
       <Route path="Intergration" element={<Intergration />} />
       <Route path="NeedHelp" element={<NeedHelp />} />
       <Route path="Login" element={<Login />} />
+      <Route path="/Business-info" element={<BuissnessInfoForm />} />
+      <Route path="/Sign-in" element={<LoginForm />} />
+
     </Routes>
   </Suspense>
 );

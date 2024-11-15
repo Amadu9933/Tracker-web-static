@@ -1,9 +1,13 @@
 import UserInfo from '../pages/ParcelHistory';
+import BuissnessInfoForm from '@components/pages/businessOwnerPages/auth/createAcount/BuissnessOwnerForms/BuissnessInfoForm'
+
 
 const Intergration: React.FC = () => {
   return (
-    <div>
-      <p className="text-6x">Intergration</p>
+    <div className='px-36'>
+
+      <BuissnessInfoForm />
+
     </div>
   );
 };

@@ -8,7 +8,7 @@ const TabSelector: React.FC<TabSelectorProps> = ({
   onTabChange,
 }) => {
   return (
-    <div className="text-base font-inter text-secondary">
+    <div className="text-base mb-6 font-inter text-secondary">
       <label>
         <input
           type="radio"
