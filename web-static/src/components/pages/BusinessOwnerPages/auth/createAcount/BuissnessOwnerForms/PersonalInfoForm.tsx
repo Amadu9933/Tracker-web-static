@@ -1,8 +1,11 @@
+// src/components/BuissnessOwnerForms/PersonalInfoForm.tsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link and useNavigate
+import { useNavigate, Link } from 'react-router-dom';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
 type PersonalInfoFormData = {
   name: string;
@@ -13,23 +16,14 @@ type PersonalInfoFormData = {
 
 // Yup validation schema
 const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required('Name is required')
-    .min(2, 'Name must be at least 2 characters'),
+  name: yup.string().required('Name is required').min(2, 'Name must be at least 2 characters'),
   email: yup.string().email('Invalid email').required('Email is required'),
-  phone: yup
-    .string()
-    .required('Phone number is required')
-    .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 characters'),
+  phone: yup.string().required('Phone number is required').matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
+  password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
 });
 
 const PersonalInfoForm: React.FC = () => {
-  const navigate = useNavigate(); // Initialize useNavigate for navigation
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -40,27 +34,22 @@ const PersonalInfoForm: React.FC = () => {
 
   const onSubmit = (data: PersonalInfoFormData) => {
     console.log('Form Data:', data);
-    navigate('/business-info'); // Navigate to the BusinessInfo component
+    navigate('/business-info');
   };
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   return (
-    <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="mr-20 mx-auto text-left text-secondary bg-white"
-      >
+    <div className="flex flex-col  justify-center h-full">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+
+        <div className="flex justify-between mb-8">
+          <p className="text-lg text-secondary">Personal information</p>
+          <p className="text-sm text-[#82826A]">Step 1 of 3</p>
+        </div>
         {/* Name Field */}
-        <div className="mb-4">
-          <div className="flex justify-between mb-8">
-            <p className="text-lg">Personal information</p>
-            <p className="text-sm text-[#82826A]">Step 1 of 3</p>
-          </div>
+        <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name
           </label>
@@ -68,17 +57,15 @@ const PersonalInfoForm: React.FC = () => {
             id="name"
             type="text"
             {...register('name')}
-            className={`mt-1 p-2 placeholder-[#A3A38E] placeholder-left border rounded-md w-full ${errors.name ? 'border-red-500' : 'border-gray-300'
+            className={`mt-1 p-2 border placeholder-[#A3A38E] rounded-md w-full ${errors.name ? 'border-red-500' : 'border-gray-300'
               }`}
-            placeholder="Amau Hamza"
+            placeholder="Your Name"
           />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-          )}
+          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
         </div>
 
         {/* Email Field */}
-        <div className="mb-4">
+        <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Email
           </label>
@@ -88,15 +75,13 @@ const PersonalInfoForm: React.FC = () => {
             {...register('email')}
             className={`mt-1 p-2 border placeholder-[#A3A38E] rounded-md w-full ${errors.email ? 'border-red-500' : 'border-gray-300'
               }`}
-            placeholder="hamza@gmail.com"
+            placeholder="example@example.com"
           />
-          {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
         </div>
 
         {/* Phone Number Field */}
-        <div className="mb-4">
+        <div>
           <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
             Phone Number
           </label>
@@ -104,17 +89,15 @@ const PersonalInfoForm: React.FC = () => {
             id="phone"
             type="tel"
             {...register('phone')}
-            className={`mt-1 p-2 placeholder-[#A3A38E] border rounded-md w-full ${errors.phone ? 'border-red-500' : 'border-gray-300'
+            className={`mt-1 p-2 border placeholder-[#A3A38E] rounded-md w-full ${errors.phone ? 'border-red-500' : 'border-gray-300'
               }`}
-            placeholder="+233540985004"
+            placeholder="1234567890"
           />
-          {errors.phone && (
-            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
-          )}
+          {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
         </div>
 
-        {/* Password Field with Toggle */}
-        <div className="mb-4 relative">
+        {/* Password Field */}
+        <div className="relative">
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             Password
           </label>
@@ -122,40 +105,34 @@ const PersonalInfoForm: React.FC = () => {
             id="password"
             type={showPassword ? 'text' : 'password'}
             {...register('password')}
-            className={`mt-1 p-2 border placeholder-[#A3A38E] rounded-md w-full ${errors.password ? 'border-red-500' : 'border-gray-300'
+            className={`mt-1 p-2 border rounded-md w-full ${errors.password ? 'border-red-500' : 'border-gray-300'
               }`}
+            placeholder="******"
           />
           <button
             type="button"
             onClick={togglePasswordVisibility}
-            className="absolute inset-y-0 right-0 mt-3 flex items-center justify-center h-full pr-3 text-gray-500"
+            className="absolute inset-y-0 mt-7 right-3 flex items-center text-gray-500"
           >
-            {showPassword ? '🙈' : '👁️'}
+            {showPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
           </button>
-          {errors.password && (
-            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
-          )}
+          {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
         </div>
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          className="bg-primary mt-8 text-white p-2 rounded-md w-full hover:bg-white hover:text-primary"
-        >
+        <button type="submit" className="w-full bg-primary text-white p-2 rounded-md ">
           Continue
         </button>
 
         {/* Sign In Link */}
-        <div className="text-center">
-          <p className="my-5">
-            Already have an account?{' '}
-            <Link to="/Sign-in" className="text-primary">
-              Sign in
-            </Link>
-          </p>
-        </div>
+        <p className="text-center text-sm mt-4">
+          Already have an account?{' '}
+          <Link to="/sign-in" className="text-primary hover:underline">
+            Sign in
+          </Link>
+        </p>
       </form>
-    </>
+    </div>
   );
 };
 

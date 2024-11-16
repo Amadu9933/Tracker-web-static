@@ -1,8 +1,8 @@
-import TabComponent from '@components/pages/businessOwnerPages/auth/createAcount/TabComponent';
+import TabComponent from '@components/pages/businessOwnerPages/auth/createAcount/BuissnessOwnerForms/FormsContainer'
 
 const NeedHelp: React.FC = () => {
   return (
-    <div>
+    <div className=''>
       <TabComponent />
     </div>
   );

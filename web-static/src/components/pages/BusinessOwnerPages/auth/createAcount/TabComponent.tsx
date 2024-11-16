@@ -1,39 +1,49 @@
-// src/components/TabComponent.tsx
+// src/components/BusinessTabComponent.tsx
 import React, { useState } from 'react';
 import TabSelector from './TabSelector';
-import FormsContainer from './BuissnessOwnerForms/FormsContainer';
-import LogisticInformation from './LogisticInformation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { createAccont } from '../assets/Assets'
+import { createAccont } from '../assets/Assets';
 
-const TabComponent: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState<string>('business');
+interface BusinessTabComponentProps {
+  initialTab?: string;
+  renderTabContent: (selectedTab: string) => React.ReactNode;
+}
+
+const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
+  initialTab = 'business',
+  renderTabContent,
+}) => {
+  const [selectedTab, setSelectedTab] = useState<string>(initialTab);
 
   return (
-    <div className='flex  '>
-      <div className='  w-[50%]'><img src={createAccont} alt="" className='w-[100%] -ml-12  h-[100%]' /></div>
-      <div className="text-left  text-left pt-20 px-12  w-[50%] rounded-lg">
+    <div className="flex h-[700px] flex-col md:flex-row h-screen bg-gray-100">
+      {/* Left Image Section */}
+      <div className="md:w-1/2 h-1/2 md:h-full bg-cover bg-white bg-center hidden md:block">
+        <img
+          src={createAccont}
+          alt="Create Account"
+          className="-ml-16 w-full h-full object-cover"
+        />
+      </div>
 
-        <h1 className="text-4xl  text-secondary font-bold mb-3">
-          {' '}
-          <ArrowBackIcon /> Create account
+      {/* Right Form Section */}
+      <div className="w-full md:w-1/2 bg-white pt-20 p-6 md:p-12 bg-white rounded-lg flex flex-col justify-center">
+        {/* Title Section */}
+        <h1 className="text-3xl font-bold text-gray-700 flex items-center mb-6">
+          <ArrowBackIcon className="mr-3" />
+          Create Account
         </h1>
-        {/* Radio Button Selector Component */}
-        <div className="">
-          <TabSelector selectedTab={selectedTab} onTabChange={setSelectedTab} />
-        </div>
 
-        {/* Conditionally render the correct content */}
-        <div className="">
-          {selectedTab === 'business' ? (
-            <FormsContainer />
-          ) : (
-            <LogisticInformation />
-          )}
+        {/* Tab Selector */}
+        <TabSelector selectedTab={selectedTab} onTabChange={setSelectedTab} />
+
+        {/* Tab Content */}
+        <div className="text-left mt-6 mr-20">
+          {renderTabContent(selectedTab)}
         </div>
       </div>
     </div>
   );
 };
 
-export default TabComponent;
+export default BusinessTabComponent;
