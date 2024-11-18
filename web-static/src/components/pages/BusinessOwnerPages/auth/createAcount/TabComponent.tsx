@@ -16,7 +16,7 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
   const [selectedTab, setSelectedTab] = useState<string>(initialTab);
 
   return (
-    <div className="flex h-[700px] flex-col md:flex-row h-screen bg-gray-100">
+    <div className="flex h-[800px] flex-col md:flex-row h-screen bg-gray-100">
       {/* Left Image Section */}
       <div className="md:w-1/2 h-1/2 md:h-full bg-cover bg-white bg-center hidden md:block">
         <img

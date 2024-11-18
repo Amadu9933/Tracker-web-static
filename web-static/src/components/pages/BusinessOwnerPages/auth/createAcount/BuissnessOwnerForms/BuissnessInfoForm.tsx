@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 type BusinessInfoFormData = {
@@ -28,6 +28,9 @@ const schema = yup.object().shape({
 });
 
 const BusinessInfoForm: React.FC = () => {
+    const navigate = useNavigate();
+
+
     const {
         register,
         handleSubmit,
@@ -36,8 +39,11 @@ const BusinessInfoForm: React.FC = () => {
         resolver: yupResolver(schema),
     });
 
+
+
     const onSubmit = (data: BusinessInfoFormData) => {
         console.log('Business Info:', data);
+        navigate("/Set-profile")
         // Handle form submission (e.g., API call to save business info)
     };
 
@@ -125,6 +131,7 @@ const BusinessInfoForm: React.FC = () => {
 
                         {/* Submit Button */}
                         <button
+
                             type="submit"
                             className="bg-primary text-white p-2 rounded-md w-full hover:bg-primary"
                         >

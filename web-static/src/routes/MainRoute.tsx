@@ -25,7 +25,9 @@ const BuisnessInfoContainer = lazy(
 const LoginForm = lazy(
   () => import('@components/pages/businessOwnerPages/auth/signIn/loginForm')
 );
-
+const SetProfileImagePage = lazy(
+  () => import('@components/pages/businessOwnerPages/auth/createAcount/BuissnessOwnerForms/SetProfileImagePage')
+);
 
 const MainRoutes: React.FC = () => (
   <Suspense fallback={<CircularProgress />}>
@@ -37,6 +39,7 @@ const MainRoutes: React.FC = () => (
       <Route path="Login" element={<Login />} />
       <Route path="/Business-info" element={<BuisnessInfoContainer />} />
       <Route path="/Sign-in" element={<LoginForm />} />
+      <Route path="/Set-profile" element={<SetProfileImagePage />} />
 
     </Routes>
   </Suspense>
