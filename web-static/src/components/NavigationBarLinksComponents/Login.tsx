@@ -46,13 +46,13 @@
 
 // export default Login;
 
-import LoginForm from "@components/pages/businessOwnerPages/auth/signIn/loginForm";
+import LoginTabComponent from "@components/pages/businessOwnerPages/auth/signIn/LoginTabComponent";
 
 
 const Login: React.FC = () => {
   return (
     <div className=''>
-      <LoginForm />
+      <LoginTabComponent />
     </div>
   );
 };
