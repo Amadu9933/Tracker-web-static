@@ -6,7 +6,7 @@ const Intergration: React.FC = () => {
   return (
     <div className='px-36'>
 
-      <BuissnessInfoForm />
+      <p>gdhfrjfjgjjjhj</p>
 
     </div>
   );

@@ -1,9 +1,22 @@
-import CustomerNotification from '../pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification';
+// import CustomerNotification from '../pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification';
+
+// const LogisticSolution: React.FC = () => {
+//   return (
+//     <div>
+//       <CustomerNotification />
+//     </div>
+//   );
+// };
+
+// export default LogisticSolution;
+import ForgotPassword from '@components/pages/businessOwnerPages/auth/resetPassword/forgotPassword'
+import ResetPassword from '@components/pages/businessOwnerPages/auth/resetPassword/resetPassword'
 
 const LogisticSolution: React.FC = () => {
   return (
     <div>
-      <CustomerNotification />
+      <ForgotPassword />
+      <ResetPassword />
     </div>
   );
 };

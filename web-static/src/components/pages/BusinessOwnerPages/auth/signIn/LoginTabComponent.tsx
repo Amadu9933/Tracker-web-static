@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LoginForm from './loginForm'; // Import the LoginForm component
-import { createAccont } from '../assets/Assets';// Replace with the actual path of your image
+import { carryParcel } from '../assets/Assets';// Replace with the actual path of your image
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
@@ -11,17 +11,17 @@ const LoginTabComponent: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState<'business' | 'logistics'>('business');
 
     return (
-        <div className="flex">
+        <div className="flex ">
             {/* Picture Section */}
-            <div className="w-full -ml-20 p-4">
-                <img src={createAccont} alt="Business Icon" className="" />
+            <div className="w-full   p-4">
+                <img src={carryParcel} alt="Business Icon" className="-ml-5 w-[400px]  h-[550px]" />
             </div>
 
             {/* Tabs and Content Section */}
-            <div className="w-3/4 p-4">
-                <h1 className="text-3xl font-bold text-gray-700 flex items-center mb-6">
+            <div className="w-3/4 p-4 pt-10 pl-10 mr-40">
+                <h1 className="text-3xl pt-16 font-bold text-secondary flex items-center mb-6">
                     <ArrowBackIcon className="mr-3" />
-                    Create Account
+                    Welcome back
                 </h1>
 
 
@@ -56,7 +56,7 @@ const LoginTabComponent: React.FC = () => {
 
                 {/* Content */}
 
-                <div className="content">
+                <div className="-ml-5">
 
 
                     {selectedTab === 'business' ? (
