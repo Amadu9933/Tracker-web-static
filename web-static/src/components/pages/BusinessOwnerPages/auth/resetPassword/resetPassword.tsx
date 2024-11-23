@@ -3,16 +3,23 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 // Validation schema using Yup
-const emailSchema = yup.object().shape({
-    email: yup.string().email('Invalid email address').required('Email is required'),
+const passwordSchema = yup.object().shape({
+    newPassword: yup
+        .string()
+        .required('New password is required')
+        .min(8, 'Password must be at least 8 characters long'),
+    confirmPassword: yup
+        .string()
+        .oneOf([yup.ref('newPassword')], 'Passwords must match')
+        .required('Confirm password is required'),
 });
 
 // Define form data type
-interface ForgotPasswordFormData {
-    email: string;
+interface ResetPasswordFormData {
+    newPassword: string;
+    confirmPassword: string;
 }
 
 const ResetPassword: React.FC = () => {
@@ -21,23 +28,23 @@ const ResetPassword: React.FC = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<ForgotPasswordFormData>({
-        resolver: yupResolver(emailSchema),
+    } = useForm<ResetPasswordFormData>({
+        resolver: yupResolver(passwordSchema),
     });
 
-    const onSubmit = (data: ForgotPasswordFormData) => {
-        console.log(`Reset password for ${data.email} in ${activeTab} tab`);
-        alert(`Password reset link sent to ${data.email} for ${activeTab} tab`);
+    const onSubmit = (data: ResetPasswordFormData) => {
+        console.log(`New password set for ${activeTab} tab`);
+        alert('Your password has been successfully reset.');
     };
 
     return (
-        <div className="px-[10%] pt-16 bg-gray-300 rounded-lg  w-[60%] h-[450px] text-left mx-auto">
+        <div className="px-[10%] pt-16 bg-gray-300 rounded-lg w-[60%] h-[450px] text-left mx-auto">
             {/* Title Section */}
-            <h1 className="text-lg font-bold text-gray-700 flex  mb-6">
+            <h1 className="text-lg font-bold text-gray-700 flex mb-6">
                 <ArrowBackIcon className="mr-3" />
-                Forgot Password
+                Reset Password
             </h1>
-            <div className="flex items-center   mb-4">
+            <div className="flex items-center mb-4">
                 <input
                     type="radio"
                     id="business"
@@ -60,34 +67,53 @@ const ResetPassword: React.FC = () => {
                     onChange={() => setActiveTab('logistics')}
                     className="mr-2"
                 />
-                <label htmlFor="logistics" className=" font-medium">
+                <label htmlFor="logistics" className="font-medium">
                     Logistics
                 </label>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className=" ">
-                <h2 className="text-sm">
-                    Enter new password.
-                </h2>
-
-                <div className="mb-4">
-
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div>
+                    <label htmlFor="newPassword" className="block font-medium text-gray-700">
+                        New Password
+                    </label>
                     <input
-                        id="email"
-                        type="email"
-                        {...register('email')}
-                        placeholder="abc@gmail.com"
-                        className={`mt-1 block w-full placeholde-[#A3A38E] p-2 border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'
+                        id="newPassword"
+                        type="password"
+                        {...register('newPassword')}
+                        placeholder="Enter new password"
+                        className={`mt-1 block w-full p-2 border rounded-md ${errors.newPassword ? 'border-red-500' : 'border-gray-300'
                             }`}
                     />
-                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+                    {errors.newPassword && (
+                        <p className="text-red-500 text-sm mt-1">{errors.newPassword.message}</p>
+                    )}
                 </div>
-                <div className=' flex justify-center  '>
 
-                    <button className=' text-white bg-primary '>
-                        Next
+                <div>
+                    <label htmlFor="confirmPassword" className="block font-medium text-gray-700">
+                        Confirm Password
+                    </label>
+                    <input
+                        id="confirmPassword"
+                        type="password"
+                        {...register('confirmPassword')}
+                        placeholder="Confirm new password"
+                        className={`mt-1 block w-full p-2 border rounded-md ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+                            }`}
+                    />
+                    {errors.confirmPassword && (
+                        <p className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</p>
+                    )}
+                </div>
+
+                <div className="flex justify-center">
+                    <button
+                        type="submit"
+                        className="text-white bg-primary   py-2 rounded"
+                    >
+                        Reset
                     </button>
-
                 </div>
             </form>
         </div>

@@ -16,7 +16,7 @@ const LogisticSolution: React.FC = () => {
   return (
     <div>
       <ForgotPassword />
-      <ResetPassword />
+
     </div>
   );
 };

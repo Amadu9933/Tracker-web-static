@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate, Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -82,13 +83,13 @@ const ForgotPassword: React.FC = () => {
                     />
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                 </div>
-                <div className=' flex justify-center  '>
+                <Link to="/reset-password" className=' flex justify-center  '>
 
                     <p className=' font-500 font-bold mr-2 -mt-1'>
                         Next
                     </p>
                     <ArrowForwardIcon sx={{ height: 16 }} />
-                </div>
+                </Link>
             </form>
         </div>
     );

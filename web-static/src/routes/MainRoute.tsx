@@ -28,6 +28,10 @@ const LoginForm = lazy(
 const SetProfileImagePage = lazy(
   () => import('@components/pages/businessOwnerPages/auth/createAcount/BuissnessOwnerForms/SetProfileImagePage')
 );
+const ResetPassword = lazy(
+  () => import('@components/pages/businessOwnerPages/auth/resetPassword/resetPassword')
+);
+
 
 const MainRoutes: React.FC = () => (
   <Suspense fallback={<CircularProgress />}>
@@ -40,6 +44,8 @@ const MainRoutes: React.FC = () => (
       <Route path="/Business-info" element={<BuisnessInfoContainer />} />
       <Route path="/Sign-in" element={<LoginForm />} />
       <Route path="/Set-profile" element={<SetProfileImagePage />} />
+      <Route path="/Reset-password" element={<ResetPassword />} />
+
 
     </Routes>
   </Suspense>
