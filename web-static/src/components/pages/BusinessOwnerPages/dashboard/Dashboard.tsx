@@ -4,6 +4,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { getUserProfile } from "../../../../api/users"; // Mock API to get user profile
 import ParcelChart from "./Chart";
 import CreateWallet from "./CreateWallet";
+import Logo from "../../../../assets/Logo.png"
+import GridViewIcon from '@mui/icons-material/GridView';
 
 const Dashboard: React.FC = () => {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
@@ -28,20 +30,21 @@ const Dashboard: React.FC = () => {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <aside className="bg-gray-800 text-white w-[250px] flex flex-col justify-between">
-        <nav className="flex flex-col">
-          <h2 className="text-xl font-bold px-4 py-6 border-b border-gray-700">Menu</h2>
-          <ul className="flex-grow">
-            <li className="py-2 px-4 hover:bg-gray-700 cursor-pointer">Dashboard</li>
-            <li className="py-2 px-4 hover:bg-gray-700 cursor-pointer">Report</li>
-            <li className="py-2 px-4 hover:bg-gray-700 cursor-pointer">Logistics</li>
-            <li className="py-2 px-4 hover:bg-gray-700 cursor-pointer">Integration</li>
+      <aside className="bg-gray-200  text-secondary w-[220px] px-[28px] flex flex-col justify-between">
+        <nav className="flex flex-col ">
+          <h2 className=" "><img className="h-7 w-24" src={Logo} alt="logo" /></h2>
+          <ul className="flex-grow ">
+            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ml-1 ">Dashboard</button></li>
+            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ml-1 ">Dashboard</button></li>
+            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ml-1 ">Dashboard</button></li>
+
+
           </ul>
         </nav>
         <div>
           <ul>
-            <li className="py-2 px-4 hover:bg-gray-700 cursor-pointer">Profile</li>
-            <li className="py-2 px-4 hover:bg-gray-700 cursor-pointer">Logout</li>
+            <li className=" flex  active:bg-primary cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ">Dashboard</button></li>
+            <li className=" flex  active:bg-primary cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ">Dashboard</button></li>
           </ul>
         </div>
       </aside>
