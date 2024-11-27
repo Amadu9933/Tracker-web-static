@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Button, Avatar, IconButton } from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+
 import { getUserProfile } from "../../../../api/users"; // Mock API to get user profile
 import ParcelChart from "./Chart";
 import CreateWallet from "./CreateWallet";
@@ -10,6 +10,7 @@ import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 
 const Dashboard: React.FC = () => {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
@@ -63,15 +64,19 @@ const Dashboard: React.FC = () => {
 
             {/* Right-aligned section */}
             <div className="flex items-center space-x-4">
-              <Button className=" variant text-[14px] rounded-[4px]  text-white cursor-pointer">
+
+              <button className="p-1 px-2 h-auto bg-[#FF833C] text-white text-sm rounded">
                 Generate Tracking ID
-              </Button>
+              </button>
+
+
               <IconButton>
-                <NotificationsIcon />
+                <NotificationsNoneOutlinedIcon />
               </IconButton>
               <div className="flex items-center space-x-2">
-                <span className="text-gray-700 font-semibold">{user.name}</span>
-                <Avatar>{user.name[0]}</Avatar>
+
+                <Avatar sx={{ width: 30, height: 30 }} >{user.name[0]}</Avatar>
+                <span className="text-gray-700 font-semibold">Welcome, {user.name}</span>
               </div>
             </div>
           </Toolbar>
