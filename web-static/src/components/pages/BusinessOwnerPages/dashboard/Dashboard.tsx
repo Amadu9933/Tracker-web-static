@@ -6,6 +6,10 @@ import ParcelChart from "./Chart";
 import CreateWallet from "./CreateWallet";
 import Logo from "../../../../assets/Logo.png"
 import GridViewIcon from '@mui/icons-material/GridView';
+import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 const Dashboard: React.FC = () => {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
@@ -32,19 +36,19 @@ const Dashboard: React.FC = () => {
       {/* Sidebar */}
       <aside className="bg-gray-200  text-secondary w-[220px] px-[28px] flex flex-col justify-between">
         <nav className="flex flex-col ">
-          <h2 className=" "><img className="h-7 w-24" src={Logo} alt="logo" /></h2>
+          <h2 className=" "><img className="h-7 my-[32px] w-20" src={Logo} alt="logo" /></h2>
           <ul className="flex-grow ">
             <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ml-1 ">Dashboard</button></li>
-            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ml-1 ">Dashboard</button></li>
-            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ml-1 ">Dashboard</button></li>
-
+            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><WatchLaterOutlinedIcon /></div><button className=" ml-1 ">Report</button></li>
+            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><LocalShippingOutlinedIcon /></div><button className=" ml-1 ">Logistics</button></li>
+            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><InsertLinkIcon /></div><button className=" ml-1 ">Integration</button></li>
 
           </ul>
         </nav>
         <div>
           <ul>
-            <li className=" flex  active:bg-primary cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ">Dashboard</button></li>
-            <li className=" flex  active:bg-primary cursor-pointer mb-[32px]"><div className=" "><GridViewIcon /></div><button className=" ">Dashboard</button></li>
+            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><Avatar sx={{ height: 20, width: 20 }} /></div><button className="ml-1  ">Dashboard</button></li>
+            <li className=" flex p-2 text-[14px] active:rounded-[4px] active:bg-primary active:text-white cursor-pointer mb-[32px]"><div className=" "><LogoutOutlinedIcon sx={{ height: 20, width: 20 }} /></div><button className="ml-1  ">Dashboard</button></li>
           </ul>
         </div>
       </aside>
@@ -59,7 +63,7 @@ const Dashboard: React.FC = () => {
 
             {/* Right-aligned section */}
             <div className="flex items-center space-x-4">
-              <Button variant="contained" color="primary">
+              <Button className=" variant text-[14px] rounded-[4px]  text-white cursor-pointer">
                 Generate Tracking ID
               </Button>
               <IconButton>
