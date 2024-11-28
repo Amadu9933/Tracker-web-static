@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
     LineChart,
     Line,
@@ -46,11 +47,11 @@ const ParcelChart: React.FC = () => {
         filter === "last7Days" ? dummyData.last7Days : filter === "today" ? dummyData.today : dummyData.yesterday;
 
     return (
-        <div className="h-full bg-white p-4 rounded shadow">
+        <div className="h-full bg-white rounded ">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-semibold">Activity Chart</h2>
+                <h2 className="text-lg font-thin">Activity Chart</h2>
                 <FormControl variant="outlined" size="small" className="w-40">
-                    <InputLabel>Filter</InputLabel>
+
                     <Select value={filter} onChange={handleFilterChange} label="Filter">
                         <MenuItem value="today">Today</MenuItem>
                         <MenuItem value="yesterday">Yesterday</MenuItem>

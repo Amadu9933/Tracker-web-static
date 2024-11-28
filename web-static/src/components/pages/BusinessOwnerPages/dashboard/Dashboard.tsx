@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Button, Avatar, IconButton } from "@mui/material";
+import Overview from "./Overview";
 
 import { getUserProfile } from "../../../../api/users"; // Mock API to get user profile
 import ParcelChart from "./Chart";
@@ -33,7 +34,7 @@ const Dashboard: React.FC = () => {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="flex h-screen">
+    <div className=" flex h-screen">
       {/* Sidebar */}
       <aside className="bg-gray-200  text-secondary w-[220px] px-[28px] flex flex-col justify-between">
         <nav className="flex flex-col ">
@@ -55,7 +56,7 @@ const Dashboard: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col bg-gray-100">
+      <main className="flex-1 flex flex-col ">
         {/* App Bar */}
         <AppBar position="static" color="default" elevation={1}>
           <Toolbar className="flex justify-between">
@@ -65,7 +66,7 @@ const Dashboard: React.FC = () => {
             {/* Right-aligned section */}
             <div className="flex items-center space-x-4">
 
-              <button className="p-1 px-2 h-auto bg-[#FF833C] text-white text-sm rounded">
+              <button className="p-1 px-2 h-auto bg-[#FF833C] hover:bg-orange-300 text-white text-sm rounded">
                 Generate Tracking ID
               </button>
 
@@ -87,15 +88,20 @@ const Dashboard: React.FC = () => {
           <h1 className="text-3xl mb-4">Welcome, {user.name}</h1>
           <p>Email: {user.email}</p>
           <p>You are in your Dashboard because you successfully logged in.</p>
-          <div className="flex bg-red-600 h-[300px] justify-between gap-4 mt-6">
+          <div className="flex  h-[300px] justify-between gap-4 mt-6">
             {/* ParcelChart */}
             <div className="flex-1">
               <ParcelChart />
             </div>
             {/* CreateWallet */}
-            <div className="flex-1">
+            <div className="flex-1 ">
+
               <CreateWallet />
             </div>
+
+          </div>
+          <div>
+            <Overview />
           </div>
         </div>
       </main>
