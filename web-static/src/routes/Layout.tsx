@@ -1,25 +1,32 @@
 import React, { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '@components/common/header/Navbar';
 
 const Layout: React.FC = () => {
+  const location = useLocation();
+
+  // List of paths where the Navbar should be hidden
+  const hideNavbarPaths = ['/dashboard'];
+
+  // Check if the current path matches any of the paths to hide Navbar
+  const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
+
   return (
     <>
-      <header>
-        <Navbar />
-      </header>
+      {!shouldHideNavbar && (
+        <header>
+          <Navbar />
+        </header>
+      )}
 
-      {/* Wrap the main content with Suspense for lazy-loaded routes */}
       <main>
         <Suspense fallback={<div>Loading...</div>}>
-          {/* Outlet will render the active route */}
           <Outlet />
         </Suspense>
       </main>
 
-      {/* Optional footer if needed */}
       <footer>
-
+        {/* Optional Footer */}
       </footer>
     </>
   );

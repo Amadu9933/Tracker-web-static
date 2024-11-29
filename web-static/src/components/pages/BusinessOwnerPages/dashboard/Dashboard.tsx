@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Button, Avatar, IconButton } from "@mui/material";
 import Overview from "./Overview";
+import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 
 import { getUserProfile } from "../../../../api/users"; // Mock API to get user profile
 import ParcelChart from "./Chart";
@@ -34,7 +35,7 @@ const Dashboard: React.FC = () => {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className=" flex h-screen">
+    <div className=" flex ">
       {/* Sidebar */}
       <aside className="bg-gray-200  text-secondary w-[220px] px-[28px] flex flex-col justify-between">
         <nav className="flex flex-col ">
@@ -54,43 +55,49 @@ const Dashboard: React.FC = () => {
           </ul>
         </div>
       </aside>
-
+      <div className="bg-gray-300 h-[24px]"> <ChevronLeftOutlinedIcon /> </div>
       {/* Main Content */}
-      <main className="flex-1 flex flex-col ">
+      <main className="flex-1 flex flex-col mx-8 pt-5">
         {/* App Bar */}
-        <AppBar position="static" color="default" elevation={1}>
-          <Toolbar className="flex justify-between">
-            {/* Empty space for left alignment */}
-            <div></div>
+        <div className="border-b border-[#D9D9D9] bg-white mx-5">
+          <AppBar position="static" color="default" elevation={0} sx={{ backgroundColor: 'white' }} >
 
-            {/* Right-aligned section */}
-            <div className="flex items-center space-x-4">
+            <Toolbar className="flex justify-between">
+              {/* Empty space for left alignment */}
+              <div></div>
 
-              <button className="p-1 px-2 h-auto bg-[#FF833C] hover:bg-orange-300 text-white text-sm rounded">
-                Generate Tracking ID
-              </button>
+              {/* Right-aligned section */}
+              <div className="flex items-center space-x-4">
+
+                <button className="p-1 px-2 h-auto bg-[#FF833C] hover:bg-orange-300 text-white text-sm rounded">
+                  Generate Tracking ID
+                </button>
 
 
-              <IconButton>
-                <NotificationsNoneOutlinedIcon />
-              </IconButton>
-              <div className="flex items-center space-x-2">
+                <IconButton>
+                  <NotificationsNoneOutlinedIcon />
+                </IconButton>
+                <div className="flex items-center space-x-2">
 
-                <Avatar sx={{ width: 30, height: 30 }} >{user.name[0]}</Avatar>
-                <span className="text-gray-700 font-semibold">Welcome, {user.name}</span>
+                  <Avatar sx={{ width: 30, height: 30 }} >{user.name[0]}</Avatar>
+                  <span className="text-gray-700 font-semibold">Welcome, {user.name}</span>
+                </div>
               </div>
-            </div>
-          </Toolbar>
-        </AppBar>
+            </Toolbar>
+          </AppBar>
+        </div>
 
         {/* Dashboard Content */}
+
         <div className="p-6">
-          <h1 className="text-3xl mb-4">Welcome, {user.name}</h1>
-          <p>Email: {user.email}</p>
-          <p>You are in your Dashboard because you successfully logged in.</p>
-          <div className="flex  h-[300px] justify-between gap-4 mt-6">
+
+          <div className="w-full">
+            <Overview />
+          </div>
+          <div className="flex  h-[300px] justify-between gap-4 mt-12">
+
             {/* ParcelChart */}
-            <div className="flex-1">
+            <div className="flex-1 ">
               <ParcelChart />
             </div>
             {/* CreateWallet */}
@@ -100,9 +107,10 @@ const Dashboard: React.FC = () => {
             </div>
 
           </div>
-          <div>
-            <Overview />
-          </div>
+          <h1 className="text-3xl mb-4">Welcome, {user.name}</h1>
+          <p>Email: {user.email}</p>
+          <p>You are in your Dashboard because you successfully logged in.</p>
+
         </div>
       </main>
     </div>
