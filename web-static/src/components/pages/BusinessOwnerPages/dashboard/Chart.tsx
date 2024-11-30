@@ -47,10 +47,10 @@ const ParcelChart: React.FC = () => {
         filter === "last7Days" ? dummyData.last7Days : filter === "today" ? dummyData.today : dummyData.yesterday;
 
     return (
-        <div className="h-full bg-white rounded ">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-thin">Activity Chart</h2>
-                <FormControl variant="outlined" size="small" className="w-40">
+        <div className="h-full bg-white rounded text-secondary ">
+            <div className="flex justify-between text-secondary items-center mb-4">
+                <h2 className="text-base ">Activity Chart</h2>
+                <FormControl variant="outlined" size="small" className="text-secondary text-base">
 
                     <Select value={filter} onChange={handleFilterChange} label="Filter">
                         <MenuItem value="today">Today</MenuItem>

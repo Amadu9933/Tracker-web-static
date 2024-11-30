@@ -1,11 +1,16 @@
 import { ParaglidingOutlined } from "@mui/icons-material";
+import { GetCurrentDate } from "@components/utils/GetCurrentDate";
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 
 const Overview = () => {
     return (
         <div className="w-full   ">
             <div className="flex justify-between mt-8 pb-4 px-2 ">
                 <p>Overview</p>
-                <div>Date</div>
+                <div className="flex text-[#828282]">
+                    <div className="mr-2"><CalendarTodayOutlinedIcon sx={{ width: 15, height: 15 }} />
+                    </div> <p className="text-base pt-0.5">{GetCurrentDate()}</p>
+                </div>
             </div>
             <div className="flex full  h-36 bg-slate-600 rounded-md  text-white">
                 <div className="flex-1 text-center flex justify-center px-16 pt-12   ">
