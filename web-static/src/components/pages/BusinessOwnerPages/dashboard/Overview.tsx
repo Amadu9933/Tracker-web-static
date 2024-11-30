@@ -35,7 +35,7 @@ const Overview = () => {
 
                     <div className="text-left">
                         <p className="text-[18px] font-medium text-[#D1E8FA]">Total ID's Generated</p>
-                        <p className="text-2xl">120</p>
+                        <p className="text-2xl">116 <span className="text-[18px] font-medium text-[#D1E8FA]">items</span></p>
                     </div>
                 </div>
                 <div className="flex-1 text-center flex justify-center px-16 pt-12   ">
@@ -47,7 +47,7 @@ const Overview = () => {
 
                     <div className="text-left">
                         <p className="text-[18px] font-medium text-[#D1E8FA]">Total ID's Generated</p>
-                        <p className="text-2xl">120</p>
+                        <p className="text-2xl">4 <span className="text-[18px] font-medium text-[#D1E8FA]">items</span></p>
                     </div>
                 </div>
             </div>

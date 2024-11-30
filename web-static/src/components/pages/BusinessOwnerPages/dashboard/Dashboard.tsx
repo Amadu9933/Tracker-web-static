@@ -89,7 +89,7 @@ const Dashboard: React.FC = () => {
 
         {/* Dashboard Content */}
 
-        <div className="p-6">
+        <div className="p-">
 
           <div className="w-full">
             <Overview />
