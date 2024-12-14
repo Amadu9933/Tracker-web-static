@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Button, Avatar, IconButton } from "@mui/material";
-import Overview from "./Overview";
+
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 
 import { getUserProfile } from "../../../../api/users"; // Mock API to get user profile
-import ParcelChart from "./Chart";
-import CreateWallet from "./CreateWallet";
+import DashboardMain from "./DashboardMain";
 import Logo from "../../../../assets/Logo.png"
 import GridViewIcon from '@mui/icons-material/GridView';
 import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
@@ -59,7 +58,7 @@ const Dashboard: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col mx-8 pt-5">
         {/* App Bar */}
-        <div className="border-b border-[#D9D9D9] bg-white mx-5">
+        <div className="border-b border-[#D9D9D9] bg-white mx-4">
           <AppBar position="static" color="default" elevation={0} sx={{ backgroundColor: 'white' }} >
 
             <Toolbar className="flex justify-between">
@@ -88,30 +87,8 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Dashboard Content */}
+        <DashboardMain />
 
-        <div className="p-">
-
-          <div className="w-full">
-            <Overview />
-          </div>
-          <div className="flex  h-[300px] justify-between gap-4 mt-12">
-
-            {/* ParcelChart */}
-            <div className="flex-1 ">
-              <ParcelChart />
-            </div>
-            {/* CreateWallet */}
-            <div className="flex-1 ">
-
-              <CreateWallet />
-            </div>
-
-          </div>
-          <h1 className="text-3xl mb-4">Welcome, {user.name}</h1>
-          <p>Email: {user.email}</p>
-          <p>You are in your Dashboard because you successfully logged in.</p>
-
-        </div>
       </main>
     </div>
   );

@@ -7,11 +7,11 @@ import TopContainer from './TopContainer';
 
 const BusinessOwnerLandingPage: React.FC = () => {
   return (
-    <div className="px-0 mx-0">
+    <div className="px-0 mx-0 h-[808px]">
       <ScopedCssBaseline />
       <Container maxWidth="xl" sx={{ padding: '0 !important' }}>
         <div
-          className="relative sm:h-[50vh] md:h-[60vh] lg:h-[500px] bg-no-repeat bg-right text-white text-center p-5 sm:p-3 md:p-4 lg:p-5"
+          className="relative sm:h-[50vh] md:h-[60vh] lg:h-[650px] bg-no-repeat bg-right text-white text-center p-5 sm:p-3 md:p-4 lg:p-5"
           style={{
             backgroundImage: `url(${BownerBaground})`,
             backgroundSize: '70% 100%',

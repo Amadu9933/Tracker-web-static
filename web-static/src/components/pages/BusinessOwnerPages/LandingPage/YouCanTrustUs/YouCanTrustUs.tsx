@@ -3,11 +3,11 @@ import { avatar } from '../guideSection/assets/index';
 
 const YouCanTrustUs: React.FC = () => {
   return (
-    <div className="bg-[#FFF8EF]">
-      <div className="px-[270px] ">
-        <h2 className="text-3xl  text-secondary py-24">You can trust us</h2>
-        <p className="text-[#8E8A73] text-sm font-medium mb-16 ">
-          Dont take our word for it. Hear from happy users who have used
+    <div className="bg-[#FFF8EF] flex justify-center item-center ">
+      <div className="w-[40%]">
+        <h2 className="text-3xl font-medium text-secondary pt-24 pb-7">You can trust us</h2>
+        <p className="text-[#8E8A73] text-sm font-inter font-medium mb-16 ">
+          Dont take our word for it. Hear from happy users who have used <br />
           Trackerr to transform their shipping experiennce.
         </p>
 
@@ -16,14 +16,14 @@ const YouCanTrustUs: React.FC = () => {
             <img
               src={avatar}
               alt="Avata"
-              className="rounded-full -m-16  h-24 w-24"
+              className="rounded-full -m-16  h-[100px] w-[100px]"
             />
           </div>
-          <p className="text-sm font-normal text-secondary py-5 px-4">
+          <p className="text-sm font-normal text-secondary pb-10 ">
             "I can't express enough how our business has transformed since i
-            started using Trackerr. It's been a game-changer in every aspect.
-            The seamless process of generating id for my customers and
-            connecting with dispatchers to deliver in real-time is on a 100%.
+            started <br /> using Trackerr. It's been a game-changer in every aspect.
+            The seamless <br /> process of generating id for my customers and
+            connecting with dispatchers <br /> to deliver in real-time is on a 100%.
           </p>
         </div>
         <div className=" justify-center py-12   items-center flex">

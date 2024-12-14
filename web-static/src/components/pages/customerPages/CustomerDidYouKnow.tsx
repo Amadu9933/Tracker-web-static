@@ -40,7 +40,7 @@ const CustomerDidYouKnow: React.FC = () => {
         {/* second item, text container */}
         <div className="md:w-[100%] md:px-[30%] md:mt-9 md:absolute">
           <h1 className="mb-7 font-medium text-2xl ">Did You Know?</h1>
-          <p className="font-normal mb-4 text-base ">
+          <p className="font-inter mb-4 text-base ">
             Trackerr also offers tracking services using tracking I.Ds generated
             using other logistics partners such as DHL, GIG, etc. Just enter
             your parcel i.d and click enter.

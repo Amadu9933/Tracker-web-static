@@ -10,7 +10,8 @@ import Footer from '@common/footer/Footer';
 const LandingPage: React.FC = () => {
   return (
     <div className="">
-      <Hero />
+      <div className='h-[650px]'>  <Hero /></div>
+
       <Layout />
 
       <div className="px-36 ">
