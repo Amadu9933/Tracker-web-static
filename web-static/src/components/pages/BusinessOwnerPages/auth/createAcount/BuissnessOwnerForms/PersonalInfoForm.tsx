@@ -73,7 +73,7 @@ const PersonalInfoForm: React.FC = () => {
             id="email"
             type="email"
             {...register('email')}
-            className={`mt-1 p-2 border placeholder-[#A3A38E] rounded-md w-full ${errors.email ? 'border-red-500' : 'border-gray-300'
+            className={`mt-1 py-2 b border placeholder-[#A3A38E] rounded-md w-full ${errors.email ? 'border-red-500' : 'border-gray-300'
               }`}
             placeholder="example@example.com"
           />
@@ -101,21 +101,27 @@ const PersonalInfoForm: React.FC = () => {
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             Password
           </label>
-          <input
-            id="password"
-            type={showPassword ? 'text' : 'password'}
-            {...register('password')}
-            className={`mt-1 p-2 border rounded-md w-full ${errors.password ? 'border-red-500' : 'border-gray-300'
-              }`}
-            placeholder="******"
-          />
-          <button
-            type="button"
-            onClick={togglePasswordVisibility}
-            className="absolute inset-y-0 mt-7 right-3 flex items-center text-gray-500"
-          >
-            {showPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
-          </button>
+          <div className="relative">
+            <input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              {...register('password')}
+              className={`mt-1  p-2 pr-10 border rounded-md w-full h-[48px] ${errors.password ? 'border-red-500' : 'border-gray-300'
+                }`}
+              placeholder="******"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute inset-y-0 right-3  mt-5 flex items-center justify-center text-gray-500"
+              style={{
+                height: '24px', // Fixed height
+                width: '24px', // Fixed width
+              }}
+            >
+              {showPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
+            </button>
+          </div>
           {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
         </div>
 

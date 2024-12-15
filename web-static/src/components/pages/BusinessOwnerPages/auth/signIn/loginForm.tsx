@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
 
       {/* Password Field */}
       <div className="relative mb-4">
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="password" className="block text-sm h-[34px] font-medium text-gray-700">
           Password
         </label>
         <input

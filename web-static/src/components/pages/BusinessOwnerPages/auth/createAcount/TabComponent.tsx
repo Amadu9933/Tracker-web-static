@@ -16,13 +16,13 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
   const [selectedTab, setSelectedTab] = useState<string>(initialTab);
 
   return (
-    <div className="flex bg-white flex-col md:flex-row h-screen bg-gray-100">
+    <div className="flex bg-white  flex-col md:flex-row h-screen bg-gray-100">
       {/* Left Image Section */}
-      <div className="md:w-1/2 h-1/2 md:h-full  bg-cover bg-white bg-center hidden md:block">
+      <div className="md:w-1/2 h-1/2 md:h-[900px]  bg-cover bg-white bg-center hidden md:block">
         <img
           src={createAccont}
           alt="Create Account"
-          className="-ml-16 w-full h-[750px] object-cover"
+          className="-ml-16 w-full h-full object-cover"
 
         />
       </div>

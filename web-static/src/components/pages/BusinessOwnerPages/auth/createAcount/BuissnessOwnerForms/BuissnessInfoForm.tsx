@@ -48,7 +48,7 @@ const BusinessInfoForm: React.FC = () => {
     };
 
     return (
-        <div className=" h-screen text-left">
+        <div className="text-left">
             <div className="flex justify-left overflow-hidden max-w-4xl w-full">
                 {/* Picture Section */}
 
