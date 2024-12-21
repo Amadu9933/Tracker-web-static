@@ -8,6 +8,7 @@ type FormData = {
     businessName: string;
     service: string;
     address: string;
+    accountType: string;
     profileImage: File | null;
 };
 
@@ -20,6 +21,7 @@ const initialFormData: FormData = {
     service: '',
     address: '',
     profileImage: null,
+    accountType: 'business',
 };
 
 type FormContextType = {

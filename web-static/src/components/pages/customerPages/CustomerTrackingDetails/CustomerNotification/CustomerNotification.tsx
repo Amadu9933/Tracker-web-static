@@ -32,7 +32,7 @@ const CustomerNotification: React.FC = () => {
 
         console.log(`Fetching tracking history for email: ${email}`);
         const response = await fetch(
-          `http://172.232.4.147:8000/api/v1/trackings/history/?email=${email}`
+          `https://trackerr.live/api/v1/trackings/history/?email=${email}`
         );
         if (!response.ok) {
           console.log(

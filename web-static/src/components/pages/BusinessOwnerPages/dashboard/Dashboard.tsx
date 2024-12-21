@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Button, Avatar, IconButton } from "@mui/material";
+import { AppBar, Toolbar, Avatar, IconButton } from "@mui/material";
 
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 
@@ -12,10 +12,13 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import { useFormContext } from '../../../../context/CreateAccountFormContext';
 
 const Dashboard: React.FC = () => {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const [error, setError] = useState("");
+
+  const { formData } = useFormContext();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -79,7 +82,7 @@ const Dashboard: React.FC = () => {
                 <div className="flex items-center space-x-2">
 
                   <Avatar sx={{ width: 30, height: 30 }} >{user.name[0]}</Avatar>
-                  <span className="text-gray-700 font-semibold">Welcome, {user.name}</span>
+                  <span className="text-gray-700 font-semibold">Welcome, {formData.name || 'Guest'}</span>
                 </div>
               </div>
             </Toolbar>

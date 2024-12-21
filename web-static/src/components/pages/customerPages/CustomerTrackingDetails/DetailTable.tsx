@@ -22,7 +22,7 @@ const DetailTable: React.FC = () => {
       console.log('Fetching tracking details for:', trackingNumber);
       try {
         const response = await axios.get(
-          `http://172.232.4.147:8000/api/v1/tracking/${trackingNumber}/`
+          `https://trackerr.live/api/v1/trackings/realtime/${trackingNumber}`
         );
 
         console.log('Response data:', response.data);
