@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { data } from 'src/data';
 
 /**
  * Renders a table with tracking details based on the provided tracking number.
@@ -22,19 +23,21 @@ const DetailTable: React.FC = () => {
       console.log('Fetching tracking details for:', trackingNumber);
       try {
         const response = await axios.get(
-          `https://trackerr.live/api/v1/trackings/realtime/${trackingNumber}`
+          `https://trackerr.live/api/v1/trackings/realtime/?parcel_number=${trackingNumber}`
         );
 
         console.log('Response data:', response.data);
 
         // Filter the tracking data to include only the desired fields
+        const { parcel_number, date_of_purchase, delivery_date, destination, vendor, status } = response.data
+
         const filteredData = {
-          'Parcel number': response.data.parcel_number,
-          'Date of purchase': response.data.date_of_purchase,
-          'Estimated delivery date': response.data.delivery_date,
-          'Shipping address': response.data.shipping_address,
-          Vendor: response.data.vendor,
-          Status: response.data.status,
+          'Parcel number': parcel_number,
+          'Date of purchase': date_of_purchase,
+          'Estimated delivery date': delivery_date,
+          'destination': destination,
+          Vendor: vendor,
+          Status: status,
         };
         console.log('Filtered data:', filteredData);
         setTrackingData(filteredData);

@@ -1,6 +1,7 @@
 import Overview from "./Overview";
 import ParcelChart from "./Chart";
 import CreateWallet from "./CreateWallet";
+import CustomerNotification from "@components/pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification";
 const DashboardMain = () => {
     return (
         <div className="w-full">
@@ -15,6 +16,9 @@ const DashboardMain = () => {
                     <CreateWallet />
                 </div>
             </div>
+            <CustomerNotification />
+
+
         </div>
     );
 };

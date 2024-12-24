@@ -21,6 +21,14 @@ const SetProfileImagePage = lazy(() =>
 const ResetPassword = lazy(() =>
   import('@components/pages/businessOwnerPages/auth/resetPassword/resetPassword')
 );
+const CustomerTrackingDetailLayout = lazy(() =>
+  import('@components/pages/customerPages/customerTrackingDetails/CustomerTrackingDetailLayout')
+);
+
+const CustomerNotification = lazy(() =>
+  import('@components/pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification')
+);
+
 
 const MainRoutes: React.FC = () => (
   <FormProvider>
@@ -32,6 +40,16 @@ const MainRoutes: React.FC = () => (
         <Route path="Intergration" element={<Intergration />} />
         <Route path="NeedHelp" element={<NeedHelp />} />
         <Route path="Login" element={<Login />} />
+        <Route
+          path="tracking/:trackingNumber"
+          element={<CustomerTrackingDetailLayout />}
+        />
+        <Route
+          path="customer-notification/:email"
+          element={<CustomerNotification />}
+        />
+
+
 
         {/* Business Owner Routes */}
         <Route path="/Business-info" element={<BuisnessInfoContainer />} />

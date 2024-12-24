@@ -54,7 +54,7 @@ const SetProfileImagePage: React.FC = () => {
             console.log('Account created successfully:', response.data);
 
             // Navigate to dashboard or success page
-            navigate('/dashboard');
+            navigate('/Sign-in', { state: { message: 'Login to see your dashboard' } });
         } catch (err: any) {
             console.error('Failed to create account:', err);
             // If the error has a response, display the error message from the server

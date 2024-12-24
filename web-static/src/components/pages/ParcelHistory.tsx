@@ -18,7 +18,7 @@ const UserInfo: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://54.161.253.204:3000/api/tracking/${trackingNumber}/`
+        `https://trackerr.live/api/v1/trackings/realtime/?parcel_number=${trackingNumber}/`
       );
       console.log('Tracking details fetched successfully:', response.data);
       setTrackingData(response.data);

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+
+
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined'
 import { loginUser } from '../../../../../api/auth'; // Mock API
@@ -22,6 +24,17 @@ const schema = yup.object().shape({
 const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
+
+
+  const location = useLocation();
+  const message = location.state?.message;
+
+  useEffect(() => {
+    if (message) {
+      alert(message);
+    }
+  }, [message]);
+
 
   const navigate = useNavigate();
   const {

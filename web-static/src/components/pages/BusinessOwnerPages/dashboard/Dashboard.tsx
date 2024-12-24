@@ -12,29 +12,10 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import { useFormContext } from '../../../../context/CreateAccountFormContext';
+
 
 const Dashboard: React.FC = () => {
-  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
-  const [error, setError] = useState("");
 
-  const { formData } = useFormContext();
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const profile = await getUserProfile(); // Fetch mock user profile
-        setUser(profile);
-      } catch (err) {
-        setError("Failed to load user profile");
-      }
-    };
-
-    fetchProfile();
-  }, []);
-
-  if (error) return <p>{error}</p>;
-  if (!user) return <p>Loading...</p>;
 
   return (
     <div className=" flex ">
@@ -58,6 +39,7 @@ const Dashboard: React.FC = () => {
         </div>
       </aside>
       <div className="bg-gray-300 h-[24px]"> <ChevronLeftOutlinedIcon /> </div>
+
       {/* Main Content */}
       <main className="flex-1 flex flex-col mx-8 pt-5">
         {/* App Bar */}
@@ -81,8 +63,8 @@ const Dashboard: React.FC = () => {
                 </IconButton>
                 <div className="flex items-center space-x-2">
 
-                  <Avatar sx={{ width: 30, height: 30 }} >{user.name[0]}</Avatar>
-                  <span className="text-gray-700 font-semibold">Welcome, {formData.name || 'Guest'}</span>
+                  <Avatar sx={{ width: 30, height: 30 }} ></Avatar>
+                  <span className="text-gray-700 font-semibold">Welcome, </span>
                 </div>
               </div>
             </Toolbar>
