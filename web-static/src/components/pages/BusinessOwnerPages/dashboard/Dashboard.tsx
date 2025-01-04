@@ -3,7 +3,6 @@ import { AppBar, Toolbar, Avatar, IconButton } from "@mui/material";
 
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 
-import { getUserProfile } from "../../../../api/users"; // Mock API to get user profile
 import DashboardMain from "./DashboardMain";
 import Logo from "../../../../assets/Logo.png"
 import GridViewIcon from '@mui/icons-material/GridView';
