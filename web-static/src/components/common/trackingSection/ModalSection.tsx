@@ -7,7 +7,7 @@ import Modal from '@mui/material/Modal';
 import CircularProgress from '../../pages/customerPages/customerTrackingDetails/customerNotification/Data';
 
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute' as const,
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',

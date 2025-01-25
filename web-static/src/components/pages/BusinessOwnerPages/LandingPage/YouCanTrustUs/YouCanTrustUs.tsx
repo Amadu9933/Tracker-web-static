@@ -5,7 +5,9 @@ const YouCanTrustUs: React.FC = () => {
   return (
     <div className="bg-[#FFF8EF] flex justify-center item-center ">
       <div className="w-[40%]">
-        <h2 className="text-3xl font-medium text-secondary pt-24 pb-7">You can trust us</h2>
+        <h2 className="text-3xl font-medium text-secondary pt-24 pb-7">
+          You can trust us
+        </h2>
         <p className="text-[#8E8A73] text-sm font-inter font-medium mb-16 ">
           Dont take our word for it. Hear from happy users who have used <br />
           Trackerr to transform their shipping experiennce.
@@ -21,9 +23,10 @@ const YouCanTrustUs: React.FC = () => {
           </div>
           <p className="text-sm font-normal text-secondary pb-10 ">
             "I can't express enough how our business has transformed since i
-            started <br /> using Trackerr. It's been a game-changer in every aspect.
-            The seamless <br /> process of generating id for my customers and
-            connecting with dispatchers <br /> to deliver in real-time is on a 100%.
+            started <br /> using Trackerr. It's been a game-changer in every
+            aspect. The seamless <br /> process of generating id for my
+            customers and connecting with dispatchers <br /> to deliver in
+            real-time is on a 100%.
           </p>
         </div>
         <div className=" justify-center py-12   items-center flex">

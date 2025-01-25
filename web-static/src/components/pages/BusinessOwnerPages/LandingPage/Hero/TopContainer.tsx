@@ -6,7 +6,7 @@ const TopContainer: React.FC = () => {
     color: '#FF833C',
     borderColor: '#FF833C',
     borderRadius: '8px',
-    font: "16px",
+    font: '16px',
     '&:focus': {
       borderColor: '#FF833C',
       backgroundColor: '#FF833C',
@@ -32,18 +32,17 @@ const TopContainer: React.FC = () => {
             Effortless parcel shipping made simple
           </p>
           <p className="text-base font-normal text-[#585858]">
-            Streamline your shipping process, generates <br /> unique tracking IDs for
-            your parcels. Say goodbye to logistics <br /> headaches and hello to
-            efficiency.
+            Streamline your shipping process, generates <br /> unique tracking
+            IDs for your parcels. Say goodbye to logistics <br /> headaches and
+            hello to efficiency.
           </p>
 
-          <div className='my-5'>
+          <div className="my-5">
             <Button variant="outlined" sx={buttonStyles}>
               Get started
             </Button>
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -5,18 +5,18 @@ import BuisnessInfoForm from './BuissnessInfoForm';
 import LogisticInformation from '../LogisticInformation';
 
 const BuisnessInfoContainer: React.FC = () => {
-    const renderTabContent = (selectedTab: string) => {
-        switch (selectedTab) {
-            case 'business':
-                return <BuisnessInfoForm />;
-            case 'logistics':
-                return <LogisticInformation />;
-            default:
-                return <div>Select a valid tab.</div>;
-        }
-    };
+  const renderTabContent = (selectedTab: string) => {
+    switch (selectedTab) {
+      case 'business':
+        return <BuisnessInfoForm />;
+      case 'logistics':
+        return <LogisticInformation />;
+      default:
+        return <div>Select a valid tab.</div>;
+    }
+  };
 
-    return <BusinessTabComponent renderTabContent={renderTabContent} />;
+  return <BusinessTabComponent renderTabContent={renderTabContent} />;
 };
 
 export default BuisnessInfoContainer;

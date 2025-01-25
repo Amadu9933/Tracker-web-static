@@ -23,7 +23,6 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
           src={createAccont}
           alt="Create Account"
           className="-ml-16 w-full h-full object-cover"
-
         />
       </div>
 

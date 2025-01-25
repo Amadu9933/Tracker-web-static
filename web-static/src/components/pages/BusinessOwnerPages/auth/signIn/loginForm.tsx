@@ -5,9 +5,8 @@ import * as yup from 'yup';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { signIn } from '@api/api';
 
-
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined'
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { loginUser } from '../../../../../api/auth'; // Mock API
 
 // Define form data type
@@ -19,13 +18,15 @@ interface LoginFormData {
 // Validation schema using yup
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  password: yup
+    .string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
 });
 
 const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
-
 
   const location = useLocation();
   const message = location.state?.message;
@@ -35,7 +36,6 @@ const LoginForm: React.FC = () => {
       alert(message);
     }
   }, [message]);
-
 
   const navigate = useNavigate();
   const {
@@ -58,34 +58,47 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-4 text-left bg-white  w-96">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="p-4 text-left bg-white  w-96"
+    >
       {/* Email Field */}
       <div className="mb-4">
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-gray-700"
+        >
           Email
         </label>
         <input
           id="email"
           type="email"
           {...register('email')}
-          className={`mt-1 block w-full p-2 border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'
-            }`}
+          className={`mt-1 block w-full p-2 border rounded-md ${
+            errors.email ? 'border-red-500' : 'border-gray-300'
+          }`}
           placeholder="example@example.com"
         />
-        {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="text-red-500 text-sm">{errors.email.message}</p>
+        )}
       </div>
 
       {/* Password Field */}
       <div className="relative mb-4">
-        <label htmlFor="password" className="block text-sm h-[34px] font-medium text-gray-700">
+        <label
+          htmlFor="password"
+          className="block text-sm h-[34px] font-medium text-gray-700"
+        >
           Password
         </label>
         <input
           id="password"
           type={showPassword ? 'text' : 'password'}
           {...register('password')}
-          className={`mt-1 block w-full p-2 border rounded-md ${errors.password ? 'border-red-500' : 'border-gray-300'
-            }`}
+          className={`mt-1 block w-full p-2 border rounded-md ${
+            errors.password ? 'border-red-500' : 'border-gray-300'
+          }`}
           placeholder="******"
         />
         <button
@@ -93,9 +106,15 @@ const LoginForm: React.FC = () => {
           onClick={togglePasswordVisibility}
           className="absolute inset-y-0 right-3 top-8 flex items-center text-gray-500 focus:outline-none"
         >
-          {showPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
+          {showPassword ? (
+            <VisibilityOffOutlinedIcon />
+          ) : (
+            <VisibilityOutlinedIcon />
+          )}
         </button>
-        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+        )}
       </div>
 
       {/* Submit Button */}

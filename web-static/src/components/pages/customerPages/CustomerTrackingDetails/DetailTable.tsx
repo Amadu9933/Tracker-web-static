@@ -29,13 +29,20 @@ const DetailTable: React.FC = () => {
         console.log('Response data:', response.data);
 
         // Filter the tracking data to include only the desired fields
-        const { parcel_number, date_of_purchase, delivery_date, destination, vendor, status } = response.data
+        const {
+          parcel_number,
+          date_of_purchase,
+          delivery_date,
+          destination,
+          vendor,
+          status,
+        } = response.data;
 
         const filteredData = {
           'Parcel number': parcel_number,
           'Date of purchase': date_of_purchase,
           'Estimated delivery date': delivery_date,
-          'destination': destination,
+          destination: destination,
           Vendor: vendor,
           Status: status,
         };

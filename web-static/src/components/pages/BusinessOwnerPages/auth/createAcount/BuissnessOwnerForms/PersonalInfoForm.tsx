@@ -14,10 +14,19 @@ type PersonalInfoFormData = {
 };
 
 const schema = yup.object({
-  name: yup.string().required('Name is required').min(2, 'Name must be at least 2 characters'),
+  name: yup
+    .string()
+    .required('Name is required')
+    .min(2, 'Name must be at least 2 characters'),
   email: yup.string().email('Invalid email').required('Email is required'),
-  phone: yup.string().required('Phone number is required').matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
-  password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
+  phone: yup
+    .string()
+    .required('Phone number is required')
+    .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
 });
 
 const PersonalInfoForm: React.FC = () => {
@@ -39,11 +48,36 @@ const PersonalInfoForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <TextInput id="name" label="Name" register={register} error={errors.name} />
-      <TextInput id="email" label="Email" type="email" register={register} error={errors.email} />
-      <TextInput id="phone" label="Phone" register={register} error={errors.phone} />
-      <TextInput id="password" label="Password" type="password" register={register} error={errors.password} />
-      <button type="submit" className="w-full bg-primary text-white p-2 rounded-md">
+      <TextInput
+        id="name"
+        label="Name"
+        register={register}
+        error={errors.name}
+      />
+      <TextInput
+        id="email"
+        label="Email"
+        type="email"
+        register={register}
+        error={errors.email}
+      />
+      <TextInput
+        id="phone"
+        label="Phone"
+        register={register}
+        error={errors.phone}
+      />
+      <TextInput
+        id="password"
+        label="Password"
+        type="password"
+        register={register}
+        error={errors.password}
+      />
+      <button
+        type="submit"
+        className="w-full bg-primary text-white p-2 rounded-md"
+      >
         Continue
       </button>
     </form>

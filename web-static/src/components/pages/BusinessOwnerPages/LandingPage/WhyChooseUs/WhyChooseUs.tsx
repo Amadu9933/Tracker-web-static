@@ -1,7 +1,9 @@
 const LandingPage: React.FC = () => {
   return (
     <div className="  w-full inline-block  justify-center items-center">
-      <h1 className="text-3xl font-medium text-secondary my-16 ">Why choose us</h1>
+      <h1 className="text-3xl font-medium text-secondary my-16 ">
+        Why choose us
+      </h1>
 
       <div className=" w-full flex justify-evenly ">
         {/* Boost Efficiency */}

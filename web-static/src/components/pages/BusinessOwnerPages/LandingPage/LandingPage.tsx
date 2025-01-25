@@ -10,7 +10,10 @@ import Footer from '@common/footer/Footer';
 const LandingPage: React.FC = () => {
   return (
     <div className="">
-      <div className='h-[650px]'>  <Hero /></div>
+      <div className="h-[650px]">
+        {' '}
+        <Hero />
+      </div>
 
       <Layout />
 

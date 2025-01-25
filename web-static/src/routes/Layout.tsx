@@ -25,9 +25,7 @@ const Layout: React.FC = () => {
         </Suspense>
       </main>
 
-      <footer>
-        {/* Optional Footer */}
-      </footer>
+      <footer>{/* Optional Footer */}</footer>
     </>
   );
 };

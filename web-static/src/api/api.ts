@@ -11,7 +11,7 @@ export const signUp = async (data: {
   service: string;
   address: string;
 }) => {
-  const response = await axiosInstance.post('/signup', data);
+  const response = await axiosInstance.post('/business-owners/signup/', data);
   return response.data;
 };
 
@@ -24,5 +24,6 @@ export const signIn = async (email: string, password: string) => {
 // Fetch user profile
 export const getUserProfile = async () => {
   const response = await axiosInstance.get('/user-profile');
-  return response.data; // Expecting user details (name, avatar, etc.)
+  return response.data;
+  // Expecting user details (name, avatar, etc.)
 };

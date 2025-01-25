@@ -9,7 +9,6 @@ const TabSelector: React.FC<TabSelectorProps> = ({
 }) => {
   return (
     <div className="text-base  flex justify-left  font-inter text-secondary">
-
       <label className="flex pl-2 ">
         <input
           type="radio"
@@ -17,7 +16,6 @@ const TabSelector: React.FC<TabSelectorProps> = ({
           checked={selectedTab === 'business'}
           onChange={() => onTabChange('business')}
           className={selectedTab === 'business' ? 'accent-black' : ''}
-
         />
         <p className="pt-0.5 pl-2">Business Owner</p>
       </label>

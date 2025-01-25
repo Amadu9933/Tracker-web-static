@@ -1,6 +1,5 @@
 // src/routes/UserRoutes.tsx
-import { lazy, Suspense } from 'react';
-import { Route } from 'react-router-dom';
+import { Suspense } from 'react';
 
 // const Profile = lazy(() => import('../pages/user/Profile'));
 
