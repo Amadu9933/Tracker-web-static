@@ -34,7 +34,7 @@ const ResetPassword: React.FC = () => {
     resolver: yupResolver(passwordSchema),
   });
 
-  const onSubmit = (data: ResetPasswordFormData) => {
+  const onSubmit = () => {
     console.log(`New password set for ${activeTab} tab`);
     alert('Your password has been successfully reset.');
   };

@@ -87,7 +87,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
    * @param {string} _email - The email to be used in the simulation. Currently not used.
    * @return {Promise<{success: boolean}>} A Promise that resolves with an object containing a boolean indicating success or rejects with an Error object indicating a failure to fetch data.
    */
-  const mockFetchRequest = (_email: string) => {
+  const mockFetchRequest = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate a network request failure
