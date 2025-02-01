@@ -1,4 +1,4 @@
-// src/pages/BusinessPage.tsx
+// src/pages/FormContainer.tsx
 import React from 'react';
 import BusinessTabComponent from '../TabComponent';
 import PersonalInfoForm from './PersonalInfoForm';

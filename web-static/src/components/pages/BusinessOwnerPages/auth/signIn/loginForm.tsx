@@ -3,11 +3,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { signIn } from '@api/api';
 
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import { loginUser } from '../../../../../api/auth'; // Mock API
+import { loginUser } from '../../../../../api/auth';
 
 // Define form data type
 interface LoginFormData {
@@ -48,20 +47,31 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const { token } = await loginUser(data.email, data.password); // Mock API call
-      localStorage.setItem('token', token); // Store the token
-      navigate('/dashboard'); // Redirect
+      const response = await loginUser(data.email, data.password); // Call real API
+      const { access } = response; // Extract the access token from response
+
+      // Store token in localStorage
+      localStorage.setItem('access', access);
+
+      // Redirect user to the dashboard or another protected route
+      navigate('/dashboard/');
     } catch (err) {
       console.error('Login failed:', err);
-      alert('Login failed. Please check your credentials.');
+      alert(
+        err instanceof Error
+          ? err.message
+          : 'Login failed. Please check your credentials.'
+      );
     }
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="p-4 text-left bg-white  w-96"
+      className="p-4 text-left bg-white w-96"
     >
+      <h2 className="text-lg font-bold mb-4">Login</h2>
+
       {/* Email Field */}
       <div className="mb-4">
         <label
@@ -74,9 +84,8 @@ const LoginForm: React.FC = () => {
           id="email"
           type="email"
           {...register('email')}
-          className={`mt-1 block w-full p-2 border rounded-md ${
-            errors.email ? 'border-red-500' : 'border-gray-300'
-          }`}
+          className={`mt-1 block w-full p-2 border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'
+            }`}
           placeholder="example@example.com"
         />
         {errors.email && (
@@ -88,7 +97,7 @@ const LoginForm: React.FC = () => {
       <div className="relative mb-4">
         <label
           htmlFor="password"
-          className="block text-sm h-[34px] font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700"
         >
           Password
         </label>
@@ -96,9 +105,8 @@ const LoginForm: React.FC = () => {
           id="password"
           type={showPassword ? 'text' : 'password'}
           {...register('password')}
-          className={`mt-1 block w-full p-2 border rounded-md ${
-            errors.password ? 'border-red-500' : 'border-gray-300'
-          }`}
+          className={`mt-1 block w-full p-2 border rounded-md ${errors.password ? 'border-red-500' : 'border-gray-300'
+            }`}
           placeholder="******"
         />
         <button

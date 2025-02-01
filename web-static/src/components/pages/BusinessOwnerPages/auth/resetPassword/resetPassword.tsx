@@ -87,9 +87,8 @@ const ResetPassword: React.FC = () => {
             type="password"
             {...register('newPassword')}
             placeholder="Enter new password"
-            className={`mt-1 block w-full p-2 border rounded-md ${
-              errors.newPassword ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className={`mt-1 block w-full p-2 border rounded-md ${errors.newPassword ? 'border-red-500' : 'border-gray-300'
+              }`}
           />
           {errors.newPassword && (
             <p className="text-red-500 text-sm mt-1">
@@ -110,9 +109,8 @@ const ResetPassword: React.FC = () => {
             type="password"
             {...register('confirmPassword')}
             placeholder="Confirm new password"
-            className={`mt-1 block w-full p-2 border rounded-md ${
-              errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className={`mt-1 block w-full p-2 border rounded-md ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+              }`}
           />
           {errors.confirmPassword && (
             <p className="text-red-500 text-sm mt-1">

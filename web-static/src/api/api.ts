@@ -1,29 +1,26 @@
-// src/api/api.ts
-import axiosInstance from './axiosInstance';
+// src/api/auth.ts
+export const loginUser = async (email: string, password: string) => {
+  try {
+    const response = await fetch(
+      'https://your-backend-url.com/api/auth/login',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }), // Send email and password in the request body
+      }
+    );
 
-// Sign-up API
-export const signUp = async (data: {
-  name: string;
-  email: string;
-  phone: string;
-  password: string;
-  businessName: string;
-  service: string;
-  address: string;
-}) => {
-  const response = await axiosInstance.post('/business-owners/signup/', data);
-  return response.data;
-};
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Login failed');
+    }
 
-// Sign-in API
-export const signIn = async (email: string, password: string) => {
-  const response = await axiosInstance.post('/Sign-in', { email, password });
-  return response.data; // Expecting a token in the response
-};
-
-// Fetch user profile
-export const getUserProfile = async () => {
-  const response = await axiosInstance.get('/user-profile');
-  return response.data;
-  // Expecting user details (name, avatar, etc.)
+    const data = await response.json();
+    return data; // Ensure the API returns a `token` in the response
+  } catch (err) {
+    console.error('Error logging in:', err);
+    throw err;
+  }
 };

@@ -87,7 +87,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
    * @param {string} _email - The email to be used in the simulation. Currently not used.
    * @return {Promise<{success: boolean}>} A Promise that resolves with an object containing a boolean indicating success or rejects with an Error object indicating a failure to fetch data.
    */
-  const mockFetchRequest = () => {
+  const mockFetchRequest = (_email: string) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate a network request failure
@@ -125,12 +125,14 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
       console.log('Mocking network request');
       await mockFetchRequest(email);
       console.log('Navigating to /customer-notification/${email}');
+
       navigate(`/customer-notification/${email}`);
     } catch (err) {
       console.log('Error fetching data:', err);
       setError('Failed to fetch data. Please try again.');
     } finally {
       console.log('Setting loading state to false');
+
       setLoading(false);
     }
   };
