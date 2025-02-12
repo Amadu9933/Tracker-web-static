@@ -42,10 +42,7 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
         <TabSelector selectedTab={selectedTab} onTabChange={setSelectedTab} />
 
 
-        <div className='flex justify-between  w-[86%] mt-8 mb-10'>
-          <p className='font-medium text-lg'>Personal Information</p>
-          <p className='text-[#82826A]  font-medium'>Step 1 of 3</p>
-        </div>
+
         {/* Tab Content */}
         <div className="text-left mt-6 mr-20">
           {renderTabContent(selectedTab)}

@@ -1,8 +1,8 @@
-import Dashboard from "@components/pages/businessOwnerPages/dashboard/Dashboard";
+import SetProfileImagePage from "@components/pages/businessOwnerPages/auth/createAcount/BuissnessOwnerForms/SetProfileImagePage";
 const Intergration: React.FC = () => {
   return (
     <div>
-      <Dashboard />
+      <SetProfileImagePage />
     </div>
   );
 };

@@ -27,7 +27,9 @@ const TextInput: React.FC<TextInputProps> = ({
       type={type}
       {...register(id)}
       placeholder={placeholder}
-      className={`mt-1 p-2 border rounded-md w-full ${error ? 'border-red-500' : 'border-gray-300'}`}
+      className={`mt-1 p-3  border  w-full rounded-md text-gray-900 transition-colors duration-200
+        placeholder-gray-400  focus:outline-none  
+        ${error ? 'border-red-500' : 'border-gray-300'}`}
     />
     {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
   </div>

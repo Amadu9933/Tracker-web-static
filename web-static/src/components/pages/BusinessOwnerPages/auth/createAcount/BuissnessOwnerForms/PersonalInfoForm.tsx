@@ -57,6 +57,10 @@ const PersonalInfoForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div className='flex justify-between   mb-10'>
+        <p className='font-medium text-lg'>Personal Information</p>
+        <p className='text-[#82826A]  font-medium'>Step 1 of 3</p>
+      </div>
       {/* Name Field */}
       <div className="space-y-2 ">
         <label htmlFor="name" className="block text-sm font-medium text-secondary">
@@ -144,7 +148,7 @@ const PersonalInfoForm: React.FC = () => {
 
       {/* Sign In Link */}
       <div className="text-center mt-8  font-[16px] pb-20" >
-        <span className=" ">
+        <span className="">
           Already have an account?{' '}
           <Link to="/sign-in" className="text-primary ">
             Sign in

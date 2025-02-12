@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormContext } from '../../../../../../context/CreateAccountFormContext';
-import axiosInstance from '../../../../../../api/axiosInstance'; //axios instant
+import axiosInstance from '../../../../../../api/axiosInstance'; // Axios instance
+import { ArrowBack } from '@mui/icons-material';
+import { Group, edit } from '../../assets/Assets'; // Importing group and edit icons
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
@@ -13,30 +15,25 @@ const SetProfileImagePage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Clean up the preview URL when the component unmounts or the image changes
+  // Generate preview URL
   useEffect(() => {
     if (image) {
       const previewUrl = URL.createObjectURL(image);
       setPreview(previewUrl);
-      return () => {
-        URL.revokeObjectURL(previewUrl);
-      };
+      return () => URL.revokeObjectURL(previewUrl);
     } else {
       setPreview(null);
     }
   }, [image]);
 
-  // File validation helpers
+  // Validate selected file
   const validateFile = (file: File): string | null => {
-    if (!file.type.startsWith('image/')) {
-      return 'Please select a valid image file.';
-    }
-    if (file.size > MAX_FILE_SIZE) {
-      return 'File too large. Please select a file smaller than 2MB.';
-    }
+    if (!file.type.startsWith('image/')) return 'Please select a valid image file.';
+    if (file.size > MAX_FILE_SIZE) return 'File too large. Select a file smaller than 2MB.';
     return null;
   };
 
+  // Handle file selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -46,10 +43,11 @@ const SetProfileImagePage: React.FC = () => {
         return;
       }
       setImage(file);
-      setError(null); // Clear previous errors
+      setError(null); // Clear errors
     }
   };
 
+  // Handle form submission
   const handleSubmit = async () => {
     if (!image) {
       setError('Please upload a profile image.');
@@ -71,61 +69,69 @@ const SetProfileImagePage: React.FC = () => {
       payload.append('account_type', 'business');
       payload.append('avatar', image);
 
-      // Debugging: Log FormData contents
-      for (const [key, value] of payload.entries()) {
-        console.log(`${key}:`, value instanceof File ? value.name : value);
-      }
-
       const response = await axiosInstance.post('', payload);
 
       console.log('Account created successfully:', response.data);
-      navigate('/Sign-in', {
-        state: { message: 'Login to see your dashboard' },
-      });
+      navigate('/Sign-in', { state: { message: 'Login to see your dashboard' } });
     } catch (err: any) {
       console.error('Failed to create account:', err);
-      if (err.response?.data?.message) {
-        setError(err.response.data.message);
-      } else {
-        setError('Failed to create account. Please try again.');
-      }
+      setError(err.response?.data?.message || 'Failed to create account. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Set Profile Image</h1>
-      <label
-        htmlFor="fileInput"
-        className="block text-sm font-medium text-gray-700"
-      >
-        Upload Profile Image
-      </label>
-      <input
-        id="fileInput"
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        disabled={isSubmitting}
-        className="mt-2"
-      />
-      {preview && (
-        <img
-          src={preview}
-          alt="Preview"
-          className="my-4 w-32 h-32 object-cover rounded-full"
+    <div className="mx-auto max-w-lg p-6">
+      <div className="flex items-center space-x-2 pb-2">
+        <ArrowBack />
+        <h1 className="text-2xl font-semibold">Create Account</h1>
+      </div>
+
+      <p className="text-left text-gray-600">Upload a picture of your business logo or product to complete setup.</p>
+
+      {/* Profile Upload Section */}
+      <div className="relative w-32 h-32 mx-auto mt-6">
+        <label htmlFor="fileInput" className="cursor-pointer relative">
+          {/* Show uploaded image or default group icon */}
+          {preview ? (
+            <img src={preview} alt="Profile" className="w-32 h-32 object-cover rounded-full border border-gray-300" />
+          ) : (
+            <div className="w-32 h-32 flex items-center justify-center bg-gray-200 border border-gray-300 rounded-full">
+              <img src={Group} alt="Group Icon" className="w-16 h-16" />
+            </div>
+          )}
+
+          {/* Edit icon for changing image */}
+          {preview && (
+            <div className="absolute bottom-1 right-1 bg-white p-1 rounded-full shadow">
+              <img src={edit} alt="Edit Icon" className="w-6 h-6" />
+            </div>
+          )}
+        </label>
+
+        {/* Hidden File Input */}
+        <input
+          id="fileInput"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          disabled={isSubmitting}
+          className="hidden"
         />
-      )}
+      </div>
+
+      {/* Error Message */}
+      {error && <p className="text-red-500 text-sm mt-2 text-center">{error}</p>}
+
+      {/* Submit Button */}
       <button
         onClick={handleSubmit}
-        className={`w-full bg-primary text-white p-2 rounded-md ${!image || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`w-full bg-primary text-white p-2 rounded-md mt-6 ${!image || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
         disabled={!image || isSubmitting}
       >
         {isSubmitting ? 'Submitting...' : 'Complete Sign Up'}
       </button>
-      {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
 };
