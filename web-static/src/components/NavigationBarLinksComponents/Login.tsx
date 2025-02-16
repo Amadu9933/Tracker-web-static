@@ -46,7 +46,7 @@
 
 // export default Login;
 
-import LoginTabComponent from '@components/pages/businessOwnerPages/auth/signIn/LoginTabComponent';
+import LoginTabComponent from '@components/pages/BusinessOwnerPages/auth/signIn/LoginTabComponent';
 
 const Login: React.FC = () => {
   return (
