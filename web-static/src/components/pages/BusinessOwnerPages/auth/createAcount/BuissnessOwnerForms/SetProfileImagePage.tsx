@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormContext } from '../../../../../../context/CreateAccountFormContext';
 import axiosInstance from '../../../../../../api/axiosInstance'; // Axios instance
 import { ArrowBack } from '@mui/icons-material';
-import { Group, edit } from '../../assets/Assets'; // Importing group and edit icons
+import { Group, edit } from '../../assets/Assets';
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 

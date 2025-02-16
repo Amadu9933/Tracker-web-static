@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import LoginForm from './loginForm'; // Import the LoginForm component
-import { carryParcel } from '../assets/Assets'; // Replace with the actual path of your image
+import LoginForm from './loginForm';
+import { carryParcel } from '../assets/Assets';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const LoginTabComponent: React.FC = () => {
