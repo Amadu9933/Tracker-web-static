@@ -1,14 +1,13 @@
 // src/routes/DashboardRoutes.tsx
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import DashboardLayout from '@components/pages/businessOwnerPages/dashboard/DashboardLayout';
+import DashboardLayout from '@components/pages/BusinessOwnerPages/dashboard/DashboardLayout';
 import { FormProvider } from '../../src/context/CreateAccountFormContext';
-import { useNavigate } from 'react-router-dom';
 
 // Lazy load dashboard components
 
 const Dashboard = lazy(
-  () => import('@components/pages/businessOwnerPages/dashboard/Dashboard')
+  () => import('@components/pages/BusinessOwnerPages/dashboard/Dashboard')
 );
 
 const DashboardRoutes: React.FC = () => (
@@ -18,8 +17,6 @@ const DashboardRoutes: React.FC = () => (
         <Route element={<DashboardLayout />}>
           {/* Define the main dashboard route */}
           <Route path="/" element={<Dashboard />} />
-
-
 
           {/* Example of additional nested routes under Dashboard */}
           {/* <Route path="/settings" element={<Settings />} /> */}

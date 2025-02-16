@@ -1,4 +1,4 @@
-import LandingPage from '../pages/businessOwnerPages/LandingPage/LandingPage';
+import LandingPage from '../pages/BusinessOwnerPages/LandingPage/LandingPage';
 
 const Ship: React.FC = () => {
   return (

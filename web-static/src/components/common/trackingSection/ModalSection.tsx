@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import CircularProgress from '../../pages/customerPages/customerTrackingDetails/customerNotification/Data';
+import CircularProgress from '../../pages/customerPages/CustomerTrackingDetails/CustomerNotification/Data';
 
 const style = {
   position: 'absolute' as const,
@@ -87,7 +87,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
    * @param {string} _email - The email to be used in the simulation. Currently not used.
    * @return {Promise<{success: boolean}>} A Promise that resolves with an object containing a boolean indicating success or rejects with an Error object indicating a failure to fetch data.
    */
-  const mockFetchRequest = (_email: string) => {
+  const mockFetchRequest = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate a network request failure
@@ -123,7 +123,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
 
     try {
       console.log('Mocking network request');
-      await mockFetchRequest(email);
+      await mockFetchRequest();
       console.log('Navigating to /customer-notification/${email}');
 
       navigate(`/customer-notification/${email}`);
