@@ -8,13 +8,13 @@ const CustomerLandingPage = lazy(
 const CustomerTrackingDetailLayout = lazy(
   () =>
     import(
-      '@components/pages/customerPages/customerTrackingDetails/CustomerTrackingDetailLayout'
+      '@components/pages/customerPages/CustomerTrackingDetails/CustomerTrackingDetailLayout'
     )
 );
 const CustomerNotification = lazy(
   () =>
     import(
-      '@components/pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification'
+      '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CustomerNotification'
     )
 );
 

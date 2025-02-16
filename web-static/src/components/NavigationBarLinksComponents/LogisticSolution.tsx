@@ -9,8 +9,8 @@
 // };
 
 // export default LogisticSolution;
-import ForgotPassword from '@components/pages/businessOwnerPages/auth/resetPassword/forgotPassword';
-import ResetPassword from '@components/pages/businessOwnerPages/auth/resetPassword/resetPassword';
+import ForgotPassword from '@components/pages/BusinessOwnerPages/auth/resetPassword/forgotPassword';
+// import ResetPassword from '@components/pages/BusinessOwnerPages/auth/resetPassword/resetPassword';
 
 const LogisticSolution: React.FC = () => {
   return (
