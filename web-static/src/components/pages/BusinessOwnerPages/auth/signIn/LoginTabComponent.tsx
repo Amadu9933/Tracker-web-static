@@ -8,7 +8,6 @@ const LoginTabComponent: React.FC = () => {
 
   return (
     <div className="flex  md:flex-row h-screen w-screen bg-red-500">
-      {/* Image Section (Left) - Fits Inside Without Cropping */}
       <div >
         <img
           src={carryParcel}
@@ -17,7 +16,6 @@ const LoginTabComponent: React.FC = () => {
         />
       </div>
 
-      {/* Login Form Section (Right) */}
       <div className="md:w-1/2 w-full h-screen flex flex-col justify-center px-8 md:px-12 bg-white shadow-md">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-secondary flex items-center">
