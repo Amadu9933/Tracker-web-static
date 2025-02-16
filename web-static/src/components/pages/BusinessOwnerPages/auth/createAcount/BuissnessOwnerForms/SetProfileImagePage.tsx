@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormContext } from '../../../../../../context/CreateAccountFormContext';
 import axiosInstance from '../../../../../../api/axiosInstance'; // Axios instance
-import { ArrowBack } from '@mui/icons-material';
-import { Group, edit } from '../../assets/Assets'; // Importing group and edit icons
+import { Group, edit, ArrowBack } from '../../assets/Assets';
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
@@ -49,11 +48,6 @@ const SetProfileImagePage: React.FC = () => {
 
   // Handle form submission
   const handleSubmit = async () => {
-    if (!image) {
-      setError('Please upload a profile image.');
-      return;
-    }
-
     setIsSubmitting(true);
     setError(null);
 
@@ -67,7 +61,11 @@ const SetProfileImagePage: React.FC = () => {
       payload.append('service', formData.service);
       payload.append('address', formData.address);
       payload.append('account_type', 'business');
-      payload.append('avatar', image);
+
+      // Append image only if one is selected
+      if (image) {
+        payload.append('avatar', image);
+      }
 
       const response = await axiosInstance.post('', payload);
 
@@ -82,33 +80,36 @@ const SetProfileImagePage: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto max-w-lg p-6">
-      <div className="flex items-center space-x-2 pb-2">
-        <ArrowBack />
-        <h1 className="text-2xl font-semibold">Create Account</h1>
+    <div className="mx-auto max-w-lg p-8">
+      <div className="flex items-center space-x-2 pb-2 mb-6">
+        <div onClick={() => navigate(-1)} className="-mb-2 ">
+          <img src={ArrowBack} alt="Move back arrow" />
+        </div>
+        <h1 className="text-5xl font-semibold">Create Account</h1>
+      </div>
+      <div className="flex justify-between mb-10">
+        <p className="font-medium text-lg">Profile Information</p>
+        <p className="text-[#82826A] font-medium">Step 3 of 3</p>
       </div>
 
-      <p className="text-left text-gray-600">Upload a picture of your business logo or product to complete setup.</p>
-
-      {/* Profile Upload Section */}
-      <div className="relative w-32 h-32 mx-auto mt-6">
-        <label htmlFor="fileInput" className="cursor-pointer relative">
-          {/* Show uploaded image or default group icon */}
-          {preview ? (
-            <img src={preview} alt="Profile" className="w-32 h-32 object-cover rounded-full border border-gray-300" />
-          ) : (
-            <div className="w-32 h-32 flex items-center justify-center bg-gray-200 border border-gray-300 rounded-full">
-              <img src={Group} alt="Group Icon" className="w-16 h-16" />
-            </div>
-          )}
-
-          {/* Edit icon for changing image */}
-          {preview && (
-            <div className="absolute bottom-1 right-1 bg-white p-1 rounded-full shadow">
-              <img src={edit} alt="Edit Icon" className="w-6 h-6" />
-            </div>
-          )}
-        </label>
+      <p className="text-left text-gray-600">
+        Please upload a picture of your business logo or product to complete account setup (optional).
+      </p>
+      <div className="my-20">
+        {/* Profile Upload Section */}
+        <div className="flex w-32 h-32 mx-auto mt-6">
+          <img src={Group} alt="" />
+          <label htmlFor="fileInput" className="cursor-pointer relative">
+            {/* Show uploaded image or default group icon */}
+            {preview ? (
+              <img src={preview} alt="Profile" className="w-32 h-32 object-cover rounded-full border border-gray-300" />
+            ) : (
+              <div className="w-10 h-10">
+                <img src={edit} alt="Edit Icon" className="" />
+              </div>
+            )}
+          </label>
+        </div>
 
         {/* Hidden File Input */}
         <input
@@ -127,8 +128,8 @@ const SetProfileImagePage: React.FC = () => {
       {/* Submit Button */}
       <button
         onClick={handleSubmit}
-        className={`w-full bg-primary text-white p-2 rounded-md mt-6 ${!image || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
-        disabled={!image || isSubmitting}
+        className={`w-full bg-primary text-white p-2 rounded-md mt-6 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+        disabled={isSubmitting}
       >
         {isSubmitting ? 'Submitting...' : 'Complete Sign Up'}
       </button>
