@@ -3,6 +3,7 @@ const Intergration: React.FC = () => {
   return (
     <div>
       <SetProfileImagePage />
+      <p>fe hkaadfhhdfvdf</p>
     </div>
   );
 };

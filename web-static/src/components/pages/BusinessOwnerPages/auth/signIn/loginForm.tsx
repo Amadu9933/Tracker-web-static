@@ -68,9 +68,10 @@ const LoginForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="p-4 text-left bg-white w-96"
+      className="  text-left bg-white pr-16"
     >
-      <h2 className="text-lg font-bold mb-4">Login</h2>
+
+      <h2 className="text-lg font-bold mb-4">Sign in</h2>
 
       {/* Email Field */}
       <div className="mb-4">
@@ -86,7 +87,7 @@ const LoginForm: React.FC = () => {
           {...register('email')}
           className={`mt-1 block w-full p-2 border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'
             }`}
-          placeholder="example@example.com"
+          placeholder="abc@gmail.com"
         />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
