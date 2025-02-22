@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import LoginForm from './loginForm'; // Import the LoginForm component
-import carryParcel from '../assets/carryParcel.png'; // Ensure correct image path
+import { carryParcel } from '../assets/Assets'; // Ensure correct image path
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import LoginForm from './LoginForm';
 
 const LoginTabComponent: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<'business' | 'logistics'>('business');
 
   return (
     <div className="flex  md:flex-row h-screen w-screen bg-red-500">
-      <div >
+      <div>
         <img
           src={carryParcel}
           alt="Login Illustration"
-          className="  h-full object-contain"
+          className="h-full object-contain"
         />
       </div>
 
