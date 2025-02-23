@@ -16,7 +16,7 @@ const LoginTabComponent: React.FC = () => {
         />
       </div>
 
-      <div className=" md:w-3/5 w-full h-screen flex flex-col justify-start px-8 md:px-32">
+      <div className=" md:w-3/5 w-full h-screen  mt-48 flex flex-col justify-start px-8 md:px-32">
 
         <div className="mb-6 ">
           <h1 className="mb-3 text-3xl font-bold text-secondary flex items-center">

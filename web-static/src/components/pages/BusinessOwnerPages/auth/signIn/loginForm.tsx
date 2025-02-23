@@ -68,13 +68,13 @@ const LoginForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="  text-left bg-white pr-16"
+      className="  text-left bg-white pr-16 "
     >
 
-      <h2 className="text-lg font-bold mb-4">Sign in</h2>
+      <h2 className="text-lg font-bold mb-7">Sign in</h2>
 
       {/* Email Field */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label
           htmlFor="email"
           className="block text-sm font-medium text-gray-700"
@@ -95,7 +95,7 @@ const LoginForm: React.FC = () => {
       </div>
 
       {/* Password Field */}
-      <div className="relative mb-4">
+      <div className="relative ">
         <label
           htmlFor="password"
           className="block text-sm font-medium text-gray-700"
@@ -125,6 +125,7 @@ const LoginForm: React.FC = () => {
           <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
         )}
       </div>
+      <p className='text-xs mb-6'>Password MUST contain at least one uppercase, one lowercase, one number</p>
 
       {/* Submit Button */}
       <button
