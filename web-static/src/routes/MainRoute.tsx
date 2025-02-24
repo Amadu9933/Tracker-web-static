@@ -1,14 +1,14 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress'; // ✅ Fixed import
+import CircularProgress from '@mui/material/CircularProgress';
 import { FormProvider } from '../../src/context/CreateAccountFormContext';
-import DashboardRoutes from './DashboardRoutes'; // ✅ Ensure DashboardRoutes is imported
+import DashboardRoutes from './DashboardRoutes';
 
 // Lazy loading public components
 const Ship = lazy(() => import('@components/navigationBarLinksComponents/Ship'));
 const LogisticSolution = lazy(() => import('@components/navigationBarLinksComponents/LogisticSolution'));
-const Integration = lazy(() => import('@components/navigationBarLinksComponents/Intergration')); // ✅ Fixed spelling
-const NeedHelp = lazy(() => import('@components/navigationBarLinksComponents/NeedHelp')); // ✅ Fixed dynamic import
+const Integration = lazy(() => import('@components/navigationBarLinksComponents/Intergration'));
+const NeedHelp = lazy(() => import('@components/navigationBarLinksComponents/NeedHelp'));
 const Login = lazy(() => import('@components/navigationBarLinksComponents/Login'));
 
 const MainRoutes: React.FC = () => (
