@@ -39,32 +39,31 @@ const GenerateTrackingID = () => {
     });
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-white text-left text-[#48463A] ">
+        <div className="max-w-4xl mx-auto p-6 bg-white text-left text-[#48463A]">
             <h2 className="text-xl text-secondary font-semibold mb-4 text-left">
                 <img src={ArrowBack} alt="Back icon" className="inline mr-2 h-6 text-xl" />
                 Generate Tracking I.D
             </h2>
             <p className="text-xs text-[#ABABAB] my-10 font-semibold">Customer details</p>
-            <form onSubmit={formik.handleSubmit} className="grid grid-cols-2 gap-4">
+
+            <form onSubmit={formik.handleSubmit} className="flex flex-col md:flex-row md:space-x-6">
                 {/* Left Column */}
-                <div className="space-y-4">
-                    {/* Shipping Address */}
+                <div className="flex-1 space-y-4">
                     <div>
-                        <label className="block font-medium ">Shipping Address</label>
+                        <label className="block font-medium">Shipping Address</label>
                         <input
                             type="text"
                             name="shippingAddress"
                             value={formik.values.shippingAddress}
                             onChange={formik.handleChange}
                             className="w-full border p-2 rounded"
-                            placeholder="Enter shipping address"
+                            placeholder=""
                         />
                         {formik.touched.shippingAddress && formik.errors.shippingAddress && (
                             <p className="text-red-500">{formik.errors.shippingAddress}</p>
                         )}
                     </div>
 
-                    {/* Email */}
                     <div>
                         <label className="block font-medium pt-6">Customer Email</label>
                         <input
@@ -72,16 +71,17 @@ const GenerateTrackingID = () => {
                             name="email"
                             value={formik.values.email}
                             onChange={formik.handleChange}
-                            className="w-full border p-2.5 rounded"
-                            placeholder="Enter customer email"
+                            className="w-full border p-2.5 rounded-lg border-black"
+                            placeholder=""
                         />
                         {formik.touched.email && formik.errors.email && (
                             <p className="text-red-500">{formik.errors.email}</p>
                         )}
                     </div>
-                    <p className="text-[#ABABAB] text-xs font-semibold pt-10 pb-7 "> Delivery details</p>
-                    {/* Product Name */}
-                    <div className="">
+
+                    <p className="text-[#ABABAB] text-xs font-semibold pt-10 pb-7">Delivery details</p>
+
+                    <div>
                         <label className="block font-medium">Product Name</label>
                         <input
                             type="text"
@@ -89,14 +89,13 @@ const GenerateTrackingID = () => {
                             value={formik.values.productName}
                             onChange={formik.handleChange}
                             className="w-full border p-2 rounded"
-                            placeholder="Enter product name"
+                            placeholder=""
                         />
                         {formik.touched.productName && formik.errors.productName && (
                             <p className="text-red-500">{formik.errors.productName}</p>
                         )}
                     </div>
 
-                    {/* Estimated Delivery Date */}
                     <div>
                         <label className="block font-medium pt-6">Estimated Delivery Date</label>
                         <input
@@ -104,18 +103,16 @@ const GenerateTrackingID = () => {
                             name="estimatedDeliveryDate"
                             value={formik.values.estimatedDeliveryDate}
                             onChange={formik.handleChange}
-                            className="w-full border p-2.5 rounded"
+                            className="w-full border p-2.5 rounded-lg border-black"
                         />
-                        {formik.touched.estimatedDeliveryDate &&
-                            formik.errors.estimatedDeliveryDate && (
-                                <p className="text-red-500">{formik.errors.estimatedDeliveryDate}</p>
-                            )}
+                        {formik.touched.estimatedDeliveryDate && formik.errors.estimatedDeliveryDate && (
+                            <p className="text-red-500">{formik.errors.estimatedDeliveryDate}</p>
+                        )}
                     </div>
                 </div>
 
                 {/* Right Column */}
-                <div className="space-y-4">
-                    {/* Country */}
+                <div className="flex-1 space-y-4 mt-6 md:mt-0">
                     <div>
                         <label className="block font-medium">Country</label>
                         <input
@@ -124,14 +121,13 @@ const GenerateTrackingID = () => {
                             value={formik.values.country}
                             onChange={formik.handleChange}
                             className="w-full border p-2 rounded"
-                            placeholder="Enter country"
+                            placeholder=""
                         />
                         {formik.touched.country && formik.errors.country && (
                             <p className="text-red-500">{formik.errors.country}</p>
                         )}
                     </div>
 
-                    {/* Phone Number */}
                     <div>
                         <label className="block font-medium pt-6">Customer Phone Number</label>
                         <input
@@ -140,30 +136,28 @@ const GenerateTrackingID = () => {
                             value={formik.values.phone}
                             onChange={formik.handleChange}
                             className="w-full border p-2 rounded"
-                            placeholder="Enter phone number"
+                            placeholder=""
                         />
                         {formik.touched.phone && formik.errors.phone && (
                             <p className="text-red-500">{formik.errors.phone}</p>
                         )}
                     </div>
 
-                    {/* Number of Products */}
-                    <div className="pt-[103px]">
+                    <div className="pt-[6.2rem]">
                         <label className="block font-medium">Number of Products</label>
                         <input
                             type="number"
                             name="numberOfProducts"
                             value={formik.values.numberOfProducts}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded"
-                            placeholder="Enter quantity"
+                            className="w-full border p-2 h-12 rounded-lg border-black"
+                            placeholder=""
                         />
                         {formik.touched.numberOfProducts && formik.errors.numberOfProducts && (
                             <p className="text-red-500">{formik.errors.numberOfProducts}</p>
                         )}
                     </div>
 
-                    {/* Logistics Contact */}
                     <div>
                         <label className="block font-medium pt-6">Logistics Contact</label>
                         <input
@@ -172,24 +166,24 @@ const GenerateTrackingID = () => {
                             value={formik.values.logisticsContact}
                             onChange={formik.handleChange}
                             className="w-full border p-2 rounded"
-                            placeholder="Enter logistics contact"
+                            placeholder=""
                         />
                         {formik.touched.logisticsContact && formik.errors.logisticsContact && (
                             <p className="text-red-500">{formik.errors.logisticsContact}</p>
                         )}
                     </div>
                 </div>
-
-                {/* Submit Button */}
-                <div className="col-span-2 flex justify-center items-center  mt-20 h-16">
-                    <button
-                        type="submit"
-                        className="bg-primary text-base  h-10 text-white p-2 rounded font-semibold w-1/2"
-                    >
-                        Generate Tracking ID
-                    </button>
-                </div>
             </form>
+
+            {/* Submit Button */}
+            <div className="flex justify-center items-center mt-20 h-16">
+                <button
+                    type="submit"
+                    className="bg-primary text-base h-10 text-white p-2 rounded font-semibold w-full sm:w-1/2"
+                >
+                    Generate Tracking ID
+                </button>
+            </div>
         </div>
     );
 };
