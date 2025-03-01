@@ -11,6 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import CloseIcon from '@mui/icons-material/Close';
 import './Navbar.css';
 
+import { useLocation } from "react-router-dom";
+
 import { logo, profileIcon } from '../../../assets/asset';
 
 const Navbar: React.FC = () => {
@@ -41,6 +43,16 @@ const Navbar: React.FC = () => {
     { label: 'Integration', link: '/Intergration' },
     { label: 'Need help ?', link: '/NeedHelp' },
   ];
+
+
+
+  const location = useLocation();
+
+  // Hide Navbar on Dashboard pages
+  if (location.pathname.startsWith("/dashboard")) {
+    return null;
+  }
+
 
   return (
     <div className="px-7">

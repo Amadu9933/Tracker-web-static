@@ -1,11 +1,14 @@
-// src/components/DashboardLayout.tsx
 import { Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
   return (
     <div>
+      {/* Sidebar & Header (always visible) */}
+
+
+      {/* Only render the active page */}
       <div className="dashboard-body">
-        <Outlet /> {/* Nested routes will render here */}
+        <Outlet />
       </div>
     </div>
   );

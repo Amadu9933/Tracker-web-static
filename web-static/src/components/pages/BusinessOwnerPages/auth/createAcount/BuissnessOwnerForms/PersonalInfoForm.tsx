@@ -150,7 +150,7 @@ const PersonalInfoForm: React.FC = () => {
       <div className="text-center mt-8  font-[16px] pb-20" >
         <span className="">
           Already have an account?{' '}
-          <Link to="/sign-in" className="text-primary ">
+          <Link to="/Login" className="text-primary ">
             Sign in
           </Link>
         </span>
