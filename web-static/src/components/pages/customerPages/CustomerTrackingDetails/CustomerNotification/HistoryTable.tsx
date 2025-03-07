@@ -7,7 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const StyledTableCell = styled(TableCell)(({}) => ({
+
+const StyledTableCell = styled(TableCell)(({ }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: '#F2F5F7',
     color: '#537086',

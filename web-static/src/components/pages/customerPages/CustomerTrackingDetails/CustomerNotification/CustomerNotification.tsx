@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import CustomizedTables from './HistoryTable';
 import RecentUpdate from './RecentUpdate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useAuth } from '../../../../../context/AuthContext';
+
 
 /**
  * Fetches tracking data for a customer based on the provided email.
@@ -11,11 +13,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
  * @return {void} No return value
  */
 const CustomerNotification: React.FC = () => {
-  const { email } = useParams<{ email: string }>();
+  // const { paramEmail } = useParams<{ paramEmail: string }>();
   const navigate = useNavigate();
   const [trackingData, setTrackingData] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
+  const { email } = useAuth();
   useEffect(() => {
     /**
      * Fetches the tracking history for a customer based on their email.

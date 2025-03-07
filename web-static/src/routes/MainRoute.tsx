@@ -2,7 +2,6 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import { FormProvider } from '../../src/context/CreateAccountFormContext';
-import DashboardRoutes from './DashboardRoutes';
 
 // Lazy loading public components
 const Ship = lazy(() => import('@components/navigationBarLinksComponents/Ship'));
@@ -12,7 +11,7 @@ const NeedHelp = lazy(() => import('@components/navigationBarLinksComponents/Nee
 const Login = lazy(() => import('@components/navigationBarLinksComponents/Login'));
 const TabComponent = lazy(() => import('@components/pages/BusinessOwnerPages/auth/createAcount/TabComponent'));
 const PersonalInfoForm = lazy(() => import('@components/pages/BusinessOwnerPages/auth/createAcount/BuissnessOwnerForms/PersonalInfoForm'))
-
+const CustomerNotification = lazy(() => import('@components/pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification'));
 
 const MainRoutes: React.FC = () => (
   <FormProvider>
@@ -26,7 +25,10 @@ const MainRoutes: React.FC = () => (
         <Route path="NeedHelp" element={<NeedHelp />} />
         <Route path="Login" element={<Login />} />
         <Route path="sign-up" element={<TabComponent renderTabContent={() => <PersonalInfoForm />} />} />
-
+        <Route
+          path="customer-notification/:paramEmail"
+          element={<CustomerNotification />}
+        />
         {/* Include Dashboard Routes here */}
 
         {/* Default Route */}

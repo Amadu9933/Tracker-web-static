@@ -1,28 +1,25 @@
 import React, { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import DashboardLayout from '@components/pages/BusinessOwnerPages/dashboard/DashboardLayout';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { FormProvider } from '../../src/context/CreateAccountFormContext';
+import Dashboard from '@components/pages/BusinessOwnerPages/dashboard/Dashboard';
 
-// Lazy load dashboard components
-const Dashboard = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/Dashboard'));
-const Report = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/report/Report')); // Load Report Page
-const DashboardMain = lazy((() => import('@components/pages/BusinessOwnerPages/dashboard/DashboardMain')))
-const GenerateTrackingID = lazy(() => import('@components/pages/BusinessOwnerPages/manageID/GenerateTrackingID'))
+// Lazy load components
+const DashboardMain = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/DashboardMain'));
+const Report = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/report/Report'));
+const GenerateTrackingID = lazy(() => import('@components/pages/BusinessOwnerPages/manageID/GenerateTrackingID'));
 
 const DashboardRoutes: React.FC = () => (
   <FormProvider>
     <Suspense fallback={<div>Loading dashboard...</div>}>
       <Routes>
-        <Route element={<Dashboard />}>
-          {/* Redirect /dashboard to /dashboard/home */}
+        <Route path="/" element={<Navigate to="home" replace />} />  {/* Redirect to home */}
 
-
-          {/* Main Dashboard Page */}
+        {/* Dashboard Layout */}
+        <Route path="/" element={<Dashboard />}>
           <Route path="home" element={<DashboardMain />} />
-          <Route path='GenerateTrackingID' element={<GenerateTrackingID />} />
-          {/* Report Page Route */}
+          <Route path="GenerateTrackingID" element={<GenerateTrackingID />} />
           <Route path="reports" element={<Report />} />
-
+          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Route>
       </Routes>
     </Suspense>

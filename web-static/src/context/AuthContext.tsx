@@ -5,6 +5,7 @@ import axiosInstance from '../api/axiosInstance';
 type User = {
   name: string;
   avatarUrl: string;
+  email: string;
 };
 
 type AuthContextType = {
@@ -12,6 +13,8 @@ type AuthContextType = {
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  email: string
+  setTrackingHistoryEmail: (value: string) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,10 +23,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [email, setEmail] = useState<string | ''>('')
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('token')
   );
 
+  const setTrackingHistoryEmail = (value: string) => {
+    setEmail(value)
+
+  }
   // Fetch user data after token is set
   useEffect(() => {
     const fetchUser = async () => {
@@ -71,7 +79,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout, email, setTrackingHistoryEmail }}>
       {children}
     </AuthContext.Provider>
   );

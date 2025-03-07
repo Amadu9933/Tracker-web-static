@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../../../../context/AuthContext';
 
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -30,6 +31,8 @@ const LoginForm: React.FC = () => {
   const location = useLocation();
   const message = location.state?.message;
 
+  const { setTrackingHistoryEmail } = useAuth();
+
   useEffect(() => {
     if (message) {
       alert(message);
@@ -49,10 +52,10 @@ const LoginForm: React.FC = () => {
     try {
       const response = await loginUser(data.email, data.password); // Call real API
       const { access } = response; // Extract the access token from response
-
+      console.log(response)
       // Store token in localStorage
       localStorage.setItem('access', access);
-
+      setTrackingHistoryEmail(data.email)
       // Redirect user to the dashboard or another protected route
       navigate('/dashboard/');
     } catch (err) {

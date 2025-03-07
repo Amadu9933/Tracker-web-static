@@ -1,7 +1,8 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Avatar, IconButton } from '@mui/material';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-
+import { getUserProfile } from '../../../../api/users';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 import GridViewIcon from '@mui/icons-material/GridView';
 import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
@@ -15,6 +16,28 @@ import Logo from '../../../../assets/Logo.png';
 const Dashboard: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const userProfile = await getUserProfile();
+        console.log('Fetched User Data:', userProfile); // Debugging log
+        setUser(userProfile);
+      } catch (err) {
+        setError('Failed to fetch user details.');
+        console.error('Error fetching user details:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
 
   return (
     <div className="flex">
@@ -101,7 +124,9 @@ const Dashboard: React.FC = () => {
                 </IconButton>
                 <div className="flex items-center space-x-2">
                   <Avatar sx={{ width: 30, height: 30 }} />
-                  <span className="text-gray-700 font-semibold">Welcome</span>
+                  <span className="text-gray-700 font-semibold">
+                    {loading ? 'Loading...' : error ? 'Error' : `Welcome, ${user?.user?.name || 'User'}`}
+                  </span>
                 </div>
               </div>
             </Toolbar>

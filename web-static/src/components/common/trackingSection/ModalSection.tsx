@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import CircularProgress from '../../pages/customerPages/CustomerTrackingDetails/CustomerNotification/Data';
+import { useAuth } from '../../../context/AuthContext';
+
 
 const style = {
   position: 'absolute' as const,
@@ -63,10 +64,11 @@ interface TrackingModalProps {
  * @return {void} This function does not return anything.
  */
 const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
-  const [email, setEmail] = useState<string>('');
+  // const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { setTrackingHistoryEmail, email } = useAuth();
 
   /**
    * Updates the email state with the value entered in the input field.
@@ -76,7 +78,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
    */
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log('Input value changed:', event.target.value);
-    setEmail(event.target.value);
+    setTrackingHistoryEmail(event.target.value);
     // Clear previous errors
     setError(null);
   };
@@ -146,7 +148,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
     >
       {loading ? (
         <div className="border-none">
-          <CircularProgress />
+
         </div>
       ) : (
         <Box sx={style}>

@@ -1,18 +1,19 @@
-// src/api/users.ts
-export const getUserProfile = async (id: string) => {
-  const token = localStorage.getItem('access'); // Retrieve the access token from localStorage
+export const getUserProfile = async () => {
+  const token = localStorage.getItem('access'); // Retrieve the token
+  const userId = localStorage.getItem('userId'); // Retrieve stored user ID
 
-  if (!token) {
-    throw new Error('Unauthorized: No access token found');
+  if (!token || !userId) {
+    console.error('❌ No token or user ID found in localStorage');
+    throw new Error('Unauthorized: No token or user ID found');
   }
 
   try {
     const response = await fetch(
-      `https://trackerr.live/api/v1/business-owners/${id}/`,
+      `https://trackerr.live/api/v1/business-owners/${userId}/`,
       {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`, // Include the Bearer token in the Authorization header
+          Authorization: `Bearer ${token}`, // Ensure correct format
           'Content-Type': 'application/json',
         },
       }
@@ -20,13 +21,12 @@ export const getUserProfile = async (id: string) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.detail || 'Failed to fetch user profile');
+      throw new Error(errorData.detail || 'Failed to retrieve user profile');
     }
 
-    const data = await response.json();
-    return data; // Return the user profile data
+    return await response.json();
   } catch (err) {
-    console.error('Error fetching user profile:', err);
-    throw err; // Propagate the error for further handling
+    console.error('🚨 Error fetching user profile:', err);
+    throw err;
   }
 };
