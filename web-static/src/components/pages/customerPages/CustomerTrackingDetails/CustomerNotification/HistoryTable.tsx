@@ -1,80 +1,32 @@
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import React from 'react';
 
-
-const StyledTableCell = styled(TableCell)(({ }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: '#F2F5F7',
-    color: '#537086',
-    width: '215px',
-    height: '47px',
-    padding: '12px 24px',
-    gap: '12px',
-    borderTop: '1px solid #D2D3D3',
-    borderBottom: '1px solid #F9F9F9',
-    textAlign: 'left',
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-    height: '47px',
-    padding: '12px 24px',
-    gap: '12px',
-    border: '1px solid #F9F9F9',
-    textAlign: 'left',
-    color: '#5D5D4C',
-  },
-  '&:first-child': {
-    width: 'auto',
-  },
-  '&:nth-child(2)': {
-    width: '539px',
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(even)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
+interface CustomizedTablesProps {
+  trackingData: any[];
+}
 
 /**
  * Returns the color associated with the given status.
- *
- * @param {string} status - The status to get the color for.
- * @return {string} The color associated with the given status.
  */
 const getStatusColor = (status: string) => {
   switch (status.trim().toLowerCase()) {
     case 'delivered':
-      return '#6EA011';
+      return 'text-green-600';
     case 'cancelled':
-    case 'canceled': // Add alternative spelling
-      return '#EA8389';
+    case 'canceled':
+      return 'text-red-500';
     case 'returned':
-      return '#FF985D';
-    case 'in transit': // Add additional status
-      return '#87CEEB'; // Example color for "in transit"
-    case 'pending': // Add additional status
-      return '#FFA500'; // Example color for "pending"
+      return 'text-orange-500';
+    case 'in transit':
+      return 'text-blue-400';
+    case 'pending':
+      return 'text-yellow-500';
     default:
-      return '#5D5D4C';
+      return 'text-gray-600';
   }
 };
 
 /**
- * Formats a given datetime string into a JSX element with the date on one line and the time on the next line.
- *
- * @param {string} datetime - The datetime string to format.
- * @return {JSX.Element} The formatted JSX element.
+ * Formats a given datetime string into a JSX element with date and time separated.
  */
 const formatDateTime = (datetime: string) => {
   const [date, time] = datetime.split(' ');
@@ -82,67 +34,50 @@ const formatDateTime = (datetime: string) => {
     <span>
       {date}
       <br />
-      <span style={{ color: '#C6C5B9' }}>{time}hrs</span>
+      <span className="text-gray-400">{time} hrs</span>
     </span>
   );
 };
 
-interface CustomizedTablesProps {
-  trackingData: any[];
-}
-
 /**
- * Renders a table of tracking data with columns for tracking number, date ordered, date delivered, and status.
- *
- * @param {CustomizedTablesProps} props - The props object containing the tracking data.
- * @return {JSX.Element|null} The rendered table of tracking data, or null if the tracking data is not an array.
+ * Main Reusable Table Component.
  */
-const CustomizedTables: React.FC<CustomizedTablesProps> = ({
-  trackingData = [],
-}) => {
+const CustomizedTables: React.FC<CustomizedTablesProps> = ({ trackingData = [] }) => {
   if (!Array.isArray(trackingData)) {
-    console.error(
-      'Invalid data prop passed to CustomizedTables. Expected an array.'
-    );
+    console.error('Invalid data prop passed to CustomizedTables. Expected an array.');
     return null;
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 700, border: '1px solid #D2D3D3' }}
-        aria-label="customized table"
-      >
-        <TableHead>
-          <TableRow sx={{ fontSize: '18px' }}>
-            <StyledTableCell>#</StyledTableCell>
-            <StyledTableCell>Tracking Number</StyledTableCell>
-            <StyledTableCell>Date Ordered</StyledTableCell>
-            <StyledTableCell>Date Delivered</StyledTableCell>
-            <StyledTableCell>Status</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+    <div className="overflow-auto max-h-[500px] border border-gray-300 rounded-lg">
+      <table className="min-w-full text-sm text-left">
+        <thead className="bg-gray-100 text-gray-600 uppercase">
+          <tr>
+            <th className="p-3 border border-gray-300">#</th>
+            <th className="p-3 border border-gray-300 w-[539px]">Tracking Number</th>
+            <th className="p-3 border border-gray-300">Date Ordered</th>
+            <th className="p-3 border border-gray-300">Date Delivered</th>
+            <th className="p-3 border border-gray-300">Status</th>
+          </tr>
+        </thead>
+        <tbody>
           {trackingData.map((item: any, index: number) => (
-            <StyledTableRow key={item.id}>
-              <StyledTableCell component="th" scope="row">
-                #{index + 1}
-              </StyledTableCell>
-              <StyledTableCell>{item.parcel_number}</StyledTableCell>
-              <StyledTableCell>
-                {formatDateTime(item.date_of_purchase)}
-              </StyledTableCell>
-              <StyledTableCell>
-                {formatDateTime(item.delivery_date)}
-              </StyledTableCell>
-              <StyledTableCell style={{ color: getStatusColor(item.status) }}>
+            <tr
+              key={item.id}
+              className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+            >
+              <td className="p-3 border border-gray-300">#{index + 1}</td>
+              <td className="p-3 border border-gray-300">{item.parcel_number}</td>
+              <td className="p-3 border border-gray-300">{formatDateTime(item.date_of_purchase)}</td>
+              <td className="p-3 border border-gray-300">{formatDateTime(item.delivery_date)}</td>
+              <td className={`p-3 border border-gray-300 font-semibold ${getStatusColor(item.status)}`}>
                 {item.status}
-              </StyledTableCell>
-            </StyledTableRow>
+              </td>
+            </tr>
           ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </tbody>
+      </table>
+    </div>
   );
 };
 

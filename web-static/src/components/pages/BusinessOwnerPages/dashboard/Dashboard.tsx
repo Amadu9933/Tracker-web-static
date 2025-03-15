@@ -10,7 +10,7 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-
+import { logoutUser } from '../../../../api/auth';
 import Logo from '../../../../assets/Logo.png';
 
 const Dashboard: React.FC = () => {
@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <aside className="bg-gray-200 text-secondary w-[220px] px-[28px] flex flex-col justify-between">
+      <aside className="bg-gray-200 text-secondary w-[220px] pl-[28px] flex flex-col justify-between">
         <nav className="flex flex-col">
           <h2>
             <img className="h-7 my-[32px] w-20" src={Logo} alt="logo" />
@@ -69,13 +69,17 @@ const Dashboard: React.FC = () => {
             </li>
 
             {/* Logistics Link */}
-            <li className="flex p-2 text-[14px] hover:bg-gray-300 rounded-[4px] cursor-pointer mb-[32px]">
+            <li onClick={() => navigate('/dashboard/logistics')}
+              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] 
+                ${location.pathname === '/dashboard/logistics' ? 'bg-primary text-white' : 'hover:bg-gray-300'}`}>
               <LocalShippingOutlinedIcon />
               <button className="ml-1">Logistics</button>
             </li>
 
             {/* Integration Link */}
-            <li className="flex p-2 text-[14px] hover:bg-gray-300 rounded-[4px] cursor-pointer mb-[32px]">
+            <li onClick={() => navigate('/dashboard/integration')}
+              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] 
+                ${location.pathname === '/dashboard/integration' ? 'bg-primary text-white' : 'hover:bg-gray-300'}`}>
               <InsertLinkIcon />
               <button className="ml-1">Integration</button>
             </li>
@@ -85,11 +89,14 @@ const Dashboard: React.FC = () => {
         {/* User Actions */}
         <div>
           <ul>
-            <li className="flex p-2 text-[14px] hover:bg-gray-300 rounded-[4px] cursor-pointer mb-[32px]">
+            <li onClick={() => navigate('/dashboard/user-profile')}
+              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] 
+                ${location.pathname === '/dashboard/user-profile' ? 'bg-primary text-white' : 'hover:bg-gray-300'}`}>
               <Avatar sx={{ height: 20, width: 20 }} />
               <button className="ml-1">Profile</button>
             </li>
-            <li className="flex p-2 text-[14px] hover:bg-gray-300 rounded-[4px] cursor-pointer mb-[32px]">
+            <li onClick={logoutUser}
+              className="flex p-2 text-[14px] hover:bg-gray-300 rounded-[4px] cursor-pointer mb-[32px]">
               <LogoutOutlinedIcon sx={{ height: 20, width: 20 }} />
               <button className="ml-1">Logout</button>
             </li>

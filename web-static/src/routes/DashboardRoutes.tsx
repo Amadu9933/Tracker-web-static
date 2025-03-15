@@ -7,6 +7,9 @@ import Dashboard from '@components/pages/BusinessOwnerPages/dashboard/Dashboard'
 const DashboardMain = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/DashboardMain'));
 const Report = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/report/Report'));
 const GenerateTrackingID = lazy(() => import('@components/pages/BusinessOwnerPages/manageID/GenerateTrackingID'));
+const Logistics = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/logistics/Logistics'))
+const Integration = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/integration/Integration'))
+const UserProfile = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/userProfile/UserProfile'))
 
 const DashboardRoutes: React.FC = () => (
   <FormProvider>
@@ -19,6 +22,9 @@ const DashboardRoutes: React.FC = () => (
           <Route path="home" element={<DashboardMain />} />
           <Route path="GenerateTrackingID" element={<GenerateTrackingID />} />
           <Route path="reports" element={<Report />} />
+          <Route path="logistics" element={<Logistics />} />
+          <Route path="integration" element={<Integration />} />
+          <Route path="user-profile" element={<UserProfile />} />
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Route>
       </Routes>

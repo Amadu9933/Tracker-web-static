@@ -33,7 +33,6 @@ const SetProfileImagePage: React.FC = () => {
     return null;
   };
 
-  // Handle file selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -43,9 +42,11 @@ const SetProfileImagePage: React.FC = () => {
         return;
       }
       setImage(file);
-      setError(null); // Clear errors
+      setPreview(URL.createObjectURL(file)); // ✅ Set preview immediately
+      setError(null);
     }
   };
+
 
   // Handle form submission
   const handleSubmit = async () => {
@@ -71,7 +72,7 @@ const SetProfileImagePage: React.FC = () => {
       const response = await axiosInstance.post('', payload);
 
       console.log('Account created successfully:', response.data);
-      navigate('/Sign-in', { state: { message: 'Login to see your dashboard' } });
+      navigate('/Login', { state: { message: 'Login to see your dashboard' } });
     } catch (err: any) {
       console.error('Failed to create account:', err);
       setError(err.response?.data?.message || 'Failed to create account. Please try again.');

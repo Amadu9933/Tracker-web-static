@@ -3,7 +3,7 @@ export const getUserProfile = async () => {
   const userId = localStorage.getItem('userId'); // Retrieve stored user ID
 
   if (!token || !userId) {
-    console.error('❌ No token or user ID found in localStorage');
+    console.error(' No token or user ID found in localStorage');
     throw new Error('Unauthorized: No token or user ID found');
   }
 
@@ -26,7 +26,7 @@ export const getUserProfile = async () => {
 
     return await response.json();
   } catch (err) {
-    console.error('🚨 Error fetching user profile:', err);
+    console.error('Error fetching user profile:', err);
     throw err;
   }
 };

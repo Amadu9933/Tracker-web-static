@@ -24,3 +24,12 @@ export const loginUser = async (email: string, password: string) => {
     throw err;
   }
 };
+//  Logout function (removes tokens and redirects to login)
+export const logoutUser = () => {
+  localStorage.removeItem('access');
+  localStorage.removeItem('refresh');
+  localStorage.removeItem('userId');
+
+  // Redirect to login page
+  window.location.href = '/login';
+};

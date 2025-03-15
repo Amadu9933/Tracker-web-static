@@ -1,9 +1,8 @@
-import DetailTable from './DetailTable';
-
 import { Back, Carbon } from '../../../../assets/asset';
 import Button from '@mui/material/Button';
 
 import { Link } from 'react-router-dom';
+import DetailTable from './DetailTable';
 
 /**
  * Renders the customer tracking details component.

@@ -141,6 +141,7 @@ const PersonalInfoForm: React.FC = () => {
       {/* Submit Button */}
       <button
         type="submit"
+
         className="w-full bg-primary text-white p-2 rounded-md hover:bg-primary-dark transition-colors"
       >
         Continue

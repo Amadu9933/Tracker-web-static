@@ -1,7 +1,8 @@
-import { ParaglidingOutlined } from '@mui/icons-material';
 import { GetCurrentDate } from '@components/utils/GetCurrentDate';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-
+import Package from './assets/package.png'
+import Square from './assets/minus-square.png'
+import SandBox from './assets/codesandbox.png'
 const Overview = () => {
   return (
     <div className="w-full   ">
@@ -18,7 +19,7 @@ const Overview = () => {
         <div className="flex-1 text-center flex justify-center px-16 pt-12   ">
           <div className="text-primary pr-3">
             <div className="bg-primary/25 p-1 rounded-[50%] ">
-              <ParaglidingOutlined sx={{ width: 24, height: 24 }} />
+              <img src={SandBox} alt="" />
             </div>
           </div>
 
@@ -32,8 +33,9 @@ const Overview = () => {
 
         <div className="flex-1 text-center flex justify-center border-x border-gray-500 px-16 pt-12   ">
           <div className="text-primary pr-3">
-            <div className="bg-primary/25 p-1 rounded-[50%] ">
-              <ParaglidingOutlined sx={{ width: 24, height: 24 }} />
+            <div className=" bg-[#B4D479]/25 p-1 rounded-[50%] ">
+
+              <img src={Package} alt="Package" />
             </div>
           </div>
 
@@ -52,7 +54,7 @@ const Overview = () => {
         <div className="flex-1 text-center flex justify-center px-16 pt-12   ">
           <div className="text-primary pr-3">
             <div className="bg-primary/25 p-1 rounded-[50%] ">
-              <ParaglidingOutlined sx={{ width: 24, height: 24 }} />
+              <img src={Square} alt="Square" />
             </div>
           </div>
 

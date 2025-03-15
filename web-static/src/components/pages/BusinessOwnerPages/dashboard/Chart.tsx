@@ -59,10 +59,10 @@ const ParcelChart: React.FC = () => {
         : dummyData.yesterday;
 
   return (
-    <div className="h-full flex flex-col bg-white rounded text-secondary p-4">
+    <div className="h-full flex flex-col  bg-white rounded text-secondary ">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-base">Activity Chart</h2>
-        <FormControl variant="outlined" size="small">
+        <FormControl variant="outlined" size="small" sx={{}}>
           <Select value={filter} onChange={handleFilterChange}>
             <MenuItem value="today">Today</MenuItem>
             <MenuItem value="yesterday">Yesterday</MenuItem>

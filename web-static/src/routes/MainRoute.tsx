@@ -12,7 +12,14 @@ const Login = lazy(() => import('@components/navigationBarLinksComponents/Login'
 const TabComponent = lazy(() => import('@components/pages/BusinessOwnerPages/auth/createAcount/TabComponent'));
 const PersonalInfoForm = lazy(() => import('@components/pages/BusinessOwnerPages/auth/createAcount/BuissnessOwnerForms/PersonalInfoForm'))
 const CustomerNotification = lazy(() => import('@components/pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification'));
-
+const BuissnessInfoForm = lazy(() => import('@components/pages/BusinessOwnerPages/auth/createAcount/BuissnessOwnerForms/BuisnessInfoContainer'))
+const SetProfileImagePage = lazy(() => import('@components/pages/BusinessOwnerPages/auth/createAcount/BuissnessOwnerForms/SetProfileImagePage'))
+const CustomerTrackingDetailLayout = lazy(
+  () =>
+    import(
+      '@components/pages/customerPages/customerTrackingDetails/CustomerTrackingDetailLayout'
+    )
+);
 const MainRoutes: React.FC = () => (
   <FormProvider>
     <Suspense fallback={<CircularProgress />}>
@@ -24,10 +31,18 @@ const MainRoutes: React.FC = () => (
         <Route path="Intergration" element={<Intergration />} />
         <Route path="NeedHelp" element={<NeedHelp />} />
         <Route path="Login" element={<Login />} />
+        <Route path="business-info" element={<BuissnessInfoForm />} />
+        <Route path="set-profile" element={<SetProfileImagePage />} />
+
         <Route path="sign-up" element={<TabComponent renderTabContent={() => <PersonalInfoForm />} />} />
+
         <Route
           path="customer-notification/:paramEmail"
           element={<CustomerNotification />}
+        />
+        <Route
+          path="tracking/:trackingNumber"
+          element={<CustomerTrackingDetailLayout />}
         />
         {/* Include Dashboard Routes here */}
 

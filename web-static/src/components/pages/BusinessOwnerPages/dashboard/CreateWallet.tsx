@@ -2,7 +2,7 @@ import { creditCard } from './assets/Assets';
 
 const CreateWallet = () => {
   return (
-    <div className="w-[85%] h-full ml-24 rounded-[6%] bg-cyan-50 shadow-md text-left ">
+    <div className="w-[100%] h-full ml-10 rounded-[6%] bg-cyan-50 shadow-md text-left ">
       <div className="ml-5 pt-6">
         <h1 className="text-lg font-medium">
           Reach your delivery goals faster
