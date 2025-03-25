@@ -92,7 +92,8 @@ const Dashboard: React.FC = () => {
             <li onClick={() => navigate('/dashboard/user-profile')}
               className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] 
                 ${location.pathname === '/dashboard/user-profile' ? 'bg-primary text-white' : 'hover:bg-gray-300'}`}>
-              <Avatar sx={{ height: 20, width: 20 }} />
+              <Avatar src={user?.user?.avatar || undefined} sx={{ height: 20, width: 20 }} />
+
               <button className="ml-1">Profile</button>
             </li>
             <li onClick={logoutUser}
@@ -130,7 +131,8 @@ const Dashboard: React.FC = () => {
                   <NotificationsNoneOutlinedIcon />
                 </IconButton>
                 <div className="flex items-center space-x-2">
-                  <Avatar sx={{ width: 30, height: 30 }} />
+                  <Avatar src={user?.user?.avatar || undefined} sx={{ height: 20, width: 20 }} />
+
                   <span className="text-gray-700 font-semibold">
                     {loading ? 'Loading...' : error ? 'Error' : `Welcome, ${user?.user?.name || 'User'}`}
                   </span>

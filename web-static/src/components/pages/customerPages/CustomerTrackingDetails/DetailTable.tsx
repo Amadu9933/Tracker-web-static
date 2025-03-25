@@ -18,7 +18,7 @@ const DetailTable: React.FC = () => {
 
       try {
         const response = await axios.get(
-          `https://trackerr.live/api/v1/trackings/realtime/?parcel_number=${trackingNumber}`
+          `https://trackerr.live/api/v1/trackings/${trackingNumber}/`
         );
 
         console.log('Response data:', response.data);

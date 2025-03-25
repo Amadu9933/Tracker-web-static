@@ -41,7 +41,7 @@ const Overview = () => {
 
           <div className="text-left">
             <p className="text-[18px] font-medium text-[#D1E8FA]">
-              Total ID's Generated
+              Order completed
             </p>
             <p className="text-2xl">
               116{' '}
@@ -60,7 +60,7 @@ const Overview = () => {
 
           <div className="text-left">
             <p className="text-[18px] font-medium text-[#D1E8FA]">
-              Total ID's Generated
+              Orders Returned
             </p>
             <p className="text-2xl">
               4{' '}
