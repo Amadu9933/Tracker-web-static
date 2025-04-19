@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -20,9 +20,9 @@ interface ForgotPasswordFormData {
 }
 
 const ForgotPassword: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'business' | 'logistics'>(
-    'business'
-  );
+  const [activeTab, setActiveTab] = useState<'business' | 'logistics'>('business');
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -34,16 +34,19 @@ const ForgotPassword: React.FC = () => {
   const onSubmit = (data: ForgotPasswordFormData) => {
     console.log(`Reset password for ${data.email} in ${activeTab} tab`);
     alert(`Password reset link sent to ${data.email} for ${activeTab} tab`);
+    navigate('/reset-password');
   };
 
   return (
-    <div className="px-[10%] pt-16 bg-gray-300 rounded-lg  w-[60%] h-[450px] text-left mx-auto">
+    <div className="px-[10%] pt-16 bg-gray-300 rounded-lg w-[60%] h-[450px] text-left mx-auto">
       {/* Title Section */}
-      <h1 className="text-lg font-bold text-gray-700 flex  mb-6">
+      <h1 className="text-lg font-bold text-gray-700 flex mb-6">
         <ArrowBackIcon className="mr-3" />
         Forgot Password
       </h1>
-      <div className="flex items-center   mb-4">
+
+      {/* Tabs */}
+      <div className="flex items-center mb-4">
         <input
           type="radio"
           id="business"
@@ -66,13 +69,14 @@ const ForgotPassword: React.FC = () => {
           onChange={() => setActiveTab('logistics')}
           className="mr-2"
         />
-        <label htmlFor="logistics" className=" font-medium">
+        <label htmlFor="logistics" className="font-medium">
           Logistics
         </label>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className=" ">
-        <h2 className="text-sm">
+      {/* Form */}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <h2 className="text-sm mb-4">
           Enter email address used to create account. A temporary password will
           be sent to your mail to enable you reset your password.
         </h2>
@@ -83,18 +87,21 @@ const ForgotPassword: React.FC = () => {
             type="email"
             {...register('email')}
             placeholder="abc@gmail.com"
-            className={`mt-1 block w-full placeholde-[#A3A38E] p-2 border rounded-md ${
-              errors.email ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className={`mt-1 block w-full placeholder-[#A3A38E] p-2 border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'
+              }`}
           />
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
         </div>
-        <Link to="/reset-password" className=" flex justify-center  ">
-          <p className=" font-500 font-bold mr-2 -mt-1">Next</p>
+
+        <button
+          type="submit"
+          className="flex justify-center items-center font-bold text-blue-600 mt-4"
+        >
+          <span className="mr-2">Next</span>
           <ArrowForwardIcon sx={{ height: 16 }} />
-        </Link>
+        </button>
       </form>
     </div>
   );
