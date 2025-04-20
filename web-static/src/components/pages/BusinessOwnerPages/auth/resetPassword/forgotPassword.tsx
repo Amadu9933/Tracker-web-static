@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // ✅ Import Axios
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -31,10 +32,20 @@ const ForgotPassword: React.FC = () => {
     resolver: yupResolver(emailSchema),
   });
 
-  const onSubmit = (data: ForgotPasswordFormData) => {
-    console.log(`Reset password for ${data.email} in ${activeTab} tab`);
-    alert(`Password reset link sent to ${data.email} for ${activeTab} tab`);
-    navigate('/reset-password');
+  const onSubmit = async (data: ForgotPasswordFormData) => {
+    try {
+      const response = await axios.post('https://trackerr.live/api/v1/users/reset-password/', {
+        email: data.email,
+        type: activeTab,
+      });
+
+      alert(response.data.message || `OTP sent to ${data.email}`);
+      navigate('/otp');
+    } catch (error: any) {
+      console.error('API Error:', error);
+      const errMsg = error.response?.data?.message || 'Something went wrong. Please try again.';
+      alert(errMsg);
+    }
   };
 
   return (
@@ -54,7 +65,7 @@ const ForgotPassword: React.FC = () => {
           value="business"
           checked={activeTab === 'business'}
           onChange={() => setActiveTab('business')}
-          className="mr-2"
+          className="mr-2 accent-black"
         />
         <label htmlFor="business" className="mr-4 font-medium">
           Business
@@ -67,7 +78,7 @@ const ForgotPassword: React.FC = () => {
           value="logistics"
           checked={activeTab === 'logistics'}
           onChange={() => setActiveTab('logistics')}
-          className="mr-2"
+          className="mr-2 accent-black"
         />
         <label htmlFor="logistics" className="font-medium">
           Logistics

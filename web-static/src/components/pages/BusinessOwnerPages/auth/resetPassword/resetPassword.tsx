@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import axios from 'axios';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-// Validation schema using Yup
+// Validation schema
 const passwordSchema = yup.object().shape({
-  newPassword: yup
+  password1: yup
     .string()
     .required('New password is required')
     .min(8, 'Password must be at least 8 characters long'),
-  confirmPassword: yup
+  password2: yup
     .string()
-    .oneOf([yup.ref('newPassword')], 'Passwords must match')
+    .oneOf([yup.ref('password1')], 'Passwords must match')
     .required('Confirm password is required'),
 });
 
 // Define form data type
 interface ResetPasswordFormData {
-  newPassword: string;
-  confirmPassword: string;
+  password1: string;
+  password2: string;
 }
 
 const ResetPassword: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'business' | 'logistics'>(
-    'business'
-  );
+  const { otp } = useParams(); // 👈 get OTP from the URL
+  const navigate = useNavigate()
+  console.log('OTP:', otp); // Make sure it's not undefined
+
+  const [activeTab, setActiveTab] = useState<'business' | 'logistics'>('business');
   const {
     register,
     handleSubmit,
@@ -34,18 +38,36 @@ const ResetPassword: React.FC = () => {
     resolver: yupResolver(passwordSchema),
   });
 
-  const onSubmit = () => {
-    console.log(`New password set for ${activeTab} tab`);
-    alert('Your password has been successfully reset.');
+  const onSubmit = async (data: ResetPasswordFormData) => {
+    try {
+      const payload = {
+        otp,
+        password1: data.password1,
+        password2: data.password2,
+      };
+      console.log('paylaod:', payload);
+
+
+
+      const response = await axios.post('https://trackerr.live/api/v1/users/update-password/', payload);
+
+      console.log('Response:', response.data);
+      alert('Your password has been successfully reset!');
+      navigate("/login")
+    } catch (error: any) {
+      console.error('Reset password failed:', error);
+      alert('An error occurred while resetting password.');
+
+    }
   };
 
   return (
     <div className="px-[10%] pt-16 bg-gray-300 rounded-lg w-[60%] h-[450px] text-left mx-auto">
-      {/* Title Section */}
       <h1 className="text-lg font-bold text-gray-700 flex mb-6">
         <ArrowBackIcon className="mr-3" />
         Reset Password
       </h1>
+
       <div className="flex items-center mb-4">
         <input
           type="radio"
@@ -76,54 +98,41 @@ const ResetPassword: React.FC = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label
-            htmlFor="newPassword"
-            className="block font-medium text-gray-700"
-          >
+          <label htmlFor="password1" className="block font-medium text-gray-700">
             New Password
           </label>
           <input
-            id="newPassword"
+            id="password1"
             type="password"
-            {...register('newPassword')}
+            {...register('password1')}
             placeholder="Enter new password"
-            className={`mt-1 block w-full p-2 border rounded-md ${errors.newPassword ? 'border-red-500' : 'border-gray-300'
+            className={`mt-1 block w-full p-2 border rounded-md ${errors.password1 ? 'border-red-500' : 'border-gray-300'
               }`}
           />
-          {errors.newPassword && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.newPassword.message}
-            </p>
+          {errors.password1 && (
+            <p className="text-red-500 text-sm mt-1">{errors.password1.message}</p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor="confirmPassword"
-            className="block font-medium text-gray-700"
-          >
+          <label htmlFor="password2" className="block font-medium text-gray-700">
             Confirm Password
           </label>
           <input
-            id="confirmPassword"
+            id="password2"
             type="password"
-            {...register('confirmPassword')}
+            {...register('password2')}
             placeholder="Confirm new password"
-            className={`mt-1 block w-full p-2 border rounded-md ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+            className={`mt-1 block w-full p-2 border rounded-md ${errors.password2 ? 'border-red-500' : 'border-gray-300'
               }`}
           />
-          {errors.confirmPassword && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.confirmPassword.message}
-            </p>
+          {errors.password2 && (
+            <p className="text-red-500 text-sm mt-1">{errors.password2.message}</p>
           )}
         </div>
 
         <div className="flex justify-center">
-          <button
-            type="submit"
-            className="text-white bg-primary   py-2 rounded"
-          >
+          <button type="submit" className="text-white bg-primary px-6 py-2 rounded">
             Reset
           </button>
         </div>

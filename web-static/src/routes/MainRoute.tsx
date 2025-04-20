@@ -20,6 +20,9 @@ const CustomerTrackingDetailLayout = lazy(
       '@components/pages/customerPages/customerTrackingDetails/CustomerTrackingDetailLayout'
     )
 );
+const Otp = lazy(() => import('@components/pages/BusinessOwnerPages/auth/resetPassword/otp'))
+const ResetPassword = lazy(() => import('@components/pages/BusinessOwnerPages/auth/resetPassword/resetPassword'))
+
 const MainRoutes: React.FC = () => (
   <FormProvider>
     <Suspense fallback={<CircularProgress />}>
@@ -33,6 +36,9 @@ const MainRoutes: React.FC = () => (
         <Route path="Login" element={<Login />} />
         <Route path="business-info" element={<BuissnessInfoForm />} />
         <Route path="set-profile" element={<SetProfileImagePage />} />
+        <Route path="otp" element={<Otp />} />
+        <Route path="reset-password/:otp" element={<ResetPassword />} />
+
 
         <Route path="sign-up" element={<TabComponent renderTabContent={() => <PersonalInfoForm />} />} />
 
