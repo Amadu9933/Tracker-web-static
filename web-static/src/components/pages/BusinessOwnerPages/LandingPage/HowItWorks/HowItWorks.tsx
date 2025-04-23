@@ -1,13 +1,13 @@
-import { howItWorks } from '../guideSection/assets/index';
+import { Processing } from '../guideSection/assets/index';
 const LandingPage: React.FC = () => {
   return (
     <div className=" ">
       <h1 className="text-3xl  text-secondary mt-16">How it works</h1>
 
       <div className="flex justify-between mt-20">
-        <div>
+        <div className='mx-20'>
           {' '}
-          <img src={howItWorks} alt="" className="w-[380px] h-[380px]" />{' '}
+          <img src={Processing} alt="" className="w-[400px] h-[400px]" />{' '}
         </div>
 
         <div className="w-[330px]  text-left ">

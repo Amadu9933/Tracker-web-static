@@ -53,7 +53,7 @@ const ResetPassword: React.FC = () => {
 
       console.log('Response:', response.data);
       alert('Your password has been successfully reset!');
-      navigate("/login")
+
     } catch (error: any) {
       console.error('Reset password failed:', error);
       alert('An error occurred while resetting password.');

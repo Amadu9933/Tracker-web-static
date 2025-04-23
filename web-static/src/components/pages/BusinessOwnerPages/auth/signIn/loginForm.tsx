@@ -128,6 +128,11 @@ const LoginForm: React.FC = () => {
           <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
         )}
       </div>
+      <div className='text-right text-[#6B6856] text-[12px] my-2' >
+        <Link to="/forgot-password">
+          Forgot password
+        </Link>
+      </div>
       <p className='text-xs mb-6'>Password MUST contain at least one uppercase, one lowercase, one number</p>
 
       {/* Submit Button */}
