@@ -52,7 +52,8 @@ const ForgotPassword: React.FC = () => {
     <div className="px-[10%] pt-16 bg-gray-300 rounded-lg w-[60%] h-[450px] text-left mx-auto">
       {/* Title Section */}
       <h1 className="text-lg font-bold text-gray-700 flex mb-6">
-        <ArrowBackIcon className="mr-3" />
+        <div onClick={() => navigate(-1)}> <ArrowBackIcon className="mr-3" /></div>
+
         Forgot Password
       </h1>
 

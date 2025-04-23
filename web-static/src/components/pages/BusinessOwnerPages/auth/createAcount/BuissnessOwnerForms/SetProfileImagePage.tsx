@@ -99,19 +99,30 @@ const SetProfileImagePage: React.FC = () => {
       </p>
       <div className="my-20">
         {/* Profile Upload Section */}
-        <div className="flex w-32 h-32 mx-auto mt-6">
-          <img src={Group} alt="" />
-          <label htmlFor="fileInput" className="cursor-pointer relative">
-            {/* Show uploaded image or default group icon */}
-            {preview ? (
-              <img src={preview} alt="Profile" className="w-32 h-32 object-cover rounded-full border border-gray-300" />
-            ) : (
-              <div className="w-10 h-10">
-                <img src={edit} alt="Edit Icon" className="" />
-              </div>
-            )}
+        <div className="relative w-32 h-32 mx-auto mt-6">
+          {/* Group icon as background */}
+          <img src={Group} alt="Group Icon" className="w-full h-full object-cover rounded-full" />
+
+          {/* Previewed image on top if available */}
+          {preview && (
+            <img
+              src={preview}
+              alt="Profile Preview"
+              className="absolute top-0 left-0 w-full h-full object-cover rounded-full"
+            />
+          )}
+
+          {/* Edit icon in the top-right corner */}
+          <label
+            htmlFor="fileInput"
+            className="absolute -top-2 -right-2 bg-white p-1 rounded-full shadow cursor-pointer"
+            style={{ width: '30px', height: '30px' }}
+          >
+            <img src={edit} alt="Edit Icon" className="w-full h-full object-contain" />
           </label>
         </div>
+
+
 
         {/* Hidden File Input */}
         <input
