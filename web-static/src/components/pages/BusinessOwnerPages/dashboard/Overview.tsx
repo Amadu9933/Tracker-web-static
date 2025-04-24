@@ -16,7 +16,7 @@ const Overview = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+      const token = localStorage.getItem('access'); // Retrieve the token from localStorage
 
       if (!token) {
         console.warn('No token found in localStorage');
@@ -34,6 +34,7 @@ const Overview = () => {
         setStats(res.data);
       } catch (error: any) {
         console.error('Error fetching dashboard stats:', error);
+        console.log('Preview data:', setStats)
         if (error.response?.status === 401) {
           alert('Session expired. Please log in again.');
           // Optional: Redirect to login page or trigger login modal
