@@ -184,7 +184,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
           <form onSubmit={handleSubmit}>
             <div className="search-container mt-3">
               <input
-                className=""
+                className="md:text-secondary text-[12px]"
                 type="text"
                 placeholder="example@gmail.com"
                 value={email}

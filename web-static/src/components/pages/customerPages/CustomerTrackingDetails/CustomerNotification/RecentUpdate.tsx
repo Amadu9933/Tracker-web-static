@@ -62,21 +62,28 @@ const RecentUpdate: React.FC<RecentUpdateProps> = ({ trackingData = [] }) => {
             const color = getStatusColor(item.status);
 
             return (
-              <tr key={index} className="">
-                <td className="p-2 align-top text-[#5D5D4C]">
-                  <div className="flex items-start">
+              <tr
+                key={index}
+                className="flex flex-col sm:table-row sm:border-none border-b border-[#D9E1E7]"
+              >
+                <td className="p-2 align-top text-[#5D5D4C] sm:w-auto w-full">
+                  <div className="flex items-start sm:flex-row flex-col">
                     <span
-                      className={`inline-block w-4 h-4 rounded-full ${color} mr-2 mt-1`}
+                      className={`inline-block w-4 h-4 rounded-full ${color} sm:mr-2 sm:mt-1 mb-2`}
                     ></span>
                     <div>
-                      <div>Your order - {item.details.status1}</div>
-                      <div className="text-[#A3A38E] ml-6">{item.details.status2}</div>
+                      <div className="text-sm sm:text-base">
+                        Your order - {item.details.status1}
+                      </div>
+                      <div className="text-[#A3A38E] sm:ml-6 text-sm">
+                        {item.details.status2}
+                      </div>
                     </div>
                   </div>
                 </td>
-                <td className="p-2 text-right align-top text-[#5D5D4C]">
-                  <div>{item.date_of_purchase}</div>
-                  <div className="text-[#A3A38E]">{item.time_of_purchase} hrs</div>
+                <td className="p-2 text-right align-top text-[#5D5D4C] sm:w-auto w-full">
+                  <div className="text-sm sm:text-base">{item.date_of_purchase}</div>
+                  <div className="text-[#A3A38E] text-sm">{item.time_of_purchase} hrs</div>
                 </td>
               </tr>
             );

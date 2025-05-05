@@ -64,19 +64,19 @@ const CustomerNotification: React.FC = () => {
   }
 
   return (
-    <div className="m-[80px]">
-      <div className="flex text-[#040404]">
-        <ArrowBackIcon onClick={() => navigate(-1)} />
-        <p className="font-bold ml-[5px] ">Parcel History</p>
+    <div className="m-[80px] sm:m-[75px] "> {/* Adjust margin for mobile */}
+      <div className="flex text-[#040404] sm:flex-col sm:items-start">
+        <ArrowBackIcon onClick={() => navigate(-1)} className="cursor-pointer" />
+        <p className="font-bold ml-[5px] sm:ml-0 sm:mt-2">Parcel History</p>
       </div>
-      <div className="border-b-2 border-[#D9E1E7] mb-2 mt-10 text-left">
-        <p className="text-[#5D5D4C]">Recent update</p>
+      <div className="border-b-2 border-[#D9E1E7] mb-2 mt-10 text-left sm:mt-6">
+        <p className="text-[#5D5D4C] text-base sm:text-sm">Recent update</p>
       </div>
       <div>
         <RecentUpdate trackingData={trackingData} />
       </div>
-      <div className="border-b-2 border-[#D9E1E7] mb-2 mt-10 text-left">
-        <p className="text-[#5D5D4C]">History</p>
+      <div className="border-b-2 border-[#D9E1E7] mb-2 mt-10 text-left sm:mt-6">
+        <p className="text-[#5D5D4C] text-base sm:text-sm">History</p>
       </div>
       <div>
         <CustomizedTables trackingData={trackingData} />

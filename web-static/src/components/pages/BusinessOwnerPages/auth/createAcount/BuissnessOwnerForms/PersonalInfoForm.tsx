@@ -62,7 +62,7 @@ const PersonalInfoForm: React.FC = () => {
         <p className='text-[#82826A]  font-medium'>Step 1 of 3</p>
       </div>
       {/* Name Field */}
-      <div className="space-y-2 ">
+      <div className="space-y-2">
         <label htmlFor="name" className="block text-sm font-medium text-secondary">
           Name
         </label>
@@ -71,7 +71,7 @@ const PersonalInfoForm: React.FC = () => {
           type="text"
           placeholder="Enter your name"
           {...register('name')}
-          className="w-full p-2 border border-red-600 rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
+          className="w-full p-3  border border-red-600 rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
         />
         {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
       </div>
@@ -86,10 +86,11 @@ const PersonalInfoForm: React.FC = () => {
           type="email"
           placeholder="Enter your email"
           {...register('email')}
-          className="w-full h-12 p-2 border border-[#D9E1E7] rounded-md placeholder:text-[#A3A38E]"
+          className="w-full p-3 pl-[75px] border border-[#D9E1E7] rounded-md placeholder:text-[#A3A38E]"
         />
         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
       </div>
+
 
       {/* Phone Field */}
       <div className="space-y-2">
@@ -101,8 +102,7 @@ const PersonalInfoForm: React.FC = () => {
           type="text"
           placeholder="+233540985004"
           {...register('phone')}
-          className="w-full  p-2 pl-0 border border-gray-300 rounded-md "
-
+          className="w-full p-3 border border-gray-300 rounded-md placeholder:text-[#A3A38E]"
         />
         {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
       </div>
@@ -112,23 +112,23 @@ const PersonalInfoForm: React.FC = () => {
         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
           Password
         </label>
-        <div className="relative ">
+        <div className="relative">
           <input
             id="password"
-            type={showPassword ? 'text' : 'password'} // Toggle between 'text' and 'password'
+            type={showPassword ? 'text' : 'password'}
             placeholder="Enter your password"
             {...register('password')}
-            className="w-full h-12 p-2 pr-10 border border-gray-300 rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
+            className="w-full p-3 pl-[80px] pr-10 border border-gray-300 rounded-md placeholder:text-[#A3A38E]  focus:border-primary focus:ring-primary"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
             <IconButton
               onClick={handleTogglePassword}
               edge="end"
-              className="p-0" // Remove default padding from IconButton
-              style={{ padding: 0, margin: 0 }} // Ensure no extra spacing
+              className="p-0"
+              style={{ padding: 0, margin: 0 }}
             >
               {showPassword ? (
-                <VisibilityOff className="h-5 w-5 text-gray-500" /> // Customize icon size and color
+                <VisibilityOff className="h-5 w-5 text-gray-500" />
               ) : (
                 <Visibility className="h-5 w-5 text-gray-500" />
               )}
