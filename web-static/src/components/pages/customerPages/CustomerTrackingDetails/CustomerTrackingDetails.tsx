@@ -1,8 +1,9 @@
 import { Back, Carbon } from '../../../../assets/asset';
 import Button from '@mui/material/Button';
-
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DetailTable from './DetailTable';
+import Rectangle from './Rectangle 22.png';
 
 /**
  * Renders the customer tracking details component.
@@ -10,6 +11,14 @@ import DetailTable from './DetailTable';
  * @return {JSX.Element} The rendered customer tracking details component.
  */
 const CustomerTrackingDetails: React.FC = () => {
+
+  const [mapOpened, setMapOpened] = useState(false);
+
+
+  const openMap = () => {
+    setMapOpened(!mapOpened);
+  };
+
   // Define Button styling
   const buttonStyles = {
     backgroundColor: '#FF833C',
@@ -39,8 +48,10 @@ const CustomerTrackingDetails: React.FC = () => {
 
   console.log('Rendering CustomerTrackingDetails component');
 
+
   return (
     <div className="  justify-right ">
+
       <div className="flex justify-center mb-10 ">
         <Link to="/">
           <img
@@ -52,7 +63,17 @@ const CustomerTrackingDetails: React.FC = () => {
         <h1 className="font-bold  text-[#354755] md:text-[3.5rem] text-2xl ">
           Track your parcel today!
         </h1>
+
       </div>
+
+      {/* Map  */}
+      {mapOpened && (
+        <div className="flex justify-center mt-6">
+          <div className=" p-6 rounded-md text-center w-[90%] md:%]">
+            <img src={Rectangle} alt="Map" />
+          </div>
+        </div>
+      )}
       <div className=" flex justify-center">
         <div
           className="bg-[#FFF6F2]  py-14 text-base font-normal text-[#423e26] md:text-[16px] text-[14px]
@@ -77,8 +98,9 @@ const CustomerTrackingDetails: React.FC = () => {
             <DetailTable />
           </div>
 
-          <Button variant="outlined" sx={buttonStyles}>
+          <Button variant="outlined" sx={buttonStyles} onClick={openMap} >
             View live location
+
           </Button>
         </div>
       </div>

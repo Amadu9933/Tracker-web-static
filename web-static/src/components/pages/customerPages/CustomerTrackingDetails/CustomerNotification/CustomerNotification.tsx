@@ -18,6 +18,7 @@ const CustomerNotification: React.FC = () => {
   const [trackingData, setTrackingData] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { email } = useAuth();
+
   useEffect(() => {
     /**
      * Fetches the tracking history for a customer based on their email.
