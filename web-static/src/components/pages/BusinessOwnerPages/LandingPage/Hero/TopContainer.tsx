@@ -8,14 +8,14 @@ const TopContainer: React.FC = () => {
           <p className="font-bold text-[2.5rem] text-secondary">
             Effortless parcel shipping made simple
           </p>
-          <p className="text-base font-normal text-[#585858]">
+          <p className="  text-[24px] font-normal text-[#585858]">
             Streamline your shipping process, generates <br /> unique tracking
-            IDs for your parcels. Say goodbye to logistics <br /> headaches and
+            IDs for your parcels. Say goodbye to logistics  headaches and
             hello to efficiency.
           </p>
 
           <div className="my-5">
-            <button className="bg-primary text-[#FF833C] border border-[#FF833C] rounded-lg font-medium text-[16px] px-4 py-2 hover:bg-[#FF833C] hover:text-white hover:border-[#FF833C] focus:bg-[#FF833C] focus:text-white focus:border-[#FF833C]">
+            <button className="bg-primary text-white border border-[#FF833C] rounded-lg font-medium text-[16px]  h-[48px] w-32 py-2 hover:bg-[#f8a677] hover:text-white hover:border-[#FF833C] focus:bg-[#FF833C] focus:text-white focus:border-[#FF833C]">
               Get started
             </button>
           </div>
