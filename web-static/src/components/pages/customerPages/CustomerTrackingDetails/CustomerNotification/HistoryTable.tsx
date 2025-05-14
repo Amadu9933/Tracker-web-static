@@ -1,5 +1,4 @@
 
-import React, { useState } from 'react';
 
 interface CustomizedTablesProps {
 
@@ -45,11 +44,7 @@ const formatDateTime = (datetime: string) => {
  * Main Reusable Table Component.
  */
 const CustomizedTables: React.FC<CustomizedTablesProps> = ({ trackingData = [] }) => {
-  const [isMapopened, setMapOpened] = useState(false);
 
-  const openMap = () => {
-    setMapOpened(!isMapopened)
-  }
 
 
   if (!Array.isArray(trackingData)) {
@@ -59,7 +54,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({ trackingData = [] }
 
   return (
     <div className=''>
-      <div>Helloooooo</div>
+
       <div className="overflow-auto max-h-[500px] border border-gray-300 rounded-lg">
         <table className="min-w-full text-sm text-left">
           <thead className="bg-gray-100 text-gray-600 uppercase">
