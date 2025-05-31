@@ -27,7 +27,7 @@ const Layout: React.FC = () => {
 
       <footer>{/* Optional Footer */}</footer>
     </>
-  );
-};
+  )
+}
 
 export default Layout;
