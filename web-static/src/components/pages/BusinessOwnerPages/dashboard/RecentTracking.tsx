@@ -1,37 +1,6 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-
-// ---------- Utilities ----------
-const getStatusColor = (status: string) => {
-  switch (status.trim().toLowerCase()) {
-    case 'delivered': return 'text-green-600';
-    case 'canceled': return 'text-red-500';
-    case 'returned': return 'text-orange-500';
-    case 'in transit': return 'text-blue-400';
-    case 'pending': return 'text-yellow-500';
-    default: return 'text-gray-600';
-  }
-};
-
-const formatDateTime = (datetime: string) => {
-  if (!datetime) return '-';
-  const [date, time] = datetime.split(' ') || ['', ''];
-
-  // Convert to 24-hour format
-  const cleanedTime = time?.replace(/hrs|HRS|Hr|hr/g, '').trim();
-  const tempDate = new Date(`1970-01-01T${cleanedTime}`);
-  const formattedTime = !isNaN(tempDate.getTime())
-    ? tempDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false })
-    : cleanedTime;
-
-  return (
-    <span>
-      {date}
-      <br />
-      <span className="text-[#C6C5B9] text-xs">{formattedTime}</span>
-    </span>
-  );
-};
+import { useEffect, useState, useMemo, useCallback } from 'react';
+import { fetchTrackingData } from '../../../../api/tracking';
+import { getStatusColor, formatDateTime } from '../../../../utils/statusUtils';
 
 // ---------- Props Interface ----------
 interface CustomizedTablesProps {
@@ -53,8 +22,8 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
   const [statusFilter, setStatusFilter] = useState<string>('All');
 
   // ---------- Fetch Data ----------
-  const fetchTrackingData = async (
-    url = 'https://trackerr.live/api/v1/trackings/',
+  const fetchData = async (
+    url = 'trackings/',
     append: boolean = false
   ) => {
     const token = localStorage.getItem('access');
@@ -63,28 +32,15 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
       setLoading(false);
       return;
     }
-
     setLoading(true);
     try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-        },
-      });
-
-      console.log('Fetched Data:', response.data);
-      const newData = response.data.results || [];
-
-      setTrackingData((prev) => (append ? [...prev, ...newData] : newData)); // Append or replace
-      setNextPage(response.data.next); // Save next page URL
+      const data = await fetchTrackingData(url, token);
+      const newData = data.results || [];
+      setTrackingData((prev) => (append ? [...prev, ...newData] : newData));
+      setNextPage(data.next);
     } catch (err: any) {
       console.error('Failed to fetch tracking data:', err);
-      if (err.response?.status === 401) {
-        setError('Session expired. Please  login again.');
-      } else {
-        setError('Failed to fetch tracking data.');
-      }
+      setError('Failed to fetch tracking data.');
     } finally {
       setLoading(false);
     }
@@ -92,28 +48,32 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
 
   // ---------- Initial Fetch ----------
   useEffect(() => {
-    fetchTrackingData();
+    fetchData();
   }, []);
 
-  // ---------- Handle Filter Change ----------
-  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  // ---------- Filter & Limit ----------
+  const filteredData = useMemo(() => (
+    statusFilter === 'All'
+      ? trackingData
+      : trackingData.filter((item) => item.status?.toLowerCase() === statusFilter.toLowerCase())
+  ), [trackingData, statusFilter]);
+
+  const dataToShow = useMemo(() => (
+    limit ? filteredData.slice(0, limit) : filteredData
+  ), [filteredData, limit]);
+
+  // ---------- Handlers (memoized) ----------
+  const handleFilterChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setStatusFilter(value);
-  };
+  }, []);
 
-  // ---------- Handle Load More ----------
-  const handleLoadMore = () => {
+  const handleLoadMore = useCallback(() => {
     if (nextPage) {
-      fetchTrackingData(nextPage, true);
+      const relativeUrl = nextPage.replace('https://trackerr.live/api/v1/', '');
+      fetchData(relativeUrl, true);
     }
-  };
-
-  // ---------- Filter & Limit ----------
-  const filteredData = statusFilter === 'All'
-    ? trackingData
-    : trackingData.filter((item) => item.status?.toLowerCase() === statusFilter.toLowerCase());
-
-  const dataToShow = limit ? filteredData.slice(0, limit) : filteredData;
+  }, [nextPage]);
 
   // ---------- Render ----------
   return (

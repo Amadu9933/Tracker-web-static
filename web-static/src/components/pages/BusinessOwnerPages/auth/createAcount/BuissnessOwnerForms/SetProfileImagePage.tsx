@@ -69,7 +69,7 @@ const SetProfileImagePage: React.FC = () => {
         payload.append('avatar', image);
       }
 
-      const response = await axiosInstance.post('', payload);
+      const response = await axiosInstance.post('business-owners/signup/', payload);
 
       console.log('Account created successfully:', response.data);
       navigate('/Login', { state: { message: 'Login to see your dashboard' } });

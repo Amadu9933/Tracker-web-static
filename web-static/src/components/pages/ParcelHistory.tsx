@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 import { TrackingData } from '../../types/types';
 
 /**
@@ -17,8 +17,8 @@ const UserInfo: React.FC = () => {
     console.log('Fetching tracking details for:', trackingNumber);
     setLoading(true);
     try {
-      const response = await axios.get(
-        `https://trackerr.live/api/v1/trackings/realtime/?parcel_number=${trackingNumber}/`
+      const response = await axiosInstance.get(
+        `/trackings/realtime/?parcel_number=${trackingNumber}/`
       );
       console.log('Tracking details fetched successfully:', response.data);
       setTrackingData(response.data);

@@ -1,44 +1,9 @@
-
+import { getStatusColor, formatDateTime } from '../../../../../utils/statusUtils';
 
 interface CustomizedTablesProps {
 
   trackingData: any[];
 }
-
-/**
- * Returns the color associated with the given status.
- */
-const getStatusColor = (status: string) => {
-  switch (status.trim().toLowerCase()) {
-    case 'delivered':
-      return 'text-green-600';
-    case 'cancelled':
-    case 'canceled':
-      return 'text-red-500';
-    case 'returned':
-      return 'text-orange-500';
-    case 'in transit':
-      return 'text-blue-400';
-    case 'pending':
-      return 'text-yellow-500';
-    default:
-      return 'text-gray-600';
-  }
-};
-
-/**
- * Formats a given datetime string into a JSX element with date and time separated.
- */
-const formatDateTime = (datetime: string) => {
-  const [date, time] = datetime.split(' ');
-  return (
-    <span>
-      {date}
-      <br />
-      <span className="text-gray-400">{time} hrs</span>
-    </span>
-  );
-};
 
 /**
  * Main Reusable Table Component.

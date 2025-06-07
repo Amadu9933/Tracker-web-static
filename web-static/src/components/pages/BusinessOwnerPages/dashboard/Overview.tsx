@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { GetCurrentDate } from '@components/utils/GetCurrentDate';
+import { fetchStatusCount } from '../../../../api/tracking';
+import { getCurrentDate } from '../../../../utils/statusUtils';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import Package from './assets/package.png';
 import Square from './assets/minus-square.png';
@@ -16,28 +16,18 @@ const Overview = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const token = localStorage.getItem('access'); // Retrieve the token from localStorage
-
+      const token = localStorage.getItem('access');
       if (!token) {
         console.warn('No token found in localStorage');
         return;
       }
-
       try {
-        const res = await axios.get('https://trackerr.live/api/v1/trackings/status-count', {
-          headers: {
-            Authorization: `Bearer ${token}`, // Attach token to Authorization header
-            accept: 'application/json',  // Ensure the API returns JSON
-          },
-        });
-
-        setStats(res.data);
+        const data = await fetchStatusCount(token);
+        setStats(data);
       } catch (error: any) {
         console.error('Error fetching dashboard stats:', error);
-        console.log('Preview data:', setStats)
         if (error.response?.status === 401) {
           alert('Session expired. Please log in again.');
-          // Optional: Redirect to login page or trigger login modal
         }
       }
     };
@@ -53,7 +43,7 @@ const Overview = () => {
           <div className="mr-2">
             <CalendarTodayOutlinedIcon sx={{ width: 15, height: 15 }} />
           </div>
-          <p className="text-base pt-0.5">{GetCurrentDate()}</p>
+          <p className="text-base pt-0.5">{getCurrentDate()}</p>
         </div>
       </div>
 

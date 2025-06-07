@@ -1,4 +1,5 @@
 import React from 'react';
+import { getStatusColor } from '../../../../../utils/statusUtils';
 
 interface TrackingDataItem {
   status: string;
@@ -14,30 +15,6 @@ interface TrackingDataItem {
 interface RecentUpdateProps {
   trackingData: TrackingDataItem[];
 }
-
-/**
- * Returns the Tailwind color associated with the given status.
- */
-const getStatusColor = (status: string) => {
-  const trimmedStatus = status.trim().toLowerCase();
-  switch (trimmedStatus) {
-    case 'delivered':
-      return 'bg-[#B4D479]';
-    case 'on the way':
-      return 'bg-[#FFE393]';
-    case 'cancelled':
-    case 'canceled':
-      return 'bg-[#EA8389]';
-    case 'returned':
-      return 'bg-[#FFC19E]';
-    case 'in transit':
-      return 'bg-[#87CEEB]';
-    case 'pending':
-      return 'bg-[#FFA500]';
-    default:
-      return 'bg-black';
-  }
-};
 
 /**
  * RecentUpdate table component without Material UI and limited to 4 rows.
