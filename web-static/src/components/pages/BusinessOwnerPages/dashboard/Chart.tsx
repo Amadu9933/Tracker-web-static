@@ -112,7 +112,7 @@ const ParcelChart: React.FC = () => {
                   <stop offset="95%" stopColor="#FEFEFE" stopOpacity={0.2} />
                 </linearGradient>
               </defs>
-              <XAxis dataKey="day" interval={0}/>
+              <XAxis dataKey="day" />
               <Tooltip />
               <Area
                 type="monotone"
