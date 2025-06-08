@@ -24,7 +24,6 @@
     "@types/material-ui": "^0.21.15",
     "@types/react-icons": "^3.0.0",
     "@types/react-router-dom": "^5.3.3",
-    "@vis.gl/react-google-maps": "^1.0.2",
     "axios": "^1.6.8",
     "caniuse-lite": "^1.0.30001715",
     "formik": "^2.4.5",

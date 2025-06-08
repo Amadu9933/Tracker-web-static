@@ -1,9 +1,9 @@
 import { Back, Carbon } from '../../../../assets/asset';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import DetailTable from './DetailTable';
-import Rectangle from './Rectangle 22.png';
+import LiveTrackingMap from './LiveTrackingMap';
 
 /**
  * Renders the customer tracking details component.
@@ -11,13 +11,47 @@ import Rectangle from './Rectangle 22.png';
  * @return {JSX.Element} The rendered customer tracking details component.
  */
 const CustomerTrackingDetails: React.FC = () => {
-
+  const { trackingNumber } = useParams<{ trackingNumber: string }>();
   const [mapOpened, setMapOpened] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [origin, setOrigin] = useState<{ lat: number; lng: number } | null>(null);
+  const [destination, setDestination] = useState<{ lat: number; lng: number } | null>(null);
 
   const openMap = () => {
-    setMapOpened(!mapOpened);
+    setMapOpened((prev) => !prev);
   };
+
+  // Fetch tracking details for map (origin/destination)
+  useEffect(() => {
+    if (!mapOpened || !trackingNumber) return;
+    setLoading(true);
+    setError(null);
+    fetch(`https://trackerr.live/api/v1/trackings/${trackingNumber}/`)
+      .then((res) => res.json())
+      .then((data) => {
+        // Try to get business_owner as origin, customer as destination
+        let originCoords = null;
+        let destCoords = null;
+        if (data.business_owner_lat && data.business_owner_lng) {
+          originCoords = { lat: parseFloat(data.business_owner_lat), lng: parseFloat(data.business_owner_lng) };
+        } else if (data.rider_lat && data.rider_lng) {
+          originCoords = { lat: parseFloat(data.rider_lat), lng: parseFloat(data.rider_lng) };
+        }
+        if (data.customer_lat && data.customer_lng) {
+          destCoords = { lat: parseFloat(data.customer_lat), lng: parseFloat(data.customer_lng) };
+        } else if (data.destination_lat && data.destination_lng) {
+          destCoords = { lat: parseFloat(data.destination_lat), lng: parseFloat(data.destination_lng) };
+        }
+        setOrigin(originCoords);
+        setDestination(destCoords);
+        setLoading(false);
+      })
+      .catch((e) => {
+        setError('Failed to load map data.');
+        setLoading(false);
+      });
+  }, [mapOpened, trackingNumber]);
 
   // Define Button styling
   const buttonStyles = {
@@ -69,8 +103,19 @@ const CustomerTrackingDetails: React.FC = () => {
       {/* Map  */}
       {mapOpened && (
         <div className="flex justify-center mt-6">
-          <div className=" p-6 rounded-md text-center w-[90%] md:%]">
-            <img src={Rectangle} alt="Map" />
+          <div className="p-6 rounded-md text-center w-[90%]">
+            {loading && <div>Loading map...</div>}
+            {error && <div className="text-red-500">{error}</div>}
+            {!loading && !error && origin && destination && trackingNumber && (
+              <LiveTrackingMap
+                trackingNumber={trackingNumber}
+                initialOrigin={origin}
+                destination={destination}
+              />
+            )}
+            {!loading && !error && (!origin || !destination) && (
+              <div className="text-gray-500">Location data not available for this parcel.</div>
+            )}
           </div>
         </div>
       )}
@@ -99,8 +144,7 @@ const CustomerTrackingDetails: React.FC = () => {
           </div>
 
           <Button variant="outlined" sx={buttonStyles} onClick={openMap} >
-            View live location
-
+            {mapOpened ? 'Hide live location' : 'View live location'}
           </Button>
         </div>
       </div>
