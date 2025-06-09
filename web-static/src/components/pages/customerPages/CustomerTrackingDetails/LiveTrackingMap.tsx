@@ -1,190 +1,92 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
+import { useEffect, useState } from 'react';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
-/**
- * Props for LiveTrackingMap.
- */
-interface LiveTrackingMapProps {
-    trackingNumber: string;
-    /**
-     * The destination coordinates (lat/lng) for the parcel.
-     */
-    destination: { lat: number; lng: number };
-    /**
-     * The initial origin coordinates (lat/lng) for the parcel/rider.
-     */
-    initialOrigin: { lat: number; lng: number };
-    /**
-     * If true, disables map interactivity (for read-only view).
-     */
-    readOnly?: boolean;
-}
-
-/**
- * Real-time Google Maps tracking component for parcels/riders.
- * Connects to backend WebSocket for live updates, displays origin/destination, and directions.
- *
- * @param {LiveTrackingMapProps} props
- */
-const LiveTrackingMap: React.FC<LiveTrackingMapProps> = ({
-    trackingNumber,
-    destination,
-    initialOrigin,
-    readOnly = false,
-}) => {
+const LiveTrackingMap = ({ trackingNumber }: { trackingNumber: string }) => {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    const [origin, setOrigin] = useState(initialOrigin);
-    const [isDelivered, setIsDelivered] = useState(false);
-    const [routePath, setRoutePath] = useState<Array<{ lat: number; lng: number }>>([]);
-    const wsRef = useRef<WebSocket | null>(null);
+    const [origin, setOrigin] = useState<any>(null);
+    const [destination, setDestination] = useState<any>(null);
 
-    // Google Maps API loader
+    // Load Google Maps JS API
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: apiKey,
-        libraries: ['places'],
     });
 
-    // Snap to road using Google Roads API
-    const snapToRoad = useCallback(async (lat: number, lng: number) => {
-        try {
-            const res = await fetch(
-                `https://roads.googleapis.com/v1/snapToRoads?path=${lat},${lng}&interpolate=true&key=${apiKey}`
-            );
-            const data = await res.json();
-            if (data.snappedPoints && data.snappedPoints.length > 0) {
-                return {
-                    lat: data.snappedPoints[0].location.latitude,
-                    lng: data.snappedPoints[0].location.longitude,
-                };
-            }
-        } catch (e) {
-            // fallback to original
-        }
-        return { lat, lng };
-    }, [apiKey]);
-
-    // Fetch directions from Google Directions API
-    const fetchDirections = useCallback(
-        async (origin: { lat: number; lng: number }, destination: { lat: number; lng: number }) => {
-            try {
-                const res = await fetch(
-                    `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.lat},${origin.lng}&destination=${destination.lat},${destination.lng}&mode=driving&key=${apiKey}`
-                );
-                const data = await res.json();
-                if (data.routes && data.routes.length > 0) {
-                    const points = decodePolyline(data.routes[0].overview_polyline.points);
-                    setRoutePath(points);
-                } else {
-                    setRoutePath([]);
-                }
-            } catch {
-                setRoutePath([]);
-            }
-        },
-        [apiKey]
-    );
-
-    // Polyline decoder (Google encoded polyline algorithm)
-    function decodePolyline(encoded: string): Array<{ lat: number; lng: number }> {
-        let points = [];
-        let index = 0,
-            lat = 0,
-            lng = 0;
-        while (index < encoded.length) {
-            let b,
-                shift = 0,
-                result = 0;
-            do {
-                b = encoded.charCodeAt(index++) - 63;
-                result |= (b & 0x1f) << shift;
-                shift += 5;
-            } while (b >= 0x20);
-            let dlat = (result & 1 ? ~(result >> 1) : result >> 1);
-            lat += dlat;
-            shift = 0;
-            result = 0;
-            do {
-                b = encoded.charCodeAt(index++) - 63;
-                result |= (b & 0x1f) << shift;
-                shift += 5;
-            } while (b >= 0x20);
-            let dlng = (result & 1 ? ~(result >> 1) : result >> 1);
-            lng += dlng;
-            points.push({ lat: lat / 1e5, lng: lng / 1e5 });
-        }
-        return points;
-    }
-
-    // WebSocket connection for real-time updates
     useEffect(() => {
         if (!trackingNumber) return;
-        const ws = new WebSocket(`wss://trackerr.live/ws/track/${trackingNumber}`);
-        wsRef.current = ws;
-        ws.onmessage = async (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                if (data.status === 'delivered') {
-                    setIsDelivered(true);
-                    setOrigin(data.rider_location || initialOrigin);
-                } else if (data.rider_location) {
-                    const snapped = await snapToRoad(
-                        data.rider_location.lat,
-                        data.rider_location.lng
-                    );
-                    setOrigin(snapped);
-                }
-            } catch (e) {
-                // handle error
+        const socket = new WebSocket('wss://trackerr.live/ws/tracking/');
+        socket.onopen = () => {
+            if (trackingNumber) {
+                socket.send(JSON.stringify({ parcel_number: trackingNumber }));
             }
         };
-        ws.onerror = () => {
-            // Optionally handle error
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const location = data.location_data;
+            if (location) {
+                const location_data = location.locations;
+                if (["returned", "delivered", "pending"].includes(location.parcel.status)) {
+                    // Use business_owner as origin, customer as destination
+                    const business_owner_lat = parseFloat(location_data.business_owner.lat);
+                    const business_owner_lng = parseFloat(location_data.business_owner.lng);
+                    const customer_lat = parseFloat(location_data.customer.lat);
+                    const customer_lng = parseFloat(location_data.customer.lng);
+                    setOrigin({ lat: business_owner_lat, lng: business_owner_lng });
+                    setDestination({ lat: customer_lat, lng: customer_lng });
+                } else {
+                    // Use rider as origin, customer as destination
+                    const rider_lat = parseFloat(location_data.rider.lat);
+                    const rider_lng = parseFloat(location_data.rider.lng);
+                    const customer_lat = parseFloat(location_data.customer.lat);
+                    const customer_lng = parseFloat(location_data.customer.lng);
+                    setDestination({ lat: customer_lat, lng: customer_lng });
+                    // Snap to road
+                    fetch(
+                        `https://roads.googleapis.com/v1/snapToRoads?path=${rider_lat},${rider_lng}&key=${apiKey}`
+                    )
+                        .then((res) => res.json())
+                        .then((data) => {
+                            if (data.snappedPoints && data.snappedPoints.length > 0) {
+                                const snapped = data.snappedPoints[0].location;
+                                setOrigin({ lat: snapped.latitude, lng: snapped.longitude });
+                            } else {
+                                setOrigin({ lat: rider_lat, lng: rider_lng });
+                            }
+                        })
+                        .catch(() => {
+                            setOrigin({ lat: rider_lat, lng: rider_lng });
+                        });
+                }
+            }
+        };
+        socket.onerror = (error) => {
+            console.error('WebSocket error:', error);
         };
         return () => {
-            ws.close();
+            socket.close();
         };
-    }, [trackingNumber, initialOrigin, snapToRoad]);
+    }, [trackingNumber, apiKey]);
 
-    // Fetch directions when origin or destination changes
-    useEffect(() => {
-        if (origin && destination) {
-            fetchDirections(origin, destination);
-        }
-    }, [origin, destination, fetchDirections]);
-
-    if (!apiKey) return <div className="text-red-500">Google Maps API key missing.</div>;
     if (!isLoaded) return <div>Loading map...</div>;
+    if (!origin || !destination) return <div>Loading location...</div>;
 
     return (
-        <div className="bg-gray-100 rounded-lg shadow w-full h-[500px] relative">
+        <div style={{ backgroundColor: '#f0f0f0', height: '500px', width: '100%' }}>
             <GoogleMap
                 mapContainerStyle={{ height: '100%', width: '100%' }}
                 center={origin}
                 zoom={14}
                 options={{
-                    gestureHandling: readOnly ? 'none' : 'greedy',
-                    disableDefaultUI: readOnly,
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    streetViewControl: false,
+                    rotateControl: false,
+                    fullscreenControl: false,
                 }}
             >
-                {origin && <Marker position={origin} label="Origin" />}
-                {destination && <Marker position={destination} label="Destination" />}
-                {routePath.length > 0 && (
-                    <Polyline
-                        path={routePath}
-                        options={{
-                            geodesic: true,
-                            strokeColor: '#4285F4',
-                            strokeOpacity: 1.0,
-                            strokeWeight: 4,
-                        }}
-                    />
-                )}
+                <Marker position={origin} label="Origin" />
+                <Marker position={destination} label="Destination" />
             </GoogleMap>
-            {isDelivered && (
-                <div className="absolute top-2 left-2 bg-green-500 text-white px-3 py-1 rounded shadow">
-                    Delivered
-                </div>
-            )}
         </div>
     );
 };

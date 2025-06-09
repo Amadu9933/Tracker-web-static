@@ -109,8 +109,6 @@ const CustomerTrackingDetails: React.FC = () => {
             {!loading && !error && origin && destination && trackingNumber && (
               <LiveTrackingMap
                 trackingNumber={trackingNumber}
-                initialOrigin={origin}
-                destination={destination}
               />
             )}
             {!loading && !error && (!origin || !destination) && (
