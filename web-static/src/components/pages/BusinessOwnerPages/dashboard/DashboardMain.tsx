@@ -3,7 +3,7 @@ import Overview from './Overview';
 import ParcelChart from './Chart';
 import CreateWallet from './CreateWallet';
 import CustomizedTables from './RecentTracking';
-import axios from 'axios';
+import { fetchTrackingData } from '../../../../api/tracking';
 
 const DashboardMain = () => {
   const [trackingData, setTrackingData] = useState<any[]>([]); // State to hold tracking data
@@ -12,7 +12,7 @@ const DashboardMain = () => {
 
   // Fetch tracking data when component mounts
   useEffect(() => {
-    const fetchTrackingData = async () => {
+    const fetchData = async () => {
       const token = localStorage.getItem('access'); // ✅ Get token from localStorage
 
       if (!token) {
@@ -22,15 +22,9 @@ const DashboardMain = () => {
       }
 
       try {
-        const response = await axios.get('https://trackerr.live/api/v1/trackings/', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-          },
-        });
-
-        setTrackingData(response.data || []); // ✅ Set data or empty array fallback
-        console.log('Tracking Data:', response.data); // ✅ Correct console.log
+        const data = await fetchTrackingData('trackings/', token);
+        setTrackingData(data.results || []); // ✅ Set data or empty array fallback
+        console.log('Tracking Data:', data); // ✅ Correct console.log
       } catch (err: any) {
         console.error('Failed to fetch tracking data:', err);
         setError(err.response?.data?.detail || 'Failed to fetch tracking data.');
@@ -39,7 +33,7 @@ const DashboardMain = () => {
       }
     };
 
-    fetchTrackingData(); // Call function
+    fetchData(); // Call function
   }, []); // Run once on mount
 
   return (

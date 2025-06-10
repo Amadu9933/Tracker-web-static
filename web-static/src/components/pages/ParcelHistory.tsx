@@ -16,15 +16,26 @@ const UserInfo: React.FC = () => {
   const fetchTrackingDetails = async () => {
     console.log('Fetching tracking details for:', trackingNumber);
     setLoading(true);
+    const cacheKey = `parcelHistory:${trackingNumber}`;
+    const cached = localStorage.getItem(cacheKey);
+    if (!navigator.onLine && cached) {
+      setTrackingData(JSON.parse(cached));
+      setLoading(false);
+      return;
+    }
     try {
       const response = await axiosInstance.get(
         `/trackings/realtime/?parcel_number=${trackingNumber}/`
       );
       console.log('Tracking details fetched successfully:', response.data);
       setTrackingData(response.data);
+      localStorage.setItem(cacheKey, JSON.stringify(response.data));
     } catch (error: any) {
       console.error('Error fetching tracking details:', error);
-      if (error.response) {
+      if (cached) {
+        setTrackingData(JSON.parse(cached));
+        setError(null);
+      } else if (error.response) {
         setError('Failed to fetch tracking details');
       } else if (error.request) {
         setError(

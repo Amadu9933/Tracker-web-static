@@ -185,7 +185,10 @@ const MapApp = () => {
     </div>
   );
 };
- return <MapApp />;
+    return (
+        <div style={{ height: "100%", width: "100%" }}>
+        <MapApp />
+        </div>
+    );
 }
-
 export default LiveTrackingMap;

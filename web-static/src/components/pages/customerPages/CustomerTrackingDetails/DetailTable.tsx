@@ -15,7 +15,13 @@ const DetailTable: React.FC = () => {
   useEffect(() => {
     const fetchTrackingDetails = async () => {
       console.log('Fetching tracking details for:', trackingNumber);
-
+      const cacheKey = `detailTable:${trackingNumber}`;
+      const cached = localStorage.getItem(cacheKey);
+      if (!navigator.onLine && cached) {
+        setTrackingData(JSON.parse(cached));
+        setError(null);
+        return;
+      }
       try {
         const response = await axios.get(
           `https://trackerr.live/api/v1/trackings/${trackingNumber}/`
@@ -38,13 +44,19 @@ const DetailTable: React.FC = () => {
         console.log('Filtered data:', filteredData);
         setTrackingData(filteredData);
         setError(null);
+        localStorage.setItem(cacheKey, JSON.stringify(filteredData));
       } catch (error: any) {
         console.error('Error fetching tracking details:', error);
-        setError(
-          error.response?.data?.detail ||
-          error.message ||
-          'An unknown error occurred'
-        );
+        if (cached) {
+          setTrackingData(JSON.parse(cached));
+          setError(null);
+        } else {
+          setError(
+            error.response?.data?.detail ||
+            error.message ||
+            'An unknown error occurred'
+          );
+        }
       }
     };
 
