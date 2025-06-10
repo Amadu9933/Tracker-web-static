@@ -5,6 +5,7 @@ import { APIProvider,
   Map,
   Marker,
   useMap, } from "@vis.gl/react-google-maps";
+import { set } from "react-hook-form";
   
 //   '@react-google-maps/api';
 
@@ -60,6 +61,7 @@ const MapApp = () => {
 
   const [origin, setOrigin] = useState<LatLng | null>(null);
   const [destination, setDestination] = useState<LatLng | null>(null);
+  const [vendorPosition, setVendorPosition] = useState('');
 
   // Retrieve the tracking submitted by the user
   useEffect(() => {
@@ -80,6 +82,8 @@ const MapApp = () => {
       const location = data.location_data;
       if (location) {
         const location_data = location.locations;
+        setVendorPosition(location.parcel.status)
+        
         if (
           ["returned", "delivered", "pending"].includes(location.parcel.status)
         ) {
@@ -146,6 +150,8 @@ const MapApp = () => {
   // sent the origin to the drivers location
 
   // Example: You can update origin/destination with setOrigin/setDestination
+  useEffect(() => {
+}, [vendorPosition]);
 
   return (
     <div style={{ backgroundColor: '#f0f0f0', height: '500px', width: '100%' }}>
@@ -168,9 +174,10 @@ const MapApp = () => {
           streetViewControl={false}
           rotateControl={false}
           fullscreenControl={false}
+          gestureHandling="greedy"
         >
-            {origin && <Marker position={origin} label="Origin" />}
-            {destination && <Marker position={destination} label="Destination" />}
+            {origin && <Marker position={origin} label="" icon={{url: ["returned", "delivered", "pending"].includes(vendorPosition) ? "https://img.icons8.com/3d-fluency/48/client-company.png" :"https://img.icons8.com/color/48/motorcycle-delivery-single-box.png"}}/>}
+            {destination && <Marker position={destination} label="" icon={{url: "https://img.icons8.com/color/48/marker.png"}}/>}
             {origin && destination && <Directions origin={origin} destination={destination} />}
         </Map>
       {/* </div> */}
