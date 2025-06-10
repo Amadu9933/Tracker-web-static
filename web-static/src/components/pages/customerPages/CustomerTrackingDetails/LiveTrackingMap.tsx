@@ -1,184 +1,94 @@
-import React, { useRef, useEffect, useState } from "react";
-import { createRoot } from "react-dom/client";
-import { APIProvider,
-  latLngEquals,
-  Map,
-  Marker,
-  useMap, } from "@vis.gl/react-google-maps";
-  
-//   '@react-google-maps/api';
+import { useEffect, useState } from 'react';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 const LiveTrackingMap = ({ trackingNumber }: { trackingNumber: string }) => {
-const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-type LatLng = { lat: number; lng: number };
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+    const [origin, setOrigin] = useState<any>(null);
+    const [destination, setDestination] = useState<any>(null);
 
-const Directions = ({ origin, destination }: {  origin: LatLng | null; destination: LatLng | null;}) => {
-  const map = useMap();
-  const rendererRef = useRef<google.maps.DirectionsRenderer>();
+    // Load Google Maps JS API
+    const { isLoaded } = useJsApiLoader({
+        googleMapsApiKey: apiKey,
+    });
 
+    useEffect(() => {
+        if (!trackingNumber) return;
+        const socket = new WebSocket('wss://trackerr.live/ws/tracking/');
+        socket.onopen = () => {
+            if (trackingNumber) {
+                socket.send(JSON.stringify({ parcel_number: trackingNumber }));
+            }
+        };
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const location = data.location_data;
+            if (location) {
+                const location_data = location.locations;
+                if (["returned", "delivered", "pending"].includes(location.parcel.status)) {
+                    // Use business_owner as origin, customer as destination
+                    const business_owner_lat = parseFloat(location_data.business_owner.lat);
+                    const business_owner_lng = parseFloat(location_data.business_owner.lng);
+                    const customer_lat = parseFloat(location_data.customer.lat);
+                    const customer_lng = parseFloat(location_data.customer.lng);
+                    setOrigin({ lat: business_owner_lat, lng: business_owner_lng });
+                    setDestination({ lat: customer_lat, lng: customer_lng });
+                } else {
+                    // Use rider as origin, customer as destination
+                    const rider_lat = parseFloat(location_data.rider.lat);
+                    const rider_lng = parseFloat(location_data.rider.lng);
+                    const customer_lat = parseFloat(location_data.customer.lat);
+                    const customer_lng = parseFloat(location_data.customer.lng);
+                    setDestination({ lat: customer_lat, lng: customer_lng });
+                    // Snap to road
+                    fetch(
+                        `https://roads.googleapis.com/v1/snapToRoads?path=${rider_lat},${rider_lng}&key=${apiKey}`
+                    )
+                        .then((res) => res.json())
+                        .then((data) => {
+                            if (data.snappedPoints && data.snappedPoints.length > 0) {
+                                const snapped = data.snappedPoints[0].location;
+                                setOrigin({ lat: snapped.latitude, lng: snapped.longitude });
+                            } else {
+                                setOrigin({ lat: rider_lat, lng: rider_lng });
+                            }
+                        })
+                        .catch(() => {
+                            setOrigin({ lat: rider_lat, lng: rider_lng });
+                        });
+                }
+            }
+        };
+        socket.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+        return () => {
+            socket.close();
+        };
+    }, [trackingNumber, apiKey]);
 
-  
-  useEffect(() => {
-    if (!map || !origin || !destination) return;
+    if (!isLoaded) return <div>Loading map...</div>;
+    if (!origin || !destination) return <div>Loading location...</div>;
 
-    const directionsService = new google.maps.DirectionsService();
-    if (!rendererRef.current) {
-      rendererRef.current = new google.maps.DirectionsRenderer({
-        map,
-        suppressMarkers: true,
-       
-      });
-    } else {
-      rendererRef.current.setMap(map);
-    }
-
-    directionsService.route(
-      {
-        origin,
-        destination,
-        travelMode: google.maps.TravelMode.DRIVING,
-      },
-      (result, status) => {
-        if (status === "OK" && rendererRef.current) {
-          rendererRef.current.setDirections(result);
-        }
-      }
+    return (
+        <div style={{ backgroundColor: '#f0f0f0', height: '500px', width: '100%' }}>
+            <GoogleMap
+                mapContainerStyle={{ height: '100%', width: '100%' }}
+                center={origin}
+                zoom={14}
+                options={{
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    streetViewControl: false,
+                    rotateControl: false,
+                    fullscreenControl: false,
+                }}
+            >
+                <Marker position={origin} label="Origin" />
+                <Marker position={destination} label="Destination" />
+            </GoogleMap>
+        </div>
     );
-
-    return () => {
-      if (rendererRef.current) {
-        rendererRef.current.setMap(null);
-      }
-    };
-  }, [map, origin, destination]);
-
-  return null;
 };
-
-
-const MapApp = () => {
-
-  const [origin, setOrigin] = useState<LatLng | null>(null);
-  const [destination, setDestination] = useState<LatLng | null>(null);
-
-  // Retrieve the tracking submitted by the user
-  useEffect(() => {
-    // use a click event listener to get the tracking number once the view live button is clicked
-    // const trackingNumber = "HA485039588AH"; // Example tracking number, replace with actual input
-    const socket = new WebSocket("wss://trackerr.live/ws/tracking/");
-    socket.onopen = () => {
-      console.log("WebSocket connection established");
-      if (trackingNumber) {
-        socket.send(JSON.stringify({ parcel_number: trackingNumber }));
-        console.log("Tracking number sent:", trackingNumber);
-      }
-    };
-
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      console.log("Received data:", data);
-      const location = data.location_data;
-      if (location) {
-        const location_data = location.locations;
-        if (
-          ["returned", "delivered", "pending"].includes(location.parcel.status)
-        ) {
-          console.log("Parcel status:", location.parcel.status);
-          // Origin and Destination are set based on the location data
-          // set origin and destination based on the received data
-          var business_owner_lat = parseFloat(location_data.business_owner.lat);
-          var business_owner_lng = parseFloat(location_data.business_owner.lng);
-
-          var customer_lat = parseFloat(location_data.customer.lat);
-          var customer_lng = parseFloat(location_data.customer.lng);
-
-          setOrigin({
-            lat: business_owner_lat,
-            lng: business_owner_lng,
-          });
-
-          setDestination({
-            lat: customer_lat,
-            lng: customer_lng,
-          });
-        } else {
-          // set origin and destination based on the received data
-          var rider_lat = parseFloat(location_data.rider.lat);
-          var rider_lng = parseFloat(location_data.rider.lng);
-
-          var customer_lat = parseFloat(location_data.customer.lat);
-          var customer_lng = parseFloat(location_data.customer.lng);
-
-          setDestination({ lat: customer_lat, lng: customer_lng });
-          // Assuming data.location.lat and data.location.long are available
-
-          fetch(
-            `https://roads.googleapis.com/v1/snapToRoads?path=${rider_lat},${rider_lng}&key=${apiKey}`
-          )
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.snappedPoints && data.snappedPoints.length > 0) {
-                const snapped = data.snappedPoints[0].location;
-                setOrigin({ lat: snapped.latitude, lng: snapped.longitude });
-              }
-            });
-
-          // setOrigin({
-          //   lat: rider_lat,
-          //   lng: rider_lng,
-          // });
-          console.log("location updated:");
-        }
-      }
-    };
-
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
-    // Cleanup on unmount
-    return () => {
-      socket.close();
-    };
-  }, []);
-  // create a websocket connection to the server and send the tracking number
-  // Set the destination to a specific location from the api
-  // sent the origin to the drivers location
-
-  // Example: You can update origin/destination with setOrigin/setDestination
-
-  return (
-    <div style={{ backgroundColor: '#f0f0f0', height: '500px', width: '100%' }}>
-    <APIProvider apiKey={`${apiKey}`}>
-      {/* <div
-        style={{
-          backgroundColor: "#f0f0f0",
-          height: "500px",
-          width: "500px",
-        }}
-        className="App"
-      > */}
-        <Map
-          defaultZoom={5}
-          defaultCenter={{ lat: 9.05785, lng: 7.49508 }} // Centered on Nigeria
-          style={{ height: "100%", width: "100%" }}
-          zoomControl={false}
-          mapTypeControl={false}
-          scaleControl={false}
-          streetViewControl={false}
-          rotateControl={false}
-          fullscreenControl={false}
-        >
-            {origin && <Marker position={origin} label="Origin" />}
-            {destination && <Marker position={destination} label="Destination" />}
-            {origin && destination && <Directions origin={origin} destination={destination} />}
-        </Map>
-      {/* </div> */}
-    </APIProvider>
-    </div>
-  );
-};
- return <MapApp />;
-}
 
 export default LiveTrackingMap;

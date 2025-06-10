@@ -33,14 +33,32 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
       return;
     }
     setLoading(true);
+    const cacheKey = `recentTracking:${url}`;
+    const cached = localStorage.getItem(cacheKey);
+    if (!navigator.onLine && cached) {
+      const cachedData = JSON.parse(cached);
+      setTrackingData((prev) => (append ? [...prev, ...cachedData.results] : cachedData.results));
+      setNextPage(cachedData.next);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await fetchTrackingData(url, token);
       const newData = data.results || [];
       setTrackingData((prev) => (append ? [...prev, ...newData] : newData));
       setNextPage(data.next);
+      // Cache the data
+      localStorage.setItem(cacheKey, JSON.stringify(data));
     } catch (err: any) {
       console.error('Failed to fetch tracking data:', err);
-      setError('Failed to fetch tracking data.');
+      if (cached) {
+        const cachedData = JSON.parse(cached);
+        setTrackingData((prev) => (append ? [...prev, ...cachedData.results] : cachedData.results));
+        setNextPage(cachedData.next);
+        setError(null);
+      } else {
+        setError('Failed to fetch tracking data.');
+      }
     } finally {
       setLoading(false);
     }

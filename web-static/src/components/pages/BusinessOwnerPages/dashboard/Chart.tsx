@@ -30,7 +30,7 @@ const ParcelChart: React.FC = () => {
   };
 
   // ---------- Transform API Response to Recharts Data ----------
-  
+
   const transformChartData = (dataObj: Record<string, number>): DataPoint[] => {
     return Object.entries(dataObj).map(([day, orders]) => ({
       day, // 'Mon', 'Tue', etc.
@@ -50,6 +50,15 @@ const ParcelChart: React.FC = () => {
       return;
     }
 
+    // --- Offline cache logic ---
+    const cacheKey = `chartData:${key}`;
+    const cached = localStorage.getItem(cacheKey);
+    if (!navigator.onLine && cached) {
+      setChartData(JSON.parse(cached));
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.get(API_ENDPOINTS[key], {
         headers: {
@@ -61,9 +70,17 @@ const ParcelChart: React.FC = () => {
       console.log(`Fetched ${key} data:`, response.data);
       const transformedData = transformChartData(response.data); // ✅ Transform data
       setChartData(transformedData);
+      // Cache the transformed data
+      localStorage.setItem(cacheKey, JSON.stringify(transformedData));
     } catch (err: any) {
       console.error(`Error fetching ${key} data:`, err);
-      setError('Failed to load chart data.');
+      // If fetch fails and cached data exists, use cached
+      if (cached) {
+        setChartData(JSON.parse(cached));
+        setError(null);
+      } else {
+        setError('Failed to load chart data.');
+      }
     } finally {
       setLoading(false);
     }
@@ -112,7 +129,7 @@ const ParcelChart: React.FC = () => {
                   <stop offset="95%" stopColor="#FEFEFE" stopOpacity={0.2} />
                 </linearGradient>
               </defs>
-              <XAxis dataKey="day" interval={0}/>
+              <XAxis dataKey="day" interval={0} />
               <Tooltip />
               <Area
                 type="monotone"
