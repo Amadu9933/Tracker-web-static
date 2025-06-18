@@ -174,7 +174,7 @@ const MapApp = () => {
           fullscreenControl={false}
           gestureHandling="greedy"
         >
-            {origin && <Marker position={origin} label="" icon={{anchor: new window.google.maps.Point(24, 48), scaledSize: new window.google.maps.Size(64, 64), url: ["returned", "delivered", "pending"].includes(vendorPosition) ? "https://img.icons8.com/3d-fluency/48/client-company.png" :"/public/origin.png"}}/>}
+            {origin && <Marker position={origin} label="" icon={{anchor: new window.google.maps.Point(24, 48), scaledSize: new window.google.maps.Size(64, 64), url: ["returned", "delivered", "pending"].includes(vendorPosition) ? "/public/office.png" :"/public/origin_new.png"}}/>}
             {destination && <Marker position={destination} label=""  icon={{anchor: new window.google.maps.Point(24, 48), scaledSize: new window.google.maps.Size(64, 64), url: "/public/destination.png"}} animation={window.google.maps.Animation.BOUNCE}/>}
             {origin && destination && <Directions origin={origin} destination={destination}/>}
         </Map>
