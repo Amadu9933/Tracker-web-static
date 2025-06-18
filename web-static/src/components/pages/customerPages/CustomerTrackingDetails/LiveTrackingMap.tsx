@@ -1,13 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
-import { createRoot } from "react-dom/client";
+import { useRef, useEffect, useState } from "react";
 import { APIProvider,
-  latLngEquals,
   Map,
   Marker,
   useMap, } from "@vis.gl/react-google-maps";
-import { set } from "react-hook-form";
-  
-//   '@react-google-maps/api';
+import { render } from "@testing-library/react";
 
 const LiveTrackingMap = ({ trackingNumber }: { trackingNumber: string }) => {
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -15,9 +11,7 @@ type LatLng = { lat: number; lng: number };
 
 const Directions = ({ origin, destination }: {  origin: LatLng | null; destination: LatLng | null;}) => {
   const map = useMap();
-  const rendererRef = useRef<google.maps.DirectionsRenderer>();
-
-
+  var rendererRef = useRef<google.maps.DirectionsRenderer>();
   
   useEffect(() => {
     if (!map || !origin || !destination) return;
@@ -27,6 +21,9 @@ const Directions = ({ origin, destination }: {  origin: LatLng | null; destinati
       rendererRef.current = new google.maps.DirectionsRenderer({
         map,
         suppressMarkers: true,
+    //     polylineOptions: {
+    //   strokeColor: "red"
+    // }
        
       });
     } else {
@@ -87,6 +84,7 @@ const MapApp = () => {
         if (
           ["returned", "delivered", "pending"].includes(location.parcel.status)
         ) {
+
           console.log("Parcel status:", location.parcel.status);
           // Origin and Destination are set based on the location data
           // set origin and destination based on the received data
@@ -176,9 +174,9 @@ const MapApp = () => {
           fullscreenControl={false}
           gestureHandling="greedy"
         >
-            {origin && <Marker position={origin} label="" icon={{url: ["returned", "delivered", "pending"].includes(vendorPosition) ? "https://img.icons8.com/3d-fluency/48/client-company.png" :"https://img.icons8.com/color/48/motorcycle-delivery-single-box.png"}}/>}
-            {destination && <Marker position={destination} label="" icon={{url: "https://img.icons8.com/color/48/marker.png"}}/>}
-            {origin && destination && <Directions origin={origin} destination={destination} />}
+            {origin && <Marker position={origin} label="" icon={{anchor: new window.google.maps.Point(24, 48), scaledSize: new window.google.maps.Size(64, 64), url: ["returned", "delivered", "pending"].includes(vendorPosition) ? "https://img.icons8.com/3d-fluency/48/client-company.png" :"/public/origin.png"}}/>}
+            {destination && <Marker position={destination} label=""  icon={{anchor: new window.google.maps.Point(24, 48), scaledSize: new window.google.maps.Size(64, 64), url: "/public/destination.png"}} animation={window.google.maps.Animation.BOUNCE}/>}
+            {origin && destination && <Directions origin={origin} destination={destination}/>}
         </Map>
       {/* </div> */}
     </APIProvider>
