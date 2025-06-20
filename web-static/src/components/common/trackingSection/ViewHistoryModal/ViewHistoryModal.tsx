@@ -1,20 +1,5 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
-
-const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 export default function BasicModal() {
   const [open, setOpen] = useState(false);
@@ -23,21 +8,26 @@ export default function BasicModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <button
+        onClick={handleOpen}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      >
+        Open modal
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
+        <div className="absolute top-1/2 left-1/2 w-96 -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black shadow-xl p-8 rounded-lg">
+          <h2 id="modal-modal-title" className="text-xl font-semibold mb-2">
+            Did You Know?
+          </h2>
+          <p id="modal-modal-description" className="mt-2 text-gray-700">
+            Trackerr supports tracking parcels from other logistics partners like DHL, GIG, and more. Simply enter your parcel ID and press Enter to get real-time updates.
+          </p>
+        </div>
       </Modal>
     </div>
   );

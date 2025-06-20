@@ -102,7 +102,7 @@ const GenerateTrackingID = () => {
                             name="shippingAddress"
                             value={formik.values.shippingAddress}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded"
+                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
                         />
                         {formik.touched.shippingAddress && formik.errors.shippingAddress && (
                             <p className="text-red-500">{formik.errors.shippingAddress}</p>
@@ -117,7 +117,7 @@ const GenerateTrackingID = () => {
                             name="country"
                             value={formik.values.country}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded"
+                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
                         />
                         {formik.touched.country && formik.errors.country && (
                             <p className="text-red-500">{formik.errors.country}</p>
@@ -132,7 +132,7 @@ const GenerateTrackingID = () => {
                             name="email"
                             value={formik.values.email}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded"
+                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
                         />
                         {formik.touched.email && formik.errors.email && (
                             <p className="text-red-500">{formik.errors.email}</p>
@@ -147,7 +147,7 @@ const GenerateTrackingID = () => {
                             name="phone"
                             value={formik.values.phone}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded"
+                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
                         />
                         {formik.touched.phone && formik.errors.phone && (
                             <p className="text-red-500">{formik.errors.phone}</p>
@@ -162,7 +162,7 @@ const GenerateTrackingID = () => {
                             name="productName"
                             value={formik.values.productName}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded"
+                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
                         />
                         {formik.touched.productName && formik.errors.productName && (
                             <p className="text-red-500">{formik.errors.productName}</p>
@@ -177,7 +177,7 @@ const GenerateTrackingID = () => {
                             name="numberOfProducts"
                             value={formik.values.numberOfProducts}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded"
+                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
                         />
                         {formik.touched.numberOfProducts && formik.errors.numberOfProducts && (
                             <p className="text-red-500">{formik.errors.numberOfProducts}</p>
@@ -192,7 +192,7 @@ const GenerateTrackingID = () => {
                             name="estimatedDeliveryDate"
                             value={formik.values.estimatedDeliveryDate}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded"
+                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
                         />
                         {formik.touched.estimatedDeliveryDate && formik.errors.estimatedDeliveryDate && (
                             <p className="text-red-500">{formik.errors.estimatedDeliveryDate}</p>

@@ -71,13 +71,13 @@ const LoginForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="  text-left bg-white pr-16 "
+      className="text-left bg-white pr-16 "
     >
 
       <h2 className="text-lg font-bold mb-7">Sign in</h2>
 
       {/* Email Field */}
-      <div className="mb-6">
+      <div className="mb-6 ">
         <label
           htmlFor="email"
           className="block text-sm font-medium text-gray-700"
@@ -88,8 +88,7 @@ const LoginForm: React.FC = () => {
           id="email"
           type="email"
           {...register('email')}
-          className={`mt-1 block w-full p-2 border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'
-            }`}
+          className={`mt-1 block w-full p-3 pl-16 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
           placeholder="abc@gmail.com"
         />
         {errors.email && (
@@ -109,8 +108,7 @@ const LoginForm: React.FC = () => {
           id="password"
           type={showPassword ? 'text' : 'password'}
           {...register('password')}
-          className={`mt-1 block w-full p-2 border rounded-md ${errors.password ? 'border-red-500' : 'border-gray-300'
-            }`}
+          className={`mt-1 block w-full p-3  pl-16 pr-10 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
           placeholder="******"
         />
         <button
