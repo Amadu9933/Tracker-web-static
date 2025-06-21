@@ -46,7 +46,7 @@ const GenerateTrackingID = () => {
             setLoading(true);
             setError(null);
             setTrackingID(null); // Reset previous tracking ID
-
+            console.log(values)
             const requestData = {
                 shipping_address: values.shippingAddress,
                 country: values.country,
@@ -54,6 +54,7 @@ const GenerateTrackingID = () => {
                 customer_email: values.email,
                 quantity: values.numberOfProducts.toString(),
                 delivery_date: values.estimatedDeliveryDate,
+                phone: values.phone
             };
 
             try {
