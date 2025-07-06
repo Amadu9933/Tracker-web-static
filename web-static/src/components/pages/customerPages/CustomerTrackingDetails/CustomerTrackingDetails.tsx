@@ -47,7 +47,7 @@ const CustomerTrackingDetails: React.FC = () => {
         setDestination(destCoords);
         setLoading(false);
       })
-      .catch((e) => {
+      .catch(() => {
         setError('Failed to load map data.');
         setLoading(false);
       });
