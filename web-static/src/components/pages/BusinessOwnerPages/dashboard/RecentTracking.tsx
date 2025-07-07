@@ -1,6 +1,8 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { fetchTrackingData } from '../../../../api/tracking';
 import { getStatusColor, formatDateTime } from '../../../../utils/statusUtils';
+import CircularProgress from '../../customerPages/customerTrackingDetails/customerNotification/CircularProgress';
+import LoadingSpinner from '../../customerPages/customerTrackingDetails/customerNotification/LoadingSpinner';
 
 // ---------- Props Interface ----------
 interface CustomizedTablesProps {
@@ -157,15 +159,15 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
           <button
             onClick={handleLoadMore}
             disabled={loading}
-            className="px-6 py-2 bg-primary text-white rounded-md hover:bg-orange-500 disabled:opacity-50"
+            className="px-6 py-2 bg-primary text-white rounded-md hover:bg-orange-500 disabled:opacity-50 flex items-center gap-2"
           >
-            {loading ? 'Loading...' : 'Load More'}
+            {loading ? <LoadingSpinner /> : 'Load More'}
           </button>
         </div>
       )}
 
       {/* Error & Loading Message */}
-      {loading && trackingData.length === 0 && <p className="text-center py-4">Loading data...</p>}
+      {loading && trackingData.length === 0 && <CircularProgress />}
       {error && <p className="text-center py-4 text-red-500">{error}</p>}
     </div>
   );

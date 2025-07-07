@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { FormProvider } from '../../src/context/CreateAccountFormContext';
 import Dashboard from '@components/pages/BusinessOwnerPages/dashboard/Dashboard';
+import CircularProgress from '@components/pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
 
 // Lazy load components
 const DashboardMain = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/DashboardMain'));
@@ -13,7 +14,7 @@ const UserProfile = lazy(() => import('@components/pages/BusinessOwnerPages/dash
 
 const DashboardRoutes: React.FC = () => (
   <FormProvider>
-    <Suspense fallback={<div>Loading dashboard...</div>}>
+    <Suspense fallback={<CircularProgress />}>
       <Routes>
         <Route path="/" element={<Navigate to="home" replace />} />  {/* Redirect to home */}
 

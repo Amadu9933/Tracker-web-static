@@ -1,6 +1,7 @@
 // src/routes/CustomerRoutes.tsx
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import CircularProgress from '@components/pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
 
 const CustomerLandingPage = lazy(
   () => import('@components/pages/customerPages/CustomerLandingPage')
@@ -8,18 +9,18 @@ const CustomerLandingPage = lazy(
 const CustomerTrackingDetailLayout = lazy(
   () =>
     import(
-      '@components/pages/customerPages/CustomerTrackingDetails/CustomerTrackingDetailLayout'
+      '@components/pages/customerPages/customerTrackingDetails/CustomerTrackingDetailLayout'
     )
 );
 const CustomerNotification = lazy(
   () =>
     import(
-      '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CustomerNotification'
+      '@components/pages/customerPages/customerTrackingDetails/customerNotification/CustomerNotification'
     )
 );
 
 const CustomerRoutes: React.FC = () => (
-  <Suspense fallback={<div>Loading customer page...</div>}>
+  <Suspense fallback={<CircularProgress />}>
     <Routes>
       <Route path="" element={<CustomerLandingPage />} />
       <Route

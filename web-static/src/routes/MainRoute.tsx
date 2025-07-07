@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@components/pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
 import { FormProvider } from '../../src/context/CreateAccountFormContext';
 
 // Lazy loading public components
