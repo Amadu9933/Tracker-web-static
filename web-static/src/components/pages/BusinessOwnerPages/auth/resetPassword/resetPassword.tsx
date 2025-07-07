@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 // Validation schema
 const passwordSchema = yup.object().shape({
   password1: yup
@@ -49,7 +50,7 @@ const ResetPassword: React.FC = () => {
 
 
 
-      const response = await axios.post('https://trackerr.live/api/v1/users/update-password/', payload);
+      const response = await axios.post(`${TRACKERR_HOST}/api/v1/users/update-password/`, payload);
 
       console.log('Response:', response.data);
       alert('Your password has been successfully reset!');

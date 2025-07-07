@@ -5,13 +5,16 @@ import RecentUpdate from './RecentUpdate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../../../../../context/AuthContext';
 
-
 /**
  * Fetches tracking data for a customer based on the provided email.
  *
  * @param {void} No parameters
  * @return {void} No return value
  */
+
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
+
 const CustomerNotification: React.FC = () => {
   // const { paramEmail } = useParams<{ paramEmail: string }>();
   const navigate = useNavigate();
@@ -35,7 +38,7 @@ const CustomerNotification: React.FC = () => {
 
         console.log(`Fetching tracking history for email: ${email}`);
         const response = await fetch(
-          `https://trackerr.live/api/v1/trackings/history/?email=${email}`
+          `${TRACKERR_HOST}/trackings/history/?email=${email}`
         );
         if (!response.ok) {
           console.log(

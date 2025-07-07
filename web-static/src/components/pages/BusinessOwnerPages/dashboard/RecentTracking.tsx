@@ -2,6 +2,9 @@ import { useEffect, useState, useMemo, useCallback } from 'react';
 import { fetchTrackingData } from '../../../../api/tracking';
 import { getStatusColor, formatDateTime } from '../../../../utils/statusUtils';
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL  
+
+
 // ---------- Props Interface ----------
 interface CustomizedTablesProps {
   enableFilter?: boolean; // Optional filter dropdown
@@ -88,7 +91,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
 
   const handleLoadMore = useCallback(() => {
     if (nextPage) {
-      const relativeUrl = nextPage.replace('https://trackerr.live/api/v1/', '');
+      const relativeUrl = nextPage.replace(`${TRACKERR_HOST}/`, '');
       fetchData(relativeUrl, true);
     }
   }, [nextPage]);

@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import axios from "axios";
 import { ArrowBack } from "../auth/assets/Assets";
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
 const GenerateTrackingID = () => {
     const [trackingID, setTrackingID] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -57,7 +59,7 @@ const GenerateTrackingID = () => {
 
             try {
                 const response = await axios.post(
-                    "https://trackerr.live/api/v1/trackings/generate-tracking/",
+                    `${TRACKERR_HOST}/trackings/generate-tracking/`,
                     requestData,
                     {
                         headers: {

@@ -10,6 +10,8 @@ import LiveTrackingMap from './LiveTrackingMap';
  *
  * @return {JSX.Element} The rendered customer tracking details component.
  */
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
 const CustomerTrackingDetails: React.FC = () => {
   const { trackingNumber } = useParams<{ trackingNumber: string }>();
   const [mapOpened, setMapOpened] = useState(false);
@@ -27,7 +29,7 @@ const CustomerTrackingDetails: React.FC = () => {
     if (!mapOpened || !trackingNumber) return;
     setLoading(true);
     setError(null);
-    fetch(`https://trackerr.live/api/v1/trackings/${trackingNumber}/`)
+    fetch(`${TRACKERR_HOST}/trackings/${trackingNumber}/`)
       .then((res) => res.json())
       .then((data) => {
         // Try to get business_owner as origin, customer as destination

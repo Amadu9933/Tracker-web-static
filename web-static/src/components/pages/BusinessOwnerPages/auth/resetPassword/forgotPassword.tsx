@@ -7,6 +7,8 @@ import * as yup from 'yup';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // ✅ Use environment variable for base URL
+
 // Validation schema using Yup
 const emailSchema = yup.object().shape({
   email: yup
@@ -34,7 +36,7 @@ const ForgotPassword: React.FC = () => {
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
     try {
-      const response = await axios.post('https://trackerr.live/api/v1/users/reset-password/', {
+      const response = await axios.post(`${TRACKERR_HOST}/api/v1/users/reset-password/`, {
         email: data.email,
         type: activeTab,
       });

@@ -10,12 +10,14 @@ import {
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import axios from 'axios';
 
+
 // ---------- Types ----------
 interface DataPoint {
   day: string;
   orders: number;
 }
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 // ---------- Main Component ----------
 const ParcelChart: React.FC = () => {
   const [filter, setFilter] = useState<'last7Days' | 'monthly'>('last7Days');
@@ -25,8 +27,8 @@ const ParcelChart: React.FC = () => {
 
   // ---------- API Endpoints ----------
   const API_ENDPOINTS = {
-    last7Days: 'https://trackerr.live/api/v1/trackings/charts/weekly/',
-    monthly: 'https://trackerr.live/api/v1/trackings/charts/monthly/',
+    last7Days: `${TRACKERR_HOST}/trackings/charts/weekly/`,
+    monthly: `${TRACKERR_HOST}/trackings/charts/monthly/`,
   };
 
   // ---------- Transform API Response to Recharts Data ----------

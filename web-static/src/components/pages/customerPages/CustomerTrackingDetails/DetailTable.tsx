@@ -7,6 +7,9 @@ import axios from 'axios';
  *
  * @return {JSX.Element} A table with tracking details or an error message if an error occurred.
  */
+
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
 const DetailTable: React.FC = () => {
   const { trackingNumber } = useParams<{ trackingNumber: string }>();
   const [trackingData, setTrackingData] = useState<any | null>(null);
@@ -24,7 +27,7 @@ const DetailTable: React.FC = () => {
       }
       try {
         const response = await axios.get(
-          `https://trackerr.live/api/v1/trackings/${trackingNumber}/`
+          `${TRACKERR_HOST}/trackings/${trackingNumber}/`
         );
 
         console.log('Response data:', response.data);
