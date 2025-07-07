@@ -1,6 +1,8 @@
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
 export const loginUser = async (email: string, password: string) => {
   try {
-    const response = await fetch('https://trackerr.live/api/v1/auth/token/', {
+    const response = await fetch(`${TRACKERR_HOST}/auth/token/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

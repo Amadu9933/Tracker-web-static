@@ -8,6 +8,8 @@ import {
   Line,
 } from 'recharts';
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 import axios from 'axios';
 
 // ---------- Types ----------
@@ -25,8 +27,8 @@ const ParcelChart: React.FC = () => {
 
   // ---------- API Endpoints ----------
   const API_ENDPOINTS = {
-    last7Days: 'https://trackerr.live/api/v1/trackings/charts/weekly/',
-    monthly: 'https://trackerr.live/api/v1/trackings/charts/monthly/',
+    last7Days: `${TRACKERR_HOST}/trackings/charts/weekly/`,
+    monthly: `${TRACKERR_HOST}/trackings/charts/monthly/`,
   };
 
   // ---------- Transform API Response to Recharts Data ----------

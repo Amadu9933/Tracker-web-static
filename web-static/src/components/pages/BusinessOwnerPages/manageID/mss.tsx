@@ -6,6 +6,8 @@ import { useAuth } from '../../../../context/AuthContext';
 import CustomizedTables from '@components/pages/customerPages/customerTrackingDetails/customerNotification/HistoryTable';
 import RecentTracking from './RecentTracking'
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
 const DashboardMain = () => {
 
   const [trackingData, setTrackingData] = useState<any>(null);
@@ -27,7 +29,7 @@ const DashboardMain = () => {
 
         console.log(`Fetching tracking history for email: ${email}`);
         const response = await fetch(
-          `https://trackerr.live/api/v1/trackings/history/?email=${email}`
+          `${TRACKERR_HOST}/trackings/history/?email=${email}`
         );
         if (!response.ok) {
           console.log(

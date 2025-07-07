@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import CircularProgress from './customerNotification/CircularProgress';
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
 /**
  * Renders a table with tracking details based on the provided tracking number.
  *
@@ -25,7 +27,7 @@ const DetailTable: React.FC = () => {
       }
       try {
         const response = await axios.get(
-          `https://trackerr.live/api/v1/trackings/${trackingNumber}/`
+          `${TRACKERR_HOST}/trackings/${trackingNumber}/`
         );
 
         console.log('Response data:', response.data);

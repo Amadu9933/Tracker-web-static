@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import DetailTable from './DetailTable';
 import LiveTrackingMap from './LiveTrackingMap';
+
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 import CircularProgress from './customerNotification/CircularProgress';
 
 /**
@@ -28,7 +30,7 @@ const CustomerTrackingDetails: React.FC = () => {
     if (!mapOpened || !trackingNumber) return;
     setLoading(true);
     setError(null);
-    fetch(`https://trackerr.live/api/v1/trackings/${trackingNumber}/`)
+    fetch(`${TRACKERR_HOST}/trackings/${trackingNumber}/`)
       .then((res) => res.json())
       .then((data) => {
         // Try to get business_owner as origin, customer as destination

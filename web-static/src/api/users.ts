@@ -1,3 +1,5 @@
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
 export const getUserProfile = async () => {
   const token = localStorage.getItem('access'); // Retrieve the token
   const userId = localStorage.getItem('userId'); // Retrieve stored user ID
@@ -16,7 +18,7 @@ export const getUserProfile = async () => {
 
   try {
     const response = await fetch(
-      `https://trackerr.live/api/v1/business-owners/${userId}/`,
+      `${TRACKERR_HOST}/business-owners/${userId}/`,
       {
         method: 'GET',
         headers: {
