@@ -7,8 +7,9 @@ import ProtectedRoute from './ProtectedRoute'; // Route protection logic
 import DashboardRoutes from './DashboardRoutes'; // Dashboard routes
 import UserRoute from './UserRoute'; // User-specific routes
 import TrackYourParcel from '@components/navigationBarLinksComponents/TrackYourParcel';
+import CircularProgress from '@components/pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
 
-const Loading = () => <div>Loading...</div>;
+const Loading = () => <CircularProgress />;
 
 const AppRoutes: React.FC = () => (
   <Suspense fallback={<Loading />}>

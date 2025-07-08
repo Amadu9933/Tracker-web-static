@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import CircularProgress from './customerNotification/CircularProgress';
+
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 
 /**
  * Renders a table with tracking details based on the provided tracking number.
@@ -76,7 +79,7 @@ const DetailTable: React.FC = () => {
   }
 
   if (!trackingData) {
-    return <p className="text-gray-600 text-xl">Loading tracking data...</p>;
+    return <CircularProgress />;
   }
 
   // Final table display

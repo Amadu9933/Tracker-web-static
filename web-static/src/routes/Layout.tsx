@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '@components/common/header/Navbar';
+import CircularProgress from '@components/pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
 
 const Layout: React.FC = () => {
   const location = useLocation();
@@ -20,7 +21,7 @@ const Layout: React.FC = () => {
       )}
 
       <main>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<CircularProgress />}>
           <Outlet />
         </Suspense>
       </main>

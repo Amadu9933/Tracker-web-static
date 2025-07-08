@@ -8,6 +8,8 @@ import {
   Line,
 } from 'recharts';
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 import axios from 'axios';
 
 

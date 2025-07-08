@@ -35,17 +35,16 @@ const CircularProgress: React.FC = () => {
       top: `calc(50% + ${offsetY}px)`, // Calculate top position
       left: `calc(50% + ${offsetX}px)`, // Calculate left position
       transform: 'translate(-50%, -50%)', // Center the circle at its position
-      marginLeft: '400px',
     };
   };
 
   return (
-    <div className="flex  m-auto bg-gray-500 opacity-25 h-full border-none absolute ">
+    <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
       <Box
         sx={{
           width: '250.63px', // Width of the container
           height: '230px', // Height of the container
-          margin: '0 auto', // Center the container horizontally
+          position: 'relative', // Relative positioning for circles
         }}
       >
         {/* Generate 8 circles and apply the calculated styles */}

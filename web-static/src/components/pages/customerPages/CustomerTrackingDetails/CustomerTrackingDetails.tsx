@@ -5,6 +5,9 @@ import { Link, useParams } from 'react-router-dom';
 import DetailTable from './DetailTable';
 import LiveTrackingMap from './LiveTrackingMap';
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+import CircularProgress from './customerNotification/CircularProgress';
+
 /**
  * Renders the customer tracking details component.
  *
@@ -49,7 +52,7 @@ const CustomerTrackingDetails: React.FC = () => {
         setDestination(destCoords);
         setLoading(false);
       })
-      .catch((e) => {
+      .catch(() => {
         setError('Failed to load map data.');
         setLoading(false);
       });
@@ -106,7 +109,7 @@ const CustomerTrackingDetails: React.FC = () => {
       {mapOpened && (
         <div className="flex justify-center mt-6">
           <div className="p-6 rounded-md text-center w-[90%]">
-            {loading && <div>Loading map...</div>}
+            {loading && <CircularProgress />}
             {error && <div className="text-red-500">{error}</div>}
             {!loading && !error && origin && destination && trackingNumber && (
               <LiveTrackingMap

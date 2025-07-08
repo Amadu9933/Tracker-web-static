@@ -7,7 +7,7 @@ import CustomizedTables from '@components/pages/customerPages/customerTrackingDe
 import RecentTracking from './RecentTracking'
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
-  
+
 const DashboardMain = () => {
 
   const [trackingData, setTrackingData] = useState<any>(null);

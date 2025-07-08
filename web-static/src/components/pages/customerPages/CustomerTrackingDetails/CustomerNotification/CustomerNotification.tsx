@@ -5,6 +5,9 @@ import RecentUpdate from './RecentUpdate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../../../../../context/AuthContext';
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
+
 /**
  * Fetches tracking data for a customer based on the provided email.
  *

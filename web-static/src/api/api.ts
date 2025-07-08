@@ -3,6 +3,7 @@ const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 export const loginUser = async (email: string, password: string) => {
   try {
     const response = await fetch(`${TRACKERR_HOST}/auth/token/`, {
+    const response = await fetch(`${TRACKERR_HOST}/auth/token/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

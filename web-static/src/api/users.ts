@@ -19,6 +19,7 @@ export const getUserProfile = async () => {
   try {
     const response = await fetch(
       `${TRACKERR_HOST}/business-owners/${userId}/`,
+      `${TRACKERR_HOST}/business-owners/${userId}/`,
       {
         method: 'GET',
         headers: {

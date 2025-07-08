@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axiosInstance from '../../api/axiosInstance';
 import { TrackingData } from '../../types/types';
+import CircularProgress from './customerPages/customerTrackingDetails/customerNotification/CircularProgress';
 
 /**
  * Fetch tracking details for a given tracking number.
@@ -72,7 +73,7 @@ const UserInfo: React.FC = () => {
         onChange={handleInputChange}
         onKeyDown={handleKeyPress}
       />
-      {loading && <div>Loading...</div>}
+      {loading && <CircularProgress />}
       {error && <div>Error: {error}</div>}
       {trackingData && (
         <div>
