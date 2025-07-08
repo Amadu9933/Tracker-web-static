@@ -13,7 +13,6 @@ import CircularProgress from './customerNotification/CircularProgress';
  *
  * @return {JSX.Element} The rendered customer tracking details component.
  */
-const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 
 const CustomerTrackingDetails: React.FC = () => {
   const { trackingNumber } = useParams<{ trackingNumber: string }>();

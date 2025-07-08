@@ -19,7 +19,6 @@ interface DataPoint {
   orders: number;
 }
 
-const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 // ---------- Main Component ----------
 const ParcelChart: React.FC = () => {
   const [filter, setFilter] = useState<'last7Days' | 'monthly'>('last7Days');

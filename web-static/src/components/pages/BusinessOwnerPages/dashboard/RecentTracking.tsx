@@ -5,8 +5,7 @@ import CircularProgress from '../../customerPages/customerTrackingDetails/custom
 import LoadingSpinner from '../../customerPages/customerTrackingDetails/customerNotification/LoadingSpinner';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
-
-const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL  
+  
 
 
 // ---------- Props Interface ----------

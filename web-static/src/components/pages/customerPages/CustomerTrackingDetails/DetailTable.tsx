@@ -11,8 +11,6 @@ const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment var
  * @return {JSX.Element} A table with tracking details or an error message if an error occurred.
  */
 
-const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
-
 const DetailTable: React.FC = () => {
   const { trackingNumber } = useParams<{ trackingNumber: string }>();
   const [trackingData, setTrackingData] = useState<any | null>(null);

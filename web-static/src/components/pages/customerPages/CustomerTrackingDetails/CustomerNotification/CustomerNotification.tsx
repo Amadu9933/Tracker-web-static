@@ -15,7 +15,7 @@ const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment var
  * @return {void} No return value
  */
 
-const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+
 
 
 const CustomerNotification: React.FC = () => {
