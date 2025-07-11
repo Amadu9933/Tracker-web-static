@@ -12,6 +12,7 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { logoutUser } from '../../../../api/auth';
 import Logo from '../../../../assets/Logo.png';
+import CircularProgress from '../../customerPages/customerTrackingDetails/customerNotification/CircularProgress';
 
 const Dashboard: React.FC = () => {
   const location = useLocation();
@@ -38,14 +39,18 @@ const Dashboard: React.FC = () => {
     fetchUserProfile();
   }, []);
 
+  // Show loading screen while fetching user data
+  if (loading) {
+    return <CircularProgress />;
+  }
 
   return (
     <div className="flex">
       {/* Sidebar */}
       <aside className="bg-gray-200 text-secondary w-[220px] pl-[28px] flex flex-col justify-between">
         <nav className="flex flex-col">
-          <h2>
-            <img className="h-7 my-[32px] w-20" src={Logo} alt="logo" />
+          <h2 >
+            <img className="h-7 my-[32px] w-20" src={Logo} alt="logo" onClick={() => navigate('/')} />
           </h2>
           <ul className="flex-grow">
             {/* Dashboard Link */}
@@ -105,7 +110,7 @@ const Dashboard: React.FC = () => {
         </div>
       </aside>
 
-      <div className="bg-gray-300 h-[24px] " >
+      <div className="bg-gray-300 onClick={() => navigate('/dashboard/user-profile')} h-[24px] " onClick={() => navigate(-1)} >
         <ChevronLeftOutlinedIcon />
       </div>
 

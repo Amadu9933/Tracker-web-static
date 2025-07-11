@@ -1,5 +1,8 @@
-
+import { useNavigate } from "react-router-dom";
 const TopContainer: React.FC = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="absolute w-[50.5%]">
       <div className="relative mt-24">
@@ -15,7 +18,7 @@ const TopContainer: React.FC = () => {
           </p>
 
           <div className="my-5">
-            <button className="bg-primary text-white border border-[#FF833C] rounded-lg font-medium text-[16px]  h-[48px] w-32 py-2 hover:bg-[#f8a677] hover:text-white hover:border-[#FF833C] focus:bg-[#FF833C] focus:text-white focus:border-[#FF833C]">
+            <button className="bg-primary text-white border border-[#FF833C] rounded-lg font-medium text-[16px]  h-[48px] w-32 py-2 hover:bg-[#f8a677] hover:text-white hover:border-[#FF833C] focus:bg-[#FF833C] focus:text-white focus:border-[#FF833C]" onClick={() => navigate('/Login')}>
               Get started
             </button>
           </div>

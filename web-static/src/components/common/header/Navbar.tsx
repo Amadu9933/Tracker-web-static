@@ -68,14 +68,15 @@ const Navbar: React.FC = () => {
         {/* Toolbar containing various sections */}
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           {/* Logo section */}
-          <IconButton
-            size="large"
-            edge="start"
-            aria-label="logo"
-            sx={{ flexFlow: 1, display: { xs: 'none', md: 'flex' } }}
+          <div
+            style={{
+              flexGrow: 1,
+              display: 'flex',
+            }}
+            className="hidden md:flex"
           >
             <img src={logo} alt="Logo" className="nav-logo" />
-          </IconButton>
+          </div>
           {/* Navigation links section */}
           <Box
             sx={{

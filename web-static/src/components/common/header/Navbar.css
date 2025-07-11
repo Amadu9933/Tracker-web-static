@@ -9,6 +9,7 @@
   color: red;
   font-weight: bold;
   padding-bottom: 5px;
+  text-underline-offset: 4px;
 }
 
 .Navbar:hover {
@@ -18,4 +19,5 @@
   color: red;
   font-weight: bold;
   padding-bottom: 5px;
+  text-underline-offset: 4px;
 }
