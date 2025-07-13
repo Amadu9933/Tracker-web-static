@@ -1,7 +1,7 @@
 const LandingPage: React.FC = () => {
   return (
     <div className="  w-full inline-block  justify-center items-center">
-      <h1 className="text-3xl font-medium text-secondary my-16 ">
+      <h1 className="text-3xl text-center font-medium text-secondary my-16 ">
         Why choose us
       </h1>
 
