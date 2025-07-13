@@ -8,7 +8,7 @@ const LandingPage: React.FC = () => {
       <div className=" w-full flex justify-evenly ">
         {/* Boost Efficiency */}
 
-        <div className="bg-slate-600 w-[305px] h-[180px] pt-[48px] pb-[24px] mr-16 px-[10px] rounded-[8px] ">
+        <div className="bg-slate-600 w-[305px] h-[180px] pt-[48px] pb-[24px] mr-16 px-[10px] rounded-[8px] text-center">
           <h1 className="font-medium text-lg text-white">Boost Efficiency</h1>
           <p className="text-[#B3C3CF] text-sm">
             Eliminate manual processes and speed up your parcel tracking with
@@ -16,21 +16,21 @@ const LandingPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-slate-600 w-[305px] h-[180px] pt-[48px] pb-[24px] mr-16 rounded-[8px] px-[10px]">
-          <h1 className="font-medium  text-lg text-white">
+        <div className="bg-slate-600 w-[305px] h-[180px] pt-[48px] pb-[24px] mr-16 rounded-[8px] px-[10px] text-center">
+          <h1 className="font-medium text-lg text-white">
             Enhance Customer Experience
           </h1>
-          <p className="text-[#B3C3CF] text-sm ">
+          <p className="text-[#B3C3CF] text-sm">
             Provide your customers with accurate, real-time tracking
             information, improving satisfaction.
           </p>
         </div>
 
-        <div className="bg-slate-600 w-[305px] h-[180px] pt-[48px] pb-[24px] rounded-[8px] px-[10px]">
-          <h1 className="font-medium   text-lg text-white">
+        <div className="bg-slate-600 w-[305px] h-[180px] pt-[48px] pb-[24px] rounded-[8px] px-[10px] text-center">
+          <h1 className="font-medium text-lg text-white">
             Reliable Security
           </h1>
-          <p className="text-[#B3C3CF]  text-sm">
+          <p className="text-[#B3C3CF] text-sm">
             Our system ensures the security of your tracking IDs, preventing
             unauthorized access and tampering.
           </p>
