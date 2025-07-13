@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import TabSelector from './TabSelector';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { createAccont } from '../assets/Assets';
-
+import { useNavigate } from 'react-router-dom';
 interface BusinessTabComponentProps {
   initialTab?: string;
   renderTabContent: (selectedTab: string) => React.ReactNode;
@@ -14,6 +14,7 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
   renderTabContent,
 }) => {
   const [selectedTab, setSelectedTab] = useState<string>(initialTab);
+  const navigate = useNavigate();
 
   return (
     <div className="flex bg-white  flex-col md:flex-row h-screen ">
@@ -31,14 +32,13 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
         {/* Title Section */}
         <div>
           <h1 className="text-3xl font-bold text-gray-700 flex items-center mb-6">
-            <ArrowBackIcon className="mr-3" />
+            <div onClick={() => { navigate(-1) }}><ArrowBackIcon className="mr-3" /></div>
             Create Account
           </h1>
 
         </div>
 
         {/* Tab Selector */}
-
         <TabSelector selectedTab={selectedTab} onTabChange={setSelectedTab} />
 
 

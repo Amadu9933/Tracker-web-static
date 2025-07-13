@@ -86,7 +86,7 @@ const PersonalInfoForm: React.FC = () => {
           type="email"
           placeholder="Enter your email"
           {...register('email')}
-          className="w-full p-3 pl-[75px] border  border-black rounded-md placeholder:text-[#A3A38E]"
+          className="w-full p-3 pl-[55px] border  border-black rounded-md placeholder:text-[#A3A38E]"
         />
         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
       </div>
@@ -118,7 +118,7 @@ const PersonalInfoForm: React.FC = () => {
             type={showPassword ? 'text' : 'password'}
             placeholder="Enter your password"
             {...register('password')}
-            className="w-full p-3 pl-[80px] pr-10 border border-black rounded-md placeholder:text-[#A3A38E]  focus:border-primary focus:ring-primary"
+            className="w-full p-3 pl-[55px] pr-10 border border-black rounded-md placeholder:text-[#A3A38E]  focus:border-primary focus:ring-primary"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
             <IconButton
