@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { carryParcel } from '../assets/Assets'; // Ensure correct image path
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LoginForm from './LoginForm';
+import { useNavigate } from 'react-router-dom';
+
 
 const LoginTabComponent: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<'business' | 'logistics'>('business');
+  const navigate = useNavigate()
 
   return (
     <div className="flex  md:flex-row h-full w-screen  ">
@@ -20,7 +23,7 @@ const LoginTabComponent: React.FC = () => {
 
         <div className="mb-6 ">
           <h1 className="mb-3 text-3xl font-bold text-secondary flex items-center">
-            <ArrowBackIcon className="mr-3 cursor-pointer hover:text-primary transition duration-300" />
+            <div onClick={() => { navigate(-1) }}><ArrowBackIcon className="mr-3 cursor-pointer transition duration-300" /></div>
             Welcome Back
           </h1>
 
