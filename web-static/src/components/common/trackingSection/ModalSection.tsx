@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useAuth } from '../../../context/AuthContext';
+import CircularProgress from '../../pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
 
 
 const style = {
@@ -147,9 +148,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
       aria-describedby="modal-modal-description"
     >
       {loading ? (
-        <div className="border-none">
-
-        </div>
+        <CircularProgress />
       ) : (
         <Box sx={style}>
           <Typography

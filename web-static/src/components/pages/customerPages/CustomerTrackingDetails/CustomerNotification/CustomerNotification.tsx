@@ -4,6 +4,7 @@ import CustomizedTables from './HistoryTable';
 import RecentUpdate from './RecentUpdate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../../../../../context/AuthContext';
+import CircularProgress from './CircularProgress';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 
@@ -67,7 +68,7 @@ const CustomerNotification: React.FC = () => {
   }
 
   if (!trackingData) {
-    return <div>Loading tracking history...</div>;
+    return <CircularProgress />;
   }
 
   return (
