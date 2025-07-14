@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import axiosInstance from '../../../../../api/axiosInstance'; // ✅ Use configured axios instance
+import axios from 'axios'; // ✅ Import Axios
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // ✅ Use environment variable for base URL
 
 // Validation schema using Yup
 const emailSchema = yup.object().shape({
@@ -34,9 +36,14 @@ const ForgotPassword: React.FC = () => {
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
     try {
-      const response = await axiosInstance.post('/users/reset-password/', {
+      const response = await axios.post(`${TRACKERR_HOST}/users/reset-password/`, {
         email: data.email,
         type: activeTab,
+      }, {
+        timeout: 30000, // Increase timeout to 30 seconds
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       alert(response.data.message || `OTP sent to ${data.email}`);
@@ -109,7 +116,7 @@ const ForgotPassword: React.FC = () => {
 
         <button
           type="submit"
-          className="flex justify-center items-center font-bold text-blue-600 mt-4"
+          className="flex justify-center items-center font-bold text-secondary mt-4"
         >
           <span className="mr-2">Next</span>
           <ArrowForwardIcon sx={{ height: 16 }} />
