@@ -4,7 +4,7 @@ import HowItWorks from './HowItWorks/HowItWorks';
 import WhyChooseUs from './WhyChooseUs/WhyChooseUs';
 import ReadyTo from './ReadyTo/ReadyTo';
 import YouCanTrustUs from './YouCanTrustUs/YouCanTrustUs';
-import MyQuestionSection, { QuestionSection } from '@components/myQuestionSection/MyQestionSection';
+import QuestionSection from '@components/myQuestionSection/MyQestionSection';
 import "../../logisticOwnerPage/landingPage/landingPage.css"
 import Footer from '@common/footer/Footer';
 

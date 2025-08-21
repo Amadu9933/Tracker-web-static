@@ -50,4 +50,4 @@ const QuestionSection = () => {
 }
 
 
-export {QuestionSection}
+export  default QuestionSection;

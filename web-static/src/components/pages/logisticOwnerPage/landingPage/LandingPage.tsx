@@ -4,7 +4,7 @@ import "./landingPage.css"
 import { SecondaryButton } from "@components/common/buttons/Mybutton";
 // import MyQuestionSection from "@components/myQuestionSection/MyQestionSection";
 import GearIcon from "@components/common/reusable/gearIcon";
-import { QuestionSection } from "@components/myQuestionSection/MyQestionSection";
+import  QuestionSection  from "@components/myQuestionSection/MyQestionSection";
 import { useNavigate } from "react-router-dom";
 
 
