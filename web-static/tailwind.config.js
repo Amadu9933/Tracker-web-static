@@ -12,6 +12,8 @@ export default {
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        lora: ['Lora', 'serif'],
+        poppins: ["Poppins", "sans-serif"],
       },
     },
   },

@@ -44,3 +44,17 @@ const MyButton: React.FC<MyButtonProps> = ({
 };
 
 export default MyButton;
+
+type secondaryButtonProps = {
+  label: string
+}
+
+const SecondaryButton = ({label}: secondaryButtonProps) => {
+  function handleClick() {
+    // add click logic here
+    alert('Buttton CLicked!')
+  }
+  return <button className="secondaryBtn" type='button' onClick={handleClick}>{label}</button>
+}
+
+export {SecondaryButton}
