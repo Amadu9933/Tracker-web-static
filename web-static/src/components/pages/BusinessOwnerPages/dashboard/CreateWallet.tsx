@@ -11,9 +11,8 @@ const CreateWallet = () => {
           Use your trackerr card to pay for <br /> deliveries and receive 10%
           discount on all <br /> deliveries made with trackerr app.
         </p>
-        <button className="border-2 border-primary   text-primary  px-4 py-b-1 rounded-md">
-          <span className="mr-1 text-[24px]"> + </span>{' '}
-          <span className="text-lg">Create Wallet</span>
+        <button className="border-2 border-primary   text-primary  px-4 py-1.6 rounded-md">
+          <span className="text-lg"><span className="mr-2 text-[24px]">+</span>Create Wallet</span>
         </button>
 
         <div className="absolute  -mt-5">
