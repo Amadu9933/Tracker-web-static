@@ -27,6 +27,7 @@ const Dashboard: React.FC = () => {
       try {
         const userProfile = await getUserProfile();
         console.log('Fetched User Data:', userProfile); // Debugging log
+        console.log(userProfile);
         setUser(userProfile);
       } catch (err) {
         setError('Failed to fetch user details.');
