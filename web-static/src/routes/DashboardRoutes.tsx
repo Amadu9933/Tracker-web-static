@@ -11,6 +11,7 @@ const GenerateTrackingID = lazy(() => import('@components/pages/BusinessOwnerPag
 const Logistics = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/logistics/Logistics'))
 const Integration = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/integration/Integration'))
 const UserProfile = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/userProfile/UserProfile'))
+const TrackingDetails = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/trackingDetails/TrackingDetails'))
 
 const DashboardRoutes: React.FC = () => (
   <FormProvider>
@@ -26,6 +27,7 @@ const DashboardRoutes: React.FC = () => (
           <Route path="logistics" element={<Logistics />} />
           <Route path="integration" element={<Integration />} />
           <Route path="user-profile" element={<UserProfile />} />
+          <Route path="/trackings/:trackingID" element={<TrackingDetails />} />
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Route>
       </Routes>

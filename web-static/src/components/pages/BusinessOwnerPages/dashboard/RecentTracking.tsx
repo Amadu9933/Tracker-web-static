@@ -3,6 +3,8 @@ import { fetchTrackingData } from '../../../../api/tracking';
 import { getStatusColor, formatDateTime } from '../../../../utils/statusUtils';
 import CircularProgress from '../../customerPages/customerTrackingDetails/customerNotification/CircularProgress';
 import LoadingSpinner from '../../customerPages/customerTrackingDetails/customerNotification/LoadingSpinner';
+import { useNavigate } from 'react-router-dom';
+import { object } from 'yup';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
   
@@ -26,7 +28,16 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('All');
+  const navigate = useNavigate();
 
+
+  // ---------- Handle ID Click ----------
+  const handleIdClick = (url: string, state: object) => {
+    navigate(url,{
+      state: {state}
+    }
+    );
+  }
   // ---------- Fetch Data ----------
   const fetchData = async (
     url = 'trackings/',
@@ -144,7 +155,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
                 className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-gray-100`}
               >
                 <td className="px-4 py-3">#{index + 1}</td>
-                <td className="px-4 py-3">{item.parcel_number}</td>
+                <td className="px-4 py-3" style={{color: "#1a73e8", cursor: "pointer"}} onClick={()=> {handleIdClick(`/dashboard/trackings/${item.parcel_number}/`, {state: item})}}>{item.parcel_number}</td>
                 <td className="px-4 py-3">
                   {formatDateTime(item.date_of_purchase)}
                   <div className="text-[#C6C5B9] text-xs">{formatDateTime(item.time_of_purchase)}</div>
