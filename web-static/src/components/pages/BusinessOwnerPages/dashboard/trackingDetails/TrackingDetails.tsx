@@ -112,12 +112,13 @@ export default function TrackingDetails() {
             }
             {
                 trackingStatus === 'assigned' ? (
-                    <>
-                        <p>Delivery has been assigned to {rider}</p>
+                    <div className="w-full">
+                        <p>Delivery has been assigned</p>
                         <div className="w-full h-[5rem] flex justify-center align-center">
                             <CheckCircle size={80} className="text-green-500"/>
                         </div>
-                    </>
+                        <h3 className="text-center font-medium mt-2"> Assignee: {rider} </h3>
+                    </div>
                 ) : (
                     <>
                         <p>Assign this delivery to an available rider below</p>
