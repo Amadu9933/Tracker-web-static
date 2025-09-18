@@ -1,15 +1,15 @@
 import {faUser } from "@fortawesome/free-regular-svg-icons";
-import { faBus, faGift, faLocation, faLocationArrow, faLocationCrosshairs, faLocationPin, faLocationPinLock, faMapLocation, faMapMarker, faMapPin, faVanShuttle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation} from "react-router-dom";
-import { ArrowLeft, User, MapPin, Clock, CheckCircle, Package, Truck} from 'lucide-react';
+import {  User, MapPin, CheckCircle, Package, Truck} from 'lucide-react';
 import { useEffect, useState } from "react";
-import Dialog from "@components/common/dialog";
+import Dialog from "@components/common/reusable/dialog";
 import axiosInstance from "/src/api/axiosInstance";
 
 
 
 import React from "react";
+import MessageBox from "@components/common/reusable/messageBox";
 
 function AddressAutocomplete({user_data, setUserData}: any) {
 //   const [query, setQuery] = useState("");
@@ -103,10 +103,12 @@ export default function TrackingDetails() {
     country: "",
     product_name: "",
     parcel_number: location.parcel_number,
+    status: ""
   });
-  const [trackingStatus, setTrackingStatus] = useState('pending'); // 'pending' or 'assigned'
+  const [trackingStatus, setTrackingStatus] = useState(''); // 'pending', 'assigned', 'delivered', 'returned', 'cancelled', 'assigned'
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [rider, setRider] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
   const [edit, setEdit] = useState(false);
   const [user_data, setUserData] = useState({
     email: trackingData.customer_email,
@@ -128,6 +130,7 @@ export default function TrackingDetails() {
             country: response.data.country,
             product_name: response.data.product_name
         });
+        setTrackingStatus(response.data.status);
         console.log(response.data);
     }).catch((error: any) => {
         alert('There was an error!');
@@ -156,8 +159,14 @@ export default function TrackingDetails() {
         }
     }
     ).then((response) => {
-            alert('Shipping details updated successfully');
             setEdit(!edit);
+            setTimeout(() => {
+                setShowMessage(true);
+                setTimeout(() => {
+                setShowMessage(false);
+            }, 3000);
+            }, 2000);
+
         }).catch((error) => {
             alert('Error updating shipping details');
             console.error('There was an error!', error.msg);
@@ -174,7 +183,7 @@ export default function TrackingDetails() {
                 <h1 className="text-2xl font-bold mb-0">Tracking Details</h1>
                 <p className="ml-5">Manage tracking assignment and delivery status</p>
             </div>
-            <div>
+            <div style={{display: trackingStatus === ""? "none" : "block"}}>
                 {
                     trackingStatus === 'pending' && (
                         <div className="flex gap-4">
@@ -232,7 +241,7 @@ export default function TrackingDetails() {
 
                 <div className="w-1/2 p-10">
 
-                    <div className="w-full flex justify-end">
+                    <div className="w-full flex justify-end" style={{display: trackingStatus === ""? "none" : "flex"}}>
                             {
                                 trackingStatus === 'pending' ? (
                                     <p className="assignment-status text-[0.6rem] font-bold text-right bg-yellow-200 rounded-full p-1.5" style={{border: "1px solid #FF833C"}}>
@@ -240,7 +249,7 @@ export default function TrackingDetails() {
                                     </p>
                                 ) : (
                                     <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-400 rounded-full p-1.5" style={{border: "1px solid #FF833C"}}>
-                                        Assigned
+                                        {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
                                     </p>
                                 )
                             }
@@ -313,7 +322,7 @@ export default function TrackingDetails() {
                     trackingStatus === 'assigned' ? (
                         <div className="w-full">
                             <p>Delivery has been assigned</p>
-                            <div className="w-full h-[5rem] flex justify-center align-center">
+                            <div className="w-full h-[5rem] flex justify-center items-center">
                                 <CheckCircle size={80} className="text-green-500"/>
                             </div>
                             <h3 className="text-center font-medium mt-2"> Assignee: {rider} </h3>
@@ -324,9 +333,14 @@ export default function TrackingDetails() {
                             <button className="mt-4 w-full bg-[#FF833C] text-white px-4 py-2 rounded hover:bg-[#f9772bff] transition duration-300 flex items-center justify-center gap-2" onClick={handleAssignClick}><User className="h-4 w-4"/> Assign Rider</button>
                         </>
                     )
-                }             
+                }   
                 </section>
         </Container>
+        <MessageBox 
+            message="Updated successfully ✅"
+            showMessage={showMessage}
+            state="success"
+        />
       </div>
     </div>
   );
