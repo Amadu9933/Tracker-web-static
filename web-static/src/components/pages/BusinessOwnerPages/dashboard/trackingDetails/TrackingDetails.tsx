@@ -318,22 +318,27 @@ export default function TrackingDetails() {
                     handleSetRider={setRider}
                     />
                 }
-                {
-                    trackingStatus === 'assigned' ? (
-                        <div className="w-full">
-                            <p>Delivery has been assigned</p>
-                            <div className="w-full h-[5rem] flex justify-center items-center">
-                                <CheckCircle size={80} className="text-green-500"/>
+                <div>
+                    {
+                    trackingStatus === 'pending' &&
+                            (
+                                <>
+                                    <p>Assign this delivery to an available rider below</p>
+                                    <button className="mt-4 w-full bg-[#FF833C] text-white px-4 py-2 rounded hover:bg-[#f9772bff] transition duration-300 flex items-center justify-center gap-2" onClick={handleAssignClick}><User className="h-4 w-4"/> Assign Rider</button>
+                                </>
+                            )
+                    }
+                </div>
+                    {trackingStatus !== 'pending' && trackingStatus !== "" &&
+                        (    <div className="w-full">
+                                <p>Delivery has been assigned</p>
+                                <div className="w-full h-[5rem] flex justify-center items-center">
+                                    <CheckCircle size={80} className="text-green-500"/>
+                                </div>
+                                <h3 className="text-center font-medium mt-2"> Assignee: {rider} </h3>
                             </div>
-                            <h3 className="text-center font-medium mt-2"> Assignee: {rider} </h3>
-                        </div>
-                    ) : (
-                        <>
-                            <p>Assign this delivery to an available rider below</p>
-                            <button className="mt-4 w-full bg-[#FF833C] text-white px-4 py-2 rounded hover:bg-[#f9772bff] transition duration-300 flex items-center justify-center gap-2" onClick={handleAssignClick}><User className="h-4 w-4"/> Assign Rider</button>
-                        </>
-                    )
-                }   
+                        )
+                    }
                 </section>
         </Container>
         <MessageBox 

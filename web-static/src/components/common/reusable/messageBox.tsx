@@ -17,7 +17,7 @@ export default function MessageBox ({message, showMessage, state}: {message: str
     }
     return (
         <div className={`w-full flex justify-end transition-opacity duration-500 ${ showMessage ? "opacity-100" :"opacity-0"}`} style={{display: "flex"}}>
-            <div className={`w-full flex justify-center p-1 border rounded items-center h-[2rem] w-[13rem] my-4 ${boxStyle} rounded shadow-md`} >
+            <div className={`w-1/2 flex justify-center p-1 border rounded items-center h-[2rem] w-[13rem] my-4 ${boxStyle} rounded shadow-md`} >
                 <p>{message}</p>
             </div> 
         </div> 
