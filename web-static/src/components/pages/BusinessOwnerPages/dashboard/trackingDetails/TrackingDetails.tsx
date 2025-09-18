@@ -3,8 +3,83 @@ import { faBus, faGift, faLocation, faLocationArrow, faLocationCrosshairs, faLoc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation} from "react-router-dom";
 import { ArrowLeft, User, MapPin, Clock, CheckCircle, Package, Truck} from 'lucide-react';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dialog from "@components/common/dialog";
+import axiosInstance from "/src/api/axiosInstance";
+
+
+
+import React from "react";
+
+function AddressAutocomplete({user_data, setUserData}: any) {
+//   const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+  const API_KEY = import.meta.env.VITE_HERE_API_KEY;
+
+  const fetchSuggestions = async (value: any) => {
+    if (!value) {
+      setSuggestions([]);
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${encodeURIComponent(
+          value
+        )}&apiKey=${API_KEY}&limit=10`
+      );
+      const data = await response.json();
+      setSuggestions(data.items || []);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setUserData({...user_data, address: value});
+    fetchSuggestions(value);
+  };
+
+  const handleSelect = (address: any) => {
+    const country = address.split(' ').pop().trim();
+    // if ((country.toUpperCase() != 'NIGERIA')|| !(country.toUpperCase() != 'GHANA')) {
+    //     alert('Please select a valid address in Nigeria or Ghana');
+    //     return;
+    // }
+    setUserData({...user_data, address: address, country: country});
+    setSuggestions([]); // clear suggestions
+  };
+
+  return (
+    <div className="">
+      <input
+        type="text"
+        value={user_data.address}
+        onChange={handleChange}
+        placeholder="Enter address..."
+        className="border border-gray-300 placeholder:pl-0 rounded mb-2 w-30"
+        style={{border: "1px solid #FF833C", height: "8px"}}
+        required
+      />
+      {suggestions.length > 0 && (
+        <ul className="mt-2 border rounded-lg bg-white shadow">
+          {suggestions.map((item, index) => (
+            <li
+              key={index}
+              className="p-2 hover:bg-gray-100 cursor-pointer"
+              onClick={() => handleSelect(item.address.label)}
+            >
+              {item.address.label}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 
 
 
@@ -18,8 +93,17 @@ export function Container({ children }: { children: React.ReactNode }) {
 }
 
 export default function TrackingDetails() {
-  const location = useLocation();
-  const trackingData = location.state.state.state;
+
+
+  const location = useLocation().state.state.state;
+  const [trackingData, setTrackingData] = useState({
+    customer_email: "",
+    customer_phone: "",
+    shipping_address: "",
+    country: "",
+    product_name: "",
+    parcel_number: location.parcel_number,
+  });
   const [trackingStatus, setTrackingStatus] = useState('pending'); // 'pending' or 'assigned'
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [rider, setRider] = useState('');
@@ -30,15 +114,55 @@ export default function TrackingDetails() {
     address: trackingData.shipping_address,
     country: trackingData.country,
     product_name: trackingData.product_name
-  })
+  });
 
-const productName = user_data.product_name.split(',')
+
+  useEffect(() => {
+    // Fetch tracking status from API or use initial data
+    axiosInstance.get(`/trackings/${trackingData.parcel_number}/`).then((response: any) => {
+        setTrackingData({...trackingData, ...response.data});
+        setUserData({
+            email: response.data.customer_email,
+            phone: response.data.customer_phone,
+            address: response.data.shipping_address,
+            country: response.data.country,
+            product_name: response.data.product_name
+        });
+        console.log(response.data);
+    }).catch((error: any) => {
+        alert('There was an error!');
+        console.error('There was an error!', error);
+    });
+  }, []);
+
+
+  const productName = user_data.product_name.split(',')
   // Open dialog box
   const handleAssignClick = () => setIsDialogOpen(true); 
   const handleOffDialog = () => setIsDialogOpen(false);
 
   const handleShippingUpdate = async () => {
-        setEdit(!edit);
+        // update shipping details logic here
+       await axiosInstance.patch(`/tracking/${trackingData.parcel_number}/`, {
+            customer_email: user_data.email.toLowerCase(),
+            customer_phone: user_data.phone.toLowerCase(),
+            shipping_address: user_data.address.toLowerCase(),
+            country: user_data.country.toLowerCase(),
+            product_name: user_data.product_name.toLowerCase()
+        },
+    {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`
+        }
+    }
+    ).then((response) => {
+            alert('Shipping details updated successfully');
+            setEdit(!edit);
+        }).catch((error) => {
+            alert('Error updating shipping details');
+            console.error('There was an error!', error.msg);
+            alert(error);
+        });
 
     }
 
@@ -57,7 +181,7 @@ const productName = user_data.product_name.split(',')
                             <button style={{display: edit? 'none' : "block"}} className="mt-2 w-full bg-[#ff833c] text-white text-[0.9rem] border-2 border-[#ff833c] shadow-2xl px-4 rounded-xl hover:bg-[#ff833c] hover:border-2 hover:border-[#dddddd] transition duration-300 flex items-center justify-center gap-2" onClick={() => setEdit(!edit)}>Edit</button>
                             {
                                 edit && (
-                                    <button className="mt-2 w-full bg-[#ff833c] text-white text-[0.9rem] border-2 border-[#ff833c] shadow-2xl px-4 rounded-xl hover:bg-[#ff833c] hover:border-2 hover:border-[#dddddd] transition duration-300 flex items-center justify-center gap-2" onClick={() => handleShippingUpdate()}>Update</button>
+                                    <button className="mt-2 w-full bg-[#ff833c] text-white text-[0.9rem] border-2 border-[#ff833c] shadow-2xl px-4 rounded-xl hover:bg-[#ff833c] hover:border-2 hover:border-[#dddddd] transition duration-300 flex items-center justify-center gap-2" onClick={() => handleShippingUpdate()}>Save</button>
                                 )
                             }
                         </div>
@@ -95,9 +219,9 @@ const productName = user_data.product_name.split(',')
                                     <p className="mb-1 text-[1rem]">{user_data.email}</p>
                                     {
                                         trackingData.country === "Nigeria" ? (
-                                            <p className="mb-4 ml-0">+234{user_data.phone}</p>
+                                            <p className="mb-4 ml-0">{user_data.phone && `+234${user_data.phone}`}</p>
                                         ) : (
-                                            <p className="mb-4 ml-0">+233{user_data.phone}</p>
+                                            <p className="mb-4 ml-0">{user_data.phone && `+233${user_data.phone}`}</p>
                                         )
                                     }
                                 </div>
@@ -111,11 +235,11 @@ const productName = user_data.product_name.split(',')
                     <div className="w-full flex justify-end">
                             {
                                 trackingStatus === 'pending' ? (
-                                    <p className="assignment-status text-[0.6rem] font-bold text-right bg-yellow-200 rounded-full p-1.5">
+                                    <p className="assignment-status text-[0.6rem] font-bold text-right bg-yellow-200 rounded-full p-1.5" style={{border: "1px solid #FF833C"}}>
                                         Pending Assignment
                                     </p>
                                 ) : (
-                                    <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-400 rounded-full p-1.5">
+                                    <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-400 rounded-full p-1.5" style={{border: "1px solid #FF833C"}}>
                                         Assigned
                                     </p>
                                 )
@@ -150,11 +274,14 @@ const productName = user_data.product_name.split(',')
                 <div className="flex w-full gap-4">
                     <div className="w-1/2 flex flex-col">
                         <label htmlFor="address" className="">Address:</label>
-                        <input type="text" id="address" style={{border: "1px solid #FF833C", height: "8px"}} className="border border-gray-300 placeholder:pl-0 rounded mb-2 w-full" required placeholder="123 Allen Avenue Ikeja Lagos" value={user_data.address} onChange={(e)=>setUserData({...user_data, address: e.target.value})} />
+                        <AddressAutocomplete
+                            user_data={user_data}
+                            setUserData={setUserData}
+                        />
                     </div>
                     <div className="w-1/2 flex flex-col">
                         <label htmlFor="country" className="">Country:</label>
-                        <input type="text" id="country" style={{border: "1px solid #FF833C", height: "8px"}} className="border border-gray-300 placeholder:pl-0 rounded mb-2 w-full" required placeholder="Nigeria" value={user_data.country} onChange={(e)=>setUserData({...user_data, country: e.target.value})} />
+                        <input type="text" id="country" style={{border: "1px solid #FF833C", height: "8px"}} className="border border-gray-300 placeholder:pl-0 rounded mb-2 w-30" required placeholder="Nigeria" value={user_data.country} onChange={(e)=>setUserData({...user_data, country: e.target.value})} />
                     </div>
                 </div>
             )

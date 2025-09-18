@@ -1,4 +1,4 @@
-import { Check, CheckCircle, CircleCheck } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { useState } from "react";
 import Select from "react-select";
 
