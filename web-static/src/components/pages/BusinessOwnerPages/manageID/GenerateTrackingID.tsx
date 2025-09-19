@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { ArrowBack } from "../auth/assets/Assets";
 import CongratulationsAlert from "./CongratulationsAlert";
+import { useNavigate } from "react-router-dom";
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 
@@ -14,6 +15,7 @@ const GenerateTrackingID = () => {
     const [showModal, setShowModal] = useState<boolean>(false); // Controls modal visibility
 
     const token = localStorage.getItem('access');
+    const navigate = useNavigate();
 
     // ✅ Validation Schema
     const validationSchema = Yup.object({
@@ -217,7 +219,10 @@ const GenerateTrackingID = () => {
 
             {/* Modal */}
             {showModal && trackingID && (
-                <CongratulationsAlert trackingID={trackingID} onClose={() => setShowModal(false)} />
+                <CongratulationsAlert trackingID={trackingID} onClose={() => {
+                    setShowModal(false);
+                    navigate(`/dashboard/trackings/${trackingID}`, {state: {parcel_number: trackingID}})
+                }} />
             )}
 
             {/* Display Error */}

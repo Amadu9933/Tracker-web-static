@@ -1,6 +1,6 @@
 import {faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useLocation} from "react-router-dom";
+import { useLocation, useParams} from "react-router-dom";
 import {  User, MapPin, CheckCircle, Package, Truck} from 'lucide-react';
 import { useEffect, useState } from "react";
 import Dialog from "@components/common/reusable/dialog";
@@ -94,15 +94,16 @@ export function Container({ children }: { children: React.ReactNode }) {
 
 export default function TrackingDetails() {
 
-
-  const location = useLocation().state.state.state;
+  const location = useLocation()?.state?.state?.state;
+  const params = useParams();
+  const parcel_number = params.trackingID || location.parcel_number;
   const [trackingData, setTrackingData] = useState({
     customer_email: "",
     customer_phone: "",
     shipping_address: "",
     country: "",
     product_name: "",
-    parcel_number: location.parcel_number,
+    parcel_number: parcel_number,
     status: ""
   });
   const [trackingStatus, setTrackingStatus] = useState(''); // 'pending', 'assigned', 'delivered', 'returned', 'cancelled', 'assigned'
