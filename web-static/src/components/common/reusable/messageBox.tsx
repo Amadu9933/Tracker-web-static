@@ -1,4 +1,4 @@
-export default function MessageBox ({message, showMessage, state}: {message: string, showMessage: boolean, state: "primary" | "secondary" | "warning" | "success"}) {
+export default function MessageBox ({message, showMessage, state, size='0.8rem', marginX='5rem'}: {message: string, size: string, marginX: string, showMessage: boolean, state: "primary" | "secondary" | "warning" | "success"}) {
     const styles = {
         primary: "border-[#3b82f6] bg-[#3b82f6]/20 text-[#3b82f6]",
         secondary: "border-[#6b7280] bg-[#6b7280]/20 text-[#374151]",
@@ -7,6 +7,8 @@ export default function MessageBox ({message, showMessage, state}: {message: str
     }
 
     let boxStyle = "";
+    
+
 
     switch(state) {
         case "primary": boxStyle = styles.primary; break;
@@ -17,8 +19,8 @@ export default function MessageBox ({message, showMessage, state}: {message: str
     }
     return (
         <div className={`w-full flex justify-end transition-opacity duration-500 ${ showMessage ? "opacity-100" :"opacity-0"}`} style={{display: "flex"}}>
-            <div className={`w-1/2 flex justify-center p-1 border rounded items-center h-[2rem] w-[13rem] my-4 ${boxStyle} rounded shadow-md`} >
-                <p>{message}</p>
+            <div className={`w-1/2 flex justify-center p-1 mr-[${marginX}] border rounded items-center h-[2rem] w-[13rem] my-4 ${boxStyle} rounded shadow-md`} >
+                <p className={`text-[${size}]`}>{message}</p>
             </div> 
         </div> 
     )

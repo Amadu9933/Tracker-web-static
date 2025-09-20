@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MessageBox from '@components/common/reusable/messageBox';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 
@@ -40,6 +41,9 @@ const ResetPassword: React.FC = () => {
     resolver: yupResolver(passwordSchema),
   });
 
+  const [errorMsg, setErrorMsg] = useState('')
+  const [ShowMsg, setShowMsg] = useState('')
+
   const onSubmit = async (data: ResetPasswordFormData) => {
     try {
       const payload = {
@@ -54,108 +58,134 @@ const ResetPassword: React.FC = () => {
       const response = await axios.post(`${TRACKERR_HOST}/users/update-password/`, payload);
 
       console.log('Response:', response.data);
-      alert('Your password has been successfully reset!');
+      // alert('Your password has been successfully reset!')
+      setTimeout(() => {
+        setShowMsg('Password reset successful ✅')
+        setTimeout(() => {
+          setShowMsg('');
+        }, 6000)
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000)
+      }, 1000)
 
     } catch (error: any) {
       console.error('Reset password failed:', error);
-      alert('An error occurred while resetting password.');
+      setTimeout(() => {
+        setErrorMsg(error?.response?.data?.error.toLowerCase() === 'otp does not exist'? "Invalid otp ❌" : error?.response?.data?.error.toLowerCase())
+        setTimeout(() => {
+          setErrorMsg('')
+        }, 6000)
+      }, 1000)
 
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
-        {/* Title Section */}
-        <div className="text-center">
-          <h1 className="text-lg font-bold text-gray-700 flex items-center justify-center mb-6">
-            <div onClick={() => navigate(-1)} className="cursor-pointer mr-3">
-              <ArrowBackIcon />
-            </div>
-            Reset Password
-          </h1>
-        </div>
-
-        {/* Tabs */}
-        <div className="flex items-center justify-center mb-6">
-          <div className="flex items-center mr-6">
-            <input
-              type="radio"
-              id="business"
-              name="tab"
-              value="business"
-              checked={activeTab === 'business'}
-              onChange={() => setActiveTab('business')}
-              className="mr-2 accent-primary"
-            />
-            <label htmlFor="business" className="font-medium">
-              Business
-            </label>
-          </div>
-
-          <div className="flex items-center">
-            <input
-              type="radio"
-              id="logistics"
-              name="tab"
-              value="logistics"
-              checked={activeTab === 'logistics'}
-              onChange={() => setActiveTab('logistics')}
-              className="mr-2 accent-primary"
-            />
-            <label htmlFor="logistics" className="font-medium">
-              Logistics
-            </label>
-          </div>
-        </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <label htmlFor="password1" className="block font-medium text-gray-700 text-center mb-2">
-              New Password
-            </label>
-            <input
-              id="password1"
-              type="password"
-              {...register('password1')}
-              placeholder="Enter new password"
-              className={`w-full p-3 border rounded-md focus:ring-primary focus:border-primary ${errors.password1 ? 'border-red-500' : 'border-gray-300'
-                }`}
-            />
-            {errors.password1 && (
-              <p className="text-red-500 text-sm mt-1 text-center">{errors.password1.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="password2" className="block font-medium text-gray-700 text-center mb-2">
-              Confirm Password
-            </label>
-            <input
-              id="password2"
-              type="password"
-              {...register('password2')}
-              placeholder="Confirm new password"
-              className={`w-full p-3 border rounded-md focus:ring-primary focus:border-primary ${errors.password2 ? 'border-red-500' : 'border-gray-300'
-                }`}
-            />
-            {errors.password2 && (
-              <p className="text-red-500 text-sm mt-1 text-center">{errors.password2.message}</p>
-            )}
-          </div>
-
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
-            >
+    <>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
+          {/* Title Section */}
+          <div className="text-center">
+            <h1 className="text-lg font-bold text-gray-700 flex items-center justify-center mb-6">
+              <div onClick={() => navigate(-1)} className="cursor-pointer mr-3">
+                <ArrowBackIcon />
+              </div>
               Reset Password
-            </button>
+            </h1>
           </div>
-        </form>
-      </div>
-    </div>
+
+          {/* Tabs */}
+          <div className="flex items-center justify-center mb-6">
+            <div className="flex items-center mr-6">
+              <input
+                type="radio"
+                id="business"
+                name="tab"
+                value="business"
+                checked={activeTab === 'business'}
+                onChange={() => setActiveTab('business')}
+                className="mr-2 accent-primary"
+              />
+              <label htmlFor="business" className="font-medium">
+                Business
+              </label>
+            </div>
+
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id="logistics"
+                name="tab"
+                value="logistics"
+                checked={activeTab === 'logistics'}
+                onChange={() => setActiveTab('logistics')}
+                className="mr-2 accent-primary"
+              />
+              <label htmlFor="logistics" className="font-medium">
+                Logistics
+              </label>
+            </div>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div>
+              <label htmlFor="password1" className="block font-medium text-gray-700 text-center mb-2">
+                New Password
+              </label>
+              <input
+                id="password1"
+                type="password"
+                {...register('password1')}
+                placeholder="Enter new password"
+                className={`w-full p-3 border rounded-md focus:ring-primary focus:border-primary ${errors.password1 ? 'border-red-500' : 'border-gray-300'
+                  }`}
+              />
+              {errors.password1 && (
+                <p className="text-red-500 text-sm mt-1 text-center">{errors.password1.message}</p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="password2" className="block font-medium text-gray-700 text-center mb-2">
+                Confirm Password
+              </label>
+              <input
+                id="password2"
+                type="password"
+                {...register('password2')}
+                placeholder="Confirm new password"
+                className={`w-full p-3 border rounded-md focus:ring-primary focus:border-primary ${errors.password2 ? 'border-red-500' : 'border-gray-300'
+                  }`}
+              />
+              {errors.password2 && (
+                <p className="text-red-500 text-sm mt-1 text-center">{errors.password2.message}</p>
+              )}
+            </div>
+
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
+              >
+                Reset Password
+              </button>
+            </div>
+            <p className='text-center'>{errorMsg}</p>
+          </form>
+        </div>
+        <div className='w-full'>
+        <MessageBox 
+          message={ShowMsg}
+          size='0.8rem'
+          marginX='5rem'
+          state='success'
+          showMessage={Boolean(ShowMsg)}
+        />
+        </div>
+      </div>      
+    </>
   );
 };
 

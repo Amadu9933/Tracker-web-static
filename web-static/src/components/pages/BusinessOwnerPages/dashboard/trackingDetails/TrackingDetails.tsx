@@ -134,7 +134,7 @@ export default function TrackingDetails() {
         setTrackingStatus(response.data.status);
         console.log(response.data);
     }).catch((error: any) => {
-        alert('There was an error!');
+        alert('There was an error here!');
         console.error('There was an error!', error);
     });
   }, []);
@@ -147,6 +147,20 @@ export default function TrackingDetails() {
 
   const handleShippingUpdate = async () => {
         // update shipping details logic here
+    if (trackingData.customer_email.toLowerCase() === user_data.email.toLowerCase() &&
+        trackingData.customer_phone === user_data.phone.toLowerCase() &&
+        trackingData.shipping_address.toLowerCase() === user_data.address.toLowerCase() &&
+        trackingData.country.toLowerCase() === user_data.country.toLowerCase() &&
+        trackingData.product_name.toLowerCase() === user_data.product_name.toLowerCase()) {
+        setEdit(!edit);
+        setTimeout(() => {
+            setShowMessage(true);
+            setTimeout(() => {
+            setShowMessage(false);
+        }, 3000);
+        }, 2000);
+        return;
+    }
        await axiosInstance.patch(`/tracking/${trackingData.parcel_number}/`, {
             customer_email: user_data.email.toLowerCase(),
             customer_phone: user_data.phone.toLowerCase(),
@@ -346,6 +360,8 @@ export default function TrackingDetails() {
             message="Updated successfully ✅"
             showMessage={showMessage}
             state="success"
+            marginX="5rem"
+            size="0.8rem"
         />
       </div>
     </div>

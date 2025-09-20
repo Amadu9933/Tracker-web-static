@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -21,6 +21,7 @@ interface OtpFormData {
 const Otp: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'business' | 'logistics'>('business');
     const navigate = useNavigate();
+    const location = useLocation().state
 
     const {
         register,
@@ -31,8 +32,8 @@ const Otp: React.FC = () => {
     });
 
     const onSubmit = (data: OtpFormData) => {
-        console.log(`Verifying OTP ${data.otp} in ${activeTab} tab`);
-        alert(`OTP verified for ${activeTab} tab`);
+        // console.log(`Verifying OTP ${data.otp} in ${activeTab} tab`);
+        // alert(`OTP verified for ${activeTab} tab`);
         navigate(`/reset-password/${data.otp}`); // ✅ Passing OTP via URL
     };
 
@@ -82,7 +83,7 @@ const Otp: React.FC = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div className="text-center">
                         <h2 className="text-sm text-gray-600 mb-4">
-                            Please check your email: janedoe@gmail.com and enter the temporary password sent to enable you reset your password.
+                            Please check your email: {location?.email || 'johndoe@example.com'} and enter the temporary password sent to enable you reset your password.
                         </h2>
                     </div>
 
