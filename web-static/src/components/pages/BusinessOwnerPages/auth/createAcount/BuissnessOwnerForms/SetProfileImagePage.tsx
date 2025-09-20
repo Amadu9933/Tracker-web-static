@@ -160,7 +160,7 @@ const SetProfileImagePage: React.FC = () => {
           {isSubmitting ? 'Submitting...' : 'Complete Sign Up'}
         </button>
       </div>
-      <MessageBox message="Account created successfully ✅" showMessage={showMsg} state="success" size='0.7rem' marginX='5rem' />
+      <MessageBox message="Account created successfully ✅" showMessage={showMsg} state="success" size='12px' marginX='5rem' />
     </>
   );
 };

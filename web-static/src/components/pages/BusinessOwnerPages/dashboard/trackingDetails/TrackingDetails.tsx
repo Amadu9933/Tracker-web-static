@@ -361,7 +361,7 @@ export default function TrackingDetails() {
             showMessage={showMessage}
             state="success"
             marginX="5rem"
-            size="0.8rem"
+            size="12px"
         />
       </div>
     </div>

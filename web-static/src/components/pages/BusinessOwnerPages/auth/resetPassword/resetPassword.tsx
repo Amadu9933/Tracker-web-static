@@ -178,7 +178,7 @@ const ResetPassword: React.FC = () => {
         <div className='w-full'>
         <MessageBox 
           message={ShowMsg}
-          size='0.8rem'
+          size='12px'
           marginX='5rem'
           state='success'
           showMessage={Boolean(ShowMsg)}

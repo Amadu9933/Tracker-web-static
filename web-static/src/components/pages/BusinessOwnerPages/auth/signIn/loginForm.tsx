@@ -160,7 +160,7 @@ const LoginForm: React.FC = () => {
         message={errorMsg}
         showMessage={showErrorMsg}
         state='warning'
-        size='0.8rem'
+        size={'12px'}
         marginX='2rem'
       />
     </>
