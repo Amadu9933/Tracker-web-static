@@ -34,7 +34,7 @@ const UserProfile = () => {
             }
         )
         .then(res => {
-            console.log(res.data);
+           console.log(res.data.user.avatar);
             setUserData(res.data)
         }).catch((err: any) => {
             alert(err?.response?.data?.detail);
@@ -73,7 +73,7 @@ const UserProfile = () => {
                                userData?.user?.avatar? (
                                 <img
                                     src={userData.user.avatar}
-                                    alt="profile picture"
+                                    alt="avatar"
                                     className="border rounded-full w-[150px] h-[150px]"
                                 />
                                ) : (
