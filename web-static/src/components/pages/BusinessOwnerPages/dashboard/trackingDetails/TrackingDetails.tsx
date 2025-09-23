@@ -4,7 +4,7 @@ import { useLocation, useParams} from "react-router-dom";
 import {  User, MapPin, CheckCircle, Package, Truck} from 'lucide-react';
 import { useEffect, useState } from "react";
 import Dialog from "@components/common/reusable/dialog";
-import axiosInstance from "/src/api/axiosInstance";
+import axiosInstance from "@api/axiosInstance";
 
 
 

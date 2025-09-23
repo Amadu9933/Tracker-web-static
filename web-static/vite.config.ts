@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import path, { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
@@ -12,6 +12,7 @@ export default defineConfig({
         __dirname,
         'src/components/NavigationBarLinksComponents'
       ),
+      '@api': path.resolve(__dirname, 'src/api'),
     },
   },
   // server: {

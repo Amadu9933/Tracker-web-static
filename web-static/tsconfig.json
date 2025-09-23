@@ -8,6 +8,7 @@
         "src/components/navigationBarLinksComponents/*"
       ],
       "@pages/*": ["src/components/pages/*"],
+      "@/*": ["src/*"],
       "@api/*": ["src/api/*"],
       "@routes/*": ["src/routes/*"],
       "@types/*": ["src/types/*"],
