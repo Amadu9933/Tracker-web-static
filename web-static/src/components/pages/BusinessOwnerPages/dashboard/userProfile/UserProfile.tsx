@@ -309,7 +309,7 @@ const UserProfile = () => {
                                             />
 
                                         ) : (
-                                            <p className="">{userData.user?.country.toLowerCase() === 'nigeria'? `+234-${userData?.user?.phone_number}`: `+233-${userData?.user?.phone_number}`}</p>
+                                            <p className="">{userData.user?.country?.toLowerCase() === 'nigeria'? `+234-${userData?.user?.phone_number}`: `+233-${userData?.user?.phone_number}`}</p>
                                         )
                                     }
                                 </div>
