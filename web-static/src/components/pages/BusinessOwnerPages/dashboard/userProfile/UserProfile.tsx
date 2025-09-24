@@ -252,13 +252,13 @@ const UserProfile = () => {
                                     <img
                                         src={canEdit ? tempAvatar ? tempAvatar : `${userData.user.avatar}?v=${Date.now()}` : `${userData.user.avatar}?v=${Date.now()}`}
                                         alt="avatar"
-                                        className="border rounded-full w-[150px] h-[150px]"
+                                        className="border rounded-full w-[150px] h-[150px] border border-orange-400 shadow-2xl"
                                     />
                                 ) : (
                                     <img
                                         src={canEdit ? tempAvatar ? tempAvatar : "/src/assets/dummy-profile-pic.png" : "/src/assets/dummy-profile-pic.png"}
                                         alt="avatar"
-                                        className="border rounded-full w-[150px] h-[150px]"
+                                        className="border rounded-full w-[150px] h-[150px] border border-orange-400 shadow-2xl"
                                     />
                                 )
                             }
@@ -270,7 +270,7 @@ const UserProfile = () => {
                                     <label className="mb-1 font-medium">Full Name</label>
                                     {
                                         canEdit ? (
-                                            <div className="border border-gray-300 p-1 rounded-md w-[20rem]">
+                                            <div className="border border-orange-400 p-1 rounded-md w-[20rem]">
                                                 <input
                                                     type="text"
                                                     className="focus:border-blue-500 focus:outline-none"
@@ -280,7 +280,7 @@ const UserProfile = () => {
                                                 />
                                             </div>
                                         ) : (
-                                            <div className="border border-gray-300 p-2 rounded-md w-[20rem]">
+                                            <div className="border-l-4 cursor-default border-orange-400 bo bg-gray-200 p-2 rounded-md w-[20rem]">
                                                 <p className="pl-[0.8rem]">{
                                                     (userData?.user?.name || '').split('👌')[0]
                                                 }</p>
@@ -291,28 +291,29 @@ const UserProfile = () => {
                                 </div>
                                 <div className="flex flex-col">
                                     <label className="mb-1 font-medium">Email Address</label>
-                                    <div className="border bg-gray-200 border-gray-300 py-2 pl-[0.9rem] rounded-md w-[20rem]">
+                                    <div className="border-l-4 bg-gray-200 cursor-default border-orange-400 py-2 pl-[0.9rem] rounded-md w-[20rem]">
                                         <p className="">{userData?.user?.email || ''}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className='flex flex-col mt-6'>
                                 <label className="mb-1 font-medium">Phone Number</label>
-                                <div className="border border-gray-300 p-2 pl-[0.3rem] h-[2.8rem] rounded-md w-full">
                                     {
                                         canEdit ? (
-                                            <input
-                                                type="text"
-                                                className="border border-gray-300 focus:border-blue-500 focus:outline-none"
-                                                onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, phone_number: e.target.value } }) }}
-                                                value={userData?.user?.phone_number} style={{ padding: "0px", margin: "0px", height: "1.5rem", border: "1px solid white" }}
-                                            />
-
+                                            <div className="border border-orange-400 p-2 pl-[0.3rem] h-[2.8rem] rounded-md w-full">
+                                                <input
+                                                    type="text"
+                                                    className="border border-gray-300 focus:border-blue-500 focus:outline-none"
+                                                    onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, phone_number: e.target.value } }) }}
+                                                    value={userData?.user?.phone_number} style={{ padding: "0px", margin: "0px", height: "1.5rem", border: "1px solid white" }}
+                                                />
+                                            </div>
                                         ) : (
-                                            <p className="">{userData.user?.country?.toLowerCase() === 'nigeria'? `+234-${userData?.user?.phone_number}`: `+233-${userData?.user?.phone_number}`}</p>
+                                            <div className="border-l-4 border-orange-400 bg-gray-200 p-2 pl-[0.3rem] h-[2.8rem] cursor-default rounded-md w-full">
+                                                <p className="">{userData.user?.country?.toLowerCase() === 'nigeria'? `+234-${userData?.user?.phone_number}`: `+233-${userData?.user?.phone_number}`}</p>
+                                            </div>
                                         )
                                     }
-                                </div>
                                 <div className="w-full h-[3rem]  mt-1 flex justify-center">
                                     <p className={`text-${showMsg.state}-500 text-[0.8rem]`} style={{ display: showMsg.status ? 'inline' : 'none' }}>{showMsg.msg}</p>
                                 </div>
@@ -330,38 +331,40 @@ const UserProfile = () => {
                             <div className="flex gap-5 w-full">
                                 <div className="flex flex-col">
                                     <label className="mb-1 font-medium">Business Name</label>
-                                    <div className="border border-gray-300 bg-gray-200 p-2 rounded-md w-[30rem]">
+                                    <div className="border-l-4 border-orange-400 cursor-default bg-gray-200 p-2 rounded-md w-[30rem]">
                                         <p className="">{userData?.business_name || ""}</p>
                                         {/* <input type='text' value='ABC Logistics' style={{height: "0.5rem"}}/> */}
                                     </div>
                                 </div>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col cursor-default">
                                     <label className="mb-1 font-medium">Service Type</label>
-                                    <div className="border border-gray-300 p-2 bg-gray-200 rounded-md w-[29rem]">
+                                    <div className="border-l-4 border-orange-400 bg-gray-200 p-2 rounded-md w-[29rem]">
                                         <p className="">{userData?.service || ""}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className='flex flex-col mt-6'>
                                 <label className="mb-1 font-medium">Business Address</label>
-                                <div className="border border-gray-300 p-2 rounded-md w-[60rem]">
+                                
                                     {
                                         canEdit ? (
-                                            <input
-                                                type="text"
-                                                className="focus:border-white focus:outline-none"
-                                                onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, address: e.target.value } }) }}
-                                                value={userData?.user?.address} style={{ margin: "0px", padding: "0 0px", height: "1.2rem", border: "1px solid white" }}
-                                            />
+                                            <div className="border border-orange-400 p-2 rounded-md w-[60rem]">
+                                                <input
+                                                    type="text"
+                                                    className="focus:border-white focus:outline-none"
+                                                    onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, address: e.target.value } }) }}
+                                                    value={userData?.user?.address} style={{ margin: "0px", padding: "0 0px", height: "1.2rem", border: "1px solid white" }}
+                                                />
+                                            </div>
                                         )
                                             :
                                             (
-
-                                                <address>{userData?.user?.address || ''}</address>
-
+                                                <div className="border-l-4 border-orange-400 bg-gray-200 p-2 cursor-default rounded-md w-[60rem]">
+                                                    <address>{userData?.user?.address || ''}</address>
+                                                </div>
                                             )
                                     }
-                                </div>
+                                
                                 <div className="w-[10rem] mt-5">
                                     <label className="mb-1 font-medium">Account Type</label>
                                     <div className="">
@@ -380,13 +383,13 @@ const UserProfile = () => {
                         <div className="flex w-full">
                             <div className="flex flex-col w-1/2">
                                 <label className="mb-1 font-medium">Last Updated</label>
-                                <div className="border border-gray-300 p-2 rounded-md w-[20rem] bg-gray-200">
+                                <div className="border-l-4 border-orange-400 cursor-default bg-gray-200 p-2 rounded-md w-[20rem] bg-gray-200">
                                     <p className="">{userData.user?.updated_on || '#No Recent Update'}</p>
                                 </div>
                             </div>
-                            <div className="flex flex-col w-1/2">
+                            <div className="flex flex-col w-1/2 cursor-default">
                                 <label className="mb-1 font-medium">Profile ID</label>
-                                <div className="border border-gray-300 p-2 rounded-md w-[20rem] bg-gray-200">
+                                <div className="border-l-4 border-orange-400 bg-gray-200 p-2 rounded-md w-[20rem] bg-gray-200">
                                     <p className="">#{userData.business_owner_uuid || ''}</p>
                                 </div>
                             </div>
