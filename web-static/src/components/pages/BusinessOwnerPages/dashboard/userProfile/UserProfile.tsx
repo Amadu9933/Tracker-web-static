@@ -35,7 +35,7 @@ const UserProfile = () => {
     }>({
         status: false,
         msg: "",
-        state:"green" 
+        state: "green"
     })
 
     const userId = localStorage.userId;
@@ -46,12 +46,12 @@ const UserProfile = () => {
         return pattern.test(phone)
     }
 
-    function handleUpdateClick () {
+    function handleUpdateClick() {
         const validate = validatePhone(userData.user.phone_number);
         if (validate) {
             const formData = new FormData()
 
-            formData.append('name', userData.user.name.split('👌')[0]);
+            formData.append('name', (userData.user.name || '').split('👌')[0]);
             formData.append('phone_number', userData.user.phone_number);
             formData.append('address', userData.user.address)
             formData.append('avatar', userData.user.avatar)
@@ -65,7 +65,7 @@ const UserProfile = () => {
                         Authorization: `Bearer ${localStorage.access}`,
                     },
                 }
-            ).then((res: any) => {
+            ).then((_res: any) => {
                 setCanEdit(!canEdit);
                 setUpdated(!updated);
                 setLoader(!loader)
@@ -109,21 +109,21 @@ const UserProfile = () => {
                 )
             })
         } else {
+            setShowMsg({
+                ...showMsg,
+                msg: "Invalid phone number",
+                status: true,
+                state: 'red'
+            })
+            setTimeout(() => {
                 setShowMsg({
                     ...showMsg,
-                    msg: "Invalid phone number",
-                    status: true,
+                    status: false,
                     state: 'red'
-                })
-                setTimeout(() => {
-                    setShowMsg({
-                        ...showMsg,
-                        status: false,
-                        state: 'red'
-                    });
-                }, 3000)
+                });
+            }, 3000)
         }
-            
+
     }
 
     const handleAvatarUpload = (e: any) => {
@@ -140,10 +140,10 @@ const UserProfile = () => {
 
             setTimeout(() => {
                 setShowMsg({
-                ...showMsg,
-                status: false,
-                state: 'red'
-            })
+                    ...showMsg,
+                    status: false,
+                    state: 'red'
+                })
             }, 6000)
             return;
         }
@@ -153,14 +153,14 @@ const UserProfile = () => {
             const avatarUrl = URL.createObjectURL(avatar);
             setTempAvatar(avatarUrl);
             setUserData(
-            {
-                ...userData,
-                user: {
-                    ...userData.user,
-                    avatar: avatar
+                {
+                    ...userData,
+                    user: {
+                        ...userData.user,
+                        avatar: avatar
+                    }
                 }
-            }
-        )
+            )
         }
     }
 
@@ -172,12 +172,12 @@ const UserProfile = () => {
                 }
             }
         )
-        .then((res: any) => {
-            setUserData(res.data)
-        }).catch((err: any) => {
-            alert(err?.response?.data?.detail);
-            console.log(localStorage.access)
-        });
+            .then((res: any) => {
+                setUserData(res.data)
+            }).catch((err: any) => {
+                alert(err?.response?.data?.detail);
+                console.log(localStorage.access)
+            });
     }, [updated])
 
     return (
@@ -188,7 +188,7 @@ const UserProfile = () => {
                         <div className="border border-grey-400 p-[0.5rem] rounded cursor-pointer"
                             onClick={() => window.history.back()}
                         >
-                            <ArrowLeft className="w-6 h-6"/>
+                            <ArrowLeft className="w-6 h-6" />
                         </div>
                     </div>
                     <div>
@@ -199,29 +199,29 @@ const UserProfile = () => {
                 <div className="flex justify-center items-center">
                     {
                         canEdit ? (
-                        <button type='button' className="flex justify-center items-center text-white py-[0.2rem] gap-2 px-[1.5rem] border border-gray-500 rounded-full bg-[#FF833C]"
-                            onClick={handleUpdateClick}
-                        >
-                            <Edit size={14}/>
-                            Save
-                        </button>
+                            <button type='button' className="flex justify-center items-center text-white py-[0.2rem] gap-2 px-[1.5rem] border border-gray-500 rounded-full bg-[#FF833C]"
+                                onClick={handleUpdateClick}
+                            >
+                                <Edit size={14} />
+                                Save
+                            </button>
                         ) : (
-                        <button type='button' className="flex justify-center items-center text-white py-[0.2rem] gap-2 px-[1.5rem] border border-gray-500 rounded-full bg-[#FF833C]"
-                            onClick={()=>{setCanEdit(!canEdit)}}
-                        >
-                            <Edit size={14}/>
-                            
-                            {
-                                loader? (       
-                                    <Loader className="w-5 h-5 animate-spin text-gray-500" />
-                                ) : (
-                                    "Edit"
-                                )
-                            }
-                        </button>
+                            <button type='button' className="flex justify-center items-center text-white py-[0.2rem] gap-2 px-[1.5rem] border border-gray-500 rounded-full bg-[#FF833C]"
+                                onClick={() => { setCanEdit(!canEdit) }}
+                            >
+                                <Edit size={14} />
+
+                                {
+                                    loader ? (
+                                        <Loader className="w-5 h-5 animate-spin text-gray-500" />
+                                    ) : (
+                                        "Edit"
+                                    )
+                                }
+                            </button>
                         )
                     }
-                    
+
                 </div>
             </div>
             <section className="mt-10">
@@ -235,32 +235,32 @@ const UserProfile = () => {
                             {
                                 canEdit && (
                                     <div>
-                                      <label
-                                        htmlFor="avatar"
-                                        className="absolute bg-[#FF833C] top-5 right-15 bg-white p-2 rounded-full shadow cursor-pointer hover:bg-gray-100 transition"
-                                    ><Camera size={12}/></label>
-                                    <input
-                                        type="file"
-                                        className="hidden"
-                                        id="avatar"
-                                        onChange={ (e) => handleAvatarUpload(e)}/>
+                                        <label
+                                            htmlFor="avatar"
+                                            className="absolute bg-[#FF833C] top-5 right-15 bg-white p-2 rounded-full shadow cursor-pointer hover:bg-gray-100 transition"
+                                        ><Camera size={12} /></label>
+                                        <input
+                                            type="file"
+                                            className="hidden"
+                                            id="avatar"
+                                            onChange={(e) => handleAvatarUpload(e)} />
                                     </div>
                                 )
                             }
                             {
-                               userData?.user?.avatar? (
-                                <img
-                                    src={canEdit? tempAvatar ? tempAvatar : `${userData.user.avatar}?v=${Date.now()}` : `${userData.user.avatar}?v=${Date.now()}`}
-                                    alt="avatar"
-                                    className="border rounded-full w-[150px] h-[150px]"
-                                />
-                               ) : (
-                                <img
-                                    src={canEdit? tempAvatar ? tempAvatar: "/src/assets/dummy-profile-pic.png" : "/src/assets/dummy-profile-pic.png"}
-                                    alt="avatar"
-                                    className="border rounded-full w-[150px] h-[150px]"
-                                />
-                               )
+                                userData?.user?.avatar ? (
+                                    <img
+                                        src={canEdit ? tempAvatar ? tempAvatar : `${userData.user.avatar}?v=${Date.now()}` : `${userData.user.avatar}?v=${Date.now()}`}
+                                        alt="avatar"
+                                        className="border rounded-full w-[150px] h-[150px]"
+                                    />
+                                ) : (
+                                    <img
+                                        src={canEdit ? tempAvatar ? tempAvatar : "/src/assets/dummy-profile-pic.png" : "/src/assets/dummy-profile-pic.png"}
+                                        alt="avatar"
+                                        className="border rounded-full w-[150px] h-[150px]"
+                                    />
+                                )
                             }
                         </div>
                         <div>
@@ -271,23 +271,23 @@ const UserProfile = () => {
                                     {
                                         canEdit ? (
                                             <div className="border border-gray-300 p-1 rounded-md w-[20rem]">
-                                                <input 
+                                                <input
                                                     type="text"
                                                     className="focus:border-blue-500 focus:outline-none"
-                                                    value={userData?.user?.name.split('👌')[0]} 
-                                                    style={{ padding: "0px", height: "30px", margin: "0px", border: "1px solid white"}}
-                                                    onChange={(e) => {setUserData({...userData, user: {...userData.user, name: e.target.value}})}}    
+                                                    value={(userData?.user?.name || '').split('👌')[0]}
+                                                    style={{ padding: "0px", height: "30px", margin: "0px", border: "1px solid white" }}
+                                                    onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, name: e.target.value } }) }}
                                                 />
                                             </div>
-                                         ) : (
+                                        ) : (
                                             <div className="border border-gray-300 p-2 rounded-md w-[20rem]">
                                                 <p className="pl-[0.8rem]">{
-                                                    userData?.user?.name.split('👌')[0]
-                                                    }</p>
+                                                    (userData?.user?.name || '').split('👌')[0]
+                                                }</p>
                                             </div>
-                                         ) 
+                                        )
                                     }
-                                    
+
                                 </div>
                                 <div className="flex flex-col">
                                     <label className="mb-1 font-medium">Email Address</label>
@@ -301,20 +301,20 @@ const UserProfile = () => {
                                 <div className="border border-gray-300 p-2 pl-[0.3rem] h-[2.8rem] rounded-md w-full">
                                     {
                                         canEdit ? (
-                                            <input 
+                                            <input
                                                 type="text"
                                                 className="border border-gray-300 focus:border-blue-500 focus:outline-none"
-                                                onChange={(e) => {setUserData({...userData, user: {...userData.user, phone_number: e.target.value}})}}
-                                                value={userData?.user?.phone_number} style={{padding: "0px", margin: "0px", height:"1.5rem", border: "1px solid white"}}
+                                                onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, phone_number: e.target.value } }) }}
+                                                value={userData?.user?.phone_number} style={{ padding: "0px", margin: "0px", height: "1.5rem", border: "1px solid white" }}
                                             />
 
                                         ) : (
-                                            <p className="">{userData.user?.country.toLowerCase() === 'nigeria'? `+234-${userData?.user?.phone_number}`: `+233-${userData?.user?.phone_number}`}</p>
+                                            <p className="">{((userData?.user?.country || '') as string).toLowerCase() === 'nigeria' ? `+234-${userData?.user?.phone_number || ''}` : `+233-${userData?.user?.phone_number || ''}`}</p>
                                         )
                                     }
                                 </div>
                                 <div className="w-full h-[3rem]  mt-1 flex justify-center">
-                                    <p className={`text-${showMsg.state}-500 text-[0.8rem]`} style={{display: showMsg.status ? 'inline' : 'none'}}>{showMsg.msg}</p>
+                                    <p className={`text-${showMsg.state}-500 text-[0.8rem]`} style={{ display: showMsg.status ? 'inline' : 'none' }}>{showMsg.msg}</p>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +326,7 @@ const UserProfile = () => {
                     <h6 className="font-medium flex">Business Information</h6>
                     <div className="w-full flex justify-start gap-10 mt-2">
                         <div className="w-full">
-                            {/* Handles the FullName, Phone and Email */} 
+                            {/* Handles the FullName, Phone and Email */}
                             <div className="flex gap-5 w-full">
                                 <div className="flex flex-col">
                                     <label className="mb-1 font-medium">Business Name</label>
@@ -344,24 +344,24 @@ const UserProfile = () => {
                             </div>
                             <div className='flex flex-col mt-6'>
                                 <label className="mb-1 font-medium">Business Address</label>
-                                    <div className="border border-gray-300 p-2 rounded-md w-[60rem]">
-                                {
-                                    canEdit ? (
-                                        <input 
-                                            type="text"
-                                            className="focus:border-white focus:outline-none"
-                                            onChange={(e) => {setUserData({...userData, user: {...userData.user, address: e.target.value}})}}
-                                            value={userData?.user?.address} style={{ margin: "0px", padding: "0 0px", height: "1.2rem", border: "1px solid white"}}
-                                        />
-                                    ) 
-                                    : 
-                                    (
-                                    
-                                        <address>{userData?.user?.address || ''}</address>
-                                    
-                                    )
-                                }
-                                    </div>
+                                <div className="border border-gray-300 p-2 rounded-md w-[60rem]">
+                                    {
+                                        canEdit ? (
+                                            <input
+                                                type="text"
+                                                className="focus:border-white focus:outline-none"
+                                                onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, address: e.target.value } }) }}
+                                                value={userData?.user?.address} style={{ margin: "0px", padding: "0 0px", height: "1.2rem", border: "1px solid white" }}
+                                            />
+                                        )
+                                            :
+                                            (
+
+                                                <address>{userData?.user?.address || ''}</address>
+
+                                            )
+                                    }
+                                </div>
                                 <div className="w-[10rem] mt-5">
                                     <label className="mb-1 font-medium">Account Type</label>
                                     <div className="">
@@ -377,20 +377,20 @@ const UserProfile = () => {
                 <Container>
                     <div className='w-full'>
                         <h6 className="font-medium flex mb-5">Account Information</h6>
-                            <div className="flex w-full">
-                                <div className="flex flex-col w-1/2">
-                                    <label className="mb-1 font-medium">Last Updated</label>
-                                    <div className="border border-gray-300 p-2 rounded-md w-[20rem] bg-gray-200">
-                                        <p className="">{userData.user?.updated_on || '#No Recent Update'}</p>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col w-1/2">
-                                    <label className="mb-1 font-medium">Profile ID</label>
-                                    <div className="border border-gray-300 p-2 rounded-md w-[20rem] bg-gray-200">
-                                        <p className="">#{userData.business_owner_uuid || ''}</p>
-                                    </div>
+                        <div className="flex w-full">
+                            <div className="flex flex-col w-1/2">
+                                <label className="mb-1 font-medium">Last Updated</label>
+                                <div className="border border-gray-300 p-2 rounded-md w-[20rem] bg-gray-200">
+                                    <p className="">{userData.user?.updated_on || '#No Recent Update'}</p>
                                 </div>
                             </div>
+                            <div className="flex flex-col w-1/2">
+                                <label className="mb-1 font-medium">Profile ID</label>
+                                <div className="border border-gray-300 p-2 rounded-md w-[20rem] bg-gray-200">
+                                    <p className="">#{userData.business_owner_uuid || ''}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </Container>
             </section>
