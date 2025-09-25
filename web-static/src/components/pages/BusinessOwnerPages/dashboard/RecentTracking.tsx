@@ -155,7 +155,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
                 className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-gray-100`}
               >
                 <td className="px-4 py-3">#{index + 1}</td>
-                <td className="px-4 py-3" style={{ color: "#1a73e8", cursor: "pointer" }} onClick={() => { handleIdClick(`/dashboard/trackings/${item.parcel_number}/`, { state: item }) }}>{item.parcel_number}</td>
+                <td className="px-4 py-3" style={{ color: "#1a73e8", cursor: "pointer" }} onClick={() => { handleIdClick(`/dashboard/trackings/${item.parcel_number}/`, item) }}><span className='hover:underline'>{item.parcel_number}</span></td>
                 <td className="px-4 py-3">
                   {formatDateTime(item.date_of_purchase)}
                   <div className="text-[#C6C5B9] text-xs">{formatDateTime(item.time_of_purchase)}</div>
