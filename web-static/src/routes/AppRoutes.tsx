@@ -6,8 +6,8 @@ import CustomerRoutes from './CustomerRoutes'; // Customer-specific routes
 import ProtectedRoute from './ProtectedRoute'; // Route protection logic
 import DashboardRoutes from './DashboardRoutes'; // Dashboard routes
 import UserRoute from './UserRoute'; // User-specific routes
-import TrackYourParcel from '@components/navigationBarLinksComponents/TrackYourParcel';
-import CircularProgress from '@components/pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
+import TrackYourParcel from '@components/NavigationBarLinksComponents/TrackYourParcel';
+import CircularProgress from '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 
 const Loading = () => <CircularProgress />;
 

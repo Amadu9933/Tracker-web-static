@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axiosInstance from '../../api/axiosInstance';
 import { TrackingData } from '../../types/types';
-import CircularProgress from './customerPages/customerTrackingDetails/customerNotification/CircularProgress';
+import CircularProgress from './customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 
 /**
  * Fetch tracking details for a given tracking number.

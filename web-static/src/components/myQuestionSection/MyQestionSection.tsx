@@ -1,5 +1,5 @@
 import Robot from '@components/common/reusable/robot';
-import { robot } from '../../assets/asset';
+// removed unused import 'robot'
 
 // const MyQuestionSection: React.FC = () => {
 //   return (
@@ -30,16 +30,16 @@ import { robot } from '../../assets/asset';
 
 const QuestionSection = () => {
   return <section className='question-section'>
-    <div className='flex-row-center' style={{gap: "3rem"}}>
-      <div className='flex-col-center' style={{width: "642px", height: "81px", marginLeft: "2rem"}}>
-        <h5 style={{textAlign: "center", color: "#354755", marginBottom: "1rem"}} className='font-inter font-bold text-[32px] leading-[40px] tracking-[-0.02em] align-middle'>
+    <div className='flex-row-center' style={{ gap: "3rem" }}>
+      <div className='flex-col-center' style={{ width: "642px", height: "81px", marginLeft: "2rem" }}>
+        <h5 style={{ textAlign: "center", color: "#354755", marginBottom: "1rem" }} className='font-inter font-bold text-[32px] leading-[40px] tracking-[-0.02em] align-middle'>
           Have A Question ?
         </h5>
         <div className='flex-col-center'>
-          <p className='font-inter font-normal text-[16px] leading-[27px] text-center' style={{color: "#797A7B"}}>
+          <p className='font-inter font-normal text-[16px] leading-[27px] text-center' style={{ color: "#797A7B" }}>
             Check out the FAQ section for already answered questions that will give you clarity
           </p>
-          <p style={{textAlign: "center", color: "#797A7B"}} className='font-inter font-normal text-[16px] leading-[27px] text-center'> or reach out to our contact centre via email: <span style={{color: "#FF833C"}}>helptrackerr@gmail.com</span> or call 00235545 for enquiry.</p>
+          <p style={{ textAlign: "center", color: "#797A7B" }} className='font-inter font-normal text-[16px] leading-[27px] text-center'> or reach out to our contact centre via email: <span style={{ color: "#FF833C" }}>helptrackerr@gmail.com</span> or call 00235545 for enquiry.</p>
         </div>
       </div>
       <div>
@@ -50,4 +50,4 @@ const QuestionSection = () => {
 }
 
 
-export  default QuestionSection;
+export default QuestionSection;

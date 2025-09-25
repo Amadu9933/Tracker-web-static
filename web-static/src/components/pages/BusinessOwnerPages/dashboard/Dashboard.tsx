@@ -12,7 +12,7 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { logoutUser } from '../../../../api/auth';
 import Logo from '../../../../assets/Logo.png';
-import CircularProgress from '../../customerPages/customerTrackingDetails/customerNotification/CircularProgress';
+import CircularProgress from '../../customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 
 const Dashboard: React.FC = () => {
   const location = useLocation();

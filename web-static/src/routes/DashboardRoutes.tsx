@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { FormProvider } from '../../src/context/CreateAccountFormContext';
 import Dashboard from '@components/pages/BusinessOwnerPages/dashboard/Dashboard';
-import CircularProgress from '@components/pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
+import CircularProgress from '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 
 // Lazy load components
 const DashboardMain = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/DashboardMain'));

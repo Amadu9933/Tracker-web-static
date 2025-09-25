@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '@components/common/header/Navbar';
-import CircularProgress from '@components/pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
+import CircularProgress from '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 
 const Layout: React.FC = () => {
   const location = useLocation();
