@@ -158,6 +158,7 @@ export default function TrackingDetails() {
             setTimeout(() => {
             setShowMessage(false);
         }, 3000);
+        window.location.reload();
         }, 2000);
         return;
     }
@@ -180,8 +181,8 @@ export default function TrackingDetails() {
                 setTimeout(() => {
                 setShowMessage(false);
             }, 3000);
+            window.location.reload();
             }, 2000);
-
         }).catch((error) => {
             alert('Error updating shipping details');
             console.error('There was an error!', error.msg);
