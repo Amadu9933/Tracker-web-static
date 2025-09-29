@@ -181,7 +181,6 @@ export default function TrackingDetails() {
                     setShowMessage(false);
                 }, 3000);
             }, 2000);
-
         }).catch((error) => {
             alert('Error updating shipping details');
             console.error('There was an error!', error.msg);
