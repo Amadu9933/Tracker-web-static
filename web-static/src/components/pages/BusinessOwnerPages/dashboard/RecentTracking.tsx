@@ -1,13 +1,13 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { fetchTrackingData } from '../../../../api/tracking';
 import { getStatusColor, formatDateTime } from '../../../../utils/statusUtils';
-import CircularProgress from '../../customerPages/customerTrackingDetails/customerNotification/CircularProgress';
-import LoadingSpinner from '../../customerPages/customerTrackingDetails/customerNotification/LoadingSpinner';
+import CircularProgress from '../../customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
+import LoadingSpinner from '../../customerPages/CustomerTrackingDetails/CustomerNotification/LoadingSpinner';
 import { useNavigate } from 'react-router-dom';
-import { object } from 'yup';
+// removed unused import 'object'
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
-  
+
 
 
 // ---------- Props Interface ----------
@@ -33,8 +33,8 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
 
   // ---------- Handle ID Click ----------
   const handleIdClick = (url: string, state: object) => {
-    navigate(url,{
-      state: {state}
+    navigate(url, {
+      state: { state }
     }
     );
   }
@@ -155,7 +155,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
                 className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-gray-100`}
               >
                 <td className="px-4 py-3">#{index + 1}</td>
-                <td className="px-4 py-3" style={{color: "#1a73e8", cursor: "pointer"}} onClick={()=> {handleIdClick(`/dashboard/trackings/${item.parcel_number}/`, {state: item})}}><span className='hover:underline'>{item.parcel_number}</span></td>
+                <td className="px-4 py-3" style={{ color: "#1a73e8", cursor: "pointer" }} onClick={() => { handleIdClick(`/dashboard/trackings/${item.parcel_number}/`, item) }}><span className='hover:underline'>{item.parcel_number}</span></td>
                 <td className="px-4 py-3">
                   {formatDateTime(item.date_of_purchase)}
                   <div className="text-[#C6C5B9] text-xs">{formatDateTime(item.time_of_purchase)}</div>

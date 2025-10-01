@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useAuth } from '../../../context/AuthContext';
-import CircularProgress from '../../pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
+import CircularProgress from '../../pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 
 
 const style = {

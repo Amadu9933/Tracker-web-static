@@ -6,7 +6,7 @@ import CustomizedTables from './RecentTracking';
 import { fetchTrackingData } from '../../../../api/tracking';
 
 const DashboardMain = () => {
-  const [trackingData, setTrackingData] = useState<any[]>([]); // State to hold tracking data
+  const [, setTrackingData] = useState<any[]>([]); // State to hold tracking data
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

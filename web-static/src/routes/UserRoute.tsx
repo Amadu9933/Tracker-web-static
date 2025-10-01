@@ -1,6 +1,6 @@
 // src/routes/UserRoutes.tsx
 import { Suspense } from 'react';
-import CircularProgress from '@components/pages/customerPages/customerTrackingDetails/customerNotification/CircularProgress';
+import CircularProgress from '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 
 // const Profile = lazy(() => import('../pages/user/Profile'));
 
