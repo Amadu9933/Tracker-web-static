@@ -281,7 +281,7 @@ const Integration = () => {
                                                 <p className="text-xs font-normal">{rider.user.email}</p>
                                             </td>
                                             <td className="py-2 px-8 py-4 border-b border-gray-200  text-left text-sm font-semibold text-gray-700">
-                                                <p className="text-xs font-normal flex gap-1"><MapPin className="w-3 h-3 "/>{rider.user.address}</p>
+                                                <p className="text-xs font-normal flex gap-1"><MapPin className="w-3 h-3 "/>{title(rider.user.address)}</p>
                                             </td>
                                             <td className="py-2 px-8 py-4 border-b border-gray-200   text-left text-sm font-semibold text-gray-700">
                                                 <div className="w-full flex items-center gap-1">
