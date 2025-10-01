@@ -66,3 +66,15 @@ const styles = {
           </div>
           </div>
 }
+
+
+
+const ReusableDialog = ({children}) => { 
+  return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80">
+              <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
+              {children}  
+              </div>
+          </div>
+}
+
+export { ReusableDialog };
