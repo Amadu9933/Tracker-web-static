@@ -84,4 +84,12 @@ const ReusableDialog = ({children}) => {
           </div>
 }
 
-export { ReusableDialog };
+const DeleteDialog = ({children}) => { 
+  return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30">
+              <div className="bg-white border border-orange-300 w-[30rem] h-[15rem] rounded shadow-lg p-6">
+              {children}  
+              </div>
+          </div>
+}
+
+export { ReusableDialog, DeleteDialog };

@@ -2,23 +2,23 @@
 
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ArrowLeft, Trash2, Edit, Eye, MapPin, Phone, Plus } from "lucide-react";
+import { ArrowLeft, Trash2, Edit, Eye, MapPin, Phone, Plus, Package } from "lucide-react";
 import { Container } from "../trackingDetails/TrackingDetails";
-import { ReusableDialog } from "@components/common/reusable/dialog";
+import { DeleteDialog, ReusableDialog } from "@components/common/reusable/dialog";
 import { useEffect, useState } from "react";
 import axiosInstance from "@api/axiosInstance";
 import MessageBox from "@components/common/reusable/messageBox";
-import title from "@components/common/reusable/title";
+import title from "@components/utils/title";
 
 const Integration = () => {
 
     const [showDialog, setShowDialog] =  useState(false);
     const [msg, setMsg] = useState('');
     const [riders, setRiders] = useState<any[]>([]);
+    const [riderDeleted, setRiderDeleted] = useState(false);
 
     const validRatings = riders.filter(r => r.rating > 0);
     const average = (validRatings.reduce((sum, r) => sum + r.rating, 0) / validRatings.length).toFixed(1);
-    console.log(average);
 
 
     const [riderInfo, setRiderInfo] = useState({
@@ -30,6 +30,8 @@ const Integration = () => {
         idNumber: ''
     });
 
+    const [riderToDelete, setRiderToDelete] = useState({id: null, name: ''});
+    const [showRiderDeleteDialog, setShowRiderDeleteDialog] = useState(false);
 
     useEffect(() => {
         document.title = "Logistics - Tracker";
@@ -57,15 +59,64 @@ const Integration = () => {
             // window.location.reload();
            }, 3000);
         }).catch((error) => {
+            
+            const msg = error?.response?.data?.msg;
+
+            if (msg.email[0]) {
+                setMsg('Email already exists');
+                setTimeout(() => {
+                setMsg('');
+               }, 3000);
+
+            } 
+            if (msg.phone_number[0]) {
+                // console.log(error.response.data.msg);
+                setMsg('Phone number already exists');
+                setTimeout(() => {
+                setMsg('');
+               }, 3000);
+
+            } else {
+                setMsg('Failed to create rider');
+                setTimeout(() => {
+                setMsg('');
+               }, 3000);
+            }
+
+        });
+        
+    }
+
+    const handleRiderDeleteConfirmation = (id: any, name: string) => {
+        setRiderToDelete({...riderToDelete,id: id, name: name});
+        setShowRiderDeleteDialog(!showRiderDeleteDialog);
+    }
+
+    const handleRiderDelete = () => {
+        axiosInstance.delete(`/logistics/riders/${riderToDelete.id}/`, {
+            headers: { 
+                Authorization: `Bearer ${localStorage.getItem('access')}`
+            }
+        }).then((response) => {
+            setMsg('Rider deleted successfully');
+            setRiderDeleted(true);
+            setShowRiderDeleteDialog(!showRiderDeleteDialog);
+            setTimeout(() => {
+                setMsg('');
+                setRiderDeleted(false);
+               }, 3000);
+        }).catch((error) => {
             console.log(error);
-            alert('Failed to create rider');
-            setMsg('Failed to create rider');
+            setMsg('Failed to delete rider');
+            setShowRiderDeleteDialog(!showRiderDeleteDialog);
             setTimeout(() => {
                 setMsg('');
                }, 3000);
         });
-        
     }
+
+    useEffect(() => {
+    }, [riderDeleted === true]);
 
     const handleAddRider = () => {
         if (riderInfo.name === '' || riderInfo.address === '' || riderInfo.phone === '' || riderInfo.email === '' || riderInfo.idType === '' || riderInfo.idNumber === '') {
@@ -136,7 +187,7 @@ const Integration = () => {
                         <div className="flex flex-col justify-between h-full p-5 gap-2">
                             <div className="flex w-full justify-between items-center">
                                 <p className="text-md">Busy Riders</p>
-                                <div className="rounded-full h-2 w-2 bg-orange-400"></div>
+                                <div className=""><Package className="h-4 w-4 text-orange-500" /></div>
                             </div>
                             <h4 className="font-bold text-2xl text-orange-400">
                                 {
@@ -305,8 +356,13 @@ const Integration = () => {
                                                 <div className="flex gap-1 w-full justify-between">
                                                     <div className="border p-2 border-transparent hover:border-[#FF833C] rounded"><Eye className="cursor-pointer" size={15} onClick={() => alert('Clicked')}/></div>
                                                     <div className="border p-2 border-transparent hover:border-[#FF833C] rounded"><Edit className="cursor-pointer" size={15}  /></div>
-                                                    <div className="border p-2 border-transparent hover:border-[#FF833C] rounded"><Trash2 className="cursor-pointer text-red-500" size={15}  /></div>
+                                                    <div className="border p-2 border-transparent hover:border-[#FF833C] rounded" onClick={() => handleRiderDeleteConfirmation(rider.id, rider.user.name)}>
+                                                        <Trash2 className="cursor-pointer text-red-500" size={15}  />
+                                                        
+                                                    </div>
+                                                    
                                                 </div>
+                                                
                                             </td>
                                         </tr>
                                         )
@@ -314,9 +370,28 @@ const Integration = () => {
                                 }
                             </tbody>
                         </table>
+                        <div style={{display: showRiderDeleteDialog ? 'block' : 'none'}}>
+                            <DeleteDialog> 
+                                <div className="flex">
+                                        <div className="flex justify-between w-full">   
+                                            <div className="flex flex-col">
+                                                <h2 className="font-medium">Delete Rider</h2>
+                                                <p className="">Are you sure you want to delete <span className="font-medium">{title(riderToDelete.name)}</span> ? This action cannot be undone.</p>
+                                            </div>
+                                            <span className="cursor-pointer" onClick={ () => setShowRiderDeleteDialog(!showRiderDeleteDialog)}>X</span>
+                                        </div>
+                                </div>
+                                <div className="flex justify-end gap-4 mt-4">
+                                    <button type="button" onClick={() => setShowRiderDeleteDialog(!showRiderDeleteDialog)} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Cancel</button>
+                                    <button type="button" className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                                        onClick={() => handleRiderDelete()}
+                                    >Delete</button>
+                                </div>
+                            </DeleteDialog>
+                        </div>
                     </div>
                 </Container>
-                <MessageBox message={msg} showMessage={msg !== ''} state={msg === 'Rider created successfully' ? 'success' : 'warning'} size='0.8rem' marginX='5rem' />
+                <MessageBox message={msg} showMessage={msg !== ''} state={msg === 'Rider created successfully' || msg === "Rider deleted successfully" ? 'success' : 'warning'} size='0.8rem' marginX='5rem' />
             </section>
         </div>
     );
