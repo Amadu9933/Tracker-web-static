@@ -24,6 +24,7 @@ const Integration = () => {
     const [riderInfo, setRiderInfo] = useState({
         name: '',
         address: '',
+        country: '',
         phone: '',
         email: '',
         idType: '',
@@ -32,6 +33,7 @@ const Integration = () => {
 
     const [riderToDelete, setRiderToDelete] = useState({id: null, name: ''});
     const [showRiderDeleteDialog, setShowRiderDeleteDialog] = useState(false);
+    const [results, setResults] = useState<any[]>([]);
 
     useEffect(() => {
         document.title = "Logistics - Tracker";
@@ -129,10 +131,11 @@ const Integration = () => {
             return;
         }
         console.log(riderInfo);
-        createRider({...riderInfo, identity_card_type: riderInfo.idType, id_number: riderInfo.idNumber, phone_number: riderInfo.phone});
+        createRider({...riderInfo, identity_card_type: riderInfo.idType, id_number: riderInfo.idNumber, phone_number: riderInfo.phone, country: riderInfo.country});
         setRiderInfo({
             name: '',
             address: '',
+            country: '',
             phone: '',
             email: '',
             idType: '',
@@ -154,6 +157,15 @@ const Integration = () => {
         setShowDialog(!showDialog);
     }
 
+
+    function handleSearchRiders (search: string) {
+          if (search.trim() === '') {
+                setResults([]); // Clear results when input is empty
+                return;
+        }
+        setResults(riders.filter(rider => rider.user.name.toLowerCase().includes(search.toLowerCase())));
+
+    }
 
 
     return (
@@ -250,6 +262,7 @@ const Integration = () => {
                                             value={riderInfo.address}
                                         />
                                     </div>
+                                    
                                     <div className="mb-4">
                                         <label className="block text-sm font-medium mb-2" htmlFor="phone">Phone Number</label>
                                         <input className="w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-200 placeholder:p-1" type="text" id="phone" placeholder="7037676797" 
@@ -257,26 +270,34 @@ const Integration = () => {
                                             value={riderInfo.phone}
                                         />
                                     </div>
-                    
-                                    <div className="mb-4">
-                                        <label className="block text-sm font-medium mb-2" htmlFor="idType">Identity Card Type</label>
-                                        <select className="w-full border border-gray-300 p-3 pl-12 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-200 placeholder:p-1 p-1" id="idType"
-                                            onChange={(e) => handleInputChange(e)}
-                                            value={riderInfo.idType}
-                                        >
-                                            <option value="select">Select ID Type</option>
-                                            <option value="driver's license">Driver's License</option> 
-                                            <option value="national id">National ID</option>
-                                            <option value="voter's card">Voter's Card</option>
-                                            <option value="passport">Passport</option>
-                                        </select>
+                                    <div className="flex w-full justify-between gap-2">
+                                        <div className="mb-4 w-1/2 ">
+                                            <label className="block text-sm font-medium mb-2" htmlFor="idType">Identity Card Type</label>
+                                                <select className="w-full p-3 pl-12 border border-black rounded-md focus:outline-none rounded-md focus:ring-2 focus:ring-orange-200 placeholder:p-1 p-1" id="idType"
+                                                    onChange={(e) => handleInputChange(e)}
+                                                    value={riderInfo.idType}
+                                                >
+                                                    <option value="select">Select ID Type</option>
+                                                    <option value="driver's license">Driver's License</option> 
+                                                    <option value="national id">National ID</option>
+                                                    <option value="voter's card">Voter's Card</option>
+                                                    <option value="passport">Passport</option>
+                                                </select>
+                                        </div>
+                                        <div className="mb-4 w-1/2">
+                                            <label className="block text-sm font-medium mb-2" htmlFor="idNumber">Identity Card Number</label>
+                                            <input className="w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-200 placeholder:p-1" type="text" id="idNumber" placeholder="22349053635" 
+                                                onChange={(e) => handleInputChange(e)}
+                                                value={riderInfo.idNumber}
+                                            />
+                                        </div>
                                     </div>
-                                    <div className="mb-4">
-                                        <label className="block text-sm font-medium mb-2" htmlFor="idNumber">Identity Card Number</label>
-                                        <input className="w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-200 placeholder:p-1" type="text" id="idNumber" placeholder="22349053635" 
-                                            onChange={(e) => handleInputChange(e)}
-                                            value={riderInfo.idNumber}
-                                        />
+                                    <div className="mb-4 w-full">
+                                            <label className="block text-sm font-medium mb-2" htmlFor="country">Country</label>
+                                            <input className="w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-200 placeholder:p-1" type="text" id="country" placeholder="Nigeria" 
+                                                onChange={(e) => handleInputChange(e)}
+                                                value={riderInfo.country}
+                                            />
                                     </div>
                                     <div className="flex justify-end gap-4">
                                         <button type="button" onClick={handleShowDialog} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Cancel</button>
@@ -295,18 +316,39 @@ const Integration = () => {
                             <h6 className="font-bold text-xl font-sans mb-0">Riders List</h6>
                             <p className="text-sm">Manage your delivery team</p>
                         </div>
-                        <div className="flex">
+                        <div className="flex relative">
                             <input 
                                 style={{width: "15rem", height: "0.2rem"}}
                                 type="text"
                                 placeholder="Search riders..."
-                                onChange={(e) => {alert(e.target.value)}}
+                                onChange={(e) => {handleSearchRiders(e.target.value)}}
                                 className="border border-gray-300 text-left placeholder:p-0 rounded-md h-[1rem] focus:outline-none focus:ring-1 focus:ring-orange-200"
                             />
                             <button className="bg-orange-500 flex justify-center items-center text-white text-sm px-2 py-0 rounded-md ml-2 hover:bg-[#FF833C] h-[2.5rem]" onClick={() => handleShowDialog()}><Plus /> Add Rider</button>
                         </div>
                     </div>
-                    <div className="overflow-x-auto mt-5 border">
+                    <div className="w-full flex mt-0 justify-end ">
+                        <div className="w-[33%]">
+                            {
+                                results.length > 0 && (
+                                    <ul className="absolute z-10 w-[22rem] bg-white border border-gray-300 rounded shadow-md max-h-60 overflow-y-auto">
+                                        {results.map((rider, index) => (
+                                            <li    
+                                            key={index}
+                                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm flex justify-between"
+                                            >
+                                            {title(rider.user.name)}
+                                            <p className="text-xs flex justify-center items-center">{rider.user.phone_number}</p>
+                                            <span>{rider.rating} ⭐</span>
+                                            </li>
+                                            
+                                        ))}
+                                    </ul>
+                                )
+                            }
+                        </div>
+                    </div>
+                    <div className="overflow-x-auto mt-0 border">
                         <table className="min-w-full bg-white">
                             <thead>
                                 <tr>
