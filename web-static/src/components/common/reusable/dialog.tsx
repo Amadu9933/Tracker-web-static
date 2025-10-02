@@ -1,5 +1,7 @@
+import axiosInstance from "@api/axiosInstance";
+import title from "@components/utils/title";
 import { CheckCircle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
 
 
@@ -23,7 +25,7 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
     if (selected) {
       handleOffDialog?.();
       handleSetTrackingStatus?.('assigned');
-      handleSetRider?.(selected.value);
+      handleSetRider?.(selected.label);
     }
     else {
       alert('Please select a rider');
@@ -45,11 +47,33 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
     }
   };
 
-  const options = [
-    { value: "David Joe", label: "🏍️ Johnny Doe" },
-    { value: "Jane Doe", label: "🏍️ Jane Doe" },
-    { value: "John Doe", label: "🏍️ Mikito" }
-  ];
+  
+
+  const [options, setOptions] = useState([]);
+  // Fetch riders from the backend API
+
+  useEffect(() => {
+    axiosInstance.get('/logistics/business-owners/riders/', {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('access')}`
+    },
+  })
+    .then(response => {
+      const riders = response?.data?.msg || [];
+
+      const formattedOptions = riders.map((rider: any) => ({
+        value: rider.id,
+        label: `🏍️ ${title(rider.user.name)} - ${rider.user.phone_number} `
+      }));
+      setOptions(formattedOptions);
+    })
+    .catch(error => {
+      console.error('Error fetching riders:', error);
+    });
+  }, []);
+  
 
 
   return <div style={styles.overlay as React.CSSProperties}>
