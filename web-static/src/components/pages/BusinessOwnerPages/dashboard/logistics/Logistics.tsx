@@ -54,10 +54,15 @@ const Integration = () => {
             }
         }).then((response) => {
            setMsg('Rider created successfully');
+           
+           setTimeout(() => {
+            setMsg('Check email for login details');
+            // window.location.reload();
+           }, 3000);
            setTimeout(() => {
             setMsg('');
             // window.location.reload();
-           }, 3000);
+           }, 6000);
         }).catch((error) => {
             
             const msg = error?.response?.data?.msg;
@@ -391,7 +396,7 @@ const Integration = () => {
                         </div>
                     </div>
                 </Container>
-                <MessageBox message={msg} showMessage={msg !== ''} state={msg === 'Rider created successfully' || msg === "Rider deleted successfully" ? 'success' : 'warning'} size='0.8rem' marginX='5rem' />
+                <MessageBox message={msg} showMessage={msg !== ''} state={msg === 'Rider created successfully' || msg === "Rider deleted successfully" || msg === 'Check email for login details'? 'success' : 'warning'} size='0.8rem' marginX='5rem' />
             </section>
         </div>
     );
