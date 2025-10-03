@@ -316,7 +316,7 @@ const Integration = () => {
                             <h6 className="font-bold text-xl font-sans mb-0">Riders List</h6>
                             <p className="text-sm">Manage your delivery team</p>
                         </div>
-                        <div className="flex relative">
+                        <div className="flex">
                             <input 
                                 style={{width: "15rem", height: "0.2rem"}}
                                 type="text"
