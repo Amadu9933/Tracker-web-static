@@ -230,10 +230,10 @@ const Integration = () => {
             </section>
             <div style={{display: showDialog ? 'block' : 'none'}}>
                 <ReusableDialog> 
-                        <div className="flex">
+                        <div className="flex w-full">
                                 <div className="flex justify-between w-full">
                                     <div className="flex flex-col">
-                                        <h2 className="font-medium">Assign New Rider</h2>
+                                        <h2 className="font-medium">Add New Rider</h2>
                                         <p className="">Add a new rider to your delivery team</p>
                                     </div>
                                     <span className="cursor-pointer" onClick={handleShowDialog}>X</span>

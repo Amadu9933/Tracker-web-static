@@ -101,7 +101,7 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
 
 
 const ReusableDialog = ({children}) => { 
-  return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80">
+  return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 w-full h-full">
               <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
               {children}  
               </div>
