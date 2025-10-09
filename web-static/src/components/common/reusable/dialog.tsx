@@ -10,6 +10,7 @@ type DialogProps = {
   handleOffDialog?: () => void;
   handleSetRider?: (riderId: string) => void;
   parcel_number?: string;
+
 };
 
 export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handleSetRider, parcel_number = "XYZZy134562" }: DialogProps) {
@@ -47,33 +48,33 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
     }
   };
 
-  
+
 
   const [options, setOptions] = useState([]);
   // Fetch riders from the backend API
 
   useEffect(() => {
     axiosInstance.get('/logistics/business-owners/riders/', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('access')}`
-    },
-  })
-    .then(response => {
-      const riders = response?.data?.msg || [];
-
-      const formattedOptions = riders.map((rider: any) => ({
-        value: rider.id,
-        label: `🏍️ ${title(rider.user.name)} - ${rider.user.phone_number} `
-      }));
-      setOptions(formattedOptions);
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('access')}`
+      },
     })
-    .catch(error => {
-      console.error('Error fetching riders:', error);
-    });
+      .then(response => {
+        const riders = response?.data?.msg || [];
+
+        const formattedOptions = riders.map((rider: any) => ({
+          value: rider.id,
+          label: `🏍️ ${title(rider.user.name)} - ${rider.user.phone_number} `
+        }));
+        setOptions(formattedOptions);
+      })
+      .catch(error => {
+        console.error('Error fetching riders:', error);
+      });
   }, []);
-  
+
 
 
   return <div style={styles.overlay as React.CSSProperties}>
@@ -100,20 +101,20 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
 
 
 
-const ReusableDialog = ({children}) => { 
+const ReusableDialog = ({ children }) => {
   return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80">
-              <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
-              {children}  
-              </div>
-          </div>
+    <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
+      {children}
+    </div>
+  </div>
 }
 
-const DeleteDialog = ({children}) => { 
+const DeleteDialog = ({ children }) => {
   return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30">
-              <div className="bg-white border border-orange-300 w-[30rem] h-[15rem] rounded shadow-lg p-6">
-              {children}  
-              </div>
-          </div>
+    <div className="bg-white border border-orange-300 w-[30rem] h-[15rem] rounded shadow-lg p-6">
+      {children}
+    </div>
+  </div>
 }
 
 export { ReusableDialog, DeleteDialog };
