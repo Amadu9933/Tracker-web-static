@@ -67,30 +67,31 @@ const Integration = () => {
            }, 6000);
         }).catch((error) => {
             
-            const msg = error?.response?.data?.msg;
+           const msg = error?.response?.data?.msg;
 
-            if (msg.email[0]) {
-                setMsg('Email already exists');
-                setTimeout(() => {
-                setMsg('');
-               }, 3000);
+    // Prioritized custom error messages
+    const errorMapping:any = {
+        email: 'Email already exists',
+        phone_number: 'Phone number already exists',
+        id_number: 'ID number already exists',
+    };
 
-            } 
-            if (msg.phone_number[0]) {
-                // console.log(error.response.data.msg);
-                setMsg('Phone number already exists');
-                setTimeout(() => {
-                setMsg('');
-               }, 3000);
+    let foundMessage = '';
 
-            } else {
-                setMsg('Failed to create rider');
-                setTimeout(() => {
-                setMsg('');
-               }, 3000);
-            }
+    for (const key of Object.keys(errorMapping)) {
+        if (msg?.[key]?.[0]) {
+            foundMessage = errorMapping[key];
+            break;
+        }
+    }
 
-        });
+    setMsg(foundMessage || 'Failed to create rider');
+
+    // Auto clear message after 3 seconds
+    setTimeout(() => {
+        setMsg('');
+    }, 3000);
+});
         
     }
 
@@ -230,16 +231,16 @@ const Integration = () => {
             </section>
             <div style={{display: showDialog ? 'block' : 'none'}}>
                 <ReusableDialog> 
-                        <div className="flex">
+                        <div className="flex w-full">
                                 <div className="flex justify-between w-full">
                                     <div className="flex flex-col">
-                                        <h2 className="font-medium">Assign New Rider</h2>
+                                        <h2 className="font-medium">Add New Rider</h2>
                                         <p className="">Add a new rider to your delivery team</p>
                                     </div>
                                     <span className="cursor-pointer" onClick={handleShowDialog}>X</span>
                                 </div>
                         </div>
-                        <div className="flex flex-col mt-4">
+                        <div className="flex flex-col mt-2">
                             <form className="w-full mt-4">
                                     <div className="mb-4">
                                         <label className="block text-sm font-medium mb-2" htmlFor="name">Rider Name</label>

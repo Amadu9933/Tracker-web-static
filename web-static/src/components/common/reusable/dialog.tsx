@@ -101,12 +101,21 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
 
 
 
+<<<<<<< HEAD
 const ReusableDialog = ({ children }) => {
   return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80">
     <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
       {children}
     </div>
   </div>
+=======
+const ReusableDialog = ({children}) => { 
+  return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 w-full">
+              <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
+              {children}  
+              </div>
+          </div>
+>>>>>>> 52e7c4a7f89259fbf11b7cf062d4fabe179abb44
 }
 
 const DeleteDialog = ({ children }) => {

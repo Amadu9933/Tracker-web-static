@@ -32,12 +32,10 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
 
 
   // ---------- Handle ID Click ----------
-  const handleIdClick = (url: string, state: object) => {
-    navigate(url, {
-      state: { state }
-    }
-    );
-  }
+  const handleIdClick = (url: string, state?: any) => {
+    // pass state directly instead of nesting under a `state` key
+    navigate(url, { state });
+  };
   // ---------- Fetch Data ----------
   const fetchData = async (
     url = 'trackings/',
