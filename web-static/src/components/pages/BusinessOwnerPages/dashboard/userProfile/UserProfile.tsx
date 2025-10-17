@@ -4,6 +4,7 @@ import { ArrowLeft, Camera, CheckCircle, Edit, Loader } from "lucide-react";
 import { Container } from "../trackingDetails/TrackingDetails";
 import { useEffect, useState } from "react";
 import axiosInstance from "@api/axiosInstance";
+import title from "@components/utils/title";
 
 const UserProfile = () => {
 
@@ -20,9 +21,11 @@ const UserProfile = () => {
             country: "",
             account_type: "",
             updated_on: "",
+            subscription_type: ""
 
         }
     });
+
     const [updated, setUpdated] = useState<boolean>(false);
     const [canEdit, setCanEdit] = useState<boolean>(false);
     const [tempAvatar, setTempAvatar] = useState("");
@@ -369,7 +372,7 @@ const UserProfile = () => {
                                 <div className="w-[10rem] mt-5">
                                     <label className="mb-1 font-medium">Account Type</label>
                                     <div className="">
-                                        <p className="border border-red-300 w-[4rem] px-[0.3rem] py-[0.1rem] text-center font-small border rounded-full bg-orange-400 text-white text-[0.6rem]">{userData.user.account_type.charAt(0).toUpperCase() + userData.user.account_type.slice(1)}</p>
+                                        <p className="border border-red-300 w-[4rem] px-[0.3rem] py-[0.1rem] text-center font-small border rounded-full bg-orange-400 text-white text-[0.6rem]">{title(userData.user.subscription_type)}</p>
                                     </div>
                                 </div>
                             </div>
