@@ -270,7 +270,14 @@ export default function TrackingDetails() {
                                         </p>
                                     ) 
                                     ||
-                                    trackingStatus === 'assigned' &&
+                                    trackingStatus === 'assigned'&&
+                                    (
+                                        <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-200 rounded-full p-1.5" style={{ border: "1px solid #FF833C" }}>
+                                            {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
+                                        </p>
+                                    )
+                                    ||
+                                    trackingStatus === 'in transit'&&
                                     (
                                         <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-200 rounded-full p-1.5" style={{ border: "1px solid #FF833C" }}>
                                             {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
