@@ -12,6 +12,7 @@ const UserProfile = () => {
         business_name: "",
         business_owner_uuid: "",
         service: "",
+        subscription_type: "",
         user: {
             name: "",
             phone_number: "",
@@ -20,9 +21,7 @@ const UserProfile = () => {
             address: "",
             country: "",
             account_type: "",
-            updated_on: "",
-            subscription_type: ""
-
+            updated_on: ""
         }
     });
 
@@ -372,7 +371,7 @@ const UserProfile = () => {
                                 <div className="w-[10rem] mt-5">
                                     <label className="mb-1 font-medium">Account Type</label>
                                     <div className="">
-                                        <p className="border border-red-300 w-[4rem] px-[0.3rem] py-[0.1rem] text-center font-small border rounded-full bg-orange-400 text-white text-[0.6rem]">{title(userData.user.subscription_type)}</p>
+                                        <p className="border border-red-300 w-[4rem] px-[0.3rem] py-[0.1rem] text-center font-small border rounded-full bg-orange-400 text-white text-[0.6rem]">{title(userData.subscription_type)}</p>
                                     </div>
                                 </div>
                             </div>
