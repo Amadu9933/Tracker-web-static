@@ -92,8 +92,8 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
         />
       </div>
       <div className="flex justify-center gap-4 mt-4">
-        <button onClick={() => handleOffDialog?.()} className="mt-2 w-full bg-[#F2F2f2] text-black border-2 border-[#ff833c] px-4 py-2 rounded hover:bg-[#f977] transition duration-300 flex items-center justify-center gap-2">Cancel</button>
-        <button onClick={() => handleAssignClick()} className="mt-2 w-full bg-[#FF833C] text-white px-4 py-2 rounded hover:bg-[#f9772bff] transition duration-300 flex items-center justify-center gap-2"><CheckCircle className="w-5 h-5" />Assign</button>
+        <button onClick={() => handleOffDialog?.()} className="mt-2 w-full bg-[#F2F2f2] text-black border-2 border-[#ff833c] px-4 py-2 rounded hover:bg-[#f977] transition duration-300 items-center justify-center gap-2">Cancel</button>
+        <button onClick={() => handleAssignClick()} className="mt-2 w-full bg-[#FF833C] text-white px-4 py-2 rounded hover:bg-[#f9772bff] transition duration-300 items-center justify-center gap-2"><CheckCircle className="w-5 h-5" />Assign</button>
       </div>
     </div>
   </div>

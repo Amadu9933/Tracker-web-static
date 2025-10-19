@@ -396,14 +396,14 @@ const Integration = () => {
                                                     }
                                                 </div>
                                             </td>
-                                            <td className="py-2 px-7 py-4 border-b border-gray-200  text-left text-sm font-semibold text-gray-700 flex flex-col">
+                                            <td className="px-8 py-4 border-b border-gray-200  text-left text-sm font-semibold text-gray-700 flex flex-col">
                                                 <p className="text-xs font-semibold">{rider.total_delivery}/{rider.total_assigned_orders} deliveries</p>
                                                 <p className="text-xs font-normal">⭐ {rider.rating} rating</p>
                                             </td>
-                                            <td className="py-2 px-8 py-4 border-b border-gray-200  text-left text-sm font-semibold text-gray-700">
+                                            <td className="py-2 px-7 py-4 border-b border-gray-200  text-left text-sm font-semibold text-gray-700">
                                                 <div className="flex gap-1 w-full justify-between">
-                                                    <div className="border p-2 border-transparent hover:border-[#FF833C] rounded"><Eye className="cursor-pointer" size={15} onClick={() => alert('Clicked')}/></div>
-                                                    <div className="border p-2 border-transparent hover:border-[#FF833C] rounded"><Edit className="cursor-pointer" size={15}  /></div>
+                                                    <div className="border p-2 border-transparent hover:border-[#FF833C] rounded"><Eye className="" size={15} onClick={() => {}}/></div>
+                                                    <div className="border p-2 border-transparent hover:border-[#FF833C] rounded"><Edit className="" size={15}  /></div> 
                                                     <div className="border p-2 border-transparent hover:border-[#FF833C] rounded" onClick={() => handleRiderDeleteConfirmation(rider.id, rider.user.name)}>
                                                         <Trash2 className="cursor-pointer text-red-500" size={15}  />
                                                         

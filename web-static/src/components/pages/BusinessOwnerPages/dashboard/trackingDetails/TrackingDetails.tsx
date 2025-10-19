@@ -10,6 +10,7 @@ import axiosInstance from "@api/axiosInstance";
 
 import React from "react";
 import MessageBox from "@components/common/reusable/messageBox";
+import title from "@components/utils/title";
 
 function AddressAutocomplete({ user_data, setUserData }: { user_data: any; setUserData: (u: any) => void }) {
     //   const [query, setQuery] = useState("");
@@ -104,9 +105,15 @@ export default function TrackingDetails() {
         country: "",
         product_name: "",
         parcel_number: parcel_number,
-        status: ""
+        status: "",
+        rider_name: "",
+        rider_phone: ""
     });
-    const [trackingStatus, setTrackingStatus] = useState(''); // 'pending', 'assigned', 'delivered', 'returned', 'cancelled', 'assigned'
+
+
+    console.log("Tracking Location: ", trackingData);
+
+    const [trackingStatus, setTrackingStatus] = useState(''); // 'pending', 'assigned', 'delivered', 'returned', 'canceled', 'assigned'
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [rider, setRider] = useState('');
     const [showMessage, setShowMessage] = useState(false);
@@ -257,12 +264,36 @@ export default function TrackingDetails() {
 
                             <div className="w-full flex justify-end" style={{ display: trackingStatus === "" ? "none" : "flex" }}>
                                 {
-                                    trackingStatus === 'pending' ? (
+                                    trackingStatus === 'pending' && (
                                         <p className="assignment-status text-[0.6rem] font-bold text-right bg-yellow-200 rounded-full p-1.5" style={{ border: "1px solid #FF833C" }}>
                                             Pending Assignment
                                         </p>
-                                    ) : (
-                                        <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-400 rounded-full p-1.5" style={{ border: "1px solid #FF833C" }}>
+                                    ) 
+                                    ||
+                                    trackingStatus === 'assigned'&&
+                                    (
+                                        <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-200 rounded-full p-1.5" style={{ border: "1px solid #FF833C" }}>
+                                            {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
+                                        </p>
+                                    )
+                                    ||
+                                    trackingStatus === 'in transit'&&
+                                    (
+                                        <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-200 rounded-full p-1.5" style={{ border: "1px solid #FF833C" }}>
+                                            {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
+                                        </p>
+                                    )
+                                    ||
+                                    trackingStatus === 'returned'&&
+                                    (
+                                        <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-red-200 rounded-full p-1.5" style={{ border: "1px solid red" }}>
+                                            {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
+                                        </p>
+                                    )
+                                    ||
+                                    trackingStatus === 'canceled' &&
+                                    (
+                                        <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-red-200 rounded-full p-1.5" style={{ border: "1px solid red" }}>
                                             {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
                                         </p>
                                     )
@@ -349,7 +380,16 @@ export default function TrackingDetails() {
                                 <div className="w-full h-[5rem] flex justify-center items-center">
                                     <CheckCircle size={80} className="text-green-500" />
                                 </div>
-                                <h3 className="text-center font-medium mt-2"> Assignee: {rider} </h3>
+                                <h3 className="text-center font-medium mt-2"> Assignee: {
+                                    trackingData.rider_name && trackingData.rider_phone ? (
+                                        `🏍️ ${title(trackingData.rider_name)} - ${trackingData.rider_phone}`
+                                    ) :
+                                    (
+                                        rider
+                                    )
+                                
+                                
+                                } </h3>
                             </div>
                             )
                         }
