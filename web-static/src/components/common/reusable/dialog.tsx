@@ -93,7 +93,7 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
       </div>
       <div className="flex justify-center gap-4 mt-4">
         <button onClick={() => handleOffDialog?.()} className="mt-2 w-full bg-[#F2F2f2] text-black border-2 border-[#ff833c] px-4 py-2 rounded hover:bg-[#f977] transition duration-300 flex items-center justify-center gap-2">Cancel</button>
-        <button onClick={() => handleAssignClick()} className="flex mt-2 w-full bg-[#FF833C] text-white px-4 py-2 rounded hover:bg-[#f9772bff] transition duration-300 flex items-center justify-center gap-2"><CheckCircle className="w-5 h-5" />Assign</button>
+        <button onClick={() => handleAssignClick()} className="mt-2 w-full bg-[#FF833C] text-white px-4 py-2 rounded hover:bg-[#f9772bff] transition duration-300 flex items-center justify-center gap-2"><CheckCircle className="w-5 h-5" />Assign</button>
       </div>
     </div>
   </div>
@@ -101,24 +101,17 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
 
 
 
-<<<<<<< HEAD
-const ReusableDialog = ({ children }) => {
-  return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80">
-    <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
-      {children}
+const ReusableDialog = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80">
+      <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
+        {children}
+      </div>
     </div>
-  </div>
-=======
-const ReusableDialog = ({children}) => { 
-  return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 w-full">
-              <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
-              {children}  
-              </div>
-          </div>
->>>>>>> 52e7c4a7f89259fbf11b7cf062d4fabe179abb44
-}
+  );
+};
 
-const DeleteDialog = ({ children }) => {
+const DeleteDialog = ({ children }: { children: React.ReactNode }) => {
   return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30">
     <div className="bg-white border border-orange-300 w-[30rem] h-[15rem] rounded shadow-lg p-6">
       {children}
