@@ -16,17 +16,46 @@ type DialogProps = {
 export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handleSetRider, parcel_number = "XYZZy134562" }: DialogProps) {
 
   const [selected, setSelected] = useState<null | any>(null);
+    const [options, setOptions] = useState([]);
+  // Fetch riders from the backend API
 
 
   function handleChange(option: any) {
     setSelected(option);
   }
 
+  const updateTrackingStatusInDb = async (selected: any) => {
+    try {
+      const response = await axiosInstance.patch(`/tracking/${parcel_number}/`, {
+        parcel_number: parcel_number,
+        status: 'assigned',
+        rider_uuid: selected?.rider_uuid,
+        rider_email: selected?.rider_email,
+        rider_name: selected?.rider_name,
+        rider_phone: selected?.rider_phone,
+        rider: selected?.value 
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access')}`
+        },
+      });
+      console.log('Tracking status updated successfully:', response.data);
+    console.log('Selected rider ID to assign:', selected);
+    } catch (error) {
+      console.error('Error updating tracking status:', error);
+    }
+    
+  };
+
   const handleAssignClick = () => {
     if (selected) {
       handleOffDialog?.();
       handleSetTrackingStatus?.('assigned');
       handleSetRider?.(selected.label);
+      console.log('Selected rider to assign:', selected);
+      updateTrackingStatusInDb(selected);
     }
     else {
       alert('Please select a rider');
@@ -50,8 +79,7 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
 
 
 
-  const [options, setOptions] = useState([]);
-  // Fetch riders from the backend API
+
 
   useEffect(() => {
     axiosInstance.get('/logistics/business-owners/riders/', {
@@ -65,6 +93,10 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
         const riders = response?.data?.msg || [];
 
         const formattedOptions = riders.map((rider: any) => ({
+          rider_email: rider.user.email,
+          rider_name: rider.user.name,
+          rider_phone: rider.user.phone_number,
+          rider_uuid: rider.logistics_owner_uuid,
           value: rider.id,
           label: `🏍️ ${title(rider.user.name)} - ${rider.user.phone_number} `
         }));
@@ -92,26 +124,22 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
         />
       </div>
       <div className="flex justify-center gap-4 mt-4">
-        <button onClick={() => handleOffDialog?.()} className="mt-2 w-full bg-[#F2F2f2] text-black border-2 border-[#ff833c] px-4 py-2 rounded hover:bg-[#f977] transition duration-300 items-center justify-center gap-2">Cancel</button>
-        <button onClick={() => handleAssignClick()} className="mt-2 w-full bg-[#FF833C] text-white px-4 py-2 rounded hover:bg-[#f9772bff] transition duration-300 items-center justify-center gap-2"><CheckCircle className="w-5 h-5" />Assign</button>
+        <button onClick={() => handleOffDialog?.()} className="mt-2 w-full bg-[#F2F2f2] text-black border-2 border-[#ff833c] px-4 py-2 rounded hover:bg-[#f977] transition duration-300 flex items-center justify-center gap-2">Cancel</button>
+        <button onClick={() => handleAssignClick()} className="flex mt-2 w-full bg-[#FF833C] text-white px-4 py-2 rounded hover:bg-[#f9772bff] transition duration-300 flex items-center justify-center gap-2"><CheckCircle className="w-5 h-5" />Assign</button>
       </div>
     </div>
   </div>
 }
 
+const ReusableDialog = ({children}: any) => { 
+  return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 w-full">
+              <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
+              {children}  
+              </div>
+          </div>
+}
 
-
-const ReusableDialog = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80">
-      <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const DeleteDialog = ({ children }: { children: React.ReactNode }) => {
+const DeleteDialog = ({ children }: any) => {
   return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30">
     <div className="bg-white border border-orange-300 w-[30rem] h-[15rem] rounded shadow-lg p-6">
       {children}
