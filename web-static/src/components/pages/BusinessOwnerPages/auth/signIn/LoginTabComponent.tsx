@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { carryParcel } from '../assets/Assets'; // Ensure correct image path
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LoginForm from './loginForm';
 import { useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification';
 
 
 const LoginTabComponent: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<'business' | 'logistics'>('business');
   const navigate = useNavigate()
+
+  const [checkAuth, setCheckAuth] = useState(false);
+  
+  
+     
+  useEffect(() => {
+  
+      if (window.localStorage.getItem('access')) {
+        setCheckAuth(!checkAuth);
+        window.location.href = '/dashboard/';
+     }
+  }, []);
+
+  if (checkAuth) {
+    return <CircularProgress />
+  }
 
   return (
     <div className="flex  md:flex-row h-full w-screen  ">
