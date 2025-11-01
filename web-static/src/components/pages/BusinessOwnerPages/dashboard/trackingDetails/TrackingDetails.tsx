@@ -374,7 +374,7 @@ export default function TrackingDetails() {
                                 )
                             }
                         </div>
-                        {trackingStatus !== 'pending' && trackingStatus !== "" &&
+                        {trackingStatus !== 'pending' && trackingStatus !== ""  && trackingStatus !== "canceled" &&
                             (<div className="w-full">
                                 <p>Delivery has been assigned</p>
                                 <div className="w-full h-[5rem] flex justify-center items-center">

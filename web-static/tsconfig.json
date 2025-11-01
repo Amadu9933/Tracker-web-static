@@ -29,6 +29,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
+    "types": ["@types/mapbox-gl"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,

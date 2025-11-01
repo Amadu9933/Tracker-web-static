@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import CircularProgress from './CustomerNotification/CircularProgress';
+import title from '@components/utils/title';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 
@@ -11,7 +12,11 @@ const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment var
  * @return {JSX.Element} A table with tracking details or an error message if an error occurred.
  */
 
-const DetailTable: React.FC = () => {
+interface DetailTableProps {
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const DetailTable: React.FC<DetailTableProps> = ({ setStatus }) => {
   const { trackingNumber } = useParams<{ trackingNumber: string }>();
   const [trackingData, setTrackingData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -35,14 +40,16 @@ const DetailTable: React.FC = () => {
 
         const data = response.data;
 
+        setStatus(data.status);
+
         // Prepare only the fields needed for display
         const filteredData = {
           'Parcel number': data.parcel_number,
           'Date of purchase': data.date_of_purchase,
           'Estimated delivery date': data.delivery_date,
-          'Shipping address': data.shipping_address,
-          'Vendor': data.vendor,
-          'Status': data.status,
+          'Shipping address': title(data.shipping_address),
+          'Vendor': title(data.vendor),
+          'Status': title(data.status),
         };
 
         console.log('Filtered data:', filteredData);

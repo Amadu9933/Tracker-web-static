@@ -18,6 +18,7 @@ const CustomerTrackingDetails: React.FC = () => {
   const { trackingNumber } = useParams<{ trackingNumber: string }>();
   const [mapOpened, setMapOpened] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [origin, setOrigin] = useState<{ lat: number; lng: number } | null>(null);
   const [destination, setDestination] = useState<{ lat: number; lng: number } | null>(null);
@@ -47,9 +48,11 @@ const CustomerTrackingDetails: React.FC = () => {
         } else if (data.destination_lat && data.destination_lng) {
           destCoords = { lat: parseFloat(data.destination_lat), lng: parseFloat(data.destination_lng) };
         }
+      
         setOrigin(originCoords);
         setDestination(destCoords);
         setLoading(false);
+    
       })
       .catch(() => {
         setError('Failed to load map data.');
@@ -85,6 +88,8 @@ const CustomerTrackingDetails: React.FC = () => {
   };
 
   console.log('Rendering CustomerTrackingDetails component');
+
+  console.log(status);
 
 
   return (
@@ -142,12 +147,24 @@ const CustomerTrackingDetails: React.FC = () => {
           </div>
 
           <div className="my-10">
-            <DetailTable />
+            <DetailTable 
+              setStatus={setStatus}
+            />
           </div>
-
-          <Button variant="outlined" sx={buttonStyles} onClick={openMap} >
-            {mapOpened ? 'Hide live location' : 'View live location'}
-          </Button>
+          <div>
+          </div>
+          {
+            status.toLowerCase() === 'in transit' && (
+              <Button
+                  variant="outlined"
+                  sx={buttonStyles}
+                  onClick={openMap}
+                >
+                  {mapOpened ? 'Hide live location' : 'View live location'}
+              </Button>
+            )
+          }
+                
         </div>
       </div>
     </div>
