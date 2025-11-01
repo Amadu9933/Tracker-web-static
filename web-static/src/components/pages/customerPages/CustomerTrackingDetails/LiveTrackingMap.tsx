@@ -143,7 +143,7 @@ export default function LiveTrackingMap() {
   };
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-[600px]">
       <Map
         mapboxAccessToken={MAPBOX_TOKEN}
         initialViewState={{ longitude: 3.3792, latitude: 6.5244, zoom: 11 }}
