@@ -18,10 +18,10 @@ export default function LiveTrackingMap() {
   const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
   const DEVIATION_THRESHOLD = 0.0005; // ~50 meters
 
-  const VITE_TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
+  const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    const ws = new WebSocket(`${VITE_TRACKERR_HOST}/ws/tracking/`);
+    const ws = new WebSocket(`${VITE_BASE_URL}/ws/tracking/`);
 
     ws.onopen = () => {
       console.log("✅ Connected to WebSocket");
