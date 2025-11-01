@@ -366,8 +366,8 @@ const Integration = () => {
                                     riders.map((rider) => {
                                         return (
                                         <tr className="hover:bg-gray-100 cursor-default" key={rider.id}>
-                                            <td className="py-2 px-4 border-b border-gray-200 text-left text-sm font-semibold text-gray-700">
-                                            <span className="border p-1 rounded-full border-orange-400 mr-1"><FontAwesomeIcon icon={faUser} style={{fontSize: "0.8rem", marginTop: "3px", color: "#FF833C"}} /></span>  {title(rider.user.name.split(' ')[0])}
+                                            <td className="py-2 px-4 border-b border-gray-200 text-left text-sm font-semibold text-gray-700 w-25">
+                                            <span className="border p-1 rounded-full border-orange-400"><FontAwesomeIcon icon={faUser} style={{fontSize: "0.8rem", marginTop: "3px", color: "#FF833C"}} /></span>  <span className="text-[0.8rem]">{title(rider.user.name.split(' ')[0])}</span>
                                             </td>
                                             <td className="py-2 px-8 border-b border-gray-200  py-4 text-left text-sm font-semibold text-gray-700 flex flex-col">
                                                 {
