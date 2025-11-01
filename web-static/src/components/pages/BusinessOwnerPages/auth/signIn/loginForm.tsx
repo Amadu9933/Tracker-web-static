@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -9,6 +9,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { loginUser } from '../../../../../api/auth';
 import MessageBox from '@components/common/reusable/messageBox';
+import { CircularProgress } from '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification';
 
 // Define form data type
 interface LoginFormData {
@@ -26,10 +27,23 @@ const schema = yup.object().shape({
 });
 
 const LoginForm: React.FC = () => {
+
+
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const [errorMsg, setErrorMsg] = useState("");
   const [showErrorMsg, setShowErrorMsg] = useState(false)
+  const [checkAuth, setCheckAuth] = useState(false);
+
+
+   
+  useEffect(() => {
+
+    if (window.localStorage.getItem('access')) {
+      setCheckAuth(!checkAuth);
+      window.location.href = '/dashboard/';
+   }
+  }, []);
 
   const { setTrackingHistoryEmail } = useAuth();
 
@@ -73,6 +87,10 @@ const LoginForm: React.FC = () => {
       // );
     }
   };
+
+  if (checkAuth) {
+    return <CircularProgress />
+  }
 
   return (
     <>
