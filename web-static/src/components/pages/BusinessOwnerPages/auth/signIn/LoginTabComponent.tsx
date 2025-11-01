@@ -27,7 +27,7 @@ const LoginTabComponent: React.FC = () => {
   }
 
   return (
-    <div className="flex  md:flex-row h-full w-screen  ">
+    <div className="flex  md:flex-row h-full w-screen border-t border-t-gray-200">
       <div className=' w-2/5'>
         <img
           src={carryParcel}
