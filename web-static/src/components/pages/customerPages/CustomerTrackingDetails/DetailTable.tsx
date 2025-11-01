@@ -62,6 +62,10 @@ const DetailTable: React.FC<DetailTableProps> = ({ setStatus }) => {
           setTrackingData(JSON.parse(cached));
           setError(null);
         } else {
+          if (error.status === 404) {
+            setError('Invalid tracking number provided.');
+            return;
+          }
           setError(
             error.response?.data?.detail ||
             error.message ||
@@ -80,7 +84,7 @@ const DetailTable: React.FC<DetailTableProps> = ({ setStatus }) => {
 
   // Loading and error states
   if (error) {
-    return <p className="text-red-500 text-xl">Error: {error}</p>;
+    return <p className="text-orange-500 text-xl text-center">{error}</p>;
   }
 
   if (!trackingData) {
