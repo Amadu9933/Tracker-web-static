@@ -10,13 +10,13 @@ export default function LiveTrackingMap() {
   const [animatedRoute, setAnimatedRoute] = useState<any>(null);
   const [riderCoord, setRiderCoord] = useState<{ lng: number; lat: number } | null>(null);
 
-  const mapRef = useRef<Map | null>(null);
+  const mapRef = useRef<any | null>(null);
   const hasFlownRef = useRef(false);
   const initialRouteFetched = useRef(false);
   const previousRiderCoord = useRef<{ lng: number; lat: number } | null>(null);
 
   const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
-  const DEVIATION_THRESHOLD = 0.0005; // ~50 meters
+  const DEVIATION_THRESHOLD = 0.0005;
 
   const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -100,7 +100,7 @@ export default function LiveTrackingMap() {
       setRiderCoord({ lng, lat });
 
       if (mapRef.current) {
-        mapRef.current.easeTo({ center: [lng, lat], duration: 1000, easing: t => t });
+        mapRef.current.easeTo({ center: [lng, lat], duration: 1000, easing: (t: any) => t });
       }
 
       if (fullRouteGeoJSON) {
