@@ -84,6 +84,10 @@ export default function LiveTrackingMap() {
     return () => ws.close();
   }, [trackingNumber, fullRouteGeoJSON]);
 
+
+// Determine map center based on country
+ var center = { longitude: 8.6753, latitude: 9.0820, zoom: 10 }; // Default to Nigeria
+
   // Animate rider and map smoothly
   useEffect(() => {
     if (!riderCoord || !trackingData?.rider) return;
@@ -146,7 +150,7 @@ export default function LiveTrackingMap() {
     <div className="w-full h-[600px]">
       <Map
         mapboxAccessToken={MAPBOX_TOKEN}
-        initialViewState={{ longitude: 3.3792, latitude: 6.5244, zoom: 11 }}
+        initialViewState={center}
         ref={mapRef}
         mapStyle="mapbox://styles/mapbox/streets-v11"
       >

@@ -22,6 +22,7 @@ const GenerateTrackingID = () => {
         shippingAddress: Yup.string().required("Shipping address is required"),
         country: Yup.string().required("Country is required"),
         email: Yup.string().email("Invalid email").required("Email is required"),
+        name: Yup.string().required("Name is required"),
         phone: Yup.string()
             .matches(/^\d{10,11}$/, "Invalid phone number")
             .required("Phone number is required"),
@@ -37,6 +38,7 @@ const GenerateTrackingID = () => {
         initialValues: {
             shippingAddress: "",
             country: "",
+            name: "",
             email: "",
             phone: "",
             productName: "",
@@ -56,6 +58,7 @@ const GenerateTrackingID = () => {
                 country: values.country,
                 product: values.productName,
                 customer_email: values.email,
+                customer_name: values.name,
                 quantity: values.numberOfProducts.toString(),
                 delivery_date: values.estimatedDeliveryDate,
                 phone: values.phone
@@ -116,16 +119,16 @@ const GenerateTrackingID = () => {
 
                     {/** Country */}
                     <div>
-                        <label className="block font-medium">Country</label>
+                        <label className="block font-medium">Customer Name</label>
                         <input
                             type="text"
-                            name="country"
-                            value={formik.values.country}
+                            name="name"
+                            value={formik.values.name}
                             onChange={formik.handleChange}
                             className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
                         />
-                        {formik.touched.country && formik.errors.country && (
-                            <p className="text-red-500">{formik.errors.country}</p>
+                        {formik.touched.name && formik.errors.name && (
+                            <p className="text-red-500">{formik.errors.name}</p>
                         )}
                     </div>
 
@@ -190,7 +193,7 @@ const GenerateTrackingID = () => {
                     </div>
 
                     {/** Estimated Delivery Date */}
-                    <div className="md:col-span-2">
+                    <div className="">
                         <label className="block font-medium">Estimated Delivery Date</label>
                         <input
                             type="date"
@@ -201,6 +204,21 @@ const GenerateTrackingID = () => {
                         />
                         {formik.touched.estimatedDeliveryDate && formik.errors.estimatedDeliveryDate && (
                             <p className="text-red-500">{formik.errors.estimatedDeliveryDate}</p>
+                        )}
+                    </div>
+
+                                        {/** Country */}
+                    <div>
+                        <label className="block font-medium">Country</label>
+                        <input
+                            type="country"
+                            name="country"
+                            value={formik.values.country}
+                            onChange={formik.handleChange}
+                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
+                        />
+                        {formik.touched.country && formik.errors.country && (
+                            <p className="text-red-500">{formik.errors.country}</p>
                         )}
                     </div>
                 </div>
