@@ -26,6 +26,7 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
 
   const updateTrackingStatusInDb = async (selected: any) => {
     try {
+      console.log(selected.value, typeof(selected.value))
       const response = await axiosInstance.patch(`/tracking/${parcel_number}/`, {
         parcel_number: parcel_number,
         status: 'assigned',

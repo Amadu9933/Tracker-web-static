@@ -43,6 +43,7 @@ const Integration = () => {
             }
         }).then((response) => {
             setRiders(response?.data?.msg || []);
+            console.log(response?.data?.msg || []);
         }).catch((error) => {
             console.log(error);
         });
@@ -209,7 +210,7 @@ const Integration = () => {
                             </div>
                             <h4 className="font-bold text-2xl text-orange-400">
                                 {
-                                    riders.filter(rider => rider.status.toLowerCase() === 'busy').length
+                                    riders.filter(rider => rider?.is_busy === true).length
                                 }
                             </h4>
                         </div>
