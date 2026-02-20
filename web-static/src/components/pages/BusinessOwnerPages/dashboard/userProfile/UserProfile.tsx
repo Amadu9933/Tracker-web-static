@@ -313,7 +313,16 @@ const UserProfile = () => {
                                             </div>
                                         ) : (
                                             <div className="border-l-4 border-orange-400 bg-gray-200 p-2 pl-[0.3rem] h-[2.8rem] cursor-default rounded-md w-full">
-                                                <p className="">{userData.user?.country?.toLowerCase() === 'nigeria'? `+234-${userData?.user?.phone_number}`: `+233-${userData?.user?.phone_number}`}</p>
+                                                {
+                                                    userData.user?.country?.toLowerCase() === 'nigeria' && (
+                                                        <p className=""> {`+234-${userData?.user?.phone_number}`}</p>
+                                                    )
+                                                }
+                                                {
+                                                    userData.user?.country?.toLowerCase() === 'ghana' && (
+                                                        <p className=""> {`+234-${userData?.user?.phone_number}`}</p>
+                                                    )
+                                                }
                                             </div>
                                         )
                                     }
