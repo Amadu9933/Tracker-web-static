@@ -71,28 +71,96 @@ const SetProfileImagePage: React.FC = () => {
         payload.append('avatar', image);
       }
 
-      const response = await axiosInstance.post('business-owners/signup/', payload, { timeout: 20000 });
+      // Try the correct signup endpoint
+      let signupEndpoint = 'business-owners/signup/';
+
+      // Alternative endpoints to try if the primary fails
+      const alternativeEndpoints = [
+        'business/signup/',
+        'auth/register/',
+        'users/signup/'
+      ];
+
+      let response: any;
+      let lastError: any;
+
+      try {
+        response = await axiosInstance.post(signupEndpoint, payload, { timeout: 20000 });
+      } catch (primaryError: any) {
+        // If primary endpoint returns 404, try alternatives
+        if (primaryError.response?.status === 404) {
+          console.warn(`Endpoint "${signupEndpoint}" not found. Trying alternatives...`);
+
+          for (const altEndpoint of alternativeEndpoints) {
+            try {
+              console.log(`Trying endpoint: ${altEndpoint}`);
+              response = await axiosInstance.post(altEndpoint, payload, { timeout: 20000 });
+              signupEndpoint = altEndpoint; // Success with this endpoint
+              break;
+            } catch (altError: any) {
+              lastError = altError;
+              if (altError.response?.status !== 404) {
+                throw altError; // If it's not 404, it's a real error
+              }
+              // If it's 404, continue to next endpoint
+            }
+          }
+
+          // If we tried all alternatives and they all failed
+          if (!response) {
+            throw lastError || new Error('No signup endpoint found');
+          }
+        } else {
+          throw primaryError;
+        }
+      }
 
       console.log('Account created successfully:', response.data);
-      setTimeout(()=>{
+      console.log(`Used endpoint: ${signupEndpoint}`);
+
+      setTimeout(() => {
         setShowMsg(true)
-        setTimeout(()=>{
+        setTimeout(() => {
           navigate('/Login', { state: { message: 'Login to see your dashboard' } });
         }, 3000)
-        setTimeout(()=>{ setShowMsg(false) }, 2000)
+        setTimeout(() => { setShowMsg(false) }, 2000)
       }, 2000)
-      // navigate('/Login', { state: { message: 'Login to see your dashboard' } });
     } catch (err: any) {
-      console.error('Failed to create account:', err.response?.data.email);
-      setError(err.response?.data?.email? "Email address already exists!" : 
-        err.response?.data?.phone_number? "Phone number already exists!": 
-        err.response?.data?.business_name? "Business name already exists!":
-        'An error occurred while creating a user please try again.');
+      console.error('Failed to create account:', err);
+
+      // Extract error message from various possible response formats
+      let errorMsg = 'An error occurred while creating your account. Please try again.';
+
+      if (err.response) {
+        const data = err.response.data;
+
+        // Check for specific field errors
+        if (data?.email) {
+          errorMsg = 'Email address already exists!';
+        } else if (data?.phone_number) {
+          errorMsg = 'Phone number already exists!';
+        } else if (data?.business_name) {
+          errorMsg = 'Business name already exists!';
+        } else if (data?.detail) {
+          errorMsg = data.detail;
+        } else if (data?.message) {
+          errorMsg = data.message;
+        } else if (typeof data === 'string') {
+          errorMsg = data;
+        } else if (err.response.status === 404) {
+          errorMsg = 'Signup service unavailable. Contact support if issue persists.';
+        }
+      } // end err.response check
+
+      // assign the computed error message to state
+      setError(errorMsg);
     } finally {
+      // ensure submitting flag is reset even if an error occurs
       setIsSubmitting(false);
     }
-  };
+  }; // close handleSubmit
 
+  // render JSX for the page
   return (
     <>
       <div className="mx-auto max-w-lg p-8">
@@ -135,8 +203,6 @@ const SetProfileImagePage: React.FC = () => {
             </label>
           </div>
 
-
-
           {/* Hidden File Input */}
           <input
             id="fileInput"
@@ -154,13 +220,20 @@ const SetProfileImagePage: React.FC = () => {
         {/* Submit Button */}
         <button
           onClick={handleSubmit}
-          className={`w-full bg-primary text-white p-2 rounded-md mt-6 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-full bg-primary text-white p-2 rounded-md mt-6 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
           disabled={isSubmitting || showMsg}
         >
           {isSubmitting ? 'Submitting...' : 'Complete Sign Up'}
         </button>
       </div>
-      <MessageBox message="Account created successfully ✅" showMessage={showMsg} state="success" size='12px' marginX='5rem' />
+      <MessageBox
+        message="Account created successfully ✅"
+        showMessage={showMsg}
+        state="success"
+        size="12px"
+        marginX="5rem"
+      />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import axiosInstance from './axiosInstance';
 
-export const fetchTrackingData = async (url: string, token: string) => {
+export const fetchTrackingData = async (url: string) => {
   const cacheKey = `trackingData:${url}`;
   // Try to get cached data first
   const cached = localStorage.getItem(cacheKey);
@@ -11,7 +11,6 @@ export const fetchTrackingData = async (url: string, token: string) => {
   try {
     const response = await axiosInstance.get(url, {
       headers: {
-        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
       },
     });
@@ -25,7 +24,7 @@ export const fetchTrackingData = async (url: string, token: string) => {
   }
 };
 
-export const fetchStatusCount = async (token: string) => {
+export const fetchStatusCount = async () => {
   const cacheKey = `statusCount`;
   const cached = localStorage.getItem(cacheKey);
   if (!navigator.onLine && cached) {
@@ -34,7 +33,6 @@ export const fetchStatusCount = async (token: string) => {
   try {
     const response = await axiosInstance.get('trackings/status-count', {
       headers: {
-        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
       },
     });

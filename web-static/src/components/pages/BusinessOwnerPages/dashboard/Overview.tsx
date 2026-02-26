@@ -13,22 +13,31 @@ const Overview = () => {
     pending_status_count: 0,
     total_tracking_generated: 0,
   });
+  const [statsError, setStatsError] = useState<string | null>(null);
+  const [statsLoading, setStatsLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
       const token = localStorage.getItem('access');
       if (!token) {
         console.warn('No token found in localStorage');
+        setStatsLoading(false);
         return;
       }
       try {
-        const data = await fetchStatusCount(token);
+        setStatsLoading(true);
+        setStatsError(null);
+        const data = await fetchStatusCount();
         setStats(data);
       } catch (error: any) {
         console.error('Error fetching dashboard stats:', error);
         if (error.response?.status === 401) {
-          alert('Session expired. Please log in again.');
+          setStatsError('Session expired. Please log in again.');
+        } else {
+          setStatsError('Failed to load statistics. Please try again.');
         }
+      } finally {
+        setStatsLoading(false);
       }
     };
 
@@ -47,9 +56,21 @@ const Overview = () => {
         </div>
       </div>
 
-      <div className="flex full h-36 bg-slate-600 rounded-md text-white">
+      {statsError && (
+        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          {statsError}
+        </div>
+      )}
+
+      {statsLoading && (
+        <div className="mb-4 p-3 bg-blue-100 border border-blue-400 text-blue-700 rounded">
+          Loading statistics...
+        </div>
+      )}
+
+      <div className="flex flex-col md:flex-row h-auto md:h-36 bg-slate-600 rounded-md text-white">
         {/* Total ID's Generated */}
-        <div className="flex-1 text-center flex justify-center px-16 pt-12">
+        <div className="flex-1 text-center flex justify-center px-4 sm:px-8 md:px-16 pt-8 md:pt-12">
           <div className="text-primary pr-3">
             <div className="bg-primary/25 p-1 rounded-[50%]">
               <img src={SandBox} alt="" />
@@ -64,7 +85,7 @@ const Overview = () => {
         </div>
 
         {/* Orders Completed */}
-        <div className="flex-1 text-center flex justify-center border-x border-gray-500 px-16 pt-12">
+        <div className="flex-1 text-center flex justify-center border-x border-gray-500 px-4 sm:px-8 md:px-16 pt-8 md:pt-12">
           <div className="text-primary pr-3">
             <div className="bg-[#B4D479]/25 p-1 rounded-[50%]">
               <img src={Package} alt="Package" />
@@ -84,7 +105,7 @@ const Overview = () => {
         </div>
 
         {/* Orders Returned */}
-        <div className="flex-1 text-center flex justify-center px-16 pt-12">
+        <div className="flex-1 text-center flex justify-center px-4 sm:px-8 md:px-16 pt-8 md:pt-12">
           <div className="text-primary pr-3">
             <div className="bg-primary/25 p-1 rounded-[50%]">
               <img src={Square} alt="Square" />

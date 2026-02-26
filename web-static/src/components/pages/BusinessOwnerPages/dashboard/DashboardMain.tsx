@@ -22,7 +22,7 @@ const DashboardMain = () => {
       }
 
       try {
-        const data = await fetchTrackingData('trackings/', token);
+        const data = await fetchTrackingData('trackings/');
         setTrackingData(data.results || []); // ✅ Set data or empty array fallback
         console.log('Tracking Data:', data); // ✅ Correct console.log
       } catch (err: any) {
@@ -41,11 +41,11 @@ const DashboardMain = () => {
       <div className="w-full">
         <Overview />
       </div>
-      <div className="flex h-[300px] justify-between gap-4 mt-12">
-        <div className="flex-1 h-[300px]">
+      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mt-12">
+        <div className="w-full md:flex-1 md:h-[300px] h-64">
           <ParcelChart />
         </div>
-        <div className="flex-1 flex">
+        <div className="w-full md:flex-1 flex justify-center md:justify-end">
           <CreateWallet />
         </div>
       </div>

@@ -58,7 +58,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
       return;
     }
     try {
-      const data = await fetchTrackingData(url, token);
+      const data = await fetchTrackingData(url);
       const newData = data.results || [];
       setTrackingData((prev) => (append ? [...prev, ...newData] : newData));
       setNextPage(data.next);
