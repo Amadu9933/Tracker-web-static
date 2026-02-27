@@ -14,9 +14,10 @@ const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment var
 
 interface DetailTableProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  setCanTrack: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const DetailTable: React.FC<DetailTableProps> = ({ setStatus }) => {
+const DetailTable: React.FC<DetailTableProps> = ({ setStatus, setCanTrack }) => {
   const { trackingNumber } = useParams<{ trackingNumber: string }>();
   const [trackingData, setTrackingData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +42,9 @@ const DetailTable: React.FC<DetailTableProps> = ({ setStatus }) => {
         const data = response.data;
 
         setStatus(data.status);
+        setCanTrack(data.track_now);
+
+        const tracking_status = (data.status === 'in transit' && data.track_now)? data.status : 'Your parcel is with the courier. Real-time tracking will begin shortly when they start your delivery.' 
 
         // Prepare only the fields needed for display
         const filteredData = {
@@ -49,7 +53,7 @@ const DetailTable: React.FC<DetailTableProps> = ({ setStatus }) => {
           'Estimated delivery date': data.delivery_date,
           'Shipping address': title(data.shipping_address),
           'Vendor': title(data.vendor),
-          'Status': title(data.status),
+          'Status': title(tracking_status),
         };
 
         console.log('Filtered data:', filteredData);

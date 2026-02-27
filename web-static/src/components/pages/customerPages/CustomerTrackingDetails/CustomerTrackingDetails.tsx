@@ -7,6 +7,8 @@ import LiveTrackingMap from './LiveTrackingMap';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 import CircularProgress from './CustomerNotification/CircularProgress';
+import { set } from 'react-hook-form';
+import { setLocale } from 'yup';
 
 /**
  * Renders the customer tracking details component.
@@ -22,6 +24,7 @@ const CustomerTrackingDetails: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [origin, setOrigin] = useState<{ lat: number; lng: number } | null>(null);
   const [destination, setDestination] = useState<{ lat: number; lng: number } | null>(null);
+  const [canTrack, setCanTrack] = useState<any>(null);
 
   const openMap = () => {
     setMapOpened((prev) => !prev);
@@ -29,6 +32,7 @@ const CustomerTrackingDetails: React.FC = () => {
 
   // Fetch tracking details for map (origin/destination)
   useEffect(() => {
+    
     if (!mapOpened || !trackingNumber) return;
     setLoading(true);
     setError(null);
@@ -89,9 +93,6 @@ const CustomerTrackingDetails: React.FC = () => {
 
   console.log('Rendering CustomerTrackingDetails component');
 
-  console.log(status);
-
-
   return (
     <div className="  justify-right ">
 
@@ -149,12 +150,13 @@ const CustomerTrackingDetails: React.FC = () => {
           <div className="my-10">
             <DetailTable 
               setStatus={setStatus}
+              setCanTrack={setCanTrack}
             />
           </div>
           <div>
           </div>
           {
-            status.toLowerCase() === 'in transit' && (
+            (status.toLowerCase() === 'in transit' && canTrack) && (
               <Button
                   variant="outlined"
                   sx={buttonStyles}
@@ -163,8 +165,7 @@ const CustomerTrackingDetails: React.FC = () => {
                   {mapOpened ? 'Hide live location' : 'View live location'}
               </Button>
             )
-          }
-                
+          }                
         </div>
       </div>
     </div>
