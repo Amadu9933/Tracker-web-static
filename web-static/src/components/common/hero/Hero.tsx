@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
         Track your <br />
         parcel today!
       </h1>
-      <h4 className="text-white text-sm md:text-lg text-center md:text-center mt-6  md:mt-9 mx-10 px-0 md:mx-80">
+      <h4 className="text-white text-[12px] md:text-lg text-center md:text-center mt-3  md:mt-9 mx-8 px-0 md:mx-80">
         Get real-time location of your parcel from the comfort <br /> of your
         home with trackerr.
       </h4>
