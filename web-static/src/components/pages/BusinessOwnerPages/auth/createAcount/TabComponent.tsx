@@ -17,9 +17,9 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div className="flex bg-white  flex-col md:flex-row h-screen ">
+    <div className="flex bg-white flex-col md:flex-row h-screen">
       {/* Left Image Section */}
-      <div className="md:w-1/2 h-1/2 md:h-[900px]  bg-cover bg-white bg-center hidden md:block">
+      <div className="hidden md:block md:w-1/2 h-1/2 md:h-[900px] bg-cover bg-white bg-center">
         <img
           src={createAccont}
           alt="Create Account"
@@ -28,10 +28,10 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
       </div>
 
       {/* Right Form Section */}
-      <div className=" mt-80 md:w-1/2 bg-white pt-20 p-6 md:p-12  rounded-lg flex flex-col justify-center">
+      <div className="w-full mt-20 sm:mt-40 md:mt-80 md:w-1/2 bg-white pt-8 sm:pt-16 md:pt-20 p-4 sm:p-6 md:p-12 rounded-lg flex flex-col justify-center">
         {/* Title Section */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-700 flex items-center mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 flex items-center mb-6">
             <div onClick={() => { navigate(-1) }}><ArrowBackIcon className="mr-3" /></div>
             Create Account
           </h1>

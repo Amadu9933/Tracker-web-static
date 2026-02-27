@@ -163,24 +163,24 @@ const SetProfileImagePage: React.FC = () => {
   // render JSX for the page
   return (
     <>
-      <div className="mx-auto max-w-lg p-8">
+      <div className="mx-auto max-w-lg p-4 sm:p-8">
         <div className="flex items-center space-x-2 pb-2 mb-6">
-          <div onClick={() => navigate(-1)} className="-mb-2 ">
+          <div onClick={() => navigate(-1)} className="-mb-2">
             <img src={ArrowBack} alt="Move back arrow" />
           </div>
-          <h1 className="text-5xl font-semibold">Create Account</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold">Create Account</h1>
         </div>
-        <div className="flex justify-between mb-10">
-          <p className="font-medium text-lg">Profile Information</p>
-          <p className="text-[#82826A] font-medium">Step 3 of 3</p>
+        <div className="flex flex-col sm:flex-row justify-between mb-10 gap-2">
+          <p className="font-medium text-sm sm:text-lg">Profile Information</p>
+          <p className="text-[#82826A] font-medium text-sm">Step 3 of 3</p>
         </div>
 
-        <p className="text-left text-gray-600">
+        <p className="text-left text-gray-600 text-sm sm:text-base">
           Please upload a picture of your business logo or product to complete account setup (optional).
         </p>
-        <div className="my-20">
+        <div className="my-8 sm:my-20">
           {/* Profile Upload Section */}
-          <div className="relative w-32 h-32 mx-auto mt-6">
+          <div className="relative w-24 sm:w-32 h-24 sm:h-32 mx-auto mt-6">
             {/* Group icon as background */}
             <img src={Group} alt="Group Icon" className="w-full h-full object-cover rounded-full" />
 
@@ -215,12 +215,12 @@ const SetProfileImagePage: React.FC = () => {
         </div>
 
         {/* Error Message */}
-        {error && <p className="text-red-500 text-sm mt-2 text-center">{error}</p>}
+        {error && <p className="text-red-500 text-xs sm:text-sm mt-2 text-center">{error}</p>}
 
         {/* Submit Button */}
         <button
           onClick={handleSubmit}
-          className={`w-full bg-primary text-white p-2 rounded-md mt-6 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+          className={`w-full bg-primary text-white p-2 rounded-md mt-6 text-sm sm:text-base ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           disabled={isSubmitting || showMsg}
         >
@@ -232,7 +232,7 @@ const SetProfileImagePage: React.FC = () => {
         showMessage={showMsg}
         state="success"
         size="12px"
-        marginX="5rem"
+        marginX="1rem"
       />
     </>
   );

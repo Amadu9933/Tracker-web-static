@@ -134,7 +134,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col px-2 sm:px-6 pt-5 max-w-screen-xl mx-auto">
+      <main className="flex-1 flex flex-col -ml-6 sm:px-6 pt-5 max-w-screen-xl mx-auto">
         {/* App Bar */}
         <div className="border-b border-[#D9D9D9] bg-white mx-4">
           <AppBar position="static" color="default" elevation={0} sx={{ backgroundColor: 'white' }}>
@@ -143,10 +143,10 @@ const Dashboard: React.FC = () => {
                 {/* hide text on small screens to save space */}
                 <button
                   onClick={() => navigate('/dashboard/GenerateTrackingID')}
-                  className={`hidden sm:flex flex w-fit px-4 py-2 leading-5 font-medium text-[14px] rounded-[6px] cursor-pointer  
+                  className={`hidden sm:flex flex w-fit px-4 ml-5 py-2 leading-5 font-medium text-[14px] rounded-[6px] cursor-pointer  
     ${location.pathname === '/dashboard/GenerateTrackingID'
                       ? 'bg-[#E3E2DC] text-[#ABABAB]'  // Active state
-                      : 'bg-primary text-white'}`}
+                      : 'bg-primary text-white ml-5 sm:-ml-5'}`}
                 >
                   Generate Tracking ID
                 </button>

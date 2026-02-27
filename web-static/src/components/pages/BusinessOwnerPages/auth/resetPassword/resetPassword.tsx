@@ -72,7 +72,7 @@ const ResetPassword: React.FC = () => {
     } catch (error: any) {
       console.error('Reset password failed:', error);
       setTimeout(() => {
-        setErrorMsg(error?.response?.data?.error.toLowerCase() === 'otp does not exist'? "Invalid otp ❌" : error?.response?.data?.error.toLowerCase())
+        setErrorMsg(error?.response?.data?.error.toLowerCase() === 'otp does not exist' ? "Invalid otp ❌" : error?.response?.data?.error.toLowerCase())
         setTimeout(() => {
           setErrorMsg('')
         }, 6000)
@@ -83,11 +83,11 @@ const ResetPassword: React.FC = () => {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
+      <div className="flex flex-col min-h-screen items-center justify-center bg-gray-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-6 sm:space-y-8 bg-white p-6 sm:p-8 rounded-lg shadow-md mt-8 sm:mt-0">
           {/* Title Section */}
           <div className="text-center">
-            <h1 className="text-lg font-bold text-gray-700 flex items-center justify-center mb-6">
+            <h1 className="text-base sm:text-lg font-bold text-gray-700 flex items-center justify-center mb-6">
               <div onClick={() => navigate(-1)} className="cursor-pointer mr-3">
                 <ArrowBackIcon />
               </div>
@@ -176,15 +176,15 @@ const ResetPassword: React.FC = () => {
           </form>
         </div>
         <div className='w-full'>
-        <MessageBox 
-          message={ShowMsg}
-          size='12px'
-          marginX='5rem'
-          state='success'
-          showMessage={Boolean(ShowMsg)}
-        />
+          <MessageBox
+            message={ShowMsg}
+            size='12px'
+            marginX='5rem'
+            state='success'
+            showMessage={Boolean(ShowMsg)}
+          />
         </div>
-      </div>      
+      </div>
     </>
   );
 };

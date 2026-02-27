@@ -8,7 +8,7 @@ const Report: React.FC = () => {
 
 
     return (
-        <div className="m-[80px]">
+        <div className=" sm:m-[80px]">
 
             <div className=" mb-2 mt-10 text-left">
                 <p className="text-secondary font-bold">Recent </p>

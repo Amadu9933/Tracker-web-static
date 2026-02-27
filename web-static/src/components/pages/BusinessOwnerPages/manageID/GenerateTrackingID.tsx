@@ -200,14 +200,14 @@ const GenerateTrackingID = () => {
                             name="estimatedDeliveryDate"
                             value={formik.values.estimatedDeliveryDate}
                             onChange={formik.handleChange}
-                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
+                            className="w-[92%] p-3 border border-black rounded-md  placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
                         />
                         {formik.touched.estimatedDeliveryDate && formik.errors.estimatedDeliveryDate && (
                             <p className="text-red-500">{formik.errors.estimatedDeliveryDate}</p>
                         )}
                     </div>
 
-                                        {/** Country */}
+                    {/** Country */}
                     <div>
                         <label className="block font-medium">Country</label>
                         <input
@@ -239,7 +239,7 @@ const GenerateTrackingID = () => {
             {showModal && trackingID && (
                 <CongratulationsAlert trackingID={trackingID} onClose={() => {
                     setShowModal(false);
-                    navigate(`/dashboard/trackings/${trackingID}`, {state: {parcel_number: trackingID}})
+                    navigate(`/dashboard/trackings/${trackingID}`, { state: { parcel_number: trackingID } })
                 }} />
             )}
 

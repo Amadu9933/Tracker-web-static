@@ -55,16 +55,16 @@ const LoginForm: React.FC = () => {
       setTrackingHistoryEmail(data.email)
       // Redirect user to the dashboard or another protected route
       navigate('/dashboard/');
-    } catch (err:any) {
+    } catch (err: any) {
       console.error('Login failed:', err);
       if (err?.message.toLowerCase() === 'no active account found with the given credentials') {
         setErrorMsg('Invalid email or password ❌');
       } else {
         setErrorMsg(err?.message)
       }
-      setTimeout(()=>{
+      setTimeout(() => {
         setShowErrorMsg(true)
-        setTimeout(()=>{
+        setTimeout(() => {
           setShowErrorMsg(false)
         }, 6000)
       }, 3000)
@@ -81,10 +81,10 @@ const LoginForm: React.FC = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="text-left bg-white pr-16"
+        className="text-left bg-white pr-0 md:pr-16"
       >
 
-        <h2 className="text-lg font-bold mb-7">Sign in</h2>
+        <h2 className="text-lg font-bold mb-7 text-lg sm:text-xl">Sign in</h2>
 
         {/* Email Field */}
         <div className="mb-6 ">

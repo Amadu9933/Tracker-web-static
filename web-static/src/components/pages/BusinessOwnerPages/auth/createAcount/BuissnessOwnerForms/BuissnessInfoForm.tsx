@@ -46,9 +46,9 @@ const BusinessInfoForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className='flex justify-between   mb-10'>
-        <p className='font-medium text-lg'>Business Information</p>
-        <p className='text-[#82826A]  font-medium'>Step 2 of 3</p>
+      <div className='flex flex-col sm:flex-row justify-between mb-10 gap-2'>
+        <p className='font-medium text-base sm:text-lg'>Business Information</p>
+        <p className='text-[#82826A] font-medium text-sm'>Step 2 of 3</p>
       </div>
       <TextInput
         id="businessName"

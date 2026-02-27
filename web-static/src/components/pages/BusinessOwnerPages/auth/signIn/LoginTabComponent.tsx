@@ -11,15 +11,15 @@ const LoginTabComponent: React.FC = () => {
   const navigate = useNavigate()
 
   const [checkAuth, setCheckAuth] = useState(false);
-  
-  
-     
+
+
+
   useEffect(() => {
-  
-      if (window.localStorage.getItem('access')) {
-        setCheckAuth(!checkAuth);
-        window.location.href = '/dashboard/';
-     }
+
+    if (window.localStorage.getItem('access')) {
+      setCheckAuth(!checkAuth);
+      window.location.href = '/dashboard/';
+    }
   }, []);
 
   if (checkAuth) {
@@ -27,19 +27,19 @@ const LoginTabComponent: React.FC = () => {
   }
 
   return (
-    <div className="flex  md:flex-row h-full w-screen border-t border-t-gray-200">
-      <div className=' w-2/5'>
+    <div className="flex flex-col md:flex-row h-full w-full md:w-screen border-t border-t-gray-200">
+      <div className='hidden md:block w-2/5'>
         <img
           src={carryParcel}
           alt="Login Illustration"
-          className="h-full  w-full"
+          className="h-full w-full object-cover"
         />
       </div>
 
-      <div className=" md:w-3/5 w-full h-screen  mt-48 flex flex-col justify-start px-8 md:px-32">
+      <div className="w-full md:w-3/5 h-screen mt-40 md:mt-48 flex flex-col justify-start px-4 sm:px-8 md:px-32">
 
-        <div className="mb-6 ">
-          <h1 className="mb-3 text-3xl font-bold text-secondary flex items-center">
+        <div className="mb-6">
+          <h1 className="mb-3 text-2xl sm:text-3xl font-bold text-secondary flex items-center">
             <div onClick={() => { navigate(-1) }}><ArrowBackIcon className="mr-3 cursor-pointer transition duration-300" /></div>
             Welcome Back
           </h1>

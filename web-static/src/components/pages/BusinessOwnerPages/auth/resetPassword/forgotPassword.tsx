@@ -47,33 +47,33 @@ const ForgotPassword: React.FC = () => {
           'Content-Type': 'application/json',
         },
       });
-      setTimeout(()=> {
+      setTimeout(() => {
         setShowMsg(response.data.message || `Check your email for an otp ✅`);
         setTimeout(() => {
           setShowMsg("")
-           navigate('/otp', {state: {email: data.email}});
+          navigate('/otp', { state: { email: data.email } });
         }, 4000)
       }, 1000)
     } catch (error: any) {
       console.error('API Error:', error);
       const errMsg = error.response?.data?.detail.toLowerCase() === "no user matches the given query."
-      if(errMsg) {
-      setTimeout(()=> {
-        setErrorMsg(`Email address not found! ❌🥹`);
+      if (errMsg) {
         setTimeout(() => {
-          setErrorMsg("")
-        }, 7000)
-      }, 2000)
-    }
+          setErrorMsg(`Email address not found! ❌🥹`);
+          setTimeout(() => {
+            setErrorMsg("")
+          }, 7000)
+        }, 2000)
       }
+    }
 
   };
 
   return (
     <>
-      <div className="px-[10%] pt-16 bg-gray-300 rounded-lg w-[60%] h-[450px] text-left mx-auto">
+      <div className="px-4 sm:px-8 pt-8 sm:pt-16 bg-gray-300 rounded-lg w-full sm:w-[80%] md:w-[60%] h-auto sm:h-[450px] text-left mx-auto my-4">
         {/* Title Section */}
-        <h1 className="text-lg font-bold text-gray-700 flex mb-6">
+        <h1 className="text-base sm:text-lg font-bold text-gray-700 flex mb-6">
           <div onClick={() => navigate(-1)}> <ArrowBackIcon className="mr-3" /></div>
 
           Forgot Password

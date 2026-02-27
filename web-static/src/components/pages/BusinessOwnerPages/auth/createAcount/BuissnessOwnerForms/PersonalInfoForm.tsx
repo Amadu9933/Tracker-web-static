@@ -57,13 +57,13 @@ const PersonalInfoForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className='flex justify-between   mb-10'>
-        <p className='font-medium text-lg'>Personal Information</p>
-        <p className='text-[#82826A]  font-medium'>Step 1 of 3</p>
+      <div className='flex flex-col sm:flex-row justify-between mb-10 gap-2'>
+        <p className='font-medium text-base sm:text-lg'>Personal Information</p>
+        <p className='text-[#82826A] font-medium text-sm'>Step 1 of 3</p>
       </div>
       {/* Name Field */}
       <div className="space-y-2">
-        <label htmlFor="name" className="block text-sm font-medium text-secondary">
+        <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-secondary">
           Name
         </label>
         <input
@@ -71,14 +71,14 @@ const PersonalInfoForm: React.FC = () => {
           type="text"
           placeholder="Enter your name"
           {...register('name')}
-          className="w-full p-3  border border-red-600 rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
+          className="w-full p-2 sm:p-3 text-sm border border-red-600 rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
         />
-        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+        {errors.name && <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.name.message}</p>}
       </div>
 
       {/* Email Field */}
       <div className="space-y-2">
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">
           Email
         </label>
         <input
@@ -86,15 +86,15 @@ const PersonalInfoForm: React.FC = () => {
           type="email"
           placeholder="Enter your email"
           {...register('email')}
-          className="w-full p-3 pl-[55px] border  border-black rounded-md placeholder:text-[#A3A38E]"
+          className="w-full p-2 sm:p-3 text-sm border border-black rounded-md placeholder:text-[#A3A38E]"
         />
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+        {errors.email && <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email.message}</p>}
       </div>
 
 
       {/* Phone Field */}
       <div className="space-y-2">
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
           Phone
         </label>
         <input
@@ -102,14 +102,14 @@ const PersonalInfoForm: React.FC = () => {
           type="text"
           placeholder="+233540985004"
           {...register('phone')}
-          className="w-full p-3 border border-gray-300 rounded-md placeholder:text-[#A3A38E]"
+          className="w-full p-2 sm:p-3 text-sm border border-gray-300 rounded-md placeholder:text-[#A3A38E]"
         />
-        {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
+        {errors.phone && <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.phone.message}</p>}
       </div>
 
       {/* Password Field */}
       <div className="space-y-2">
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="password" className="block text-xs sm:text-sm font-medium text-gray-700">
           Password
         </label>
         <div className="relative">
@@ -118,9 +118,9 @@ const PersonalInfoForm: React.FC = () => {
             type={showPassword ? 'text' : 'password'}
             placeholder="Enter your password"
             {...register('password')}
-            className="w-full p-3 pl-[55px] pr-10 border border-black rounded-md placeholder:text-[#A3A38E]  focus:border-primary focus:ring-primary"
+            className="w-full p-2 sm:p-3 text-sm pr-10 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
           />
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+          <div className="absolute inset-y-0 right-0 pr-2 sm:pr-3 flex items-center">
             <IconButton
               onClick={handleTogglePassword}
               edge="end"

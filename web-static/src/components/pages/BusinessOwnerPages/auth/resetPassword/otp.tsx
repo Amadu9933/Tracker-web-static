@@ -38,11 +38,11 @@ const Otp: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
+        <div className="flex flex-col min-h-screen items-center justify-center bg-gray-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md w-full space-y-6 sm:space-y-8 bg-white p-6 sm:p-8 rounded-lg shadow-md mt-8 sm:mt-0">
                 {/* Title Section */}
                 <div className="text-center">
-                    <h1 className="text-lg font-bold text-gray-700 flex items-center justify-center mb-6">
+                    <h1 className="text-base sm:text-lg font-bold text-gray-700 flex items-center justify-center mb-6">
                         <div onClick={() => navigate(-1)} className="cursor-pointer mr-3">
                             <ArrowBackIcon />
                         </div>
