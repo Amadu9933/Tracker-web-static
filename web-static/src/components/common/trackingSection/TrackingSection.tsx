@@ -56,16 +56,6 @@ const TrackingSection: React.FC = () => {
             value={trackingNumber}
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
-            className={`
-    w-full px-4 py-3.5
-    bg-[#fdefe8] text-gray-800 
-    border border-orange-200 rounded-xl
-    text-sm sm:text-base
-    placeholder:text-xs sm:placeholder:text-sm md:placeholder:text-base
-    placeholder:text-orange-700/70
-    focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400
-    transition-all duration-200
-  `}
           />
           <i className="search-icon"></i>
         </div>
