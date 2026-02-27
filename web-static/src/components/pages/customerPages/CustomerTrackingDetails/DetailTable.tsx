@@ -44,7 +44,7 @@ const DetailTable: React.FC<DetailTableProps> = ({ setStatus, setCanTrack }) => 
         setStatus(data.status);
         setCanTrack(data.track_now);
 
-        const tracking_status = (data.status === 'in transit' && data.track_now)? data.status : 'Your parcel is with the courier. Real-time tracking will begin shortly when they start your delivery.' 
+        const tracking_status = (data.status === 'in transit' && data.track_now)? data.status : 'Your parcel is with the Rider. Real-time tracking will begin shortly when they start your delivery.' 
 
         // Prepare only the fields needed for display
         const filteredData = {
