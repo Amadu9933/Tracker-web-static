@@ -71,7 +71,6 @@ const Navbar: React.FC = () => {
           <div
             style={{
               flexGrow: 1,
-              display: 'flex',
             }}
             className="hidden md:flex"
           >
@@ -87,7 +86,7 @@ const Navbar: React.FC = () => {
             }}
           >
             {menuItems.map((item, index) => (
-              
+
               <NavLink
                 className="Navbar"
                 key={index}
@@ -99,7 +98,7 @@ const Navbar: React.FC = () => {
               >
                 {item.label}
               </NavLink>
-              
+
             ))}
             {/*user  Profile section */}
             <Box
