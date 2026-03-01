@@ -3,7 +3,7 @@ import './Hero.css';
 const Hero: React.FC = () => {
   return (
     <div className="hero pt-10 md:pt-40 pb-28 ">
-      <h1 className="text-white font-bold text-5xl md:font-extrabold md:text-8xl text-center md:text-center mx-6 md:mx-72">
+      <h1 className="text-red-700 font-bold text-5xl md:font-extrabold md:text-8xl text-center md:text-center mx-6 md:mx-72">
         Track your <br />
         parcel today!
       </h1>
