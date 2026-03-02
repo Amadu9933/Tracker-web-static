@@ -3,10 +3,10 @@ import Robot from '@components/common/reusable/robot';
 const QuestionSection = () => {
   return (
     <section className="py-10 px-5 sm:px-8 md:py-14 lg:py-16 bg-slate-50/70">
-      <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col items-center gap-10 md:flex-row md:items-start md:justify-between md:gap-12 lg:gap-16">
+      <div className="mx-auto max-w-6xl ">
+        <div className="flex  items-center  justify-center md:flex-row flex-col gap-10">
           {/* Text block */}
-          <div className="max-w-xl text-center md:text-left">
+          <div className="text-center md:text-center">
             <h2 className="font-bold text-2xl sm:text-3xl lg:text-4xl tracking-tight text-[#354755] mb-5 md:mb-6">
               Have A Question?
             </h2>
@@ -38,7 +38,7 @@ const QuestionSection = () => {
           </div>
 
           {/* Robot */}
-          <div className="flex-shrink-0 transition-transform duration-300 hover:scale-105 active:scale-100">
+          <div className="flex-shrink-0  transition-transform duration-300 hover:scale-105 active:scale-100">
             <Robot className="w-44 h-44 sm:w-52 sm:h-52 md:w-56 md:h-56 lg:w-64 lg:h-64" />
           </div>
         </div>
