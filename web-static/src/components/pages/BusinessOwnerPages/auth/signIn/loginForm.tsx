@@ -48,9 +48,17 @@ const LoginForm: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const response = await loginUser(data.email, data.password); // Call real API
-      const { access } = response; // Extract the access token from response
+      const { access, account_type } = response; // Extract the access token from response
       console.log(response)
-      // Store token in localStorage
+      // set error if account type is not a business owner
+     
+      if (account_type === 'logistics') {
+        localStorage.removeItem('access');
+        localStorage.removeItem('refresh');
+        localStorage.removeItem('userId');
+        throw new Error('Only business owners allowed!');
+      }
+       // Store token in localStorage
       localStorage.setItem('access', access);
       setTrackingHistoryEmail(data.email)
       // Redirect user to the dashboard or another protected route
