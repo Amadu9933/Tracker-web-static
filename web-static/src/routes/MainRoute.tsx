@@ -5,7 +5,7 @@ import { FormProvider } from '../../src/context/CreateAccountFormContext';
 
 // Lazy loading public components
 const Ship = lazy(() => import('@components/NavigationBarLinksComponents/Ship'));
-const LogisticSolution = lazy(() => import('@components/pages/logisticOwnerPage/landingPage/LandingPage'));
+const LogisticSolution = lazy(() => import('@components/pages/Logistics/LandingPage'));
 const Intergration = lazy(() => import('@components/NavigationBarLinksComponents/Intergration'));
 const NeedHelp = lazy(() => import('@components/NavigationBarLinksComponents/NeedHelp'));
 const Login = lazy(() => import('@components/NavigationBarLinksComponents/Login'));

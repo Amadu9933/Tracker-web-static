@@ -4,8 +4,8 @@ import '../../../index.css';
 import { Hero, Track, Footer } from '../../common/commons';
 
 import DidYouKnow from '../../pages/customerPages/CustomerDidYouKnow';
-import  QuestionSection from '../../myQuestionSection/MyQestionSection';
-import "../logisticOwnerPage/landingPage/landingPage.css"
+import QuestionSection from '../../myQuestionSection/MyQestionSection';
+
 
 const CustomerLandingPage: React.FC = () => {
   return (

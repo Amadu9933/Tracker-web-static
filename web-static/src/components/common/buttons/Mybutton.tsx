@@ -1,60 +1,31 @@
-import './Mybutton.css';
+type secondaryButtonProps = {
+  label: string;
+  onClick?: () => void;
+  color?: string;
+  background?: string;
+}
 
-import { MyButtonProps } from '../../../types/types';
-
-// MyButton functional component
-const MyButton: React.FC<MyButtonProps> = ({
-  onClick,
-  label,
-  state = 'Primary',
-  size = 'Medium',
-  background = '#FF833C',
-}) => {
-  // Helper function to determine the size-specific styles
-  const getSizeClass = () => {
-    switch (size) {
-      case 'Small':
-        return 'text-sm p-3 lg:p-4.5 gap-2 rounded-2 w-62.5 h-12 top-142.5 left-33.75 border-none focus:border-none gap-8';
-      case 'Large':
-        return 'text-lg px-4 py-2';
-      // Medium is the default
-
-      case 'mobile':
-        return 'text-sm px-4 py-2 w-24';
-
-      default:
-        return 'text-base px-3 py-2';
-    }
-  };
-
-  // Helper function to determine the state-specific background color
-  const getStateClass = () => {
-    return state === 'Primary' ? 'bg-primary' : 'bg-secondary';
-  };
-
-  // Combine size and state classes for the button
-  const buttonClasses = `my-button ${getSizeClass()} ${getStateClass()}`;
-
-  // Render the button component
+const SecondaryButton = ({ label, onClick, color = '#ffffff', background = 'white' }: secondaryButtonProps) => {
   return (
-    <button onClick={onClick} className={buttonClasses} style={{ background }}>
+    <button
+      type="button"
+      onClick={onClick}
+      style={{ color, backgroundColor: background }}
+      className="
+        inline-flex items-center justify-center
+        bg-primary hover:bg-[#e8732e] active:bg-[#d4621e]
+        font-semibold
+        text-sm sm:text-base
+        px-6 py-2.5
+        rounded-[8px]
+        shadow-md hover:shadow-lg
+        transition-all duration-200
+        cursor-pointer
+      "
+    >
       {label}
     </button>
   );
 };
 
-export default MyButton;
-
-type secondaryButtonProps = {
-  label: string
-}
-
-const SecondaryButton = ({label}: secondaryButtonProps) => {
-  function handleClick() {
-    // add click logic here
-    alert('Buttton CLicked!')
-  }
-  return <button className="secondaryBtn" type='button' onClick={handleClick}>{label}</button>
-}
-
-export {SecondaryButton}
+export default SecondaryButton;
