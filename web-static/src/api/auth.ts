@@ -27,11 +27,24 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 //  Logout function (removes tokens and redirects to login)
-export const logoutUser = () => {
+export const logoutUser = async () => {
+  try {
+    const refresh_token = localStorage.getItem('refresh')
+    const response = await fetch(`${TRACKERR_HOST}/auth/token/blacklist/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh : refresh_token }),
+    });
+
+  if (response.status === 200) console.log('Logged Out') 
+    // remove all storage data
   localStorage.removeItem('access');
   localStorage.removeItem('refresh');
   localStorage.removeItem('userId');
 
   // Redirect to login page
   window.location.href = '/login';
+  } catch(err) {
+    console.error('An error occurred while logging out')
+  }
 };
