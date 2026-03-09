@@ -1,6 +1,5 @@
 import { Footer, Mybutton, } from "@components/common";
 import parcelDrop from "./asset/Box.png";
-import { SecondaryButton } from "@components/common/buttons/Mybutton";
 import GearIcon from "@components/common/reusable/gearIcon";
 import { useNavigate } from "react-router-dom";
 import QuestionSection from "@components/myQuestionSection/MyQestionSection";
@@ -54,7 +53,7 @@ const LogisticSolution: React.FC = () => {
               with business owners in need of logistics solutions.
             </p>
             <div>
-              <button className="border border-primary text-primary w-32 p-2 rounded-sm"> Partner with us</button>
+              <button className="border border-primary text-primary w-32 p-2 rounded-[6px]"> Partner with us</button>
             </div>
 
           </div>
@@ -97,7 +96,7 @@ const LogisticSolution: React.FC = () => {
         <div className="  flex flex-col md:flex-row justify-center items-center md:items-start w-full max-w-4xl mx-auto gap-10 md:gap-20">
 
           {/* Gear icon — hidden on mobile, shown on md+ */}
-          <div className="hidden md:flex flex-col justify-center ">
+          <div className="hidden md:flex flex-col justify-center  ">
             <GearIcon />
           </div>
 

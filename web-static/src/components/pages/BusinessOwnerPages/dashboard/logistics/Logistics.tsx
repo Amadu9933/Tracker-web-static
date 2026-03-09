@@ -275,7 +275,7 @@ const Integration = () => {
                             <div className="flex w-full justify-between gap-2">
                                 <div className="mb-4 w-1/2 ">
                                     <label className="block text-sm font-medium mb-2" htmlFor="idType">Identity Card Type</label>
-                                    <select className="w-full p-3 pl-12 border border-black rounded-md focus:outline-none rounded-md focus:ring-2 focus:ring-orange-200 placeholder:p-1 p-1" id="idType"
+                                    <select className="w-full p-3 pl-12 border border-black  focus:outline-none rounded-md focus:ring-2 focus:ring-orange-200 placeholder:p-1 " id="idType"
                                         onChange={(e) => handleInputChange(e)}
                                         value={riderInfo.idType}
                                     >
@@ -369,7 +369,7 @@ const Integration = () => {
                                                 <td className="py-2 px-4 border-b border-gray-200 text-left text-sm font-semibold text-gray-700 w-25">
                                                     <span className="border p-1 rounded-full border-orange-400"><FontAwesomeIcon icon={faUser} style={{ fontSize: "0.8rem", marginTop: "3px", color: "#FF833C" }} /></span>  <span className="text-[0.8rem]">{title(rider.user.name.split(' ')[0])}</span>
                                                 </td>
-                                                <td className="py-2 px-8 border-b border-gray-200  py-4 text-left text-sm font-semibold text-gray-700 flex flex-col">
+                                                <td className=" px-8 border-b border-gray-200  py-4 text-left text-sm font-semibold text-gray-700 flex flex-col">
                                                     {
                                                         rider.user.country === 'nigeria' ? (
                                                             <p className="text-xs font-normal"><Phone className="w-3 h-3 inline" />+234-{rider?.user?.phone_number}</p>
@@ -379,10 +379,10 @@ const Integration = () => {
                                                     }
                                                     <p className="text-xs font-normal">{rider.user.email}</p>
                                                 </td>
-                                                <td className="py-2 px-8 py-4 border-b border-gray-200  text-left text-sm font-semibold text-gray-700">
+                                                <td className=" px-8 py-4 border-b border-gray-200  text-left text-sm font-semibold text-gray-700">
                                                     <p className="text-xs font-normal flex gap-1"><MapPin className="w-3 h-3 " />{title(rider.user.address)}</p>
                                                 </td>
-                                                <td className="py-2 px-8 py-4 border-b border-gray-200   text-left text-sm font-semibold text-gray-700">
+                                                <td className=" px-8 py-4 border-b border-gray-200   text-left text-sm font-semibold text-gray-700">
                                                     <div className="w-full flex items-center gap-1">
                                                         {
                                                             rider.status.toLowerCase() === "busy" ? (
@@ -400,7 +400,7 @@ const Integration = () => {
                                                     <p className="text-xs font-semibold">{rider.total_delivery}/{rider.total_assigned_orders} deliveries</p>
                                                     <p className="text-xs font-normal">⭐ {rider.rating} rating</p>
                                                 </td>
-                                                <td className="py-2 px-7 py-4 border-b border-gray-200  text-left text-sm font-semibold text-gray-700">
+                                                <td className=" px-7 py-4 border-b border-gray-200  text-left text-sm font-semibold text-gray-700">
                                                     <div className="flex gap-1 w-full justify-between">
                                                         <div className="border p-2 border-transparent hover:border-[#FF833C] rounded"><Eye className="" size={15} onClick={() => { }} /></div>
                                                         <div className="border p-2 border-transparent hover:border-[#FF833C] rounded"><Edit className="" size={15} /></div>

@@ -240,7 +240,7 @@ const UserProfile = () => {
                                     <div>
                                         <label
                                             htmlFor="avatar"
-                                            className="absolute bg-[#FF833C] top-5 right-15 bg-white p-2 rounded-full shadow cursor-pointer hover:bg-gray-100 transition"
+                                            className="absolute  top-5 right-15 bg-white p-2 rounded-full shadow cursor-pointer hover:bg-gray-100 transition"
                                         ><Camera size={12} /></label>
                                         <input
                                             type="file"
@@ -255,13 +255,13 @@ const UserProfile = () => {
                                     <img
                                         src={canEdit ? tempAvatar ? tempAvatar : `${userData.user.avatar}?v=${Date.now()}` : `${userData.user.avatar}?v=${Date.now()}`}
                                         alt="avatar"
-                                        className="border rounded-full w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] border border-orange-400 shadow-2xl"
+                                        className=" rounded-full w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] border border-orange-400 shadow-2xl"
                                     />
                                 ) : (
                                     <img
                                         src={canEdit ? tempAvatar ? tempAvatar : "/src/assets/dummy-profile-pic.png" : "/src/assets/dummy-profile-pic.png"}
                                         alt="avatar"
-                                        className="border rounded-full w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] border border-orange-400 shadow-2xl"
+                                        className=" rounded-full w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] border border-orange-400 shadow-2xl"
                                     />
                                 )
                             }
@@ -380,7 +380,7 @@ const UserProfile = () => {
                                 <div className="w-[10rem] mt-5">
                                     <label className="mb-1 font-medium">Account Type</label>
                                     <div className="">
-                                        <p className="border border-red-300 w-[4rem] px-[0.3rem] py-[0.1rem] text-center font-small border rounded-full bg-orange-400 text-white text-[0.6rem]">{title(userData.subscription_type)}</p>
+                                        <p className=" border-red-300 w-[4rem] px-[0.3rem] py-[0.1rem] text-center font-small border rounded-full bg-orange-400 text-white text-[0.6rem]">{title(userData.subscription_type)}</p>
                                     </div>
                                 </div>
                             </div>
@@ -395,13 +395,13 @@ const UserProfile = () => {
                         <div className="flex flex-col md:flex-row w-full gap-5 md:gap-0">
                             <div className="flex flex-col w-full md:w-1/2">
                                 <label className="mb-1 font-medium">Last Updated</label>
-                                <div className="border-l-4 border-orange-400 cursor-default bg-gray-200 p-2 rounded-md w-full md:w-[20rem] bg-gray-200">
+                                <div className="border-l-4 border-orange-400 cursor-default  p-2 rounded-md w-full md:w-[20rem] bg-gray-200">
                                     <p className="text-sm">{userData.user?.updated_on || '#No Recent Update'}</p>
                                 </div>
                             </div>
                             <div className="flex flex-col w-full md:w-1/2 cursor-default">
                                 <label className="mb-1 font-medium">Profile ID</label>
-                                <div className="border-l-4 border-orange-400 bg-gray-200 p-2 rounded-md w-full md:w-[20rem] bg-gray-200">
+                                <div className="border-l-4 border-orange-400  p-2 rounded-md w-full md:w-[20rem] bg-gray-200">
                                     <p className="">#{userData.business_owner_uuid || ''}</p>
                                 </div>
                             </div>

@@ -2,10 +2,10 @@ import { Processing } from '../guideSection/assets/index';
 const LandingPage: React.FC = () => {
   return (
     <div className=" ">
-      <h1 className="text-3xl  text-secondary mt-16 text-center">How it works</h1>
+      <h1 className="text-xl md:text-3xl  text-secondary mt-10 md:mt-16 text-center">How it works</h1>
 
-      <div className="flex justify-between mt-20">
-        <div className='mx-20'>
+      <div className="flex justify-between flex-col md:flex-row  items-center mt-10 md:mt-20">
+        <div className='hidden md:block md:mx-20'>
           {' '}
           <img src={Processing} alt="" className="w-[400px] h-[400px]" />{' '}
         </div>

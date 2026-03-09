@@ -12,8 +12,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@fortawesome/fontawesome-svg-core": "^7.0.1",
     "@fortawesome/free-regular-svg-icons": "^7.0.1",
     "@fortawesome/free-solid-svg-icons": "^7.0.1",
@@ -31,6 +31,7 @@
     "axios": "^1.6.8",
     "caniuse-lite": "^1.0.30001715",
     "formik": "^2.4.5",
+    "framer-motion": "^12.35.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.544.0",
     "mapbox-gl": "^2.15.0",

@@ -5,8 +5,8 @@ const ReadyTo: React.FC = () => {
 
   return (
     <div className="mt-24 bg-primary flex w-full justify-between items-center">
-      <div className="w-2/4 text-left ml-12 my-12">
-        <h2 className="text-5xl font-bold">
+      <div className=" w-full md:w-2/4  text-center md:text-left  mx-10 md:ml-12 my-12">
+        <h2 className="text-xl md:text-5xl font-bold">
           Ready to revolutionize your shipping game?
         </h2>
         <p className="text-sm mt-4 mb-4">Trackerr has got you covered.</p>
@@ -15,7 +15,7 @@ const ReadyTo: React.FC = () => {
           Get started
         </button>
       </div>
-      <div className="right-0 absolute text-right">
+      <div className="right-0 absolute text-right hidden md:block">
         <img src={Rocket} alt="" className="w-96 -mt-10 h-[357px]" />
       </div>
     </div>

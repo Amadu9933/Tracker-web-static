@@ -143,7 +143,7 @@ const Dashboard: React.FC = () => {
                 {/* hide text on small screens to save space */}
                 <button
                   onClick={() => navigate('/dashboard/GenerateTrackingID')}
-                  className={`hidden sm:flex flex w-fit px-4 ml-5 py-2 leading-5 font-medium text-[14px] rounded-[6px] cursor-pointer  
+                  className={` sm:flex flex w-fit px-4 ml-5 py-2 leading-5 font-medium text-[14px] rounded-[6px] cursor-pointer  
     ${location.pathname === '/dashboard/GenerateTrackingID'
                       ? 'bg-[#E3E2DC] text-[#ABABAB]'  // Active state
                       : 'bg-primary text-white ml-5 sm:-ml-5'}`}

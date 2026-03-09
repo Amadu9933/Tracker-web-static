@@ -7,7 +7,7 @@ import TopContainer from './TopContainer';
 
 const BusinessOwnerLandingPage: React.FC = () => {
   return (
-    <div className="px-0 mx-0 h-[808px]">
+    <div className=''>
       <ScopedCssBaseline />
       <Container maxWidth="xl" sx={{ padding: '0 !important' }}>
         <div
@@ -18,9 +18,9 @@ const BusinessOwnerLandingPage: React.FC = () => {
             padding: '0px',
           }}
         >
-          <div className="absolute  inset-0 bg-[#B3C3CF33] opacity-20 ml-[30%]  "></div>{' '}
+          <div className=" absolute   inset-0 bg-[#B3C3CF33] opacity-20 ml-[30%]  "></div>{' '}
           {/* Overlay */}
-          <div className="relative w-full h-full">
+          <div className=" relative w-full h-full ">
             <img
               src={smallBox}
               alt="ellipse"
