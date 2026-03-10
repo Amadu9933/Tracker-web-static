@@ -3,24 +3,20 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import CloseIcon from '@mui/icons-material/Close';
 import './Navbar.css';
-
 import { useLocation } from "react-router-dom";
-
 import { logo, profileIcon } from '../../../assets/asset';
+import { motion } from "framer-motion";
 
 const Navbar: React.FC = () => {
-  // State for handling the Menu component
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  // Event handlers for opening and closing the Menu
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -29,13 +25,11 @@ const Navbar: React.FC = () => {
     setAnchorEl(null);
   };
 
-  // Styles for links
   const linkStyles = {
     color: '#B1B2B2',
     textDecoration: 'none',
   };
 
-  // Menu items data
   const menuItems = [
     { label: 'Track my parcel', link: '/' },
     { label: 'Ship', link: '/Ship' },
@@ -44,19 +38,19 @@ const Navbar: React.FC = () => {
     { label: 'Need help ?', link: '/NeedHelp' },
   ];
 
-
-
   const location = useLocation();
 
-  // Hide Navbar on Dashboard pages
   if (location.pathname.startsWith("/dashboard")) {
     return null;
   }
 
-
   return (
-    <div className="px-7">
-      {/* Top-level container for the entire Navigation bar */}
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="px-0 md:px-7"
+    >
       <AppBar
         position="static"
         sx={{
@@ -65,18 +59,20 @@ const Navbar: React.FC = () => {
           boxShadow: 'none',
         }}
       >
-        {/* Toolbar containing various sections */}
         <Toolbar sx={{ justifyContent: 'space-between' }}>
-          {/* Logo section */}
-          <div
-            style={{
-              flexGrow: 1,
-            }}
+
+          {/* Logo — desktop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            style={{ flexGrow: 1 }}
             className="hidden md:flex"
           >
             <img src={logo} alt="Logo" className="nav-logo" />
-          </div>
-          {/* Navigation links section */}
+          </motion.div>
+
+          {/* Nav links — desktop */}
           <Box
             sx={{
               display: { xs: 'none', md: 'flex', lg: 'flex' },
@@ -86,54 +82,58 @@ const Navbar: React.FC = () => {
             }}
           >
             {menuItems.map((item, index) => (
-
-              <NavLink
-                className="Navbar"
+              <motion.div
                 key={index}
-                to={item.link}
-                style={{
-                  color: '#B1B2B2',
-                  marginLeft: '2rem',
-                }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 + index * 0.08, duration: 0.4 }}
               >
-                {item.label}
-              </NavLink>
-
-            ))}
-            {/*user  Profile section */}
-            <Box
-              sx={{
-                marginLeft: '2rem',
-                display: 'flex',
-                border: '1px solid #B1B2B2',
-                borderRadius: '5px',
-                height: '40px',
-                justifyContent: 'space-between',
-                padding: '9px',
-              }}
-            >
-              <div className="flex h-8 9">
-                <img
-                  src={profileIcon}
-                  alt="profile-icon"
-                  style={{ height: '20px', width: '20px' }}
-                />
                 <NavLink
                   className="Navbar"
-                  style={{
-                    color: '#B1B2B2',
-                    marginLeft: '10px',
-                    marginTop: '-3px',
-                    height: '20px',
-                  }}
-                  to="/Login"
+                  to={item.link}
+                  style={{ color: '#B1B2B2', marginLeft: '2rem' }}
                 >
-                  Login
+                  {item.label}
                 </NavLink>
-              </div>
-            </Box>
+              </motion.div>
+            ))}
+
+            {/* Login button */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + menuItems.length * 0.08, duration: 0.4 }}
+            >
+              <Box
+                sx={{
+                  marginLeft: '2rem',
+                  display: 'flex',
+                  border: '1px solid #B1B2B2',
+                  borderRadius: '5px',
+                  height: '40px',
+                  justifyContent: 'space-between',
+                  padding: '9px',
+                }}
+              >
+                <div className="flex h-8">
+                  <img
+                    src={profileIcon}
+                    alt="profile-icon"
+                    style={{ height: '20px', width: '20px' }}
+                  />
+                  <NavLink
+                    className="Navbar"
+                    style={{ color: '#B1B2B2', marginLeft: '10px', marginTop: '-3px', height: '20px' }}
+                    to="/Login"
+                  >
+                    Login
+                  </NavLink>
+                </div>
+              </Box>
+            </motion.div>
           </Box>
-          {/* Logo for small and medium screens*/}
+
+          {/* Logo — mobile */}
           <IconButton
             size="large"
             edge="end"
@@ -145,7 +145,8 @@ const Navbar: React.FC = () => {
           >
             <img src={logo} alt="Logo" className="nav-logo" />
           </IconButton>
-          {/* Mobile menu for small screens */}
+
+          {/* Mobile menu */}
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               id="demo-positioned-button"
@@ -156,7 +157,6 @@ const Navbar: React.FC = () => {
             >
               <MenuIcon />
             </IconButton>
-            {/* Mobile menu content */}
             <Menu
               id="demo-positioned-menu"
               aria-labelledby="demo-positioned-button"
@@ -166,7 +166,6 @@ const Navbar: React.FC = () => {
               anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
               transformOrigin={{ vertical: 'top', horizontal: 'left' }}
             >
-              {/* Menu list */}
               <MenuItem onClick={handleClose}>
                 <CloseIcon />
               </MenuItem>
@@ -195,11 +194,7 @@ const Navbar: React.FC = () => {
                   />
                   <NavLink
                     className="Navbar"
-                    style={{
-                      ...linkStyles,
-                      marginLeft: '0.625rem',
-                      height: '40px',
-                    }}
+                    style={{ ...linkStyles, marginLeft: '0.625rem', height: '40px' }}
                     to="/Login"
                   >
                     Login
@@ -208,9 +203,10 @@ const Navbar: React.FC = () => {
               </MenuItem>
             </Menu>
           </Box>
+
         </Toolbar>
       </AppBar>
-    </div>
+    </motion.div>
   );
 };
 

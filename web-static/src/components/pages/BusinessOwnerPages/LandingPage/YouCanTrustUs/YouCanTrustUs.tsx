@@ -1,51 +1,89 @@
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { avatar } from '../guideSection/assets/index';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { avatar } from "../guideSection/assets/index";
+import { motion } from "framer-motion";
 
 const YouCanTrustUs: React.FC = () => {
   return (
-    <div className="bg-[#FFF8EF] flex justify-center items-center min-h-screen">
-      <div className="w-[40%] text-center">
-        <h2 className="text-3xl font-medium text-secondary pt-24 pb-7">
-          You can trust us
-        </h2>
-        <p className="text-[#8E8A73] text-sm font-inter font-medium mb-16 ">
-          Dont take our word for it. Hear from happy users who have used <br />
-          Trackerr to transform their shipping experiennce.
-        </p>
+    <div className="bg-[#FFF8EF] flex justify-center items-center py-16 px-4 md:px-8">
+      <div className="w-full max-w-3xl text-center">
 
-        <div className="border-2 border-[#8E9090] border-solid rounded-lg p-6 flex flex-col justify-center items-center">
-          <div className="flex justify-center items-center mb-8">
+        {/* Heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-2xl md:text-3xl font-medium text-secondary pt-10 md:pt-16 pb-5"
+        >
+          You can trust us
+        </motion.h2>
+
+        {/* Paragraph */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-[#8E8A73] text-sm md:text-base font-inter font-medium mb-10 md:mb-14"
+        >
+          Dont take our word for it. Hear from happy users who have used
+          Trackerr to transform their shipping experience.
+        </motion.p>
+
+        {/* Testimonial Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 60, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          whileHover={{ scale: 1.02 }}
+          className="border-2 border-[#8E9090] rounded-lg p-6 md:p-8 flex flex-col justify-center items-center bg-white shadow-sm"
+        >
+          <div className="flex justify-center items-center mb-6">
             <img
               src={avatar}
               alt="Avatar"
-              className="rounded-full h-[100px] w-[100px]"
+              className="rounded-full h-[80px] w-[80px] md:h-[100px] md:w-[100px]"
             />
           </div>
-          <p className="text-sm font-normal text-secondary text-center">
+
+          <p className="text-sm md:text-base font-normal text-secondary text-center leading-relaxed">
             "I can't express enough how our business has transformed since I
             started using Trackerr. It's been a game-changer in every
-            aspect. The seamless process of generating ID for my
+            aspect. The seamless process of generating IDs for my
             customers and connecting with dispatchers to deliver in
             real-time is on a 100%."
           </p>
-        </div>
-        <div className="flex justify-center py-12 items-center">
-          <div className="border-b-2 border-b-primary pb-1  border-solid ">
-            <a href="" className="text-primary  text-sm font-medium">
+        </motion.div>
+
+        {/* View All */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          viewport={{ once: true }}
+          className="flex justify-center py-10 items-center"
+        >
+          <motion.div
+            whileHover={{ x: 5 }}
+            className="border-b-2 border-b-primary pb-1"
+          >
+            <a href="" className="text-primary text-sm font-medium">
               View All
             </a>
+
             <ArrowForwardIcon
               sx={{
-                color: '#FF833C',
-                height: '20px',
-                width: '30px',
-
-                marginRight: '-12px',
-                marginLeft: '8px',
+                color: "#FF833C",
+                height: "20px",
+                width: "30px",
+                marginRight: "-12px",
+                marginLeft: "8px",
               }}
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
+
       </div>
     </div>
   );

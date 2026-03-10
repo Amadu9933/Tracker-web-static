@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import WomanTracking from './Woman tracking parcel on mobile.png'
+import trackingMan from './trackingMan.png'
 import { motion } from "framer-motion";
 
 const TopContainer: React.FC = () => {
@@ -54,7 +54,7 @@ const TopContainer: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="flex justify-center md:justify-start mt-12"
+              className="flex justify-center md:justify-start mt-12 md:hidden "
             >
               <motion.div
                 animate={{ y: [0, -10, 0] }}
@@ -75,10 +75,10 @@ const TopContainer: React.FC = () => {
     "
               >
                 <img
-                  src={WomanTracking}
-                  alt="Woman tracking parcel on mobile"
+                  src={trackingMan}
+                  alt="man  tracking parcel on mobile"
                   loading="lazy"
-                  className="w-64 rounded-2xl bg-white"
+                  className="w-64  h-60  rounded-2xl bg-white"
                 />
               </motion.div>
             </motion.div>

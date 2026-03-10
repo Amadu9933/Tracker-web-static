@@ -11,7 +11,7 @@ import Footer from '@common/footer/Footer';
 const LandingPage: React.FC = () => {
   return (
     <div className="">
-      <div className="  h-[750px] md:h-[650px] max-w-md mx-auto  text-white text-center  sm:p-3 md:p-4 lg:p-5  ">
+      <div className="  w-full min-h-[750px] ">
         {' '}
         <Hero />
       </div>
