@@ -5,85 +5,85 @@ import axios from "axios";
 import { ArrowBack } from "../auth/assets/Assets";
 import CongratulationsAlert from "./CongratulationsAlert";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
+
+const inputClass = "w-full p-2.5 sm:p-3 text-sm border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary focus:outline-none";
+const labelClass = "block text-sm sm:text-base font-medium mb-1";
+const errorClass = "text-red-500 text-xs mt-1";
+
+const fields = [
+    { name: "shippingAddress", label: "Shipping Address", type: "text" },
+    { name: "name", label: "Customer Name", type: "text" },
+    { name: "email", label: "Customer Email", type: "email" },
+    { name: "phone", label: "Phone Number", type: "text" },
+    { name: "productName", label: "Product Name", type: "text" },
+    { name: "numberOfProducts", label: "Number of Products", type: "number" },
+    { name: "estimatedDeliveryDate", label: "Estimated Delivery Date", type: "date" },
+    { name: "country", label: "Country", type: "text" },
+];
 
 const GenerateTrackingID = () => {
     const [trackingID, setTrackingID] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [showModal, setShowModal] = useState<boolean>(false); // Controls modal visibility
+    const [showModal, setShowModal] = useState<boolean>(false);
 
     const token = localStorage.getItem('access');
     const navigate = useNavigate();
 
-    // ✅ Validation Schema
     const validationSchema = Yup.object({
         shippingAddress: Yup.string().required("Shipping address is required"),
         country: Yup.string().required("Country is required"),
         email: Yup.string().email("Invalid email").required("Email is required"),
         name: Yup.string().required("Name is required"),
-        phone: Yup.string()
-            .matches(/^\d{10,11}$/, "Invalid phone number")
-            .required("Phone number is required"),
+        phone: Yup.string().matches(/^\d{10,11}$/, "Invalid phone number").required("Phone number is required"),
         productName: Yup.string().required("Product name is required"),
-        numberOfProducts: Yup.number()
-            .min(1, "At least 1 product required")
-            .required("Number of products is required"),
+        numberOfProducts: Yup.number().min(1, "At least 1 product required").required("Number of products is required"),
         estimatedDeliveryDate: Yup.date().required("Delivery date is required"),
     });
 
-    // ✅ Formik Hook
     const formik = useFormik({
         initialValues: {
-            shippingAddress: "",
-            country: "",
-            name: "",
-            email: "",
-            phone: "",
-            productName: "",
-            numberOfProducts: "",
-            estimatedDeliveryDate: "",
+            shippingAddress: "", country: "", name: "", email: "",
+            phone: "", productName: "", numberOfProducts: "", estimatedDeliveryDate: "",
         },
         validationSchema,
         onSubmit: async (values) => {
-            if (loading) return; // ✅ Prevent multiple submits
-
+            if (loading) return;
             setLoading(true);
             setError(null);
-            setTrackingID(null); // Reset previous tracking ID
-            console.log(values)
-            const requestData = {
-                shipping_address: values.shippingAddress,
-                country: values.country,
-                product: values.productName,
-                customer_email: values.email,
-                customer_name: values.name,
-                quantity: values.numberOfProducts.toString(),
-                delivery_date: values.estimatedDeliveryDate,
-                phone: values.phone
-            };
+            setTrackingID(null);
 
             try {
                 const response = await axios.post(
                     `${TRACKERR_HOST}/trackings/generate-tracking/`,
-                    requestData,
+                    {
+                        shipping_address: values.shippingAddress,
+                        country: values.country,
+                        product: values.productName,
+                        customer_email: values.email,
+                        customer_name: values.name,
+                        quantity: values.numberOfProducts.toString(),
+                        delivery_date: values.estimatedDeliveryDate,
+                        phone: values.phone,
+                    },
                     {
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`, // ✅ Corrected Bearer token
+                            Authorization: `Bearer ${token}`,
                         },
                     }
                 );
-
-                setTrackingID(response.data.parcel_number); // ✅ Set generated tracking ID
-                setShowModal(true); // ✅ Show modal
+                setTrackingID(response.data.parcel_number);
+                setShowModal(true);
             } catch (error: unknown) {
-                if (axios.isAxiosError(error)) {
-                    setError(error.response?.data?.detail || "Failed to generate tracking ID");
-                } else {
-                    setError('An unexpected error occurred');
-                }
+                setError(
+                    axios.isAxiosError(error)
+                        ? error.response?.data?.detail || "Failed to generate tracking ID"
+                        : "An unexpected error occurred"
+                );
             } finally {
                 setLoading(false);
             }
@@ -91,161 +91,102 @@ const GenerateTrackingID = () => {
     });
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-white text-left text-[#48463A]">
-            <h2 className="text-xl text-secondary font-semibold mb-4">
-                <img src={ArrowBack} alt="Back icon" className="inline mr-2 h-6" />
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 bg-white text-left text-[#48463A]"
+        >
+            {/* Header */}
+            <motion.h2
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1, duration: 0.5 }}
+                className="text-lg sm:text-xl text-secondary font-semibold mb-4 flex items-center gap-2"
+            >
+                <img src={ArrowBack} alt="Back icon" className="h-5 sm:h-6 cursor-pointer" />
                 Generate Tracking I.D
-            </h2>
+            </motion.h2>
 
-            <p className="text-xs text-[#ABABAB] my-10 font-semibold">Customer details</p>
+            <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-xs text-[#ABABAB] my-6 sm:my-10 font-semibold uppercase tracking-wide"
+            >
+                Customer details
+            </motion.p>
 
             {/* Form */}
-            <form onSubmit={formik.handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/** Shipping Address */}
-                    <div>
-                        <label className="block font-medium">Shipping Address</label>
-                        <input
-                            type="text"
-                            name="shippingAddress"
-                            value={formik.values.shippingAddress}
-                            onChange={formik.handleChange}
-                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
-                        />
-                        {formik.touched.shippingAddress && formik.errors.shippingAddress && (
-                            <p className="text-red-500">{formik.errors.shippingAddress}</p>
-                        )}
-                    </div>
-
-                    {/** Country */}
-                    <div>
-                        <label className="block font-medium">Customer Name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
-                        />
-                        {formik.touched.name && formik.errors.name && (
-                            <p className="text-red-500">{formik.errors.name}</p>
-                        )}
-                    </div>
-
-                    {/** Customer Email */}
-                    <div>
-                        <label className="block font-medium">Customer Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
-                        />
-                        {formik.touched.email && formik.errors.email && (
-                            <p className="text-red-500">{formik.errors.email}</p>
-                        )}
-                    </div>
-
-                    {/** Phone Number */}
-                    <div>
-                        <label className="block font-medium">Phone Number</label>
-                        <input
-                            type="text"
-                            name="phone"
-                            value={formik.values.phone}
-                            onChange={formik.handleChange}
-                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
-                        />
-                        {formik.touched.phone && formik.errors.phone && (
-                            <p className="text-red-500">{formik.errors.phone}</p>
-                        )}
-                    </div>
-
-                    {/** Product Name */}
-                    <div>
-                        <label className="block font-medium">Product Name</label>
-                        <input
-                            type="text"
-                            name="productName"
-                            value={formik.values.productName}
-                            onChange={formik.handleChange}
-                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
-                        />
-                        {formik.touched.productName && formik.errors.productName && (
-                            <p className="text-red-500">{formik.errors.productName}</p>
-                        )}
-                    </div>
-
-                    {/** Number of Products */}
-                    <div>
-                        <label className="block font-medium">Number of Products</label>
-                        <input
-                            type="number"
-                            name="numberOfProducts"
-                            value={formik.values.numberOfProducts}
-                            onChange={formik.handleChange}
-                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
-                        />
-                        {formik.touched.numberOfProducts && formik.errors.numberOfProducts && (
-                            <p className="text-red-500">{formik.errors.numberOfProducts}</p>
-                        )}
-                    </div>
-
-                    {/** Estimated Delivery Date */}
-                    <div className="">
-                        <label className="block font-medium">Estimated Delivery Date</label>
-                        <input
-                            type="date"
-                            name="estimatedDeliveryDate"
-                            value={formik.values.estimatedDeliveryDate}
-                            onChange={formik.handleChange}
-                            className="w-[92%] p-3 border border-black rounded-md  placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
-                        />
-                        {formik.touched.estimatedDeliveryDate && formik.errors.estimatedDeliveryDate && (
-                            <p className="text-red-500">{formik.errors.estimatedDeliveryDate}</p>
-                        )}
-                    </div>
-
-                    {/** Country */}
-                    <div>
-                        <label className="block font-medium">Country</label>
-                        <input
-                            type="country"
-                            name="country"
-                            value={formik.values.country}
-                            onChange={formik.handleChange}
-                            className="w-full p-3 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
-                        />
-                        {formik.touched.country && formik.errors.country && (
-                            <p className="text-red-500">{formik.errors.country}</p>
-                        )}
-                    </div>
+            <form onSubmit={formik.handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    {fields.map(({ name, label, type }, index) => (
+                        <motion.div
+                            key={name}
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 + index * 0.06, duration: 0.4 }}
+                        >
+                            <label className={labelClass}>{label}</label>
+                            <input
+                                type={type}
+                                name={name}
+                                value={formik.values[name as keyof typeof formik.values]}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                className={inputClass}
+                            />
+                            {formik.touched[name as keyof typeof formik.touched] &&
+                                formik.errors[name as keyof typeof formik.errors] && (
+                                    <p className={errorClass}>
+                                        {formik.errors[name as keyof typeof formik.errors] as string}
+                                    </p>
+                                )}
+                        </motion.div>
+                    ))}
                 </div>
 
-                {/* Submit Button */}
-                <div className="flex justify-center mt-6">
-                    <button
+                {/* Submit */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.7 }}
+                    className="flex justify-center mt-6"
+                >
+                    <motion.button
+                        whileHover={{ scale: loading ? 1 : 1.02 }}
+                        whileTap={{ scale: loading ? 1 : 0.98 }}
                         type="submit"
-                        className={`bg-primary text-white p-2 rounded font-semibold w-full sm:w-1/2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         disabled={loading}
+                        className={`bg-primary text-white py-2.5 px-6 rounded font-semibold text-sm sm:text-base w-full sm:w-1/2 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                         {loading ? "Generating..." : "Generate Tracking ID"}
-                    </button>
-                </div>
+                    </motion.button>
+                </motion.div>
             </form>
+
+            {/* Error */}
+            {error && (
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mt-4 text-red-500 text-xs sm:text-sm text-center"
+                >
+                    {error}
+                </motion.p>
+            )}
 
             {/* Modal */}
             {showModal && trackingID && (
-                <CongratulationsAlert trackingID={trackingID} onClose={() => {
-                    setShowModal(false);
-                    navigate(`/dashboard/trackings/${trackingID}`, { state: { parcel_number: trackingID } })
-                }} />
+                <CongratulationsAlert
+                    trackingID={trackingID}
+                    onClose={() => {
+                        setShowModal(false);
+                        navigate(`/dashboard/trackings/${trackingID}`, { state: { parcel_number: trackingID } });
+                    }}
+                />
             )}
-
-            {/* Display Error */}
-            {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
-        </div>
+        </motion.div>
     );
 };
 
