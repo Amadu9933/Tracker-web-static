@@ -4,8 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
 import { useFormContext } from '../../../../../../context/CreateAccountFormContext';
-import { IconButton } from '@mui/material'; // Import Material-UI components
-import { Visibility, VisibilityOff } from '@mui/icons-material'; // Import Material-UI icons
+import { IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { motion } from 'framer-motion';
 
 type PersonalInfoFormData = {
   name: string;
@@ -15,100 +16,106 @@ type PersonalInfoFormData = {
 };
 
 const schema = yup.object({
-  name: yup
-    .string()
-    .required('Name is required')
-    .min(2, 'Name must be at least 2 characters'),
+  name: yup.string().required('Name is required').min(2, 'Name must be at least 2 characters'),
   email: yup.string().email('Invalid email').required('Email is required'),
-  phone: yup
-    .string()
-    .required('Phone number is required')
-    .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 characters'),
+  phone: yup.string().required('Phone number is required').matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
+  password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
 });
 
 const PersonalInfoForm: React.FC = () => {
   const { updateFormData } = useFormContext();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<PersonalInfoFormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<PersonalInfoFormData>({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (data: PersonalInfoFormData) => {
-    updateFormData(data); // Save name and other details in context
-    navigate('/business-info'); // Navigate to the next step
+    updateFormData(data);
+    navigate('/business-info');
   };
 
-  // State for toggling password visibility
-  const [showPassword, setShowPassword] = useState(false);
-
-  // Function to toggle password visibility
-  const handleTogglePassword = () => {
-    setShowPassword((prev) => !prev);
-  };
+  const fields = [
+    {
+      id: 'name',
+      label: 'Name',
+      type: 'text',
+      placeholder: 'Enter your name',
+      borderColor: 'border-red-600',
+      delay: 0.2,
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      type: 'email',
+      placeholder: 'Enter your email',
+      borderColor: 'border-black',
+      delay: 0.3,
+    },
+    {
+      id: 'phone',
+      label: 'Phone',
+      type: 'text',
+      placeholder: '+233540985004',
+      borderColor: 'border-gray-300',
+      delay: 0.4,
+    },
+  ];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className='flex flex-col sm:flex-row justify-between mb-10 gap-2'>
-        <p className='font-medium text-base sm:text-lg'>Personal Information</p>
-        <p className='text-[#82826A] font-medium text-sm'>Step 1 of 3</p>
-      </div>
-      {/* Name Field */}
-      <div className="space-y-2">
-        <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-secondary">
-          Name
-        </label>
-        <input
-          id="name"
-          type="text"
-          placeholder="Enter your name"
-          {...register('name')}
-          className="w-full p-2 sm:p-3 text-sm border border-red-600 rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
-        />
-        {errors.name && <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.name.message}</p>}
-      </div>
+    <motion.form
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-4 w-full"
+    >
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+        className="flex flex-col sm:flex-row justify-between mb-8 sm:mb-10 gap-1 sm:gap-2"
+      >
+        <p className="font-medium text-base sm:text-lg">Personal Information</p>
+        <p className="text-[#82826A] font-medium text-xs sm:text-sm">Step 1 of 3</p>
+      </motion.div>
 
-      {/* Email Field */}
-      <div className="space-y-2">
-        <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">
-          Email
-        </label>
-        <input
-          id="email"
-          type="email"
-          placeholder="Enter your email"
-          {...register('email')}
-          className="w-full p-2 sm:p-3 text-sm border border-black rounded-md placeholder:text-[#A3A38E]"
-        />
-        {errors.email && <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email.message}</p>}
-      </div>
+      {/* Name, Email, Phone fields */}
+      {fields.map(({ id, label, type, placeholder, borderColor, delay }) => (
+        <motion.div
+          key={id}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay, duration: 0.5 }}
+          className="space-y-1"
+        >
+          <label htmlFor={id} className="block text-xs sm:text-sm font-medium text-gray-700">
+            {label}
+          </label>
+          <input
+            id={id}
+            type={type}
+            placeholder={placeholder}
+            {...register(id as keyof PersonalInfoFormData)}
+            className={`w-full p-2 sm:p-3 text-sm border ${borderColor} rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary`}
+          />
+          {errors[id as keyof PersonalInfoFormData] && (
+            <p className="text-red-500 text-xs sm:text-sm mt-1">
+              {errors[id as keyof PersonalInfoFormData]?.message}
+            </p>
+          )}
+        </motion.div>
+      ))}
 
-
-      {/* Phone Field */}
-      <div className="space-y-2">
-        <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
-          Phone
-        </label>
-        <input
-          id="phone"
-          type="text"
-          placeholder="+233540985004"
-          {...register('phone')}
-          className="w-full p-2 sm:p-3 text-sm border border-gray-300 rounded-md placeholder:text-[#A3A38E]"
-        />
-        {errors.phone && <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.phone.message}</p>}
-      </div>
-
-      {/* Password Field */}
-      <div className="space-y-2">
+      {/* Password field */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+        className="space-y-1"
+      >
         <label htmlFor="password" className="block text-xs sm:text-sm font-medium text-gray-700">
           Password
         </label>
@@ -122,41 +129,58 @@ const PersonalInfoForm: React.FC = () => {
           />
           <div className="absolute inset-y-0 right-0 pr-2 sm:pr-3 flex items-center">
             <IconButton
-              onClick={handleTogglePassword}
+              onClick={() => setShowPassword(prev => !prev)}
               edge="end"
-              className="p-0"
               style={{ padding: 0, margin: 0 }}
             >
-              {showPassword ? (
-                <VisibilityOff className="h-5 w-5 text-gray-500" />
-              ) : (
-                <Visibility className="h-5 w-5 text-gray-500" />
-              )}
+              {showPassword
+                ? <VisibilityOff className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+                : <Visibility className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+              }
             </IconButton>
           </div>
         </div>
-        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
-      </div>
-      <p className='text-secondary text-sm pb-8'>Password MUST contain at least one uppercase, one lowercase, one number</p>
-      {/* Submit Button */}
-      <button
-        type="submit"
+        {errors.password && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.password.message}</p>
+        )}
+      </motion.div>
 
-        className="w-full bg-primary text-white p-2 rounded-md hover:bg-primary-dark transition-colors"
+      {/* Password hint */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+        className="text-secondary text-xs sm:text-sm pb-4 sm:pb-8"
+      >
+        Password MUST contain at least one uppercase, one lowercase, one number
+      </motion.p>
+
+      {/* Submit */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7 }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        type="submit"
+        className="w-full bg-primary text-white py-2.5 px-4 rounded-md text-sm sm:text-base hover:bg-primary-dark transition-colors"
       >
         Continue
-      </button>
+      </motion.button>
 
-      {/* Sign In Link */}
-      <div className="text-center mt-8  font-[16px] pb-20" >
-        <span className="">
-          Already have an account?{' '}
-          <Link to="/Login" className="text-primary ">
-            Sign in
-          </Link>
-        </span>
-      </div>
-    </form>
+      {/* Footer */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="text-center mt-6 pb-16 sm:pb-20 text-sm sm:text-base"
+      >
+        Already have an account?{' '}
+        <Link to="/Login" className="text-primary hover:underline">
+          Sign in
+        </Link>
+      </motion.div>
+    </motion.form>
   );
 };
 

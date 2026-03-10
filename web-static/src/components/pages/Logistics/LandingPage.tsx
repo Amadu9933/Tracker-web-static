@@ -34,7 +34,7 @@ const LogisticSolution: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-white mb-5 md:mb-10  sm:text-lg text-base md:text-lg"
+              className="text-white mb-5 md:mb-10  sm:text-lg text-sm md:text-lg"
             >
               <p>Earn more money and reach more business owners in</p>
               <p>need of your services by partnering with Trackerr</p>

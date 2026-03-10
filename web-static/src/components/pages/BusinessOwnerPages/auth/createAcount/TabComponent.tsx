@@ -1,9 +1,10 @@
-// src/components/BusinessTabComponent.tsx
 import React, { useState } from 'react';
 import TabSelector from './TabSelector';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { createAccont } from '../assets/Assets';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
 interface BusinessTabComponentProps {
   initialTab?: string;
   renderTabContent: (selectedTab: string) => React.ReactNode;
@@ -17,36 +18,57 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div className="flex bg-white flex-col md:flex-row h-screen">
-      {/* Left Image Section */}
-      <div className="hidden md:block md:w-1/2 h-1/2 md:h-[900px] bg-cover bg-white bg-center">
+    <div className="flex bg-white flex-col md:flex-row min-h-screen">
+
+      {/* Left image */}
+      <motion.div
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        className="hidden md:block md:w-1/2 h-full"
+      >
         <img
           src={createAccont}
           alt="Create Account"
-          className="-ml-16 w-full h-full object-cover"
+          className="w-full h-full object-cover"
         />
-      </div>
+      </motion.div>
 
-      {/* Right Form Section */}
-      <div className="w-full mt-20 sm:mt-40 md:mt-80 md:w-1/2 bg-white pt-8 sm:pt-16 md:pt-20 p-4 sm:p-6 md:p-12 rounded-lg flex flex-col justify-center">
-        {/* Title Section */}
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 flex items-center mb-6">
-            <div onClick={() => { navigate(-1) }}><ArrowBackIcon className="mr-3" /></div>
-            Create Account
-          </h1>
+      {/* Right form panel */}
+      <div className="w-full md:w-1/2 flex flex-col justify-center bg-white px-6 sm:px-10 md:px-12 lg:px-16 py-16 md:py-20">
 
-        </div>
+        {/* Heading */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="text-2xl sm:text-3xl font-bold text-gray-700 flex items-center gap-2 mb-6"
+        >
+          <span onClick={() => navigate(-1)} className="cursor-pointer hover:opacity-70 transition">
+            <ArrowBackIcon />
+          </span>
+          Create Account
+        </motion.h1>
 
-        {/* Tab Selector */}
-        <TabSelector selectedTab={selectedTab} onTabChange={setSelectedTab} />
+        {/* Tab selector */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          <TabSelector selectedTab={selectedTab} onTabChange={setSelectedTab} />
+        </motion.div>
 
-
-
-        {/* Tab Content */}
-        <div className="text-left mt-6 mr-20">
+        {/* Tab content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="text-left mt-6 w-full max-w-md"
+        >
           {renderTabContent(selectedTab)}
-        </div>
+        </motion.div>
+
       </div>
     </div>
   );
