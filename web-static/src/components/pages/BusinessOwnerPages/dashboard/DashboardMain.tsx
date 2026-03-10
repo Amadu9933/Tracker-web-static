@@ -45,7 +45,7 @@ const DashboardMain = () => {
         <div className="w-full md:flex-1 md:h-[300px] h-64">
           <ParcelChart />
         </div>
-        <div className="w-full md:flex-1 flex justify-center md:justify-end">
+        <div className="w-full md:-mt-10  md:flex-1 flex justify-center md:justify-end">
           <CreateWallet />
         </div>
       </div>

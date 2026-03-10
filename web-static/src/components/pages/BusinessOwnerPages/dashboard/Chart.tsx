@@ -8,40 +8,30 @@ import {
   Line,
 } from 'recharts';
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-
-const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
+import { motion } from 'framer-motion';
 import axios from 'axios';
 
+const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
-// ---------- Types ----------
 interface DataPoint {
   day: string;
   orders: number;
 }
 
-// ---------- Main Component ----------
 const ParcelChart: React.FC = () => {
   const [filter, setFilter] = useState<'last7Days' | 'monthly'>('last7Days');
   const [chartData, setChartData] = useState<DataPoint[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // ---------- API Endpoints ----------
   const API_ENDPOINTS = {
     last7Days: `${TRACKERR_HOST}/trackings/charts/weekly/`,
     monthly: `${TRACKERR_HOST}/trackings/charts/monthly/`,
   };
 
-  // ---------- Transform API Response to Recharts Data ----------
+  const transformChartData = (dataObj: Record<string, number>): DataPoint[] =>
+    Object.entries(dataObj).map(([day, orders]) => ({ day, orders }));
 
-  const transformChartData = (dataObj: Record<string, number>): DataPoint[] => {
-    return Object.entries(dataObj).map(([day, orders]) => ({
-      day, // 'Mon', 'Tue', etc.
-      orders, // Number of orders
-    }));
-  };
-
-  // ---------- Fetch Data Function ----------
   const fetchChartData = async (key: keyof typeof API_ENDPOINTS) => {
     setLoading(true);
     setError(null);
@@ -53,7 +43,6 @@ const ParcelChart: React.FC = () => {
       return;
     }
 
-    // --- Offline cache logic ---
     const cacheKey = `chartData:${key}`;
     const cached = localStorage.getItem(cacheKey);
     if (!navigator.onLine && cached) {
@@ -64,23 +53,14 @@ const ParcelChart: React.FC = () => {
 
     try {
       const response = await axios.get(API_ENDPOINTS[key], {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Accept: 'application/json', Authorization: `Bearer ${token}` },
       });
-
-      console.log(`Fetched ${key} data:`, response.data);
-      const transformedData = transformChartData(response.data); // ✅ Transform data
+      const transformedData = transformChartData(response.data);
       setChartData(transformedData);
-      // Cache the transformed data
       localStorage.setItem(cacheKey, JSON.stringify(transformedData));
     } catch (err: any) {
-      console.error(`Error fetching ${key} data:`, err);
-      // If fetch fails and cached data exists, use cached
       if (cached) {
         setChartData(JSON.parse(cached));
-        setError(null);
       } else {
         setError('Failed to load chart data.');
       }
@@ -89,42 +69,75 @@ const ParcelChart: React.FC = () => {
     }
   };
 
-  // ---------- Fetch on Filter Change ----------
   useEffect(() => {
     fetchChartData(filter);
   }, [filter]);
 
-  // ---------- Handle Filter Change ----------
   const handleFilterChange = (event: SelectChangeEvent<'last7Days' | 'monthly'>) => {
     setFilter(event.target.value as typeof filter);
   };
 
-  // ---------- Render ----------
   return (
-    <div className="h-full flex flex-col bg-white rounded text-secondary p-4">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="h-full flex flex-col bg-white rounded-xl text-secondary p-3 sm:p-4"
+    >
       {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-base font-semibold">Activity Chart</h2>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="flex justify-between items-center mb-4"
+      >
+        <h2 className="text-sm sm:text-base font-semibold">Activity Chart</h2>
         <FormControl variant="outlined" size="small">
-          <Select value={filter} onChange={handleFilterChange}>
+          <Select
+            value={filter}
+            onChange={handleFilterChange}
+            sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
+          >
             <MenuItem value="last7Days">Last 7 Days</MenuItem>
             <MenuItem value="monthly">Monthly</MenuItem>
           </Select>
         </FormControl>
-      </div>
+      </motion.div>
 
-      {/* Loading and Error Handling */}
-      {error && <p className="text-red-500 text-center">{error}</p>}
-      {loading && <p className="text-center">Loading chart...</p>}
+      {/* Error */}
+      {error && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-red-500 text-xs sm:text-sm text-center"
+        >
+          {error}
+        </motion.p>
+      )}
+
+      {/* Loading */}
+      {loading && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-xs sm:text-sm text-center text-gray-500"
+        >
+          Loading chart...
+        </motion.p>
+      )}
 
       {/* Chart */}
       {!loading && !error && chartData.length > 0 && (
-        <div className="flex-grow">
+        <motion.div
+          initial={{ opacity: 0, scaleY: 0.95 }}
+          animate={{ opacity: 1, scaleY: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="flex-grow min-h-[180px] sm:min-h-[220px]"
+        >
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
               data={chartData}
-              // margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-              margin={{ top: 10, right: 37, left: 37, bottom: 0 }}
+              margin={{ top: 10, right: 16, left: 0, bottom: 0 }}
             >
               <defs>
                 <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
@@ -132,8 +145,14 @@ const ParcelChart: React.FC = () => {
                   <stop offset="95%" stopColor="#FEFEFE" stopOpacity={0.2} />
                 </linearGradient>
               </defs>
-              <XAxis dataKey="day" interval={0} />
-              <Tooltip />
+              <XAxis
+                dataKey="day"
+                interval={0}
+                tick={{ fontSize: 11 }}
+              />
+              <Tooltip
+                contentStyle={{ fontSize: '0.75rem' }}
+              />
               <Area
                 type="monotone"
                 dataKey="orders"
@@ -144,14 +163,21 @@ const ParcelChart: React.FC = () => {
               <Line type="monotone" dataKey="orders" stroke="#1e90ff" />
             </AreaChart>
           </ResponsiveContainer>
-        </div>
+        </motion.div>
       )}
 
-      {/* No Data */}
+      {/* No data */}
       {!loading && !error && chartData.length === 0 && (
-        <p className="text-center text-gray-500">No data available.</p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="text-center text-xs sm:text-sm text-gray-500"
+        >
+          No data available.
+        </motion.p>
       )}
-    </div>
+    </motion.div>
   );
 };
 
