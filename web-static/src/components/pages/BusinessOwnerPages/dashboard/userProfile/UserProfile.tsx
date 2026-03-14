@@ -320,7 +320,7 @@ const UserProfile = () => {
                                             }
                                             {
                                                 userData.user?.country?.toLowerCase() === 'ghana' && (
-                                                    <p className=""> {`+234-${userData?.user?.phone_number}`}</p>
+                                                    <p className=""> {`+233-${userData?.user?.phone_number}`}</p>
                                                 )
                                             }
                                         </div>
