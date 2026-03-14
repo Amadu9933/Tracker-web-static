@@ -76,14 +76,21 @@ const GenerateTrackingID = () => {
                         },
                     }
                 );
+                
+
                 setTrackingID(response.data.parcel_number);
                 setShowModal(true);
+            
             } catch (error: unknown) {
                 setError(
                     axios.isAxiosError(error)
-                        ? error.response?.data?.detail || "Failed to generate tracking ID"
+                        ? error.response?.data?.error || error.response?.data?.error
                         : "An unexpected error occurred"
                 );
+
+                setTimeout(() => {
+                    setError('')
+                }, 5000)
             } finally {
                 setLoading(false);
             }
