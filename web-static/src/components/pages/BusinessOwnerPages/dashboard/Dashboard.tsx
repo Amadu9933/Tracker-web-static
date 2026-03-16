@@ -34,7 +34,7 @@ const Dashboard: React.FC = () => {
         console.log(userProfile);
         setUser(userProfile);
       } catch (err) {
-        setError('Failed to fetch user details.');
+        setError('Unable to load your profile details. Please refresh the page or try logging in again.');
         console.error('Error fetching user details:', err);
       } finally {
         setLoading(false);

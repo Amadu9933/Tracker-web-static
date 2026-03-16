@@ -141,7 +141,7 @@ export default function TrackingDetails() {
             setTrackingStatus(response.data.status);
             console.log(response.data);
         }).catch((error: any) => {
-            alert('There was an error here!');
+            alert('Oops! Something went wrong while loading details. Please try again.');
             console.error('There was an error!', error);
         });
     }, []);
@@ -189,9 +189,8 @@ export default function TrackingDetails() {
                 }, 3000);
             }, 2000);
         }).catch((error) => {
-            alert('Error updating shipping details');
+            alert('Unable to update shipping details. Please try again.');
             console.error('There was an error!', error.msg);
-            alert(error);
         });
 
     }
@@ -268,23 +267,23 @@ export default function TrackingDetails() {
                                         <p className="assignment-status text-[0.6rem] font-bold text-right bg-yellow-200 rounded-full p-1.5" style={{ border: "1px solid #FF833C" }}>
                                             Pending Assignment
                                         </p>
-                                    ) 
+                                    )
                                     ||
-                                    trackingStatus === 'assigned'&&
+                                    trackingStatus === 'assigned' &&
                                     (
                                         <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-200 rounded-full p-1.5" style={{ border: "1px solid #FF833C" }}>
                                             {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
                                         </p>
                                     )
                                     ||
-                                    trackingStatus === 'in transit'&&
+                                    trackingStatus === 'in transit' &&
                                     (
                                         <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-green-200 rounded-full p-1.5" style={{ border: "1px solid #FF833C" }}>
                                             {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
                                         </p>
                                     )
                                     ||
-                                    trackingStatus === 'returned'&&
+                                    trackingStatus === 'returned' &&
                                     (
                                         <p className="assignment-status text-[0.6rem] text-black font-bold text-right bg-red-200 rounded-full p-1.5" style={{ border: "1px solid red" }}>
                                             {trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)}
@@ -374,7 +373,7 @@ export default function TrackingDetails() {
                                 )
                             }
                         </div>
-                        {trackingStatus !== 'pending' && trackingStatus !== ""  && trackingStatus !== "canceled" &&
+                        {trackingStatus !== 'pending' && trackingStatus !== "" && trackingStatus !== "canceled" &&
                             (<div className="w-full">
                                 <p>Delivery has been assigned</p>
                                 <div className="w-full h-[5rem] flex justify-center items-center">
@@ -384,11 +383,11 @@ export default function TrackingDetails() {
                                     trackingData.rider_name && trackingData.rider_phone ? (
                                         `🏍️ ${title(trackingData.rider_name)} - ${trackingData.rider_phone}`
                                     ) :
-                                    (
-                                        rider
-                                    )
-                                
-                                
+                                        (
+                                            rider
+                                        )
+
+
                                 } </h3>
                             </div>
                             )

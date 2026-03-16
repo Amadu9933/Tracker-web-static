@@ -31,8 +31,8 @@ const SetProfileImagePage: React.FC = () => {
 
   // Validate selected file
   const validateFile = (file: File): string | null => {
-    if (!file.type.startsWith('image/')) return 'Please select a valid image file.';
-    if (file.size > MAX_FILE_SIZE) return 'File too large. Select a file smaller than 2MB.';
+    if (!file.type.startsWith('image/')) return 'Oops! Please choose a valid image file (like JPG, PNG, or GIF).';
+    if (file.size > MAX_FILE_SIZE) return 'Image is too big! Please select a file smaller than 2MB.';
     return null;
   };
 
@@ -131,26 +131,49 @@ const SetProfileImagePage: React.FC = () => {
       console.error('Failed to create account:', err);
 
       // Extract error message from various possible response formats
-      let errorMsg = 'An error occurred while creating your account. Please try again.';
+      let errorMsg = 'Something went wrong while creating your account. Please try again or contact support if the issue continues.';
 
       if (err.response) {
         const data = err.response.data;
 
         // Check for specific field errors
         if (data?.email) {
-          errorMsg = 'Email address already exists!';
+          errorMsg = 'This email address is already registered. Please use a different email or try logging in.';
         } else if (data?.phone_number) {
-          errorMsg = 'Phone number already exists!';
-        } else if (data?.business_name) {
-          errorMsg = 'Business name already exists!';
+          errorMsg = 'This phone number is already in use. Please check and try a different number.';
+        } else if (data?.business_name || (data?.detail && data.detail.includes('business_name')) || (data?.message && data.message.includes('business_name'))) {
+          errorMsg = 'This business name is already taken. Please choose a unique name for your business.';
         } else if (data?.detail) {
-          errorMsg = data.detail;
+          // Check for database constraint errors
+          if (data.detail.includes('duplicate key') && data.detail.includes('business_name')) {
+            errorMsg = 'This business name is already taken. Please choose a unique name for your business.';
+          } else if (data.detail.includes('QueryDict') || data.detail.includes('immutable')) {
+            errorMsg = 'Account creation is temporarily unavailable due to a technical issue. Please try again in a few minutes or contact support.';
+          } else {
+            errorMsg = data.detail;
+          }
         } else if (data?.message) {
-          errorMsg = data.message;
+          // Check for database constraint errors in message
+          if (data.message.includes('duplicate key') && data.message.includes('business_name')) {
+            errorMsg = 'This business name is already taken. Please choose a unique name for your business.';
+          } else if (data.message.includes('QueryDict') || data.message.includes('immutable')) {
+            errorMsg = 'Account creation is temporarily unavailable due to a technical issue. Please try again in a few minutes or contact support.';
+          } else {
+            errorMsg = data.message;
+          }
         } else if (typeof data === 'string') {
-          errorMsg = data;
+          // Check for database constraint errors in string data
+          if (data.includes('duplicate key') && data.includes('business_name')) {
+            errorMsg = 'This business name is already taken. Please choose a unique name for your business.';
+          } else if (data.includes('QueryDict') || data.includes('immutable')) {
+            errorMsg = 'Account creation is temporarily unavailable due to a technical issue. Please try again in a few minutes or contact support.';
+          } else {
+            errorMsg = data;
+          }
         } else if (err.response.status === 404) {
-          errorMsg = 'Signup service unavailable. Contact support if issue persists.';
+          errorMsg = 'Account creation service is temporarily unavailable. Please try again later or reach out to our support team.';
+        } else if (err.response.status >= 500) {
+          errorMsg = 'A server error occurred. Please try again later or contact support for assistance.';
         }
       } // end err.response check
 
@@ -227,15 +250,18 @@ const SetProfileImagePage: React.FC = () => {
           disabled={isSubmitting || showMsg}
         >
           {isSubmitting ? 'Submitting...' : 'Complete Sign Up'}
+
         </button>
+        <div className='w-full'><MessageBox
+          message="Account created successfully ✅"
+          showMessage={showMsg}
+          state="success"
+          size="20px"
+          marginX="1rem"
+        /></div>
+
       </div>
-      <MessageBox
-        message="Account created successfully ✅"
-        showMessage={showMsg}
-        state="success"
-        size="12px"
-        marginX="1rem"
-      />
+
     </>
   );
 };

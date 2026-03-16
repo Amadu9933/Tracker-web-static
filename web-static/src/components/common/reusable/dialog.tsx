@@ -59,7 +59,7 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
       updateTrackingStatusInDb(selected);
     }
     else {
-      alert('Please select a rider');
+      alert('Please choose a rider before assigning.');
     }
   }
 

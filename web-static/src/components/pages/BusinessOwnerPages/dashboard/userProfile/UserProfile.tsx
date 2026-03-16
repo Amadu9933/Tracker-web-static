@@ -178,7 +178,7 @@ const UserProfile = () => {
             .then((res: any) => {
                 setUserData(res.data)
             }).catch((err: any) => {
-                alert(err?.response?.data?.detail);
+                alert('Unable to load your profile details. Please refresh and try again.');
                 console.log(localStorage.access)
             });
     }, [updated])

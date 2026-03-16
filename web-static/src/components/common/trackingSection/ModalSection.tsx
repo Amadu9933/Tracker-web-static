@@ -116,7 +116,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
     e.preventDefault();
     if (!email) {
       console.log('Email is empty');
-      alert('Please enter an email address');
+      alert('Oops! Please enter your email address to continue.');
       return;
     }
 

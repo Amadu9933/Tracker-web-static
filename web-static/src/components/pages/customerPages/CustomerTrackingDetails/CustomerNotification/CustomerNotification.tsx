@@ -56,7 +56,7 @@ const CustomerNotification: React.FC = () => {
         setTrackingData(data);
       } catch (error: any) {
         console.log('Error fetching tracking history:', error);
-        setErrorMessage(error.message);
+        setErrorMessage('Unable to load tracking history. Please try again later.');
       }
     };
 

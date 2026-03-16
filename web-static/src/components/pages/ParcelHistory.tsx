@@ -37,13 +37,13 @@ const UserInfo: React.FC = () => {
         setTrackingData(JSON.parse(cached));
         setError(null);
       } else if (error.response) {
-        setError('Failed to fetch tracking details');
+        setError('We couldn\'t find your parcel details. Please check the tracking number and try again.');
       } else if (error.request) {
         setError(
           'Network error occurred. Please check your internet connection.'
         );
       } else {
-        setError(error.message);
+        setError('An unexpected error occurred. Please try again.');
       }
     }
     setLoading(false);

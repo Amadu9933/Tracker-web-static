@@ -32,7 +32,7 @@ const CustomerTrackingDetails: React.FC = () => {
 
   // Fetch tracking details for map (origin/destination)
   useEffect(() => {
-    
+
     if (!mapOpened || !trackingNumber) return;
     setLoading(true);
     setError(null);
@@ -52,14 +52,14 @@ const CustomerTrackingDetails: React.FC = () => {
         } else if (data.destination_lat && data.destination_lng) {
           destCoords = { lat: parseFloat(data.destination_lat), lng: parseFloat(data.destination_lng) };
         }
-      
+
         setOrigin(originCoords);
         setDestination(destCoords);
         setLoading(false);
-    
+
       })
       .catch(() => {
-        setError('Failed to load map data.');
+        setError('Unable to load the map. Please check your connection and try again.');
         setLoading(false);
       });
   }, [mapOpened, trackingNumber]);
@@ -118,7 +118,7 @@ const CustomerTrackingDetails: React.FC = () => {
             {error && <div className="text-red-500">{error}</div>}
             {!loading && !error && origin && destination && trackingNumber && (
               <LiveTrackingMap
-                // trackingNumber={trackingNumber}
+              // trackingNumber={trackingNumber}
               />
             )}
             {!loading && !error && (!origin || !destination) && (
@@ -148,7 +148,7 @@ const CustomerTrackingDetails: React.FC = () => {
           </div>
 
           <div className="my-10">
-            <DetailTable 
+            <DetailTable
               setStatus={setStatus}
               setCanTrack={setCanTrack}
             />
@@ -158,14 +158,14 @@ const CustomerTrackingDetails: React.FC = () => {
           {
             (status.toLowerCase() === 'in transit' && canTrack) && (
               <Button
-                  variant="outlined"
-                  sx={buttonStyles}
-                  onClick={openMap}
-                >
-                  {mapOpened ? 'Hide live location' : 'View live location'}
+                variant="outlined"
+                sx={buttonStyles}
+                onClick={openMap}
+              >
+                {mapOpened ? 'Hide live location' : 'View live location'}
               </Button>
             )
-          }                
+          }
         </div>
       </div>
     </div>

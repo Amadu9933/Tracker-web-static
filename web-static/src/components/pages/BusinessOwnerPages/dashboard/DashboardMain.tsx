@@ -27,7 +27,7 @@ const DashboardMain = () => {
         console.log('Tracking Data:', data); // ✅ Correct console.log
       } catch (err: any) {
         console.error('Failed to fetch tracking data:', err);
-        setError(err.response?.data?.detail || 'Failed to fetch tracking data.');
+        setError(err.response?.data?.detail || 'Unable to load your tracking data. Please try refreshing the page.');
       } finally {
         setLoading(false);
       }
