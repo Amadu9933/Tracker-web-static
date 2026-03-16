@@ -64,6 +64,7 @@ const SetProfileImagePage: React.FC = () => {
       payload.append('business_name', formData.businessName);
       payload.append('service', formData.service);
       payload.append('address', formData.address);
+      payload.append('country', formData.country);
       payload.append('account_type', 'business');
 
       // Append image only if one is selected
