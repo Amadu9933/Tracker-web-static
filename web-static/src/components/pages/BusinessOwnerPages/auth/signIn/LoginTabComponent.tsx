@@ -84,7 +84,7 @@ const LoginTabComponent: React.FC = () => {
           </label>
         </motion.div>
 
-        {/* Form or Logistics info */}
+        Form or Logistics info
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

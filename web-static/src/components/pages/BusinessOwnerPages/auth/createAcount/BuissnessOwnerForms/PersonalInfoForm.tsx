@@ -18,16 +18,36 @@ type PersonalInfoFormData = {
 const schema = yup.object({
   name: yup.string().required('Name is required').min(2, 'Name must be at least 2 characters'),
   email: yup.string().email('Invalid email').required('Email is required'),
-  phone: yup.string().required('Phone number is required').matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
-  password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
+  phone: yup
+    .string()
+    .required('Phone number is required')
+    .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
 });
+
+// Shared input className — single source of truth for consistent sizing & alignment
+const inputBase =
+  'w-full h-11 px-3 text-sm leading-none border rounded-md ' +
+  'placeholder:text-[#A3A38E] placeholder:text-sm ' +
+  'focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary ' +
+  'transition-colors';
+
+// Extra left padding on placeholder text only — applied to Name and Phone
+const placeholderIndent = '[&::placeholder]:pl-2';
 
 const PersonalInfoForm: React.FC = () => {
   const { updateFormData } = useFormContext();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<PersonalInfoFormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<PersonalInfoFormData>({
     resolver: yupResolver(schema),
   });
 
@@ -36,32 +56,42 @@ const PersonalInfoForm: React.FC = () => {
     navigate('/business-info');
   };
 
-  const fields = [
-    {
-      id: 'name',
-      label: 'Name',
-      type: 'text',
-      placeholder: 'Enter your name',
-      borderColor: 'border-red-600',
-      delay: 0.2,
-    },
-    {
-      id: 'email',
-      label: 'Email',
-      type: 'email',
-      placeholder: 'Enter your email',
-      borderColor: 'border-black',
-      delay: 0.3,
-    },
-    {
-      id: 'phone',
-      label: 'Phone',
-      type: 'text',
-      placeholder: '+233540985004',
-      borderColor: 'border-gray-300',
-      delay: 0.4,
-    },
-  ];
+  const fields: {
+    id: keyof PersonalInfoFormData;
+    label: string;
+    type: string;
+    placeholder: string;
+    borderColor: string;
+    delay: number;
+    extraClass?: string;
+  }[] = [
+      {
+        id: 'name',
+        label: 'Name',
+        type: 'text',
+        placeholder: 'Enter your name',
+        borderColor: 'border-red-600',
+        delay: 0.2,
+        extraClass: placeholderIndent,
+      },
+      {
+        id: 'email',
+        label: 'Email',
+        type: 'email',
+        placeholder: 'Enter your email',
+        borderColor: 'border-black',
+        delay: 0.3,
+      },
+      {
+        id: 'phone',
+        label: 'Phone',
+        type: 'text',
+        placeholder: '+233540985004',
+        borderColor: 'border-gray-300',
+        delay: 0.4,
+        extraClass: placeholderIndent,
+      },
+    ];
 
   return (
     <motion.form
@@ -69,7 +99,7 @@ const PersonalInfoForm: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 w-full  "
+      className="space-y-4 w-full"
     >
       {/* Header */}
       <motion.div
@@ -83,7 +113,7 @@ const PersonalInfoForm: React.FC = () => {
       </motion.div>
 
       {/* Name, Email, Phone fields */}
-      {fields.map(({ id, label, type, placeholder, borderColor, delay }) => (
+      {fields.map(({ id, label, type, placeholder, borderColor, delay, extraClass }) => (
         <motion.div
           key={id}
           initial={{ opacity: 0, y: 20 }}
@@ -98,13 +128,11 @@ const PersonalInfoForm: React.FC = () => {
             id={id}
             type={type}
             placeholder={placeholder}
-            {...register(id as keyof PersonalInfoFormData)}
-            className={`w-full p-2 sm:p-3 text-sm border ${borderColor} rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary`}
+            {...register(id)}
+            className={`${inputBase} ${borderColor}${extraClass ? ` ${extraClass}` : ''}`}
           />
-          {errors[id as keyof PersonalInfoFormData] && (
-            <p className="text-red-500 text-xs sm:text-sm mt-1">
-              {errors[id as keyof PersonalInfoFormData]?.message}
-            </p>
+          {errors[id] && (
+            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors[id]?.message}</p>
           )}
         </motion.div>
       ))}
@@ -125,18 +153,22 @@ const PersonalInfoForm: React.FC = () => {
             type={showPassword ? 'text' : 'password'}
             placeholder="Enter your password"
             {...register('password')}
-            className="w-full p-2 sm:p-3 text-sm pr-10 border border-black rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary"
+            // pr-10 reserves space so text never slides under the eye icon
+            className={`${inputBase} border-black pr-10`}
           />
-          <div className="absolute inset-y-0 right-0 pr-2 sm:pr-3 flex items-center">
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2">
             <IconButton
-              onClick={() => setShowPassword(prev => !prev)}
+              onClick={() => setShowPassword((prev) => !prev)}
               edge="end"
-              style={{ padding: 0, margin: 0 }}
+              size="small"
+              tabIndex={-1}
+              style={{ padding: 4 }}
             >
-              {showPassword
-                ? <VisibilityOff className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
-                : <Visibility className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
-              }
+              {showPassword ? (
+                <VisibilityOff className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+              ) : (
+                <Visibility className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+              )}
             </IconButton>
           </div>
         </div>
