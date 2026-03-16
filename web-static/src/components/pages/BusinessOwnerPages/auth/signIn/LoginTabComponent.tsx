@@ -72,7 +72,7 @@ const LoginTabComponent: React.FC = () => {
             />
             <p className="text-sm sm:text-base">Business Owner</p>
           </label>
-          <label className="flex items-center gap-2 cursor-pointer">
+          {/* <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"
               value="logistic"
@@ -81,7 +81,7 @@ const LoginTabComponent: React.FC = () => {
               className="accent-black"
             />
             <p className="text-sm sm:text-base">Logistic Partner</p>
-          </label>
+          </label> */}
         </motion.div>
 
 
