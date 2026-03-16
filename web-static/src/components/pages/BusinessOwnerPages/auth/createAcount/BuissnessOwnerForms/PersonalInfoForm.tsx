@@ -30,13 +30,10 @@ const schema = yup.object({
 
 // Shared input className — single source of truth for consistent sizing & alignment
 const inputBase =
-  'w-full h-11 px-3 text-sm leading-none border rounded-md ' +
-  'placeholder:text-[#A3A38E] placeholder:text-sm ' +
+  'w-full h-11 px-[54px] text-sm leading-none border rounded-md ' +
+  'placeholder:text-[#A3A38E] placeholder:text-sm [&::placeholder]:pl-3 ' +
   'focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary ' +
   'transition-colors';
-
-// Extra left padding on placeholder text only — applied to Name and Phone
-const placeholderIndent = '[&::placeholder]:pl-2';
 
 const PersonalInfoForm: React.FC = () => {
   const { updateFormData } = useFormContext();
@@ -63,7 +60,6 @@ const PersonalInfoForm: React.FC = () => {
     placeholder: string;
     borderColor: string;
     delay: number;
-    extraClass?: string;
   }[] = [
       {
         id: 'name',
@@ -72,7 +68,6 @@ const PersonalInfoForm: React.FC = () => {
         placeholder: 'Enter your name',
         borderColor: 'border-red-600',
         delay: 0.2,
-        extraClass: placeholderIndent,
       },
       {
         id: 'email',
@@ -89,7 +84,6 @@ const PersonalInfoForm: React.FC = () => {
         placeholder: '+233540985004',
         borderColor: 'border-gray-300',
         delay: 0.4,
-        extraClass: placeholderIndent,
       },
     ];
 
@@ -112,30 +106,71 @@ const PersonalInfoForm: React.FC = () => {
         <p className="text-[#82826A] font-medium text-xs sm:text-sm">Step 1 of 3</p>
       </motion.div>
 
-      {/* Name, Email, Phone fields */}
-      {fields.map(({ id, label, type, placeholder, borderColor, delay, extraClass }) => (
-        <motion.div
-          key={id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay, duration: 0.5 }}
-          className="space-y-1"
-        >
-          <label htmlFor={id} className="block text-xs sm:text-sm font-medium text-gray-700">
-            {label}
-          </label>
-          <input
-            id={id}
-            type={type}
-            placeholder={placeholder}
-            {...register(id)}
-            className={`${inputBase} ${borderColor}${extraClass ? ` ${extraClass}` : ''}`}
-          />
-          {errors[id] && (
-            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors[id]?.message}</p>
-          )}
-        </motion.div>
-      ))}
+      {/* Name field */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="space-y-1"
+      >
+        <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-gray-700">
+          Name
+        </label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter your name"
+          {...register('name')}
+          className={`${inputBase} border-red-600 `}
+        />
+        {errors.name && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.name?.message}</p>
+        )}
+      </motion.div>
+
+      {/* Email field */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+        className="space-y-1"
+      >
+        <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          {...register('email')}
+          className={`${inputBase} border-black  ]`}
+        />
+        {errors.email && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email?.message}</p>
+        )}
+      </motion.div>
+
+      {/* Phone field */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+        className="space-y-1"
+      >
+        <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
+          Phone
+        </label>
+        <input
+          id="phone"
+          type="text"
+          placeholder="+233540985004"
+          {...register('phone')}
+          className={`${inputBase} border-gray-300`}
+        />
+        {errors.phone && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.phone?.message}</p>
+        )}
+      </motion.div>
 
       {/* Password field */}
       <motion.div

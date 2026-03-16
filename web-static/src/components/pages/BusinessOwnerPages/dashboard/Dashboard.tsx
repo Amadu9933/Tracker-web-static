@@ -9,7 +9,6 @@ import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 import GridViewIcon from '@mui/icons-material/GridView';
 import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
-import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { logoutUser } from '../../../../api/auth';
@@ -124,9 +123,9 @@ const Dashboard: React.FC = () => {
         </IconButton>
       </div>
 
-      <div className="bg-gray-300 onClick={() => navigate('/dashboard/user-profile')} h-[24px] " onClick={() => navigate(-1)} >
+      <button className="bg-gray-300 onClick={() => navigate('/dashboard/user-profile')} h-[24px] " onClick={() => navigate(-1)} >
         <ChevronLeftOutlinedIcon />
-      </div>
+      </button>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col -ml-6 sm:px-6 pt-5 max-w-screen-xl mx-auto">
