@@ -24,6 +24,8 @@ const Integration = () => {
     const [riderToDelete, setRiderToDelete] = useState({ id: null, name: '' });
     const [showRiderDeleteDialog, setShowRiderDeleteDialog] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
+    
 
     const inputClass = 'w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-200 placeholder:text-gray-400';
 
@@ -33,7 +35,7 @@ const Integration = () => {
 
     useEffect(() => {
         document.title = "Logistics - Tracker";
-        axiosInstance.get('/logistics/riders/', {
+        axiosInstance.get(`${TRACKERR_HOST}/logistics/business-owners/riders/`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
         }).then((response) => {
             setRiders(response?.data?.msg || []);
@@ -43,7 +45,7 @@ const Integration = () => {
     }, [msg]);
 
     const createRider = (data: any) => {
-        axiosInstance.post('/logistics/signup/', { ...data, account_type: "logistics" }, {
+        axiosInstance.post(`${TRACKERR_HOST}/logistics/signup/`, { ...data, account_type: "logistics" }, {
             headers: { Authorization: `Bearer ${localStorage.getItem('access')}`, "Content-Type": "application/json" }
         }).then(() => {
             setMsg('Rider created successfully');
