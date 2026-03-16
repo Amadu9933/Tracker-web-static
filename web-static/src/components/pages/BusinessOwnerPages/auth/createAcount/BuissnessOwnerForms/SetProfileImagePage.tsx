@@ -16,7 +16,6 @@ const SetProfileImagePage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showMsg, setShowMsg] = useState<boolean>(false);
-  const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
   // Generate preview URL
   useEffect(() => {
@@ -74,7 +73,7 @@ const SetProfileImagePage: React.FC = () => {
       }
 
       // Try the correct signup endpoint
-      let signupEndpoint = `${TRACKERR_HOST}/business-owners/signup/`;
+      let signupEndpoint = 'business-owners/signup/';
 
       // Alternative endpoints to try if the primary fails
       const alternativeEndpoints = [
