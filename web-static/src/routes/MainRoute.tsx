@@ -6,7 +6,6 @@ import { FormProvider } from '../../src/context/CreateAccountFormContext';
 // Lazy loading public components
 const Ship = lazy(() => import('@components/NavigationBarLinksComponents/Ship'));
 const LogisticSolution = lazy(() => import('@components/pages/Logistics/LandingPage'));
-const Intergration = lazy(() => import('@components/NavigationBarLinksComponents/Intergration'));
 const NeedHelp = lazy(() => import('@components/NavigationBarLinksComponents/NeedHelp'));
 const Login = lazy(() => import('@components/NavigationBarLinksComponents/Login'));
 const TabComponent = lazy(() => import('@components/pages/BusinessOwnerPages/auth/createAcount/TabComponent'));
@@ -34,7 +33,7 @@ const MainRoutes: React.FC = () => (
         {/* Public Routes */}
         <Route path="LogisticSolution" element={<LogisticSolution />} />
         <Route path="Ship" element={<Ship />} />
-        <Route path="Intergration" element={<Intergration />} />
+
         <Route path="NeedHelp" element={<NeedHelp />} />
         <Route path="Login" element={<Login />} />
         <Route path="business-info" element={<BuissnessInfoForm />} />

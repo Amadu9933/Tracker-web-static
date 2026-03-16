@@ -94,12 +94,7 @@ const Dashboard: React.FC = () => {
             </li>
 
             {/* Integration Link */}
-            <li onClick={() => { navigate('/dashboard/integration'); if (sidebarOpen) setSidebarOpen(false); }}
-              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] 
-                ${location.pathname === '/dashboard/integration' ? 'bg-primary text-white' : 'hover:bg-gray-300'}`}>
-              <InsertLinkIcon />
-              <button className="ml-1">Integration</button>
-            </li>
+
           </ul>
         </nav>
 
