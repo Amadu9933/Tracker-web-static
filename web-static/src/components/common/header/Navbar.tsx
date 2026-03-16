@@ -34,7 +34,6 @@ const Navbar: React.FC = () => {
     { label: 'Track my parcel', link: '/' },
     { label: 'Ship', link: '/Ship' },
     { label: 'Logistics solution', link: '/LogisticSolution' },
-    { label: 'Integration', link: '/Intergration' },
     { label: 'Need help ?', link: '/NeedHelp' },
   ];
 

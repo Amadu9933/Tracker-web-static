@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button'; // Importing Button component from Material-UI
+import { Link } from 'react-router-dom'; // Importing Link for navigation
 
 const Footer: React.FC = () => {
   // Define Button styling
@@ -43,9 +44,11 @@ const Footer: React.FC = () => {
             Your Parcel's journey your way.
           </p>
           {/* Button */}
-          <Button variant="outlined" sx={buttonStyles}>
-            Get started
-          </Button>
+          <Link to="/Login" style={{ textDecoration: 'none' }}>
+            <Button variant="outlined" sx={buttonStyles}>
+              Get started
+            </Button>
+          </Link>
         </div>
 
         {/* Second column */}
