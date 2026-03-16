@@ -23,15 +23,23 @@ const Integration = () => {
     });
     const [riderToDelete, setRiderToDelete] = useState({ id: null, name: '' });
     const [showRiderDeleteDialog, setShowRiderDeleteDialog] = useState(false);
-    const [results, setResults] = useState<any[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const inputClass = 'w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-200 placeholder:text-gray-400';
+
+    const filteredRiders = searchTerm.trim() === ''
+        ? riders
+        : riders.filter(rider => rider.user.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
     useEffect(() => {
         document.title = "Logistics - Tracker";
-        axiosInstance.get('/logistics/business-owners/riders/', {
+        axiosInstance.get('/logistics/riders/', {
             headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
         }).then((response) => {
             setRiders(response?.data?.msg || []);
-        }).catch(console.log);
+        }).catch((error) => {
+            console.error('Error fetching riders:', error);
+        });
     }, [msg]);
 
     const createRider = (data: any) => {
@@ -59,14 +67,15 @@ const Integration = () => {
     };
 
     const handleRiderDelete = () => {
-        axiosInstance.delete(`/logistics/riders/${riderToDelete.id}/`, {
+        axiosInstance.delete(`/riders/${riderToDelete.id}/`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
         }).then(() => {
             setMsg('Rider deleted successfully');
             setRiderDeleted(true);
             setShowRiderDeleteDialog(false);
             setTimeout(() => { setMsg(''); setRiderDeleted(false); }, 3000);
-        }).catch(() => {
+        }).catch((error) => {
+            console.error('Error deleting rider:', error);
             setMsg('Failed to delete rider');
             setShowRiderDeleteDialog(false);
             setTimeout(() => setMsg(''), 3000);
@@ -87,10 +96,6 @@ const Integration = () => {
         setRiderInfo(prev => ({ ...prev, [id]: value }));
     };
 
-    const handleSearchRiders = (search: string) => {
-        if (search.trim() === '') { setResults([]); return; }
-        setResults(riders.filter(rider => rider.user.name.toLowerCase().includes(search.toLowerCase())));
-    };
 
     const statCards = [
         { label: 'Total Riders', value: riders.length, icon: <FontAwesomeIcon icon={faUser} style={{ fontSize: '0.8rem' }} />, color: 'text-gray-600' },
@@ -162,19 +167,26 @@ const Integration = () => {
                             <div key={id}>
                                 <label className="block text-xs sm:text-sm font-medium mb-1" htmlFor={id}>{label}</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-200 placeholder:text-gray-400"
-                                    type="text" id={id} placeholder={placeholder}
+                                    className={inputClass}
+                                    type="text"
+                                    id={id}
+                                    placeholder={placeholder}
+                                    aria-label={label}
                                     onChange={handleInputChange}
                                     value={riderInfo[id as keyof typeof riderInfo]}
                                 />
                             </div>
                         ))}
                         <div className="flex gap-3">
-                            <div className="flex-1">
+                            <div className="flex-1  ">
                                 <label className="block text-xs sm:text-sm font-medium mb-1" htmlFor="idType">ID Type</label>
                                 <select
-                                    className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-200"
-                                    id="idType" onChange={handleInputChange} value={riderInfo.idType}
+                                    className="w-full p-2 h-12 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-200"
+                                    id="idType"
+                                    aria-label="ID Type"
+                                    onChange={handleInputChange}
+                                    value={riderInfo.idType}
+
                                 >
                                     <option value="select">Select ID Type</option>
                                     <option value="driver's license">Driver's License</option>
@@ -186,18 +198,26 @@ const Integration = () => {
                             <div className="flex-1">
                                 <label className="block text-xs sm:text-sm font-medium mb-1" htmlFor="idNumber">ID Number</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-200"
-                                    type="text" id="idNumber" placeholder="22349053635"
-                                    onChange={handleInputChange} value={riderInfo.idNumber}
+                                    className={inputClass}
+                                    type="text"
+                                    id="idNumber"
+                                    placeholder="ID Number"
+                                    aria-label="ID Number"
+                                    onChange={handleInputChange}
+                                    value={riderInfo.idNumber}
                                 />
                             </div>
                         </div>
                         <div>
                             <label className="block text-xs sm:text-sm font-medium mb-1" htmlFor="country">Country</label>
                             <input
-                                className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-200"
-                                type="text" id="country" placeholder="Nigeria"
-                                onChange={handleInputChange} value={riderInfo.country}
+                                className={inputClass}
+                                type="text"
+                                id="country"
+                                placeholder="Country"
+                                aria-label="Country"
+                                onChange={handleInputChange}
+                                value={riderInfo.country}
                             />
                         </div>
                         <div className="flex justify-end gap-3 pt-2">
@@ -222,24 +242,13 @@ const Integration = () => {
                             <p className="text-xs sm:text-sm text-gray-500">Manage your delivery team</p>
                         </div>
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                            <div className="relative">
-                                <input
-                                    className="w-full sm:w-[200px] md:w-[240px] h-9 px-3 border border-gray-300 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-orange-200"
-                                    type="text" placeholder="Search riders..."
-                                    onChange={(e) => handleSearchRiders(e.target.value)}
-                                />
-                                {results.length > 0 && (
-                                    <ul className="absolute z-10 top-full mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg max-h-52 overflow-y-auto">
-                                        {results.map((rider, i) => (
-                                            <li key={i} className="px-3 py-2 hover:bg-gray-50 cursor-pointer text-xs sm:text-sm flex justify-between items-center gap-2">
-                                                <span>{title(rider.user.name)}</span>
-                                                <span className="text-gray-400">{rider.user.phone_number}</span>
-                                                <span>{rider.rating} ⭐</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
+                            <input
+                                className="w-full sm:w-[200px] md:w-[240px] h-9 px-3 border border-gray-300 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-orange-200"
+                                type="text"
+                                placeholder="Search riders..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
                             <button
                                 className="bg-orange-500 flex justify-center items-center text-white text-sm px-4 py-2 rounded-md hover:bg-[#FF833C] whitespace-nowrap h-9"
                                 onClick={() => setShowDialog(true)}
@@ -260,7 +269,7 @@ const Integration = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {riders.map((rider) => (
+                                {filteredRiders.map((rider) => (
                                     <tr key={rider.id} className="hover:bg-gray-50 transition">
                                         <td className="py-3 px-4 border-b border-gray-100 whitespace-nowrap">
                                             <span className="border p-1 rounded-full border-orange-400 mr-2">

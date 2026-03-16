@@ -16,7 +16,7 @@ type DialogProps = {
 export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handleSetRider, parcel_number = "XYZZy134562" }: DialogProps) {
 
   const [selected, setSelected] = useState<null | any>(null);
-    const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState([]);
   // Fetch riders from the backend API
 
 
@@ -26,7 +26,7 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
 
   const updateTrackingStatusInDb = async (selected: any) => {
     try {
-      console.log(selected.value, typeof(selected.value))
+      console.log(selected.value, typeof (selected.value))
       const response = await axiosInstance.patch(`/tracking/${parcel_number}/`, {
         parcel_number: parcel_number,
         status: 'assigned',
@@ -34,7 +34,7 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
         rider_email: selected?.rider_email,
         rider_name: selected?.rider_name,
         rider_phone: selected?.rider_phone,
-        rider: selected?.value 
+        rider: selected?.value
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -43,11 +43,11 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
         },
       });
       console.log('Tracking status updated successfully:', response.data);
-    console.log('Selected rider ID to assign:', selected);
+      console.log('Selected rider ID to assign:', selected);
     } catch (error) {
       console.error('Error updating tracking status:', error);
     }
-    
+
   };
 
   const handleAssignClick = () => {
@@ -132,12 +132,17 @@ export default function Dialog({ handleSetTrackingStatus, handleOffDialog, handl
   </div>
 }
 
-const ReusableDialog = ({children}: any) => { 
-  return <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 w-full">
-              <div className="bg-white border border-orange-300 w-[50%] h-[85%] rounded shadow-lg p-6">
-              {children}  
-              </div>
-          </div>
+const ReusableDialog = ({ children }: any) => {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 w-full">
+      <div
+        className="bg-white border border-orange-300 w-[90%] max-w-3xl max-h-[90vh] rounded shadow-lg p-6 overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {children}
+      </div>
+    </div>
+  );
 }
 
 const DeleteDialog = ({ children }: any) => {
