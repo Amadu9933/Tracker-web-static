@@ -30,7 +30,7 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
         <img
           src={createAccont}
           alt="Create Account"
-          className="w-full h-full object-cover"
+          className="w-full h-[950px] object-cover"
         />
       </motion.div>
 

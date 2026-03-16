@@ -69,7 +69,7 @@ const PersonalInfoForm: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 w-full"
+      className="space-y-4 w-full  "
     >
       {/* Header */}
       <motion.div
