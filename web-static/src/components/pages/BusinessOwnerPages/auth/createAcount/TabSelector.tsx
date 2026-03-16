@@ -8,7 +8,7 @@ interface TabSelectorProps {
 const TabSelector: React.FC<TabSelectorProps> = ({ selectedTab, onTabChange }) => {
   const tabs = [
     { value: "business", label: "Business Owner" },
-    { value: "logistic", label: "Logistic Partner" },
+    // { value: "logistic", label: "Logistic Partner" },
   ];
 
   return (
@@ -16,7 +16,7 @@ const TabSelector: React.FC<TabSelectorProps> = ({ selectedTab, onTabChange }) =
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="text-smsm:text-base flex justify-start gap-4 sm:gap-6 font-inter text-secondary"
+      className="text-sm sm:text-base flex justify-start gap-4 sm:gap-6 font-inter text-secondary"
     >
       {tabs.map(({ value, label }, index) => (
         <motion.label
