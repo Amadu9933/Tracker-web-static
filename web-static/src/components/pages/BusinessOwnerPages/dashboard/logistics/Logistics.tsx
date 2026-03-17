@@ -19,7 +19,7 @@ const Integration = () => {
     const average = (validRatings.reduce((sum, r) => sum + r.rating, 0) / validRatings.length).toFixed(1);
 
     const [riderInfo, setRiderInfo] = useState({
-        name: '', address: '', country: '', phone: '', email: '', idType: '', idNumber: ''
+        name: '', address: '', phone: '', email: '', idType: '', idNumber: ''
     });
     const [riderToDelete, setRiderToDelete] = useState({ id: null, name: '' });
     const [showRiderDeleteDialog, setShowRiderDeleteDialog] = useState(false);
@@ -69,7 +69,7 @@ const Integration = () => {
     };
 
     const handleRiderDelete = () => {
-        axiosInstance.delete(`/riders/${riderToDelete.id}/`, {
+        axiosInstance.delete(`${TRACKERR_HOST}/logistics/riders/${riderToDelete.id}/`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
         }).then(() => {
             setMsg('Rider deleted successfully');
@@ -84,12 +84,12 @@ const Integration = () => {
         });
     };
 
-    const handleAddRider = () => {
-        if (Object.entries(riderInfo).some(([k, v]) => k !== 'country' && v === '')) {
+    const handleAddRider = () =>{
+        if (Object.entries(riderInfo).some(([k, v]) => k == '' && v === '')) {
             alert('Please fill all fields'); return;
         }
         createRider({ name: riderInfo.name, address: riderInfo.address, phone_number: riderInfo.phone, email: riderInfo.email, identity_card_type: riderInfo.idType, id_number: riderInfo.idNumber });
-        setRiderInfo({ name: '', address: '', country: '', phone: '', email: '', idType: '', idNumber: '' });
+        setRiderInfo({ name: '', address: '', phone: '', email: '', idType: '', idNumber: '' });
         setShowDialog(false);
     };
 
@@ -209,18 +209,6 @@ const Integration = () => {
                                     value={riderInfo.idNumber}
                                 />
                             </div>
-                        </div>
-                        <div>
-                            <label className="block text-xs sm:text-sm font-medium mb-1" htmlFor="country">Country</label>
-                            <input
-                                className={inputClass}
-                                type="text"
-                                id="country"
-                                placeholder="Country"
-                                aria-label="Country"
-                                onChange={handleInputChange}
-                                value={riderInfo.country}
-                            />
                         </div>
                         <div className="flex justify-end gap-3 pt-2">
                             <button type="button" onClick={() => setShowDialog(false)} className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">Cancel</button>
