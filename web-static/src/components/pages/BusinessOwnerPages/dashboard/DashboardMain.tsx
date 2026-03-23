@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTheme } from '../../../../context/ThemeContext';
 import Overview from './Overview';
 import ParcelChart from './Chart';
 import CreateWallet from './CreateWallet';
@@ -6,6 +7,7 @@ import CustomizedTables from './RecentTracking';
 import { fetchTrackingData } from '../../../../api/tracking';
 
 const DashboardMain = () => {
+  const { isDarkMode } = useTheme();
   const [, setTrackingData] = useState<any[]>([]); // State to hold tracking data
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +39,7 @@ const DashboardMain = () => {
   }, []); // Run once on mount
 
   return (
-    <div className="w-full">
+    <div className={`w-full ${isDarkMode ? 'bg-zinc-950 text-white' : 'bg-white text-black'}`}>
       <div className="w-full">
         <Overview />
       </div>
@@ -51,8 +53,8 @@ const DashboardMain = () => {
       </div>
       <div className="">
         <div className="mb-2 mt-10 text-left flex justify-between">
-          <p className="text-secondary font-bold">Recent</p>
-          <p>View all</p>
+          <p className="text-secondary dark:text-slate-200 font-bold">Recent</p>
+          <p className="text-gray-700 dark:text-slate-300">View all</p>
         </div>
 
         {loading && <p className="text-center">Loading recent trackings...</p>}

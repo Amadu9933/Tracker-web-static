@@ -21,7 +21,7 @@ const LoginTabComponent: React.FC = () => {
   if (checkAuth) return <CircularProgress />;
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen w-full border-t border-t-gray-200  md:px-0">
+    <div className="flex flex-col md:flex-row min-h-screen w-full border-t border-t-gray-200 dark:border-t-gray-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 md:px-0">
 
       {/* Left image — desktop only */}
       <motion.div
@@ -38,7 +38,7 @@ const LoginTabComponent: React.FC = () => {
       </motion.div>
 
       {/* Right: form panel */}
-      <div className="w-full md:w-3/5 min-h-screen flex flex-col justify-center px-6 sm:px-12 md:px-20 lg:px-32 py-16 md:py-0">
+      <div className="w-full md:w-3/5 min-h-screen flex flex-col justify-center px-6 sm:px-12 md:px-20 lg:px-32 py-16 md:py-0 bg-white dark:bg-[#111827] text-slate-900 dark:text-slate-100">
 
         {/* Heading */}
         <motion.div

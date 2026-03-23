@@ -4,6 +4,7 @@ import { getStatusColor, formatDateTime } from '../../../../utils/statusUtils';
 import CircularProgress from '../../customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 import LoadingSpinner from '../../customerPages/CustomerTrackingDetails/CustomerNotification/LoadingSpinner';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../../../../context/ThemeContext';
 // removed unused import 'object'
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
@@ -23,6 +24,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
   enableLoadMore = false,
   limit = null,
 }) => {
+  const { isDarkMode } = useTheme();
   const [trackingData, setTrackingData] = useState<any[]>([]);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -113,14 +115,14 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
     <div className="w-full">
       {/* Filter Dropdown */}
       {enableFilter && (
-        <div className="flex justify-between items-center mb-4">
+        <div className={`flex justify-between items-center mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
           <p className="text-secondary font-bold">History</p>
-          <div className="flex justify-end border border-gray-300 rounded-md px-4 py-2 text-sm">
+          <div className={`flex justify-end rounded-md px-4 py-2 text-sm ${isDarkMode ? 'border border-zinc-700 bg-zinc-900' : 'border border-gray-300 bg-white'}`}>
             <div className="mr-2">Sort by:</div>
             <select
               value={statusFilter}
               onChange={handleFilterChange}
-              className="outline-none bg-white"
+              className={`outline-none ${isDarkMode ? 'bg-zinc-900 text-white border border-zinc-700' : 'bg-white text-black'}`}
             >
               <option value="All">All</option>
               <option value="delivered">Delivered</option>
@@ -135,9 +137,9 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
       )}
 
       {/* Table */}
-      <div className="overflow-x-auto border border-gray-300 rounded-lg max-h-[500px] overflow-y-auto">
-        <table className="min-w-full text-left text-sm">
-          <thead className="bg-gray-100 font-medium text-[#537086] sticky top-0">
+      <div className={`overflow-x-auto rounded-lg max-h-[500px] overflow-y-auto ${isDarkMode ? 'border border-zinc-700 bg-zinc-900' : 'border border-gray-300 bg-white'}`}>
+        <table className={`min-w-full text-left text-sm ${isDarkMode ? 'text-white' : 'text-black'}`}>
+          <thead className={`${isDarkMode ? 'bg-zinc-900 text-gray-300' : 'bg-gray-100 text-[#537086]'} font-medium sticky top-0`}>
             <tr>
               <th className="px-4 py-3">#</th>
               <th className="px-4 py-3">Tracking Number</th>
@@ -150,13 +152,13 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
             {dataToShow.map((item, index) => (
               <tr
                 key={`${item.parcel_number}-${index}`} // ✅ Unique key
-                className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-gray-100`}
+                className={`${index % 2 === 0 ? (isDarkMode ? 'bg-zinc-800' : 'bg-white') : (isDarkMode ? 'bg-zinc-700' : 'bg-gray-50')} ${isDarkMode ? 'text-white hover:bg-zinc-700' : 'text-black hover:bg-gray-100'}`}
               >
                 <td className="px-4 py-3">#{index + 1}</td>
-                <td className="px-4 py-3" style={{ color: "#1a73e8", cursor: "pointer" }} onClick={() => { handleIdClick(`/dashboard/trackings/${item.parcel_number}/`, item) }}><span className='hover:underline'>{item.parcel_number}</span></td>
+                <td className={`px-4 py-3 ${isDarkMode ? 'text-blue-300' : ''}`} style={{ cursor: 'pointer' }} onClick={() => { handleIdClick(`/dashboard/trackings/${item.parcel_number}/`, item) }}><span className='hover:underline'>{item.parcel_number}</span></td>
                 <td className="px-4 py-3">
                   {formatDateTime(item.date_of_purchase)}
-                  <div className="text-[#C6C5B9] text-xs">{formatDateTime(item.time_of_purchase)}</div>
+                  <div className={`${isDarkMode ? 'text-zinc-400' : 'text-[#C6C5B9]'} text-xs`}>{formatDateTime(item.time_of_purchase)}</div>
                 </td>
                 <td className="px-4 py-3">{formatDateTime(item.delivery_date)}</td>
                 <td className={`px-4 py-3 font-semibold ${getStatusColor(item.status)}`}>{item.status}</td>

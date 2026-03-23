@@ -122,10 +122,10 @@ const LoginForm: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         onSubmit={handleSubmit(onSubmit)}
-        className="text-left bg-white w-full pr-0 md:pr-16"
+        className="text-left bg-white dark:bg-[#0F172A] dark:border dark:border-gray-700 text-slate-900 dark:text-slate-100 w-full pr-0 md:pr-16"
         noValidate
       >
-        <h2 className="font-bold mb-7 text-lg sm:text-xl">Sign in</h2>
+        <h2 className="font-bold mb-7 text-lg sm:text-xl text-slate-900 dark:text-slate-100">Sign in</h2>
 
         {/* Email Field */}
         <motion.div
@@ -134,15 +134,15 @@ const LoginForm: React.FC = () => {
           transition={{ delay: 0.1, duration: 0.5 }}
           className="mb-6"
         >
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
             Email
           </label>
           <input
             id="email"
             type="email"
             {...register('email')}
-            className={`mt-1 block w-full p-3 pl-4 sm:pl-16 border rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary text-sm sm:text-base transition-colors
-              ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-black'}`}
+            className={`mt-1 block w-full p-3 pl-4 sm:pl-16 border rounded-md placeholder:text-[#A3A38E] dark:placeholder:text-slate-400 focus:border-primary focus:ring-primary text-sm sm:text-base transition-colors bg-white dark:bg-[#03132D] text-slate-900 dark:text-slate-100
+              ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-black dark:border-gray-600 dark:focus:border-primary'}`}
             placeholder="abc@gmail.com"
             disabled={isLoading}
           />
@@ -158,7 +158,7 @@ const LoginForm: React.FC = () => {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="relative mb-2"
         >
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
             Password
           </label>
           <div className="relative">
@@ -175,7 +175,7 @@ const LoginForm: React.FC = () => {
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white focus:outline-none transition-colors"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
               disabled={isLoading}
             >
@@ -189,7 +189,7 @@ const LoginForm: React.FC = () => {
         </motion.div>
 
         <div className="text-right mb-4">
-          <Link to="/forgot-password" className="text-[#6B6856] text-xs hover:text-primary transition-colors">
+          <Link to="/forgot-password" className="text-[#6B6856] dark:text-[#A8B2CA] text-xs hover:text-primary dark:hover:text-orange-300 transition-colors">
             Forgot password?
           </Link>
         </div>

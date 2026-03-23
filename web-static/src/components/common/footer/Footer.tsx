@@ -31,55 +31,55 @@ const Footer: React.FC = () => {
 
   return (
     <footer
-      className="footer pt-8 px-6 column md:pt-12 md:px-32"
-      style={{ backgroundColor: '#354755', color: '#C6C5B9' }}
+      className="footer pt-8 px-4 md:pt-12 md:px-10 lg:px-32 bg-secondary dark:bg-background-dark text-text-secondary dark:text-text-secondary"
     >
-      <div className="flex flex-wrap justify-between md:flex md:justify-between md:font-medium">
-        {/* First column */}
-        <div className="item text-left ">
-          <h2 className="font-medium text-white  text-2xl md:text-4xl pb-4 ">
-            Join To Get Started
-          </h2>
-          <p className="pb-4  font-medium w-44 md:w-full">
-            Your Parcel's journey your way.
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+          {/* First column */}
+          <div className="space-y-4">
+            <h2 className="font-medium text-text-primary dark:text-text-primary text-2xl md:text-3xl">Join To Get Started</h2>
+            <p className="text-sm md:text-base text-text-secondary dark:text-text-secondary">
+              Your Parcel's journey your way.
+            </p>
+            <Link to="/Login" style={{ textDecoration: 'none' }}>
+              <Button fullWidth variant="outlined" sx={buttonStyles}>
+                Get started
+              </Button>
+            </Link>
+          </div>
+
+          {/* Second column */}
+          <div className="space-y-3">
+            <h3 className="text-lg text-text-primary dark:text-text-primary">Company</h3>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">How it works</p>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">Career</p>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">Legal</p>
+          </div>
+
+          {/* Third column */}
+          <div className="space-y-3">
+            <h3 className="text-lg text-text-primary dark:text-text-primary">Help</h3>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">Privacy Policy</p>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">Refund Policy</p>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">Track Your Order</p>
+          </div>
+
+          {/* Fourth column */}
+          <div className="space-y-3">
+            <h3 className="text-lg text-text-primary dark:text-text-primary">Support</h3>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">Feedback</p>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">Contact Us</p>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">Customer Service</p>
+            <p className="text-sm text-text-secondary dark:text-text-secondary">Terms & condition</p>
+          </div>
+        </div>
+
+        <div className="mt-8 border-t border-border-light dark:border-border-dark pt-6">
+          <p className="copy-right text-xs md:text-sm text-text-secondary dark:text-text-secondary">
+            Trackerr &copy; 2023. All rights reserved
           </p>
-          {/* Button */}
-          <Link to="/Login" style={{ textDecoration: 'none' }}>
-            <Button variant="outlined" sx={buttonStyles}>
-              Get started
-            </Button>
-          </Link>
-        </div>
-
-        {/* Second column */}
-        <div className="item mr-9 md:mr-0">
-          <h1 className="text-lg text-white pb-4 text-left">Company</h1>
-          <p className="pb-4 text-left">How it works</p>
-          <p className="pb-4 text-left">Career</p>
-          <p className="pb-4 text-left">Legal</p>
-        </div>
-
-        {/* Third column */}
-        <div className="mt-10 md:mt-0 md:text-left text-left">
-          <h1 className="text-lg text-white pb-4">Help</h1>
-          <p className="pb-4">Privacy Policy</p>
-          <p className="pb-4">Refund Policy</p>
-          <p className="pb-4">Track Your Order</p>
-        </div>
-
-        {/* Fourth column */}
-        <div className="mt-10 md:mt-0 md:item md:text-left text-left">
-          <h1 className="text-lg text-white pb-4">Support</h1>
-          <p className="pb-4">Feedback</p>
-          <p className="pb-4">Contact Us</p>
-          <p className="pb-4">Customer Service</p>
-          <p className="pb-4">Terms & condition</p>
         </div>
       </div>
-      {/* Footer text */}
-      <p className="copy-right flex justify-start mt-12 pb-24 text-white">
-        Trackerr &copy; 2023. All rights reserved
-      </p>
     </footer>
   );
 };

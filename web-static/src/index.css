@@ -7,8 +7,102 @@ html {
   font-size: 16px;
 }
 
+html.dark {
+  background-color: #121212;
+  color: #e6e8eb;
+}
+
+html.dark body {
+  background-color: #121212;
+  color: #e6e8eb;
+}
+
+html.dark,
+html.dark body,
+html.dark input,
+html.dark textarea,
+html.dark select,
+html.dark button {
+  background-color: #121212 !important;
+  color: #e6e8eb !important;
+}
+
+html.dark p,
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6,
+html.dark span,
+html.dark a,
+html.dark label,
+html.dark li,
+html.dark div,
+html.dark section,
+html.dark article {
+  color: #e6e8eb !important;
+}
+
+html.dark a {
+  color: #ffb566 !important;
+}
+
+html.dark .bg-white {
+  background-color: #111827 !important;
+}
+
+html.dark .bg-gray-100,
+html.dark .bg-gray-50,
+html.dark .bg-gray-200,
+html.dark .bg-[#fdefe8],
+html.dark .bg-[#FFF6F2],
+html.dark .bg-[#FFD6BE],
+html.dark .bg-[#FFF8EF],
+html.dark .bg-[#9EB3FFF0],
+html.dark .bg-[#B4D479\/25],
+html.dark .bg-[#FFEADF] {
+  background-color: #1f2937 !important;
+}
+
+html.dark .text-gray-700,
+html.dark .text-gray-600,
+html.dark .text-gray-500,
+html.dark .text-gray-800,
+html.dark .text-secondary,
+html.dark .text-[#48463A],
+html.dark .text-[#6B6856],
+html.dark .text-[#A3A38E],
+html.dark .text-[#A3A38E] {
+  color: #d1d5db !important;
+}
+
+html.dark .hover\:text-gray-800:hover,
+html.dark .hover\:text-gray-700:hover,
+html.dark .hover\:text-gray-600:hover {
+  color: #f9fafb !important;
+}
+
+html.dark .border-black,
+html.dark .border-gray-200,
+html.dark .border-gray-300,
+html.dark .border-gray-400,
+html.dark .border-gray-500,
+html.dark .border-gray-600,
+html.dark .border-gray-700,
+html.dark .border-orange-200,
+html.dark .border-orange-300,
+html.dark .border-[#FF833C] {
+  border-color: #374151 !important;
+}
+
+* {
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
 body {
   margin: 0;
   padding: 0;
 }
-

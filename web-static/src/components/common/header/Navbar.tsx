@@ -12,10 +12,13 @@ import './Navbar.css';
 import { useLocation } from "react-router-dom";
 import { logo, profileIcon } from '../../../assets/asset';
 import { motion } from "framer-motion";
+import ThemeToggle from '../ThemeToggle';
+import { useTheme } from '../../../context/ThemeContext';
 
 const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { isDarkMode } = useTheme();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -53,8 +56,8 @@ const Navbar: React.FC = () => {
       <AppBar
         position="static"
         sx={{
-          backgroundColor: 'white',
-          borderColor: '1px solid #D9E1E7',
+          backgroundColor: isDarkMode ? 'background.paper' : 'white',
+          borderColor: 'divider',
           boxShadow: 'none',
         }}
       >
@@ -118,7 +121,11 @@ const Navbar: React.FC = () => {
                   <img
                     src={profileIcon}
                     alt="profile-icon"
-                    style={{ height: '20px', width: '20px' }}
+                    style={{
+                      height: '20px',
+                      width: '20px',
+                      filter: isDarkMode ? 'brightness(0) invert(1)' : 'none'
+                    }}
                   />
                   <NavLink
                     className="Navbar"
@@ -129,6 +136,15 @@ const Navbar: React.FC = () => {
                   </NavLink>
                 </div>
               </Box>
+            </motion.div>
+
+            {/* Theme Toggle */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + (menuItems.length + 1) * 0.08, duration: 0.4 }}
+            >
+              <ThemeToggle />
             </motion.div>
           </Box>
 
@@ -153,6 +169,9 @@ const Navbar: React.FC = () => {
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               onClick={handleClick}
+              sx={{
+                color: isDarkMode ? 'white' : 'inherit',
+              }}
             >
               <MenuIcon />
             </IconButton>
@@ -166,7 +185,7 @@ const Navbar: React.FC = () => {
               transformOrigin={{ vertical: 'top', horizontal: 'left' }}
             >
               <MenuItem onClick={handleClose}>
-                <CloseIcon />
+                <CloseIcon sx={{ color: isDarkMode ? 'white' : 'inherit' }} />
               </MenuItem>
               {menuItems.map((item, index) => (
                 <MenuItem key={index}>
@@ -189,16 +208,23 @@ const Navbar: React.FC = () => {
                   <img
                     src={profileIcon}
                     alt="profile-icon"
-                    style={{ height: '20px', width: '20px' }}
+                    style={{
+                      height: '20px',
+                      width: '20px',
+                      filter: isDarkMode ? 'brightness(0) invert(1)' : 'none'
+                    }}
                   />
                   <NavLink
                     className="Navbar"
-                    style={{ ...linkStyles, marginLeft: '0.625rem', height: '40px' }}
+                    style={{ ...linkStyles, marginLeft: '0.625rem', height: '40px', marginRight: '10px' }}
                     to="/Login"
                   >
                     Login
                   </NavLink>
                 </Box>
+              </MenuItem>
+              <MenuItem>
+                <ThemeToggle />
               </MenuItem>
             </Menu>
           </Box>

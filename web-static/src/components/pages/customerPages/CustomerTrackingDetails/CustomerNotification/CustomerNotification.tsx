@@ -4,6 +4,7 @@ import CustomizedTables from './HistoryTable';
 import RecentUpdate from './RecentUpdate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../../../../../context/AuthContext';
+import { useTheme } from '../../../../../context/ThemeContext';
 import CircularProgress from './CircularProgress';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
@@ -25,6 +26,7 @@ const CustomerNotification: React.FC = () => {
   const [trackingData, setTrackingData] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { email } = useAuth();
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     /**
@@ -72,19 +74,19 @@ const CustomerNotification: React.FC = () => {
   }
 
   return (
-    <div className="m-[80px] sm:m-[75px] "> {/* Adjust margin for mobile */}
-      <div className="flex text-[#040404] sm:flex-col sm:items-start">
+    <div className={`m-[80px] sm:m-[75px] ${isDarkMode ? 'bg-zinc-950 text-white' : 'bg-white text-black'}`}> {/* Adjust margin for mobile */}
+      <div className={`flex sm:flex-col sm:items-start ${isDarkMode ? 'text-white' : 'text-[#040404]'}`}>
         <ArrowBackIcon onClick={() => navigate(-1)} className="cursor-pointer" />
         <p className="font-bold ml-[5px] sm:ml-0 sm:mt-2">Parcel History</p>
       </div>
-      <div className="border-b-2 border-[#D9E1E7] mb-2 mt-10 text-left sm:mt-6">
-        <p className="text-[#5D5D4C] text-base sm:text-sm">Recent update</p>
+      <div className={`${isDarkMode ? 'border-b-2 border-zinc-700' : 'border-b-2 border-[#D9E1E7]'} mb-2 mt-10 text-left sm:mt-6`}>
+        <p className={`${isDarkMode ? 'text-zinc-300' : 'text-[#5D5D4C]'} text-base sm:text-sm`}>Recent update</p>
       </div>
       <div>
         <RecentUpdate trackingData={trackingData} />
       </div>
-      <div className="border-b-2 border-[#D9E1E7] mb-2 mt-10 text-left sm:mt-6">
-        <p className="text-[#5D5D4C] text-base sm:text-sm">History</p>
+      <div className={`${isDarkMode ? 'border-b-2 border-zinc-700' : 'border-b-2 border-[#D9E1E7]'} mb-2 mt-10 text-left sm:mt-6`}>
+        <p className={`${isDarkMode ? 'text-zinc-300' : 'text-[#5D5D4C]'} text-base sm:text-sm`}>History</p>
       </div>
       <div>
         <CustomizedTables trackingData={trackingData} />

@@ -1,14 +1,13 @@
 import React from 'react';
+import { useTheme } from '../../../../../context/ThemeContext';
 import CustomizedTables from '../RecentTracking';
 import TrackingHistory from '../TrackingHistory';
 
 const Report: React.FC = () => {
-
-
-
+    const { isDarkMode } = useTheme();
 
     return (
-        <div className=" sm:m-[80px]">
+        <div className={`sm:m-[80px] ${isDarkMode ? 'bg-zinc-950 text-white' : 'bg-white text-black'}`}>
 
             <div className=" mb-2 mt-10 text-left">
                 <p className="text-secondary font-bold">Recent </p>

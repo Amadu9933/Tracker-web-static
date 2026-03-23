@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useAuth } from '../../../context/AuthContext';
+import { useTheme } from '../../../context/ThemeContext';
 import CircularProgress from '../../pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 
 
@@ -65,6 +66,7 @@ interface TrackingModalProps {
  * @return {void} This function does not return anything.
  */
 const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
+  const { isDarkMode } = useTheme();
   // const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -150,13 +152,20 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
       {loading ? (
         <CircularProgress />
       ) : (
-        <Box sx={style}>
+        <Box
+          sx={{
+            ...style,
+            bgcolor: isDarkMode ? 'background.paper' : 'white',
+            color: isDarkMode ? '#FFFFFF' : '#354755',
+            border: isDarkMode ? '1px solid #333' : 'none',
+          }}
+        >
           <Typography
             id="modal-modal-title"
             variant="h6"
             component="h1"
             sx={{
-              color: '#354755',
+              color: isDarkMode ? '#FFFFFF' : '#354755',
               fontWeight: '700',
               fontSize: { xs: '20px', md: '2rem' },
             }}
@@ -169,7 +178,7 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
               mt: 2,
               fontWeight: '400',
               fontSize: '1rem',
-              color: '#354755',
+              color: isDarkMode ? '#e6e8eb' : '#354755',
               marginTop: '1.5rem',
               marginBottom: '1.5rem',
             }}
@@ -177,13 +186,13 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
             To view your order history please enter your email address
             associated with your orders.
           </Typography>
-          <label className="text-[#354755] font-bold" htmlFor="">
+          <label className={`${isDarkMode ? 'text-[#e6e8eb]' : 'text-[#354755]'} font-bold`} htmlFor="">
             Email
           </label>
           <form onSubmit={handleSubmit}>
             <div className="search-container mt-3">
               <input
-                className="md:text-secondary md:text-[16px] text-[16px]"
+                className={`md:text-secondary md:text-[16px] text-[16px] ${isDarkMode ? 'bg-zinc-800 text-white border border-zinc-600 placeholder:text-zinc-400' : 'bg-white text-black border border-gray-300 placeholder:text-gray-500'}`}
                 type="text"
                 placeholder="example@gmail.com"
                 value={email}

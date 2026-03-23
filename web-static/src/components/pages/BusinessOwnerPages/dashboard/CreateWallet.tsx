@@ -85,7 +85,7 @@ const CreateWallet = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-xl mx-auto my-4 sm:my-8 lg:my-12 rounded-xl bg-cyan-50 shadow-md text-left p-5 sm:p-6 md:p-8"
+      className="w-full max-w-xl mx-auto my-4 sm:my-8 lg:my-12 rounded-xl bg-cyan-50 dark:bg-[#0b1221] dark:border dark:border-gray-700 shadow-md text-left p-5 sm:p-6 md:p-8"
     >
       <div className="relative pt-2 sm:pt-4">
 
@@ -94,7 +94,7 @@ const CreateWallet = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-base sm:text-lg font-medium pr-0 sm:pr-44"
+          className="text-base sm:text-lg font-medium pr-0 sm:pr-44 text-gray-900 dark:text-gray-100"
         >
           Reach your delivery goals faster
         </motion.h1>
@@ -116,7 +116,7 @@ const CreateWallet = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="text-[#8B93AEF0] mt-3 mb-6 text-xs sm:text-sm md:text-base leading-relaxed pr-0 sm:pr-44"
+          className="text-[#8B93AEF0] dark:text-slate-300 mt-3 mb-6 text-xs sm:text-sm md:text-base leading-relaxed pr-0 sm:pr-44"
         >
           Use your trackerr card to pay for deliveries and receive 10% discount
           on all deliveries made with the trackerr app.
@@ -140,7 +140,7 @@ const CreateWallet = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-xs sm:text-sm text-gray-700 mt-4"
+          className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mt-4"
         >
           {getWalletDisplay()}
         </motion.p>

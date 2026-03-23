@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Avatar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import ThemeToggle from '@components/common/ThemeToggle';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { getUserProfile } from '../../../../api/users';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
@@ -58,7 +59,7 @@ const Dashboard: React.FC = () => {
 
       {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'} transform transition-transform duration-200 ease-in-out
-        fixed sm:relative inset-y-0 left-0 w-56 sm:w-[220px] bg-gray-200 text-secondary pl-[28px] flex flex-col justify-between z-20`}>
+        fixed sm:relative inset-y-0 left-0 w-56 sm:w-[220px] bg-gray-200 dark:bg-[#111827] text-secondary dark:text-gray-200 pl-[28px] flex flex-col justify-between z-20`}>
         <nav className="flex flex-col">
           <h2 >
             <img className="h-7 my-[32px] w-20" src={Logo} alt="logo" onClick={() => navigate('/')} />
@@ -67,29 +68,29 @@ const Dashboard: React.FC = () => {
             {/* Dashboard Link */}
             <li
               onClick={() => { navigate('/dashboard/home'); if (sidebarOpen) setSidebarOpen(false); }}
-              className={`flex w-40  p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] 
-                ${location.pathname === '/dashboard/home' ? 'bg-primary text-white' : 'hover:bg-gray-300'}`}
+              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
+                ${location.pathname === '/dashboard/home' ? 'bg-orange-500 text-white dark:bg-orange-600' : 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800'}`}
             >
               <GridViewIcon />
-              <button className="ml-1">Dashboard</button>
+              <span className="ml-1">Dashboard</span>
             </li>
 
             {/* Report Link */}
             <li
               onClick={() => { navigate('/dashboard/reports'); if (sidebarOpen) setSidebarOpen(false); }}
-              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] 
-                ${location.pathname === '/dashboard/reports' ? 'bg-primary text-white' : 'hover:bg-gray-300'}`}
+              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
+                ${location.pathname === '/dashboard/reports' ? 'bg-orange-500 text-white dark:bg-orange-600' : 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800'}`}
             >
               <WatchLaterOutlinedIcon />
-              <button className="ml-1">Report</button>
+              <span className="ml-1">Report</span>
             </li>
 
             {/* Logistics Link */}
             <li onClick={() => { navigate('/dashboard/logistics'); if (sidebarOpen) setSidebarOpen(false); }}
-              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] 
-                ${location.pathname === '/dashboard/logistics' ? 'bg-primary text-white' : 'hover:bg-gray-300'}`}>
+              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
+                ${location.pathname === '/dashboard/logistics' ? 'bg-orange-500 text-white dark:bg-orange-600' : 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800'}`}>
               <LocalShippingOutlinedIcon />
-              <button className="ml-1">Logistics</button>
+              <span className="ml-1">Logistics</span>
             </li>
 
             {/* Integration Link */}
@@ -130,8 +131,8 @@ const Dashboard: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col -ml-6 sm:px-6 pt-5 max-w-screen-xl mx-auto">
         {/* App Bar */}
-        <div className="border-b border-[#D9D9D9] bg-white mx-4">
-          <AppBar position="static" color="default" elevation={0} sx={{ backgroundColor: 'white' }}>
+        <div className="border-b border-[#D9D9D9] dark:border-[#2f3a4a] bg-white dark:bg-[#0b111f] mx-4">
+          <AppBar position="static" color="default" elevation={0} sx={{ backgroundColor: 'background.paper' }}>
             <Toolbar className="flex justify-between">
               <div className="flex items-center">
                 {/* hide text on small screens to save space */}
@@ -146,13 +147,14 @@ const Dashboard: React.FC = () => {
                 </button>
               </div>
               <div className="flex items-center space-x-4">
+                <ThemeToggle />
                 <IconButton>
                   <NotificationsNoneOutlinedIcon />
                 </IconButton>
                 <div className="flex items-center space-x-2">
                   <Avatar src={`${user?.user?.avatar}?v=${Date.now()}` || undefined} sx={{ height: 20, width: 20 }} />
 
-                  <span className="text-gray-700 font-semibold hidden sm:inline">
+                  <span className="text-gray-700 dark:text-gray-200 font-semibold hidden sm:inline">
                     {loading ? 'Loading...' : error ? 'Error' : `Welcome, ${user?.user?.name || 'User'}`}
                   </span>
                 </div>

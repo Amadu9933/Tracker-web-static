@@ -22,6 +22,20 @@
   font-weight: 400;
 }
 
+html.dark .track-container {
+  background-color: #1f1f1f;
+  border: 1px solid #2f2f2f;
+  box-shadow: 0 2vw 2vw 0 rgba(0, 0, 0, 0.4);
+}
+
+.track-container h2 {
+  color: #354755;
+}
+
+html.dark .track-container h2 {
+  color: #f5f7fa;
+}
+
 .enter-tracking {
   display: flex;
   color: #354755;
@@ -93,6 +107,18 @@ input::placeholder {
   font-weight: 400;
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
+}
+
+html.dark input::placeholder {
+  color: #b8b8b8;
+}
+
+html.dark .enter-tracking {
+  color: #e8ecf2;
+}
+
+html.dark .my-parcels {
+  color: #ffb566;
 }
 
 .search-container {
