@@ -39,7 +39,7 @@ const DashboardMain = () => {
   }, []); // Run once on mount
 
   return (
-    <div className={`w-full ${isDarkMode ? 'bg-zinc-950 text-white' : 'bg-white text-black'}`}>
+    <div className={`w-full ${isDarkMode ? ' text-white' : 'bg-white text-black'}`}>
       <div className="w-full">
         <Overview />
       </div>

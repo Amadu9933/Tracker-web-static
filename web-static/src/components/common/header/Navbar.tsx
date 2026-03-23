@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="px-0 md:px-7 dark: bg-[#303030]"
+      className="px-0 md:px-7 dark:bg-[#303030]"
     >
       <AppBar
         position="static"

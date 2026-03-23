@@ -6,6 +6,7 @@ import Package from './assets/package.png';
 import Square from './assets/minus-square.png';
 import SandBox from './assets/codesandbox.png';
 import { motion } from 'framer-motion';
+import { useTheme } from '../../../../context/ThemeContext'; // ✅ import useTheme
 
 const statCards = [
   {
@@ -22,7 +23,7 @@ const statCards = [
     icon: Package,
     alt: 'Package',
     bgColor: 'bg-[#B4D479]/25',
-    border: 'md:border-x border-gray-500',
+    border: 'md:border-x border-gray-500 dark:border-gray-600',
     suffix: 'items',
   },
   {
@@ -37,6 +38,8 @@ const statCards = [
 ];
 
 const Overview = () => {
+  const { isDarkMode } = useTheme(); // ✅ destructure isDarkMode
+
   const [stats, setStats] = useState({
     delivered_status_count: 0,
     returned_status_count: 0,
@@ -81,9 +84,19 @@ const Overview = () => {
         transition={{ duration: 0.4 }}
         className="flex justify-between mt-6 sm:mt-8 pb-4 px-2"
       >
-        <p className="text-sm sm:text-base font-medium">Overview</p>
-        <div className="flex items-center gap-1.5 text-[#828282]">
-          <CalendarTodayOutlinedIcon sx={{ width: 14, height: 14 }} />
+        {/* ✅ Title respects dark mode text */}
+        <p className="text-sm sm:text-base font-medium text-gray-800 dark:text-slate-200">
+          Overview
+        </p>
+        {/* ✅ Date text and icon adapt to dark mode */}
+        <div className={`flex items-center gap-1.5 ${isDarkMode ? 'text-slate-400' : 'text-[#828282]'}`}>
+          <CalendarTodayOutlinedIcon
+            sx={{
+              width: 14,
+              height: 14,
+              color: isDarkMode ? '#94a3b8' : '#828282', // ✅ icon color via sx
+            }}
+          />
           <p className="text-xs sm:text-sm">{getCurrentDate()}</p>
         </div>
       </motion.div>
@@ -93,7 +106,8 @@ const Overview = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded text-xs sm:text-sm"
+          // ✅ Error banner dark mode
+          className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 rounded text-xs sm:text-sm"
         >
           {statsError}
         </motion.div>
@@ -104,7 +118,8 @@ const Overview = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="mb-4 p-3 bg-blue-100 border border-blue-400 text-blue-700 rounded text-xs sm:text-sm"
+          // ✅ Loading banner dark mode
+          className="mb-4 p-3 bg-blue-100 dark:bg-blue-900/30 border border-blue-400 dark:border-blue-600 text-blue-700 dark:text-blue-300 rounded text-xs sm:text-sm"
         >
           Loading statistics...
         </motion.div>
@@ -115,7 +130,8 @@ const Overview = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="flex flex-col md:flex-row bg-slate-600 rounded-md text-white overflow-hidden"
+        // ✅ Container: dark slate in dark mode, lighter slate in light mode
+        className="flex flex-col md:flex-row bg-slate-600 dark:bg-[#0F172A] dark:border dark:border-gray-700 rounded-md text-white overflow-hidden"
       >
         {statCards.map(({ key, label, icon, alt, bgColor, border, suffix }, index) => (
           <motion.div
@@ -123,22 +139,24 @@ const Overview = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
-            className={`flex-1 flex justify-center items-center gap-3 px-6 sm:px-10 md:px-8 lg:px-16 py-6 md:py-10 ${border} border-b border-gray-500 md:border-b-0 last:border-b-0`}
+            className={`flex-1 flex justify-center items-center gap-3 px-6 sm:px-10 md:px-8 lg:px-16 py-6 md:py-10 ${border} border-b border-gray-500 dark:border-gray-700 md:border-b-0 last:border-b-0`}
           >
             {/* Icon */}
-            <div className={`${bgColor} p-2 rounded-full flex-shrink-0`}>
+            <div className={`${bgColor} dark:bg-white/10 p-2 rounded-full flex-shrink-0`}>
               <img src={icon} alt={alt} className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
 
             {/* Text */}
             <div className="text-left">
-              <p className="text-xs sm:text-sm md:text-base font-medium text-[#D1E8FA] leading-snug">
+              {/* ✅ Label: soft blue in light, muted slate in dark */}
+              <p className="text-xs sm:text-sm md:text-base font-medium text-[#D1E8FA] dark:text-slate-400 leading-snug">
                 {label}
               </p>
-              <p className="text-xl sm:text-2xl font-semibold">
+              {/* ✅ Stat number: white in light mode card, bright white in dark */}
+              <p className="text-xl sm:text-2xl font-semibold text-white dark:text-slate-100">
                 {stats[key as keyof typeof stats]}
                 {suffix && (
-                  <span className="text-sm sm:text-base font-medium text-[#D1E8FA] ml-1">
+                  <span className="text-sm sm:text-base font-medium text-[#D1E8FA] dark:text-slate-400 ml-1">
                     {suffix}
                   </span>
                 )}

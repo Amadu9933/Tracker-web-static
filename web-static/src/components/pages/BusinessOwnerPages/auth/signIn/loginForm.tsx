@@ -15,7 +15,6 @@ interface LoginFormData {
   password: string;
 }
 
-// Enhanced Validation Schema with better messages
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -52,8 +51,8 @@ const LoginForm: React.FC = () => {
     trigger,
   } = useForm<LoginFormData>({
     resolver: yupResolver(schema),
-    mode: 'onBlur',           // Validate on blur (good UX)
-    reValidateMode: 'onChange', // Re-validate as user types after first error
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
@@ -62,7 +61,6 @@ const LoginForm: React.FC = () => {
 
   const watchedPassword = watch('password');
 
-  // Optional: Trigger validation when password changes (for better real-time feel)
   useEffect(() => {
     if (watchedPassword && watchedPassword.length > 0) {
       trigger('password');
@@ -122,7 +120,7 @@ const LoginForm: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         onSubmit={handleSubmit(onSubmit)}
-        className="text-left bg-white dark:bg-[#0F172A] dark:border dark:border-gray-700 text-slate-900 dark:text-slate-100 w-full pr-0 md:pr-16"
+        className="text-left bg-white dark:bg-[#0F172A] text-slate-900 dark:text-slate-100 w-full pr-0 md:pr-16"
         noValidate
       >
         <h2 className="font-bold mb-7 text-lg sm:text-xl text-slate-900 dark:text-slate-100">Sign in</h2>
@@ -142,7 +140,10 @@ const LoginForm: React.FC = () => {
             type="email"
             {...register('email')}
             className={`mt-1 block w-full p-3 pl-4 sm:pl-16 border rounded-md placeholder:text-[#A3A38E] dark:placeholder:text-slate-400 focus:border-primary focus:ring-primary text-sm sm:text-base transition-colors bg-white dark:bg-[#03132D] text-slate-900 dark:text-slate-100
-              ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-black dark:border-gray-600 dark:focus:border-primary'}`}
+              ${errors.email
+                ? 'border-red-500 focus:border-red-500'
+                : 'border-black dark:border-gray-600 dark:focus:border-primary'
+              }`}
             placeholder="abc@gmail.com"
             disabled={isLoading}
           />
@@ -166,20 +167,41 @@ const LoginForm: React.FC = () => {
               id="password"
               type={showPassword ? 'text' : 'password'}
               {...register('password')}
-              className={`block w-full p-3 pl-4 sm:pl-16 pr-12 border rounded-md placeholder:text-[#A3A38E] focus:border-primary focus:ring-primary text-sm sm:text-base transition-colors
-                ${errors.password ? 'border-red-500 focus:border-red-500' : 'border-black'}`}
+              className={`block w-full p-3 pl-4 sm:pl-16 pr-12 border rounded-md
+                placeholder:text-[#A3A38E] dark:placeholder:text-slate-400
+                focus:border-primary focus:ring-primary
+                text-sm sm:text-base transition-colors
+                bg-white dark:bg-[#03132D]
+                text-slate-900 dark:text-slate-100
+                ${errors.password
+                  ? 'border-red-500 focus:border-red-500'
+                  : 'border-black dark:border-gray-600 dark:focus:border-primary'
+                }`}
               placeholder="••••••••"
               disabled={isLoading}
             />
 
+            {/* ✅ Eye toggle button — transparent bg, no black box in dark mode */}
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white focus:outline-none transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2
+                flex items-center justify-center
+                w-8 h-8 rounded-full
+                bg-transparent
+                text-slate-500 dark:text-slate-400
+                hover:text-slate-800 dark:hover:text-slate-100
+                hover:bg-slate-100 dark:hover:bg-slate-700
+                focus:outline-none focus:ring-2 focus:ring-primary
+                transition-all duration-200
+                disabled:opacity-50"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
               disabled={isLoading}
             >
-              {showPassword ? <VisibilityOffOutlinedIcon fontSize="small" /> : <VisibilityOutlinedIcon fontSize="small" />}
+              {showPassword
+                ? <VisibilityOffOutlinedIcon fontSize="small" />
+                : <VisibilityOutlinedIcon fontSize="small" />
+              }
             </button>
           </div>
 
@@ -189,40 +211,55 @@ const LoginForm: React.FC = () => {
         </motion.div>
 
         <div className="text-right mb-4">
-          <Link to="/forgot-password" className="text-[#6B6856] dark:text-[#A8B2CA] text-xs hover:text-primary dark:hover:text-orange-300 transition-colors">
+          <Link
+            to="/forgot-password"
+            className="text-[#6B6856] dark:text-[#A8B2CA] text-xs hover:text-primary dark:hover:text-orange-300 transition-colors"
+          >
             Forgot password?
           </Link>
         </div>
 
-        {/* Submit Button - Only enabled when form is valid and dirty */}
+        {/* ✅ Submit Button — visible loading state in dark mode */}
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          whileHover={!isLoading && isValid ? { scale: 1.02 } : {}}
-          whileTap={!isLoading && isValid ? { scale: 0.98 } : {}}
+          whileHover={!isLoading && isValid && isDirty ? { scale: 1.02 } : {}}
+          whileTap={!isLoading && isValid && isDirty ? { scale: 0.98 } : {}}
           type="submit"
           disabled={isLoading || !isValid || !isDirty}
-          className="w-full bg-primary text-white py-3 px-4 rounded text-sm sm:text-base font-medium 
-                     hover:bg-primary-dark transition disabled:opacity-70 disabled:cursor-not-allowed 
-                     flex items-center justify-center gap-2 mt-2"
+          className="w-full py-3 px-4 rounded text-sm sm:text-base font-medium mt-2
+                     flex items-center justify-center gap-2
+                     transition-all duration-200
+                     bg-primary hover:bg-primary-dark
+                     text-white
+                     disabled:opacity-60 disabled:cursor-not-allowed
+                     dark:disabled:bg-slate-700 dark:disabled:text-slate-400
+                     focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                     dark:focus:ring-offset-[#0F172A]"
         >
           {isLoading ? (
             <>
-              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              {/* ✅ Spinner visible in both light and dark mode */}
+              <svg
+                className="animate-spin h-5 w-5 text-white dark:text-slate-300"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
-              Signing in...
+              <span className="text-white dark:text-slate-300">Signing in...</span>
             </>
           ) : (
             'Sign in'
           )}
         </motion.button>
 
-        <p className="text-center text-xs sm:text-sm mt-6 text-gray-600">
+        <p className="text-center text-xs sm:text-sm mt-6 text-gray-600 dark:text-slate-400">
           Don't have an account?{' '}
-          <Link to="/sign-up" className="text-primary hover:underline font-medium">
+          <Link to="/sign-up" className="text-primary hover:underline font-medium dark:text-orange-400 dark:hover:text-orange-300">
             Sign up
           </Link>
         </p>
