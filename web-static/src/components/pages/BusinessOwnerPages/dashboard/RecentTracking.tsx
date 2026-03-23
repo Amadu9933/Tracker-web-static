@@ -160,7 +160,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
                   {formatDateTime(item.date_of_purchase)}
                   <div className={`${isDarkMode ? 'text-zinc-400' : 'text-[#C6C5B9]'} text-xs`}>{formatDateTime(item.time_of_purchase)}</div>
                 </td>
-                <td className="px-4 py-3">{formatDateTime(item.delivery_date)}</td>
+                <td className="px-4 py-3 ">{formatDateTime(item.delivery_date)}</td>
                 <td className={`px-4 py-3 font-semibold ${getStatusColor(item.status)}`}>{item.status}</td>
               </tr>
             ))}

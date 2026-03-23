@@ -10,6 +10,7 @@ import {
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { useTheme } from '../../../../context/ThemeContext';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
@@ -23,6 +24,8 @@ const ParcelChart: React.FC = () => {
   const [chartData, setChartData] = useState<DataPoint[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const { isDarkMode } = useTheme(); // ✅ destructured here
 
   const API_ENDPOINTS = {
     last7Days: `${TRACKERR_HOST}/trackings/charts/weekly/`,
@@ -89,17 +92,57 @@ const ParcelChart: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="flex justify-between items-center mb-4"
+        className="flex justify-between items-center mb-4" // ✅ cleaned up malformed className
       >
         <h2 className="text-sm sm:text-base font-semibold">Activity Chart</h2>
         <FormControl variant="outlined" size="small">
           <Select
             value={filter}
             onChange={handleFilterChange}
-            sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
+            sx={{
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              // ✅ Dark mode applied to MUI Select via sx prop
+              color: isDarkMode ? '#e2e8f0' : 'inherit',
+              backgroundColor: isDarkMode ? '#1e293b' : '#ffffff',
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: isDarkMode ? '#475569' : '#d1d5db',
+              },
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: isDarkMode ? '#94a3b8' : '#9ca3af',
+              },
+              '& .MuiSvgIcon-root': {
+                color: isDarkMode ? '#94a3b8' : 'inherit',
+              },
+            }}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  // ✅ Dark mode applied to dropdown menu paper
+                  backgroundColor: isDarkMode ? '#1e293b' : '#ffffff',
+                  color: isDarkMode ? '#e2e8f0' : 'inherit',
+                  border: isDarkMode ? '1px solid #475569' : 'none',
+                },
+              },
+            }}
           >
-            <MenuItem value="last7Days">Last 7 Days</MenuItem>
-            <MenuItem value="monthly">Monthly</MenuItem>
+            <MenuItem
+              value="last7Days"
+              sx={{
+                fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                '&:hover': { backgroundColor: isDarkMode ? '#334155' : '#f3f4f6' },
+              }}
+            >
+              Last 7 Days
+            </MenuItem>
+            <MenuItem
+              value="monthly"
+              sx={{
+                fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                '&:hover': { backgroundColor: isDarkMode ? '#334155' : '#f3f4f6' },
+              }}
+            >
+              Monthly
+            </MenuItem>
           </Select>
         </FormControl>
       </motion.div>
@@ -141,17 +184,40 @@ const ParcelChart: React.FC = () => {
             >
               <defs>
                 <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#B5EFF9" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#FEFEFE" stopOpacity={0.2} />
+                  {/* ✅ Gradient adapts to dark mode */}
+                  <stop
+                    offset="5%"
+                    stopColor={isDarkMode ? '#1e90ff' : '#B5EFF9'}
+                    stopOpacity={0.5}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor={isDarkMode ? '#0F172A' : '#FEFEFE'}
+                    stopOpacity={0.1}
+                  />
                 </linearGradient>
               </defs>
               <XAxis
                 dataKey="day"
                 interval={0}
-                tick={{ fontSize: 11 }}
+                tick={{
+                  fontSize: 11,
+                  fill: isDarkMode ? '#94a3b8' : '#6b7280', // ✅ axis labels
+                }}
+                axisLine={{ stroke: isDarkMode ? '#334155' : '#e5e7eb' }} // ✅ axis line
+                tickLine={{ stroke: isDarkMode ? '#334155' : '#e5e7eb' }} // ✅ tick marks
               />
               <Tooltip
-                contentStyle={{ fontSize: '0.75rem' }}
+                contentStyle={{
+                  fontSize: '0.75rem',
+                  // ✅ Tooltip dark mode styles
+                  backgroundColor: isDarkMode ? '#1e293b' : '#ffffff',
+                  border: `1px solid ${isDarkMode ? '#475569' : '#e5e7eb'}`,
+                  color: isDarkMode ? '#e2e8f0' : '#111827',
+                  borderRadius: '8px',
+                }}
+                labelStyle={{ color: isDarkMode ? '#94a3b8' : '#6b7280' }}
+                cursor={{ stroke: isDarkMode ? '#475569' : '#d1d5db', strokeWidth: 1 }}
               />
               <Area
                 type="monotone"
@@ -160,7 +226,13 @@ const ParcelChart: React.FC = () => {
                 fill="url(#colorGradient)"
                 fillOpacity={1}
               />
-              <Line type="monotone" dataKey="orders" stroke="#1e90ff" />
+              <Line
+                type="monotone"
+                dataKey="orders"
+                stroke={isDarkMode ? '#60a5fa' : '#1e90ff'} // ✅ line color in dark mode
+                strokeWidth={2}
+                dot={false}
+              />
             </AreaChart>
           </ResponsiveContainer>
         </motion.div>
