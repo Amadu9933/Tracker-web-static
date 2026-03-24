@@ -28,11 +28,12 @@ const schema = yup.object({
     .min(6, 'Password must be at least 6 characters'),
 });
 
-// Shared input className — single source of truth for consistent sizing & alignment
 const inputBase =
   'w-full h-11 px-[54px] text-sm leading-none border rounded-md ' +
   'placeholder:text-[#A3A38E] placeholder:text-sm [&::placeholder]:pl-3 ' +
   'focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary ' +
+  'bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100 ' +
+  'dark:placeholder:text-gray-500 dark:border-gray-600 ' +
   'transition-colors';
 
 const PersonalInfoForm: React.FC = () => {
@@ -53,40 +54,6 @@ const PersonalInfoForm: React.FC = () => {
     navigate('/business-info');
   };
 
-  const fields: {
-    id: keyof PersonalInfoFormData;
-    label: string;
-    type: string;
-    placeholder: string;
-    borderColor: string;
-    delay: number;
-  }[] = [
-      {
-        id: 'name',
-        label: 'Name',
-        type: 'text',
-        placeholder: 'Enter your name',
-        borderColor: 'border-red-600',
-        delay: 0.2,
-      },
-      {
-        id: 'email',
-        label: 'Email',
-        type: 'email',
-        placeholder: 'Enter your email',
-        borderColor: 'border-black',
-        delay: 0.3,
-      },
-      {
-        id: 'phone',
-        label: 'Phone',
-        type: 'text',
-        placeholder: '+233540985004',
-        borderColor: 'border-gray-300',
-        delay: 0.4,
-      },
-    ];
-
   return (
     <motion.form
       initial={{ opacity: 0, y: 20 }}
@@ -102,8 +69,12 @@ const PersonalInfoForm: React.FC = () => {
         transition={{ delay: 0.1, duration: 0.5 }}
         className="flex flex-col sm:flex-row justify-between mb-8 sm:mb-10 gap-1 sm:gap-2"
       >
-        <p className="font-medium text-base sm:text-lg">Personal Information</p>
-        <p className="text-[#82826A] font-medium text-xs sm:text-sm">Step 1 of 3</p>
+        <p className="font-medium text-base sm:text-lg text-gray-900 dark:text-gray-100">
+          Personal Information
+        </p>
+        <p className="text-[#82826A] dark:text-gray-400 font-medium text-xs sm:text-sm">
+          Step 1 of 3
+        </p>
       </motion.div>
 
       {/* Name field */}
@@ -113,7 +84,7 @@ const PersonalInfoForm: React.FC = () => {
         transition={{ delay: 0.2, duration: 0.5 }}
         className="space-y-1"
       >
-        <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-gray-700">
+        <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
           Name
         </label>
         <input
@@ -121,10 +92,10 @@ const PersonalInfoForm: React.FC = () => {
           type="text"
           placeholder="Enter your name"
           {...register('name')}
-          className={`${inputBase} border-red-600 `}
+          className={`${inputBase} border-red-600 dark:border-red-500`}
         />
         {errors.name && (
-          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.name?.message}</p>
+          <p className="text-red-500 dark:text-red-400 text-xs sm:text-sm mt-1">{errors.name?.message}</p>
         )}
       </motion.div>
 
@@ -135,7 +106,7 @@ const PersonalInfoForm: React.FC = () => {
         transition={{ delay: 0.3, duration: 0.5 }}
         className="space-y-1"
       >
-        <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">
+        <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
           Email
         </label>
         <input
@@ -143,10 +114,10 @@ const PersonalInfoForm: React.FC = () => {
           type="email"
           placeholder="Enter your email"
           {...register('email')}
-          className={`${inputBase} border-black  ]`}
+          className={`${inputBase} border-black dark:border-gray-600`}
         />
         {errors.email && (
-          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email?.message}</p>
+          <p className="text-red-500 dark:text-red-400 text-xs sm:text-sm mt-1">{errors.email?.message}</p>
         )}
       </motion.div>
 
@@ -157,7 +128,7 @@ const PersonalInfoForm: React.FC = () => {
         transition={{ delay: 0.4, duration: 0.5 }}
         className="space-y-1"
       >
-        <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
+        <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
           Phone
         </label>
         <input
@@ -165,10 +136,10 @@ const PersonalInfoForm: React.FC = () => {
           type="text"
           placeholder="+233540985004"
           {...register('phone')}
-          className={`${inputBase} border-gray-300`}
+          className={`${inputBase} border-gray-300 dark:border-gray-600`}
         />
         {errors.phone && (
-          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.phone?.message}</p>
+          <p className="text-red-500 dark:text-red-400 text-xs sm:text-sm mt-1">{errors.phone?.message}</p>
         )}
       </motion.div>
 
@@ -179,7 +150,7 @@ const PersonalInfoForm: React.FC = () => {
         transition={{ delay: 0.5, duration: 0.5 }}
         className="space-y-1"
       >
-        <label htmlFor="password" className="block text-xs sm:text-sm font-medium text-gray-700">
+        <label htmlFor="password" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
           Password
         </label>
         <div className="relative">
@@ -188,8 +159,7 @@ const PersonalInfoForm: React.FC = () => {
             type={showPassword ? 'text' : 'password'}
             placeholder="Enter your password"
             {...register('password')}
-            // pr-10 reserves space so text never slides under the eye icon
-            className={`${inputBase} border-black pr-10`}
+            className={`${inputBase} border-black dark:border-gray-600 pr-10`}
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-2">
             <IconButton
@@ -200,15 +170,15 @@ const PersonalInfoForm: React.FC = () => {
               style={{ padding: 4 }}
             >
               {showPassword ? (
-                <VisibilityOff className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+                <VisibilityOff className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 dark:text-gray-400" />
               ) : (
-                <Visibility className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+                <Visibility className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 dark:text-gray-400" />
               )}
             </IconButton>
           </div>
         </div>
         {errors.password && (
-          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.password.message}</p>
+          <p className="text-red-500 dark:text-red-400 text-xs sm:text-sm mt-1">{errors.password.message}</p>
         )}
       </motion.div>
 
@@ -217,7 +187,7 @@ const PersonalInfoForm: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="text-secondary text-xs sm:text-sm pb-4 sm:pb-8"
+        className="text-secondary dark:text-gray-400 text-xs sm:text-sm pb-4 sm:pb-8"
       >
         Password MUST contain at least one uppercase, one lowercase, one number
       </motion.p>
@@ -230,7 +200,9 @@ const PersonalInfoForm: React.FC = () => {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         type="submit"
-        className="w-full bg-primary text-white py-2.5 px-4 rounded-md text-sm sm:text-base hover:bg-primary-dark transition-colors"
+        className="w-full bg-primary dark:bg-orange-500 dark:hover:bg-orange-400
+          dark:shadow-[0_0_12px_rgba(249,115,22,0.3)] text-white py-2.5 px-4
+          rounded-md text-sm sm:text-base font-medium transition-all duration-200"
       >
         Continue
       </motion.button>
@@ -240,10 +212,10 @@ const PersonalInfoForm: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
-        className="text-center mt-6 pb-16 sm:pb-20 text-sm sm:text-base"
+        className="text-center mt-6 pb-16 sm:pb-20 text-sm sm:text-base text-gray-700 dark:text-gray-300"
       >
         Already have an account?{' '}
-        <Link to="/Login" className="text-primary hover:underline">
+        <Link to="/Login" className="text-primary dark:text-orange-400 hover:underline">
           Sign in
         </Link>
       </motion.div>

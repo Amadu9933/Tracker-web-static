@@ -149,17 +149,15 @@ const Navbar: React.FC = () => {
           </Box>
 
           {/* Logo — mobile */}
-          <IconButton
-            size="large"
-            edge="end"
-            aria-label="logo"
-            sx={{
-              justifyContent: { xs: 'flex-end' },
-              display: { xs: 'flex', md: 'none' },
-            }}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            style={{ flexGrow: 1 }}
+            className="flex  md:hidden"
           >
             <img src={logo} alt="Logo" className="nav-logo" />
-          </IconButton>
+          </motion.div>
 
           {/* Mobile menu */}
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

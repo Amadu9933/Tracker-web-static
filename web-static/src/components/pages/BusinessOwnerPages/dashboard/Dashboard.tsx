@@ -160,16 +160,22 @@ const Dashboard: React.FC = () => {
               <div className="flex items-center">
                 <button
                   onClick={() => navigate('/dashboard/GenerateTrackingID')}
-                  className={`sm:flex flex w-fit px-4 ml-5 py-2 leading-5 font-medium text-[14px] rounded-[6px] cursor-pointer
-                    ${location.pathname === '/dashboard/GenerateTrackingID'
-                      ? 'bg-[#E3E2DC] dark:bg-[#2a2f3a] text-[#ABABAB] dark:text-[#6b7280]'
-                      : 'bg-primary dark:bg-primary text-white dark:text-white ml-5 sm:-ml-5'}`}
+                  className={`flex items-center gap-1.5 w-[130px] md:w-fit px-3 sm:px-4 ml-8 sm:ml-5 py-1.5 sm:py-2 leading-5 font-medium text-[12px] sm:text-[14px] rounded-[6px] cursor-pointer transition-all duration-200
+    ${location.pathname === '/dashboard/GenerateTrackingID'
+                      ? 'bg-[#E3E2DC] dark:bg-gradient-to-r dark:from-gray-500 dark:to-gray-700 dark:shadow-[0_0_14px_rgba(249,115,22,0.45)] dark:ring-1 dark:ring-orange-400/50 text-[#ABABAB] dark:text-white dark:font-semibold'
+                      : 'bg-primary dark:bg-[#1e2738] dark:border dark:border-orange-500/40 dark:hover:border-orange-400 dark:hover:bg-[#252d3d] text-white dark:text-orange-100 sm:-ml-5'}`}
                 >
-                  Generate Tracking ID
+                  {/* Icon always visible on mobile, hidden on sm+ */}
+                  <span className="sm:hidden text-base leading-none">＋</span>
+                  {/* Full text hidden on mobile, visible on sm+ */}
+                  <span className="hidden sm:inline">Generate Tracking ID</span>
+                  {/* Short text on mobile only */}
+                  <span className="sm:hidden">Track ID</span>
                 </button>
               </div>
               <div className="flex items-center space-x-4">
-                <ThemeToggle />
+                <div ><ThemeToggle /></div>
+
                 <IconButton>
                   <NotificationsNoneOutlinedIcon
                     sx={{ color: isDarkMode ? '#94a3b8' : 'inherit' }}

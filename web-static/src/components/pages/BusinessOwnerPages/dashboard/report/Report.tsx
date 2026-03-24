@@ -7,7 +7,7 @@ const Report: React.FC = () => {
     const { isDarkMode } = useTheme();
 
     return (
-        <div className={`sm:m-[80px] ${isDarkMode ? 'bg-zinc-950 text-white' : 'bg-white text-black'}`}>
+        <div className={`sm:m-[80px] ${isDarkMode ? 'inherit text-white' : 'bg-white text-black'}`}>
 
             <div className=" mb-2 mt-10 text-left">
                 <p className="text-secondary font-bold">Recent </p>
