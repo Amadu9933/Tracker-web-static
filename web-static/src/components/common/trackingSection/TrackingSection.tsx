@@ -6,6 +6,7 @@ import { Carbon } from '../../../assets/asset';
 import Button from '@mui/material/Button';
 import ModalSection from './ModalSection';
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 
 const TrackingSection: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -57,12 +58,15 @@ const TrackingSection: React.FC = () => {
         >
           <p>Tracking I.D</p>
           <div className="my-parcels">
-            <Button
+            <p
               onClick={handleOpen}
-              sx={{ color: '#ff833c', textTransform: 'none' }}
+              className='dark:underline dark:underline-offset-4 cursor-pointer text-sm sm:text-base text-orange-700/70 dark:text-orange-400/80 transition-colors duration-200 hover:text-orange-700/90 dark:hover:text-orange-400'
+
+
             >
               View Tracking History
-            </Button>
+            </p>
+
             <ModalSection open={open} handleClose={handleClose} />
           </div>
         </motion.div>
@@ -85,7 +89,7 @@ const TrackingSection: React.FC = () => {
               w-full px-4 py-3.5
               bg-[#fdefe8] text-gray-800 
               border border-orange-200 rounded-xl
-              text-sm sm:text-base
+              text-sm sm:text-base dark:border dark:border-orange-700/50 dark:bg-[#303030] dark:text-gray-200
               placeholder:text-xs sm:placeholder:text-sm md:placeholder:text-base
               placeholder:text-orange-700/70
               focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400
