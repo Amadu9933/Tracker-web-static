@@ -124,7 +124,7 @@ const BusinessInfoForm: React.FC = () => {
             transition-colors duration-200
             focus:outline-none focus:ring-1 focus:black
             ${errors.country
-              ? 'border-red-500 dark:border-red-500 focus:ring-red-400'
+              ? 'border-red-400 dark:border-red-500 focus:ring-red-400'
               : 'border-black dark:border-gray-600'
             }`}
         >

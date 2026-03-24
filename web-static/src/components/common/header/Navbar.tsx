@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
             </motion.div>
           </Box>
 
-          {/* Logo — mobile */}
+          {/* Logo — mobile version  */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
