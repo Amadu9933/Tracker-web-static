@@ -1,10 +1,9 @@
-import Button from '@mui/material/Button'; // Importing Button component from Material-UI
-import { Link } from 'react-router-dom'; // Importing Link for navigation
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+
+const year = new Date().getFullYear();
 
 const Footer: React.FC = () => {
-
-  const year = new Date().getFullYear()
-  // Define Button styling
   const buttonStyles = {
     backgroundColor: '#FF833C',
     color: 'white',
@@ -32,15 +31,15 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer
-      className="footer pt-8 px-4 md:pt-12 md:px-10 lg:px-32 bg-secondary dark:bg-background-dark text-text-secondary dark:text-text-secondary"
-    >
+    <footer className="footer pt-8 px-4 md:pt-12 md:px-10 lg:px-32 bg-secondary dark:bg-background-dark">
       <div className="mx-auto w-full max-w-6xl">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* First column */}
           <div className="space-y-4">
-            <h2 className="font-medium text-text-primary dark:text-text-primary text-2xl md:text-3xl">Join To Get Started</h2>
-            <p className="text-sm md:text-base text-text-secondary dark:text-text-secondary">
+            <h2 className="font-medium text-white text-2xl md:text-3xl">
+              Join To Get Started
+            </h2>
+            <p className="text-sm md:text-base text-white/80">
               Your Parcel's journey your way.
             </p>
             <Link to="/Login" style={{ textDecoration: 'none' }}>
@@ -52,34 +51,40 @@ const Footer: React.FC = () => {
 
           {/* Second column */}
           <div className="space-y-3">
-            <h3 className="text-lg text-text-primary dark:text-text-primary">Company</h3>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">How it works</p>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">Career</p>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">Legal</p>
+            <h3 className="text-lg font-semibold text-white">Company</h3>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">How it works</p>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Career</p>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Legal</p>
           </div>
 
           {/* Third column */}
           <div className="space-y-3">
-            <h3 className="text-lg text-text-primary dark:text-text-primary">Help</h3>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">Privacy Policy</p>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">Refund Policy</p>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">Track Your Order</p>
+            <h3 className="text-lg font-semibold text-white">Help</h3>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Privacy Policy</p>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Refund Policy</p>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Track Your Order</p>
           </div>
 
           {/* Fourth column */}
           <div className="space-y-3">
-            <h3 className="text-lg text-text-primary dark:text-text-primary">Support</h3>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">Feedback</p>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">Contact Us</p>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">Customer Service</p>
-            <p className="text-sm text-text-secondary dark:text-text-secondary">Terms & condition</p>
+            <h3 className="text-lg font-semibold text-white">Support</h3>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Feedback</p>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Contact Us</p>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Customer Service</p>
+            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Terms & condition</p>
           </div>
         </div>
 
-        <div className="mt-8 border-t border-border-light dark:border-border-dark pt-6">
-          <p className="copy-right text-xs md:text-sm text-text-secondary dark:text-text-secondary">
+        {/* Bottom bar */}
+        <div className="mt-8 border-t border-white/20 pt-6 pb-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs md:text-sm text-white/70 text-center sm:text-left">
             Trackerr &copy; {year}. All rights reserved
           </p>
+          <div className="flex items-center gap-4">
+            <p className="text-xs md:text-sm text-white/70 hover:text-white cursor-pointer transition-colors">Privacy</p>
+            <p className="text-xs md:text-sm text-white/70 hover:text-white cursor-pointer transition-colors">Terms</p>
+            <p className="text-xs md:text-sm text-white/70 hover:text-white cursor-pointer transition-colors">Cookies</p>
+          </div>
         </div>
       </div>
     </footer>
