@@ -220,8 +220,8 @@ const Navbar: React.FC = () => {
                     Login
                   </NavLink>
                 </Box>
-              </MenuItem>
-              <MenuItem>
+              </MenuItem >
+              <MenuItem >
                 <ThemeToggle />
               </MenuItem>
             </Menu>

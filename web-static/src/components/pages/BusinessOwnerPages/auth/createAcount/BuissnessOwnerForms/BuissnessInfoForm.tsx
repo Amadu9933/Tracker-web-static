@@ -12,6 +12,7 @@ type BusinessInfoFormData = {
   service: string;
   address: string;
   country: string;
+  placeholder?: string;
 };
 
 const schema = yup.object({
@@ -62,6 +63,7 @@ const BusinessInfoForm: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
+        className=' border-red-600 dark:border-red-500`'
       >
         <TextInput
           id="businessName"
@@ -122,10 +124,10 @@ const BusinessInfoForm: React.FC = () => {
           className={`w-full border rounded-[8px] px-3 h-[48px] py-2.5 text-sm
             bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100
             transition-colors duration-200
-            focus:outline-none focus:ring-1 focus:black
+            focus:outline-none focus:ring-1 focus:ring-primary
             ${errors.country
               ? 'border-red-400 dark:border-red-500 focus:ring-red-400'
-              : 'border-black dark:border-gray-600'
+              : 'border-black dark:black/50 focus:ring-primary'
             }`}
         >
           <option value="" disabled className="text-gray-400 dark:text-gray-500">

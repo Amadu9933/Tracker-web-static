@@ -7,6 +7,7 @@ import { useFormContext } from '../../../../../../context/CreateAccountFormConte
 import { IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { motion } from 'framer-motion';
+import TextInput from '../../sharedFormComponents/TextInput';// adjust path as needed
 
 type PersonalInfoFormData = {
   name: string;
@@ -27,14 +28,6 @@ const schema = yup.object({
     .required('Password is required')
     .min(6, 'Password must be at least 6 characters'),
 });
-
-const inputBase =
-  'w-full h-11 px-[54px] text-sm leading-none border rounded-md ' +
-  'placeholder:text-[#A3A38E] placeholder:text-sm [&::placeholder]:pl-3 ' +
-  'focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary ' +
-  'bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100 ' +
-  'dark:placeholder:text-gray-500 dark:border-gray-600 ' +
-  'transition-colors';
 
 const PersonalInfoForm: React.FC = () => {
   const { updateFormData } = useFormContext();
@@ -82,21 +75,14 @@ const PersonalInfoForm: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="space-y-1"
+        className=''
       >
-        <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-          Name
-        </label>
-        <input
+        <TextInput
           id="name"
-          type="text"
-          placeholder="Enter your name"
-          {...register('name')}
-          className={`${inputBase} border-red-600 dark:border-red-500`}
+          label="Name"
+          register={register}
+          error={errors.name}
         />
-        {errors.name && (
-          <p className="text-red-500 dark:text-red-400 text-xs sm:text-sm mt-1">{errors.name?.message}</p>
-        )}
       </motion.div>
 
       {/* Email field */}
@@ -104,21 +90,14 @@ const PersonalInfoForm: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="space-y-1"
       >
-        <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-          Email
-        </label>
-        <input
+        <TextInput
           id="email"
+          label="Email"
           type="email"
-          placeholder="Enter your email"
-          {...register('email')}
-          className={`${inputBase} border-black dark:border-gray-600`}
+          register={register}
+          error={errors.email}
         />
-        {errors.email && (
-          <p className="text-red-500 dark:text-red-400 text-xs sm:text-sm mt-1">{errors.email?.message}</p>
-        )}
       </motion.div>
 
       {/* Phone field */}
@@ -126,21 +105,13 @@ const PersonalInfoForm: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.5 }}
-        className="space-y-1"
       >
-        <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-          Phone
-        </label>
-        <input
+        <TextInput
           id="phone"
-          type="text"
-          placeholder="+233540985004"
-          {...register('phone')}
-          className={`${inputBase} border-gray-300 dark:border-gray-600`}
+          label="Phone"
+          register={register}
+          error={errors.phone}
         />
-        {errors.phone && (
-          <p className="text-red-500 dark:text-red-400 text-xs sm:text-sm mt-1">{errors.phone?.message}</p>
-        )}
       </motion.div>
 
       {/* Password field */}
@@ -148,20 +119,14 @@ const PersonalInfoForm: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.5 }}
-        className="space-y-1"
       >
-        <label htmlFor="password" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-          Password
-        </label>
-        <div className="relative">
-          <input
-            id="password"
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Enter your password"
-            {...register('password')}
-            className={`${inputBase} border-black dark:border-gray-600 pr-10`}
-          />
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2">
+        <TextInput
+          id="password"
+          label="Password"
+          type={showPassword ? 'text' : 'password'}
+          register={register}
+          error={errors.password}
+          rightIcon={
             <IconButton
               onClick={() => setShowPassword((prev) => !prev)}
               edge="end"
@@ -175,11 +140,8 @@ const PersonalInfoForm: React.FC = () => {
                 <Visibility className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 dark:text-gray-400" />
               )}
             </IconButton>
-          </div>
-        </div>
-        {errors.password && (
-          <p className="text-red-500 dark:text-red-400 text-xs sm:text-sm mt-1">{errors.password.message}</p>
-        )}
+          }
+        />
       </motion.div>
 
       {/* Password hint */}

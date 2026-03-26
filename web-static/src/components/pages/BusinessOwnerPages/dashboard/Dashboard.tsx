@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, Avatar, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Avatar, IconButton, CircularProgress as MuiCircularProgress } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import ThemeToggle from '@components/common/ThemeToggle';
@@ -25,8 +25,20 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const [loggingOut, setLoggingOut] = useState<boolean>(false);
 
   const toggleSidebar = () => setSidebarOpen((s) => !s);
+
+  const handleLogout = async () => {
+    if (loggingOut) return; // prevent double-click
+    setLoggingOut(true);
+    try {
+      await logoutUser(); // clears all user cache + tokens, then redirects
+    } catch {
+      // logoutUser handles its own errors; reset state in case redirect didn't fire
+      setLoggingOut(false);
+    }
+  };
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -105,7 +117,7 @@ const Dashboard: React.FC = () => {
         {/* User Actions */}
         <div>
           <ul>
-            {/* ✅ Profile — same pattern as nav links, with active orange state */}
+            {/* Profile */}
             <li
               onClick={() => { navigate('/dashboard/user-profile'); if (sidebarOpen) setSidebarOpen(false); }}
               className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
@@ -117,14 +129,21 @@ const Dashboard: React.FC = () => {
               <span className="ml-1">Profile</span>
             </li>
 
-            {/* ✅ Logout — same pattern as nav links, no active state needed */}
+            {/* Logout */}
             <li
-              onClick={logoutUser}
-              className="flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
-                bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800"
+              onClick={handleLogout}
+              aria-disabled={loggingOut}
+              className={`flex w-40 p-2 text-[14px] rounded-[8px] mb-[32px] items-center gap-2
+                bg-transparent text-gray-900 dark:text-gray-100
+                ${loggingOut
+                  ? 'opacity-50 cursor-not-allowed'
+                  : 'cursor-pointer hover:bg-gray-300 dark:hover:bg-slate-800'}`}
             >
-              <LogoutOutlinedIcon sx={{ height: 20, width: 20 }} />
-              <span className="ml-1">Logout</span>
+              {loggingOut
+                ? <MuiCircularProgress size={20} thickness={5} sx={{ color: 'inherit' }} />
+                : <LogoutOutlinedIcon sx={{ height: 20, width: 20 }} />
+              }
+              <span className="ml-1">{loggingOut ? 'Logging out...' : 'Logout'}</span>
             </li>
           </ul>
         </div>
@@ -165,17 +184,13 @@ const Dashboard: React.FC = () => {
                       ? 'bg-[#E3E2DC] dark:bg-gradient-to-r dark:from-gray-500 dark:to-gray-700 dark:shadow-[0_0_14px_rgba(249,115,22,0.45)] dark:ring-1 dark:ring-orange-400/50 text-[#ABABAB] dark:text-white dark:font-semibold'
                       : 'bg-primary dark:bg-[#1e2738] dark:border dark:border-orange-500/40 dark:hover:border-orange-400 dark:hover:bg-[#252d3d] text-white dark:text-orange-100 sm:-ml-5'}`}
                 >
-                  {/* Icon always visible on mobile, hidden on sm+ */}
                   <span className="sm:hidden text-base leading-none">＋</span>
-                  {/* Full text hidden on mobile, visible on sm+ */}
                   <span className="hidden sm:inline">Generate Tracking ID</span>
-                  {/* Short text on mobile only */}
                   <span className="sm:hidden">Track ID</span>
                 </button>
               </div>
               <div className="flex items-center space-x-4">
-                <div ><ThemeToggle /></div>
-
+                <div><ThemeToggle /></div>
                 <IconButton>
                   <NotificationsNoneOutlinedIcon
                     sx={{ color: isDarkMode ? '#94a3b8' : 'inherit' }}

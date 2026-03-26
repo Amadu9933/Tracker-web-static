@@ -232,11 +232,8 @@ const LoginForm: React.FC = () => {
                      flex items-center justify-center gap-2
                      transition-all duration-200
                      bg-primary hover:bg-primary-dark
-                     text-white
-                     disabled:opacity-60 disabled:cursor-not-allowed
-                     dark:disabled:bg-slate-700 dark:disabled:text-slate-400
-                     focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                     dark:focus:ring-offset-[#0F172A]"
+                     text-white dark:shadow-[0_0_12px_rgba(249,115,22,0.3)]
+          "
         >
           {isLoading ? (
             <>
