@@ -2,6 +2,8 @@ import Button from '@mui/material/Button'; // Importing Button component from Ma
 import { Link } from 'react-router-dom'; // Importing Link for navigation
 
 const Footer: React.FC = () => {
+
+  const year = new Date().getFullYear()
   // Define Button styling
   const buttonStyles = {
     backgroundColor: '#FF833C',
@@ -76,7 +78,7 @@ const Footer: React.FC = () => {
 
         <div className="mt-8 border-t border-border-light dark:border-border-dark pt-6">
           <p className="copy-right text-xs md:text-sm text-text-secondary dark:text-text-secondary">
-            Trackerr &copy; 2023. All rights reserved
+            Trackerr &copy; {year}. All rights reserved
           </p>
         </div>
       </div>
