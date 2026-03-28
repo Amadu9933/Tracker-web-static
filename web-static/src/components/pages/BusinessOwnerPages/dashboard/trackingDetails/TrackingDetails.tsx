@@ -1,7 +1,7 @@
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation, useParams } from "react-router-dom";
-import { User, MapPin, CheckCircle, Package, Truck } from 'lucide-react';
+import { User, MapPin, CheckCircle, Package, Truck, Mail, Phone } from 'lucide-react';
 import { useEffect, useState } from "react";
 import Dialog from "@components/common/reusable/dialog";
 import axiosInstance from "@api/axiosInstance";
@@ -45,12 +45,12 @@ function AddressAutocomplete({ user_data, setUserData }: { user_data: any; setUs
                 value={user_data.address}
                 onChange={handleChange}
                 placeholder="Enter address..."
-                className="border rounded mb-2 w-full px-2 py-1 text-sm
+                className="border rounded-lg w-full px-3 py-2.5 text-sm
                     bg-white dark:bg-[#1E293B]
                     text-slate-900 dark:text-slate-100
-                    border-[#FF833C] dark:border-[#FF833C]
+                    border-slate-300 dark:border-slate-600
                     placeholder:text-slate-400 dark:placeholder:text-slate-500
-                    focus:outline-none focus:ring-1 focus:ring-[#FF833C]
+                    focus:outline-none focus:ring-2 focus:ring-[#FF833C]/40 focus:border-[#FF833C]
                     transition-colors duration-200"
                 required
             />
@@ -78,11 +78,11 @@ function AddressAutocomplete({ user_data, setUserData }: { user_data: any; setUs
 
 export function Container({ children }: { children: React.ReactNode }) {
     return (
-        <div className="p-4 flex flex-col gap-4
+        <div className="p-5 flex flex-col gap-4
             bg-white dark:bg-[#0F172A]
             text-slate-900 dark:text-slate-100
-            rounded-lg shadow-md dark:shadow-none mt-4
-            border border-transparent dark:border-slate-700
+            rounded-xl shadow-sm dark:shadow-none mt-4
+            border border-slate-100 dark:border-slate-700
             transition-colors duration-200">
             {children}
         </div>
@@ -90,26 +90,28 @@ export function Container({ children }: { children: React.ReactNode }) {
 }
 
 const inputClass = `
-    border rounded px-2 py-1 text-sm w-full mb-2
+    border rounded-lg px-3 py-2.5 text-sm w-full
     bg-white dark:bg-[#1E293B]
     text-slate-900 dark:text-slate-100
-    border-[#FF833C] dark:border-[#FF833C]
+    border-slate-300 dark:border-slate-600
     placeholder:text-slate-400 dark:placeholder:text-slate-500
-    focus:outline-none focus:ring-1 focus:ring-[#FF833C]
+    focus:outline-none focus:ring-2 focus:ring-[#FF833C]/40 focus:border-[#FF833C]
     transition-colors duration-200
 `;
 
+const labelClass = "block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide";
+
 const statusBadge = (status: string) => {
-    const base = "text-[0.6rem] font-bold rounded-full px-2 py-1 border";
+    const base = "text-[0.65rem] font-bold rounded-full px-3 py-1 border";
     switch (status) {
         case 'pending':
-            return `${base} bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300 border-[#FF833C]`;
+            return `${base} bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300 border-yellow-300 dark:border-yellow-700`;
         case 'assigned':
         case 'in transit':
-            return `${base} bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 border-[#FF833C]`;
+            return `${base} bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 border-green-300 dark:border-green-700`;
         case 'returned':
         case 'canceled':
-            return `${base} bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 border-red-500`;
+            return `${base} bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 border-red-300 dark:border-red-700`;
         default:
             return `${base} bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-400`;
     }
@@ -163,7 +165,6 @@ export default function TrackingDetails() {
     }, []);
 
     const productName = user_data.product_name.split(',');
-
     const handleAssignClick = () => setIsDialogOpen(true);
     const handleOffDialog = () => setIsDialogOpen(false);
 
@@ -201,39 +202,36 @@ export default function TrackingDetails() {
     return (
         <div className="p-4 min-h-screen bg-slate-50 dark:bg-[#0B1120] transition-colors duration-300">
 
-            {/* Header */}
+            {/* ── Header ── */}
             <Container>
                 <section className="flex justify-between items-center">
                     <div>
-                        <h1 className="text-2xl font-bold mb-0 text-slate-900 dark:text-slate-100">
+                        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                             Tracking Details
                         </h1>
-                        <p className="ml-5 text-slate-500 dark:text-slate-400 text-sm">
+                        <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">
                             Manage tracking assignment and delivery status
                         </p>
                     </div>
 
-                    {trackingStatus !== "" && trackingStatus === 'pending' && (
+                    {trackingStatus === 'pending' && (
                         <div className="flex gap-2">
-                            {!edit && (
+                            {!edit ? (
                                 <button
                                     onClick={() => setEdit(true)}
-                                    className="mt-2 bg-[#FF833C] text-white text-sm px-4 py-2 rounded-xl
-                                        border-2 border-[#FF833C]
-                                        hover:bg-[#e6722e] hover:border-[#e6722e]
-                                        dark:hover:bg-[#ff9a5c] dark:hover:border-[#ff9a5c]
+                                    className="bg-[#FF833C] text-white text-sm px-5 py-2 rounded-lg
+                                        hover:bg-[#e6722e] dark:hover:bg-[#ff9a5c]
                                         dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
-                                        transition-all duration-200 shadow-sm font-medium"
+                                        transition-all duration-200 font-medium"
                                 >
                                     Edit
                                 </button>
-                            )}
-                            {edit && (
-                                <div className="flex gap-2">
+                            ) : (
+                                <>
                                     <button
                                         onClick={() => setEdit(false)}
-                                        className="mt-2 bg-transparent text-slate-600 dark:text-slate-300 text-sm px-4 py-2 rounded-xl
-                                            border-2 border-slate-300 dark:border-slate-600
+                                        className="text-slate-600 dark:text-slate-300 text-sm px-5 py-2 rounded-lg
+                                            border border-slate-300 dark:border-slate-600
                                             hover:bg-slate-100 dark:hover:bg-slate-700
                                             transition-all duration-200 font-medium"
                                     >
@@ -241,230 +239,264 @@ export default function TrackingDetails() {
                                     </button>
                                     <button
                                         onClick={handleShippingUpdate}
-                                        className="mt-2 bg-[#FF833C] text-white text-sm px-4 py-2 rounded-xl
-                                            border-2 border-[#FF833C]
-                                            hover:bg-[#e6722e] hover:border-[#e6722e]
-                                            dark:hover:bg-[#ff9a5c] dark:hover:border-[#ff9a5c]
-                                            dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
-                                            transition-all duration-200 shadow-sm font-medium"
-                                    >
-                                        Save
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </section>
-            </Container>
-
-            {/* Customer + Package Details */}
-            <Container>
-                <section>
-                    <div className="flex gap-4">
-                        {/* Left: Customer */}
-                        <div className="w-1/2">
-                            <h2 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-100">
-                                {trackingData.parcel_number}
-                            </h2>
-                            <p className="mb-2 text-sm text-slate-500 dark:text-slate-400">Customer</p>
-
-                            <div className="flex gap-2 mb-1">
-                                <FontAwesomeIcon
-                                    icon={faUser}
-                                    className="text-slate-500 dark:text-slate-400"
-                                    style={{ fontSize: "0.8rem", marginTop: "3px" }}
-                                />
-                                {edit && trackingStatus === 'pending' ? (
-                                    <div className="flex flex-col w-full gap-1">
-                                        <div>
-                                            <label htmlFor="email" className="text-xs text-slate-600 dark:text-slate-400 mb-1 block">
-                                                Email:
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="email"
-                                                className={inputClass}
-                                                placeholder="johndoe@example.com"
-                                                value={user_data.email}
-                                                onChange={(e) => setUserData({ ...user_data, email: e.target.value })}
-                                                required
-                                            />
-                                        </div>
-                                        <div>
-                                            <label htmlFor="phone" className="text-xs text-slate-600 dark:text-slate-400 mb-1 block">
-                                                Phone Number:
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="phone"
-                                                className={inputClass}
-                                                placeholder="0244567890"
-                                                maxLength={10}
-                                                value={user_data.phone}
-                                                onChange={(e) => setUserData({ ...user_data, phone: e.target.value })}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div>
-                                        <p className="mb-1 text-slate-800 dark:text-slate-200">{user_data.email}</p>
-                                        <p className="mb-4 text-slate-600 dark:text-slate-400">
-                                            {trackingData.country === "Nigeria"
-                                                ? user_data.phone && `+234${user_data.phone}`
-                                                : user_data.phone && `+233${user_data.phone}`
-                                            }
-                                        </p>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Right: Status + Package */}
-                        <div className="w-1/2 p-6">
-                            {trackingStatus !== "" && (
-                                <div className="flex justify-end mb-4">
-                                    <span className={statusBadge(trackingStatus)}>
-                                        {trackingStatus === 'pending'
-                                            ? 'Pending Assignment'
-                                            : trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)
-                                        }
-                                    </span>
-                                </div>
-                            )}
-
-                            <div>
-                                <p className="mb-1 text-sm text-slate-500 dark:text-slate-400">Package Details</p>
-                                {edit && trackingStatus === 'pending' ? (
-                                    <div>
-                                        <label htmlFor="product_name" className="text-xs text-slate-600 dark:text-slate-400 mb-1 block">
-                                            Product Name:
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="product_name"
-                                            className={inputClass}
-                                            placeholder="Electronics, Clothes"
-                                            value={user_data.product_name}
-                                            onChange={(e) => setUserData({ ...user_data, product_name: e.target.value })}
-                                            required
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
-                                        <Package className="h-4 w-4 text-[#FF833C]" />
-                                        {productName.length > 1
-                                            ? `${productName[0].charAt(0).toUpperCase() + productName[0].slice(1).toLowerCase().trim()} - ${productName[1].charAt(1).toUpperCase() + productName[1].slice(2).toLowerCase()}...`
-                                            : `${productName[0].charAt(0).toUpperCase() + productName[0].slice(1)}`
-                                        }
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </Container>
-
-            {/* Delivery Address */}
-            <Container>
-                <section>
-                    <h2 className="text-xl font-bold mb-3 flex items-center gap-2 text-slate-900 dark:text-slate-100">
-                        <MapPin className="text-[#FF833C]" /> Delivery Address
-                    </h2>
-
-                    {edit && trackingStatus === 'pending' ? (
-                        <div className="flex w-full gap-4">
-                            <div className="w-1/2 flex flex-col relative">
-                                <label htmlFor="address" className="text-xs text-slate-600 dark:text-slate-400 mb-1">
-                                    Address:
-                                </label>
-                                <AddressAutocomplete user_data={user_data} setUserData={setUserData} />
-                            </div>
-                            <div className="w-1/2 flex flex-col">
-                                <label htmlFor="country" className="text-xs text-slate-600 dark:text-slate-400 mb-1">
-                                    Country:
-                                </label>
-                                <input
-                                    type="text"
-                                    id="country"
-                                    className={inputClass}
-                                    placeholder="e.g. Ghana"
-                                    value={user_data.country}
-                                    onChange={(e) => setUserData({ ...user_data, country: e.target.value })}
-                                    required
-                                />
-                            </div>
-                        </div>
-                    ) : (
-                        <>
-                            <p className="mb-1 ml-5 text-slate-700 dark:text-slate-300">{user_data.address}</p>
-                            <p className="mb-1 ml-5 text-slate-500 dark:text-slate-400">{user_data.country}</p>
-                        </>
-                    )}
-                </section>
-            </Container>
-
-            {/* Rider Assignment */}
-            {!edit && (
-                <>
-                    <Container>
-                        <section>
-                            <h2 className="text-xl font-bold mb-2 flex gap-2 items-center text-slate-900 dark:text-slate-100">
-                                <Truck className="text-[#FF833C]" /> Rider Assignment
-                            </h2>
-
-                            {isDialogOpen && (
-                                <Dialog
-                                    parcel_number={trackingData.parcel_number}
-                                    handleOffDialog={handleOffDialog}
-                                    handleSetTrackingStatus={setTrackingStatus}
-                                    handleSetRider={setRider}
-                                />
-                            )}
-
-                            {trackingStatus === 'pending' && (
-                                <>
-                                    <p className="text-slate-600 dark:text-slate-400 text-sm">
-                                        Assign this delivery to an available rider below
-                                    </p>
-                                    <button
-                                        onClick={handleAssignClick}
-                                        className="mt-4 w-full bg-[#FF833C] text-white px-4 py-2 rounded-lg
+                                        className="bg-[#FF833C] text-white text-sm px-5 py-2 rounded-lg
                                             hover:bg-[#e6722e] dark:hover:bg-[#ff9a5c]
                                             dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
-                                            transition-all duration-200
-                                            flex items-center justify-center gap-2
-                                            shadow-sm text-sm font-medium"
+                                            transition-all duration-200 font-medium"
                                     >
-                                        <User className="h-4 w-4" /> Assign Rider
+                                        Save Changes
                                     </button>
                                 </>
                             )}
+                        </div>
+                    )}
+                </section>
+            </Container>
 
-                            {trackingStatus !== 'pending' && trackingStatus !== "" && trackingStatus !== "canceled" && (
-                                <div className="w-full">
-                                    <p className="text-slate-600 dark:text-slate-400 text-sm">
-                                        Delivery has been assigned
+            {/* ── Customer + Package Details ── */}
+            <Container>
+                {/* Parcel number + status row */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-700">
+                    <div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                            Parcel Number
+                        </p>
+                        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                            {trackingData.parcel_number}
+                        </h2>
+                    </div>
+                    {trackingStatus && (
+                        <span className={statusBadge(trackingStatus)}>
+                            {trackingStatus === 'pending'
+                                ? 'Pending Assignment'
+                                : trackingStatus.charAt(0).toUpperCase() + trackingStatus.slice(1)
+                            }
+                        </span>
+                    )}
+                </div>
+
+                {/* Edit mode: full-width stacked fields */}
+                {edit && trackingStatus === 'pending' ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                        {/* Email */}
+                        <div>
+                            <label htmlFor="email" className={labelClass}>Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                className={inputClass}
+                                placeholder="johndoe@example.com"
+                                value={user_data.email}
+                                onChange={(e) => setUserData({ ...user_data, email: e.target.value })}
+                                required
+                            />
+                        </div>
+
+                        {/* Phone */}
+                        <div>
+                            <label htmlFor="phone" className={labelClass}>Phone Number</label>
+                            <input
+                                type="text"
+                                id="phone"
+                                className={inputClass}
+                                placeholder="0244567890"
+                                maxLength={10}
+                                value={user_data.phone}
+                                onChange={(e) => setUserData({ ...user_data, phone: e.target.value })}
+                                required
+                            />
+                        </div>
+
+                        {/* Product Name — full width */}
+                        <div className="sm:col-span-2">
+                            <label htmlFor="product_name" className={labelClass}>Product Name</label>
+                            <input
+                                type="text"
+                                id="product_name"
+                                className={inputClass}
+                                placeholder="e.g. Electronics, Clothes"
+                                value={user_data.product_name}
+                                onChange={(e) => setUserData({ ...user_data, product_name: e.target.value })}
+                                required
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    /* View mode: clean info cards */
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+                        {/* Email */}
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                            <div className="mt-0.5 p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                                <Mail className="h-3.5 w-3.5 text-[#FF833C]" />
+                            </div>
+                            <div className="min-w-0">
+                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                                    Email
+                                </p>
+                                <p className="text-sm text-slate-800 dark:text-slate-200 truncate">
+                                    {user_data.email || '—'}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Phone */}
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                            <div className="mt-0.5 p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                                <Phone className="h-3.5 w-3.5 text-[#FF833C]" />
+                            </div>
+                            <div>
+                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                                    Phone
+                                </p>
+                                <p className="text-sm text-slate-800 dark:text-slate-200">
+                                    {user_data.phone
+                                        ? `${trackingData.country === "Nigeria" ? "+234" : "+233"}${user_data.phone}`
+                                        : '—'}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Package */}
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                            <div className="mt-0.5 p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                                <Package className="h-3.5 w-3.5 text-[#FF833C]" />
+                            </div>
+                            <div className="min-w-0">
+                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                                    Package
+                                </p>
+                                <p className="text-sm text-slate-800 dark:text-slate-200 truncate">
+                                    {productName.length > 1
+                                        ? `${productName[0].trim()} +${productName.length - 1} more`
+                                        : productName[0]
+                                            ? productName[0].charAt(0).toUpperCase() + productName[0].slice(1)
+                                            : '—'
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </Container>
+
+            {/* ── Delivery Address ── */}
+            <Container>
+                <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-700">
+                    <div className="p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                        <MapPin className="h-4 w-4 text-[#FF833C]" />
+                    </div>
+                    <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                        Delivery Address
+                    </h2>
+                </div>
+
+                {edit && trackingStatus === 'pending' ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="relative">
+                            <label htmlFor="address" className={labelClass}>Address</label>
+                            <AddressAutocomplete user_data={user_data} setUserData={setUserData} />
+                        </div>
+                        <div>
+                            <label htmlFor="country" className={labelClass}>Country</label>
+                            <input
+                                type="text"
+                                id="country"
+                                className={inputClass}
+                                placeholder="e.g. Ghana"
+                                value={user_data.country}
+                                onChange={(e) => setUserData({ ...user_data, country: e.target.value })}
+                                required
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-1">
+                                Address
+                            </p>
+                            <p className="text-sm text-slate-700 dark:text-slate-300">
+                                {user_data.address || '—'}
+                            </p>
+                        </div>
+                        <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-1">
+                                Country
+                            </p>
+                            <p className="text-sm text-slate-700 dark:text-slate-300">
+                                {user_data.country || '—'}
+                            </p>
+                        </div>
+                    </div>
+                )}
+            </Container>
+
+            {/* ── Rider Assignment ── */}
+            {!edit && (
+                <>
+                    <Container>
+                        <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-700">
+                            <div className="p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                                <Truck className="h-4 w-4 text-[#FF833C]" />
+                            </div>
+                            <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                                Rider Assignment
+                            </h2>
+                        </div>
+
+                        {isDialogOpen && (
+                            <Dialog
+                                parcel_number={trackingData.parcel_number}
+                                handleOffDialog={handleOffDialog}
+                                handleSetTrackingStatus={setTrackingStatus}
+                                handleSetRider={setRider}
+                            />
+                        )}
+
+                        {trackingStatus === 'pending' && (
+                            <div className="flex flex-col items-center gap-3 py-2">
+                                <p className="text-slate-500 dark:text-slate-400 text-sm text-center">
+                                    Assign this delivery to an available rider below
+                                </p>
+                                <button
+                                    onClick={handleAssignClick}
+                                    className="w-full sm:w-auto px-8 py-2.5 bg-[#FF833C] text-white rounded-lg
+                                        hover:bg-[#e6722e] dark:hover:bg-[#ff9a5c]
+                                        dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
+                                        transition-all duration-200
+                                        flex items-center justify-center gap-2
+                                        text-sm font-medium"
+                                >
+                                    <User className="h-4 w-4" /> Assign Rider
+                                </button>
+                            </div>
+                        )}
+
+                        {trackingStatus !== 'pending' && trackingStatus !== "" && trackingStatus !== "canceled" && (
+                            <div className="flex flex-col items-center gap-2 py-4">
+                                <CheckCircle size={56} className="text-green-500 dark:text-green-400" />
+                                <p className="text-sm text-slate-500 dark:text-slate-400">
+                                    Delivery has been assigned
+                                </p>
+                                <div className="mt-1 px-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-center">
+                                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                                        Assignee
                                     </p>
-                                    <div className="w-full h-[5rem] flex justify-center items-center">
-                                        <CheckCircle size={80} className="text-green-500 dark:text-green-400" />
-                                    </div>
-                                    <h3 className="text-center font-medium mt-2 text-slate-800 dark:text-slate-200">
-                                        Assignee: {
-                                            trackingData.rider_name && trackingData.rider_phone
-                                                ? `🏍️ ${title(trackingData.rider_name)} - ${trackingData.rider_phone}`
-                                                : rider
+                                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                                        {trackingData.rider_name && trackingData.rider_phone
+                                            ? `🏍️ ${title(trackingData.rider_name)} — ${trackingData.rider_phone}`
+                                            : rider
                                         }
                                     </h3>
                                 </div>
-                            )}
+                            </div>
+                        )}
 
-                            {trackingStatus === 'canceled' && (
-                                <p className="text-sm text-red-500 dark:text-red-400 mt-2">
-                                    This delivery has been canceled.
-                                </p>
-                            )}
-                        </section>
+                        {trackingStatus === 'canceled' && (
+                            <p className="text-sm text-red-500 dark:text-red-400 text-center py-2">
+                                This delivery has been canceled.
+                            </p>
+                        )}
                     </Container>
 
                     <MessageBox
