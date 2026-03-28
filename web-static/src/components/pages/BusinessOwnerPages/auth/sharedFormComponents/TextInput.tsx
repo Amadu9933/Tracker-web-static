@@ -20,7 +20,7 @@ const TextInput: React.FC<TextInputProps> = ({
   error,
   rightIcon,
   disabled,
-  placeholder
+
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(false);
@@ -51,7 +51,7 @@ const TextInput: React.FC<TextInputProps> = ({
             onBlur(e);
           }}
           className={`
-            peer w-full -pl-3 h-12 text-sm rounded-md border
+            w-full -pl-3 h-12 text-sm rounded-md border
             bg-white dark:bg-[#111827]
             text-gray-900 dark:text-gray-100
             outline-none transition-all duration-200
