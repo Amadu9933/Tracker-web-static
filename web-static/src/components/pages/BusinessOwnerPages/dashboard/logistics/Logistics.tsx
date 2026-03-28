@@ -11,9 +11,12 @@ import { motion } from "framer-motion";
 
 const Integration = () => {
     const [showDialog, setShowDialog] = useState(false);
+    const [showViewDialog, setShowViewDialog] = useState(false);
+    const [showEditDialog, setShowEditDialog] = useState(false);
+    const [selectedRider, setSelectedRider] = useState<any | null>(null);
+    const [editRiderInfo, setEditRiderInfo] = useState({ name: '', address: '', phone: '', email: '', idType: '', idNumber: '' });
     const [msg, setMsg] = useState('');
     const [riders, setRiders] = useState<any[]>([]);
-    const [riderDeleted, setRiderDeleted] = useState(false);
 
     const validRatings = riders.filter(r => r.rating > 0);
     const average = (validRatings.reduce((sum, r) => sum + r.rating, 0) / validRatings.length).toFixed(1);
@@ -85,9 +88,8 @@ const Integration = () => {
             headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
         }).then(() => {
             setMsg('Rider deleted successfully');
-            setRiderDeleted(true);
             setShowRiderDeleteDialog(false);
-            setTimeout(() => { setMsg(''); setRiderDeleted(false); }, 3000);
+            setTimeout(() => { setMsg(''); }, 3000);
         }).catch((error) => {
             console.error('Error deleting rider:', error);
             setMsg('Failed to delete rider');
@@ -97,7 +99,7 @@ const Integration = () => {
     };
 
     const handleAddRider = () => {
-        if (Object.entries(riderInfo).some(([k, v]) => k == '' && v === '')) {
+        if (Object.values(riderInfo).some(v => v === '')) {
             alert('Please fill in all the required fields to add a rider.'); return;
         }
         createRider({
@@ -115,6 +117,53 @@ const Integration = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { id, value } = e.target;
         setRiderInfo(prev => ({ ...prev, [id]: value }));
+    };
+
+    const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { id, value } = e.target;
+        setEditRiderInfo(prev => ({ ...prev, [id]: value }));
+    };
+
+    const handleViewRider = (rider: any) => {
+        setSelectedRider(rider);
+        setShowViewDialog(true);
+    };
+
+    const handleEditRider = (rider: any) => {
+        setSelectedRider(rider);
+        setEditRiderInfo({
+            name: rider.user.name || '',
+            address: rider.user.address || '',
+            phone: rider.user.phone_number || '',
+            email: rider.user.email || '',
+            idType: rider.identity_card_type || '',
+            idNumber: rider.id_number || ''
+        });
+        setShowEditDialog(true);
+    };
+
+    const handleUpdateRider = () => {
+        if (!selectedRider) return;
+
+        axiosInstance.patch(`${TRACKERR_HOST}/logistics/riders/${selectedRider.id}/`, {
+            name: editRiderInfo.name,
+            address: editRiderInfo.address,
+            phone_number: editRiderInfo.phone,
+            email: editRiderInfo.email,
+            identity_card_type: editRiderInfo.idType,
+            id_number: editRiderInfo.idNumber
+        }, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('access')}`, "Content-Type": "application/json" }
+        }).then(() => {
+            setMsg('Rider updated successfully');
+            setShowEditDialog(false);
+            setSelectedRider(null);
+            setTimeout(() => setMsg(''), 3000);
+        }).catch((error) => {
+            console.error('Error updating rider:', error);
+            setMsg('Failed to update rider');
+            setTimeout(() => setMsg(''), 3000);
+        });
     };
 
     const statCards = [
@@ -439,6 +488,7 @@ const Integration = () => {
                                                         hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20
                                                         text-gray-500 dark:text-gray-400 hover:text-orange-500
                                                         transition-all duration-150"
+                                                    onClick={() => handleViewRider(rider)}
                                                 >
                                                     <Eye size={14} />
                                                 </button>
@@ -447,6 +497,7 @@ const Integration = () => {
                                                         hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20
                                                         text-gray-500 dark:text-gray-400 hover:text-orange-500
                                                         transition-all duration-150"
+                                                    onClick={() => handleEditRider(rider)}
                                                 >
                                                     <Edit size={14} />
                                                 </button>
@@ -466,6 +517,172 @@ const Integration = () => {
                             </tbody>
                         </table>
                     </div>
+
+                    {/* ── View Dialog ── */}
+                    {showViewDialog && selectedRider && (
+                        <ReusableDialog>
+                            <div className="flex justify-between w-full mb-4">
+                                <div>
+                                    <h2 className="font-semibold text-base text-gray-900 dark:text-gray-100">
+                                        Rider Details
+                                    </h2>
+                                    <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                        Review rider information for {title(selectedRider.user.name)}
+                                    </p>
+                                </div>
+                                <button
+                                    className="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 transition-colors text-lg leading-none cursor-pointer"
+                                    onClick={() => { setShowViewDialog(false); setSelectedRider(null); }}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">Name</p>
+                                    <p className="text-sm text-gray-900 dark:text-gray-100">{selectedRider.user.name}</p>
+                                </div>
+                                <div className="space-y-2">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">Email</p>
+                                    <p className="text-sm text-gray-900 dark:text-gray-100">{selectedRider.user.email}</p>
+                                </div>
+                                <div className="space-y-2">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">Phone</p>
+                                    <p className="text-sm text-gray-900 dark:text-gray-100">{selectedRider.user.phone_number}</p>
+                                </div>
+                                <div className="space-y-2">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">Location</p>
+                                    <p className="text-sm text-gray-900 dark:text-gray-100">{selectedRider.user.address}</p>
+                                </div>
+                                <div className="space-y-2">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">ID Type</p>
+                                    <p className="text-sm text-gray-900 dark:text-gray-100">{selectedRider.identity_card_type || 'N/A'}</p>
+                                </div>
+                                <div className="space-y-2">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">ID Number</p>
+                                    <p className="text-sm text-gray-900 dark:text-gray-100">{selectedRider.id_number || 'N/A'}</p>
+                                </div>
+                            </div>
+                        </ReusableDialog>
+                    )}
+
+                    {showEditDialog && selectedRider && (
+                        <ReusableDialog>
+                            <div className="flex justify-between w-full mb-4">
+                                <div>
+                                    <h2 className="font-semibold text-base text-gray-900 dark:text-gray-100">
+                                        Edit Rider
+                                    </h2>
+                                    <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                        Update rider details for {title(selectedRider.user.name)}
+                                    </p>
+                                </div>
+                                <button
+                                    className="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 transition-colors text-lg leading-none cursor-pointer"
+                                    onClick={() => { setShowEditDialog(false); setSelectedRider(null); }}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <form className="w-full mt-2 space-y-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className={labelClass} htmlFor="name">Rider Name</label>
+                                        <input
+                                            className={inputClass}
+                                            type="text"
+                                            id="name"
+                                            value={editRiderInfo.name}
+                                            onChange={handleEditInputChange}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className={labelClass} htmlFor="email">Email Address</label>
+                                        <input
+                                            className={inputClass}
+                                            type="email"
+                                            id="email"
+                                            value={editRiderInfo.email}
+                                            onChange={handleEditInputChange}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className={labelClass} htmlFor="address">Address</label>
+                                        <input
+                                            className={inputClass}
+                                            type="text"
+                                            id="address"
+                                            value={editRiderInfo.address}
+                                            onChange={handleEditInputChange}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className={labelClass} htmlFor="phone">Phone Number</label>
+                                        <input
+                                            className={inputClass}
+                                            type="text"
+                                            id="phone"
+                                            value={editRiderInfo.phone}
+                                            onChange={handleEditInputChange}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className={labelClass} htmlFor="idType">ID Type</label>
+                                        <select
+                                            className={`${inputClass} h-[42px]`}
+                                            id="idType"
+                                            value={editRiderInfo.idType}
+                                            onChange={handleEditInputChange}
+                                        >
+                                            <option value="">Select ID Type</option>
+                                            <option value="driver's license">Driver's License</option>
+                                            <option value="national id">National ID</option>
+                                            <option value="voter's card">Voter's Card</option>
+                                            <option value="passport">Passport</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className={labelClass} htmlFor="idNumber">ID Number</label>
+                                        <input
+                                            className={inputClass}
+                                            type="text"
+                                            id="idNumber"
+                                            value={editRiderInfo.idNumber}
+                                            onChange={handleEditInputChange}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-end gap-3 pt-2 border-t border-gray-100 dark:border-gray-700">
+                                    <button
+                                        type="button"
+                                        onClick={() => { setShowEditDialog(false); setSelectedRider(null); }}
+                                        className="px-5 py-2 text-sm font-medium rounded-lg
+                                            bg-gray-100 dark:bg-gray-700
+                                            text-gray-700 dark:text-gray-200
+                                            hover:bg-gray-200 dark:hover:bg-gray-600
+                                            transition-colors duration-200"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={handleUpdateRider}
+                                        className="px-5 py-2 text-sm font-medium rounded-lg
+                                            bg-orange-500 dark:bg-orange-500
+                                            text-white
+                                            hover:bg-orange-600 dark:hover:bg-orange-400
+                                            transition-all duration-200"
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </ReusableDialog>
+                    )}
 
                     {/* ── Delete Dialog ── */}
                     {showRiderDeleteDialog && (
