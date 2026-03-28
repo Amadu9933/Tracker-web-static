@@ -44,7 +44,7 @@ const DashboardMain = () => {
         <Overview />
       </div>
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mt-12">
-        <div className="w-full md:flex-1 md:h-[300px] h-64">
+        <div className="w-full md:flex-1 md:h-[330px]  h-64">
           <ParcelChart />
         </div>
         <div className="w-full md:-mt-12  md:flex-1 flex justify-center md:justify-end">
