@@ -1,4 +1,4 @@
-import TextInput from "@components/pages/BusinessOwnerPages/auth/sharedFormComponents/TextInput";
+import React from 'react';
 const Intergration: React.FC = () => {
   return (
     <div>

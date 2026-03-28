@@ -51,7 +51,7 @@ const TextInput: React.FC<TextInputProps> = ({
             onBlur(e);
           }}
           className={`
-            w-full -pl-3 h-12 text-sm rounded-md border
+            peer w-full -pl-3 h-12 text-sm rounded-md border
             bg-white dark:bg-[#111827]
             text-gray-900 dark:text-gray-100
             outline-none transition-all duration-200

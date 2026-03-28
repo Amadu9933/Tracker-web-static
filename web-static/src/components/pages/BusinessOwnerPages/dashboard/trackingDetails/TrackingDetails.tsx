@@ -39,7 +39,7 @@ function AddressAutocomplete({ user_data, setUserData }: { user_data: any; setUs
     };
 
     return (
-        <div>
+        <div className="relative w-full">
             <input
                 type="text"
                 value={user_data.address}
@@ -50,11 +50,12 @@ function AddressAutocomplete({ user_data, setUserData }: { user_data: any; setUs
                     text-slate-900 dark:text-slate-100
                     border-[#FF833C] dark:border-[#FF833C]
                     placeholder:text-slate-400 dark:placeholder:text-slate-500
-                    focus:outline-none focus:ring-1 focus:ring-[#FF833C]"
+                    focus:outline-none focus:ring-1 focus:ring-[#FF833C]
+                    transition-colors duration-200"
                 required
             />
             {suggestions.length > 0 && (
-                <ul className="mt-2 border rounded-lg shadow-lg z-50 absolute
+                <ul className="mt-1 border rounded-lg shadow-lg z-50 absolute w-full
                     bg-white dark:bg-[#1E293B]
                     border-slate-200 dark:border-slate-600">
                     {suggestions.map((item: any, index: number) => (
@@ -63,7 +64,7 @@ function AddressAutocomplete({ user_data, setUserData }: { user_data: any; setUs
                             className="p-2 cursor-pointer text-sm
                                 text-slate-800 dark:text-slate-200
                                 hover:bg-slate-100 dark:hover:bg-slate-700
-                                transition-colors"
+                                transition-colors duration-150"
                             onClick={() => handleSelect(item.address?.label ?? '')}
                         >
                             {item.address?.label ?? ''}
@@ -80,14 +81,14 @@ export function Container({ children }: { children: React.ReactNode }) {
         <div className="p-4 flex flex-col gap-4
             bg-white dark:bg-[#0F172A]
             text-slate-900 dark:text-slate-100
-            rounded-lg shadow-md mt-4
-            border border-transparent dark:border-slate-700">
+            rounded-lg shadow-md dark:shadow-none mt-4
+            border border-transparent dark:border-slate-700
+            transition-colors duration-200">
             {children}
         </div>
     );
 }
 
-// Reusable dark-mode input style
 const inputClass = `
     border rounded px-2 py-1 text-sm w-full mb-2
     bg-white dark:bg-[#1E293B]
@@ -95,7 +96,7 @@ const inputClass = `
     border-[#FF833C] dark:border-[#FF833C]
     placeholder:text-slate-400 dark:placeholder:text-slate-500
     focus:outline-none focus:ring-1 focus:ring-[#FF833C]
-    transition-colors
+    transition-colors duration-200
 `;
 
 const statusBadge = (status: string) => {
@@ -221,22 +222,35 @@ export default function TrackingDetails() {
                                         border-2 border-[#FF833C]
                                         hover:bg-[#e6722e] hover:border-[#e6722e]
                                         dark:hover:bg-[#ff9a5c] dark:hover:border-[#ff9a5c]
-                                        transition-all duration-200 shadow-sm"
+                                        dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
+                                        transition-all duration-200 shadow-sm font-medium"
                                 >
                                     Edit
                                 </button>
                             )}
                             {edit && (
-                                <button
-                                    onClick={handleShippingUpdate}
-                                    className="mt-2 bg-[#FF833C] text-white text-sm px-4 py-2 rounded-xl
-                                        border-2 border-[#FF833C]
-                                        hover:bg-[#e6722e] hover:border-[#e6722e]
-                                        dark:hover:bg-[#ff9a5c] dark:hover:border-[#ff9a5c]
-                                        transition-all duration-200 shadow-sm"
-                                >
-                                    Save
-                                </button>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => setEdit(false)}
+                                        className="mt-2 bg-transparent text-slate-600 dark:text-slate-300 text-sm px-4 py-2 rounded-xl
+                                            border-2 border-slate-300 dark:border-slate-600
+                                            hover:bg-slate-100 dark:hover:bg-slate-700
+                                            transition-all duration-200 font-medium"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={handleShippingUpdate}
+                                        className="mt-2 bg-[#FF833C] text-white text-sm px-4 py-2 rounded-xl
+                                            border-2 border-[#FF833C]
+                                            hover:bg-[#e6722e] hover:border-[#e6722e]
+                                            dark:hover:bg-[#ff9a5c] dark:hover:border-[#ff9a5c]
+                                            dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
+                                            transition-all duration-200 shadow-sm font-medium"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
                             )}
                         </div>
                     )}
@@ -263,7 +277,9 @@ export default function TrackingDetails() {
                                 {edit && trackingStatus === 'pending' ? (
                                     <div className="flex flex-col w-full gap-1">
                                         <div>
-                                            <label htmlFor="email" className="text-xs text-slate-600 dark:text-slate-400">Email:</label>
+                                            <label htmlFor="email" className="text-xs text-slate-600 dark:text-slate-400 mb-1 block">
+                                                Email:
+                                            </label>
                                             <input
                                                 type="text"
                                                 id="email"
@@ -275,12 +291,14 @@ export default function TrackingDetails() {
                                             />
                                         </div>
                                         <div>
-                                            <label htmlFor="phone" className="text-xs text-slate-600 dark:text-slate-400">Phone Number:</label>
+                                            <label htmlFor="phone" className="text-xs text-slate-600 dark:text-slate-400 mb-1 block">
+                                                Phone Number:
+                                            </label>
                                             <input
                                                 type="text"
                                                 id="phone"
                                                 className={inputClass}
-                                                placeholder="7037676797"
+                                                placeholder="0244567890"
                                                 maxLength={10}
                                                 value={user_data.phone}
                                                 onChange={(e) => setUserData({ ...user_data, phone: e.target.value })}
@@ -318,15 +336,20 @@ export default function TrackingDetails() {
                             <div>
                                 <p className="mb-1 text-sm text-slate-500 dark:text-slate-400">Package Details</p>
                                 {edit && trackingStatus === 'pending' ? (
-                                    <input
-                                        type="text"
-                                        id="product_name"
-                                        className={inputClass}
-                                        placeholder="Electronics, Clothes"
-                                        value={user_data.product_name}
-                                        onChange={(e) => setUserData({ ...user_data, product_name: e.target.value })}
-                                        required
-                                    />
+                                    <div>
+                                        <label htmlFor="product_name" className="text-xs text-slate-600 dark:text-slate-400 mb-1 block">
+                                            Product Name:
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="product_name"
+                                            className={inputClass}
+                                            placeholder="Electronics, Clothes"
+                                            value={user_data.product_name}
+                                            onChange={(e) => setUserData({ ...user_data, product_name: e.target.value })}
+                                            required
+                                        />
+                                    </div>
                                 ) : (
                                     <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
                                         <Package className="h-4 w-4 text-[#FF833C]" />
@@ -352,16 +375,20 @@ export default function TrackingDetails() {
                     {edit && trackingStatus === 'pending' ? (
                         <div className="flex w-full gap-4">
                             <div className="w-1/2 flex flex-col relative">
-                                <label htmlFor="address" className="text-xs text-slate-600 dark:text-slate-400 mb-1">Address:</label>
+                                <label htmlFor="address" className="text-xs text-slate-600 dark:text-slate-400 mb-1">
+                                    Address:
+                                </label>
                                 <AddressAutocomplete user_data={user_data} setUserData={setUserData} />
                             </div>
                             <div className="w-1/2 flex flex-col">
-                                <label htmlFor="country" className="text-xs text-slate-600 dark:text-slate-400 mb-1">Country:</label>
+                                <label htmlFor="country" className="text-xs text-slate-600 dark:text-slate-400 mb-1">
+                                    Country:
+                                </label>
                                 <input
                                     type="text"
                                     id="country"
                                     className={inputClass}
-                                    placeholder="Nigeria"
+                                    placeholder="e.g. Ghana"
                                     value={user_data.country}
                                     onChange={(e) => setUserData({ ...user_data, country: e.target.value })}
                                     required
@@ -404,6 +431,7 @@ export default function TrackingDetails() {
                                         onClick={handleAssignClick}
                                         className="mt-4 w-full bg-[#FF833C] text-white px-4 py-2 rounded-lg
                                             hover:bg-[#e6722e] dark:hover:bg-[#ff9a5c]
+                                            dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
                                             transition-all duration-200
                                             flex items-center justify-center gap-2
                                             shadow-sm text-sm font-medium"
@@ -415,7 +443,9 @@ export default function TrackingDetails() {
 
                             {trackingStatus !== 'pending' && trackingStatus !== "" && trackingStatus !== "canceled" && (
                                 <div className="w-full">
-                                    <p className="text-slate-600 dark:text-slate-400 text-sm">Delivery has been assigned</p>
+                                    <p className="text-slate-600 dark:text-slate-400 text-sm">
+                                        Delivery has been assigned
+                                    </p>
                                     <div className="w-full h-[5rem] flex justify-center items-center">
                                         <CheckCircle size={80} className="text-green-500 dark:text-green-400" />
                                     </div>
@@ -427,6 +457,12 @@ export default function TrackingDetails() {
                                         }
                                     </h3>
                                 </div>
+                            )}
+
+                            {trackingStatus === 'canceled' && (
+                                <p className="text-sm text-red-500 dark:text-red-400 mt-2">
+                                    This delivery has been canceled.
+                                </p>
                             )}
                         </section>
                     </Container>

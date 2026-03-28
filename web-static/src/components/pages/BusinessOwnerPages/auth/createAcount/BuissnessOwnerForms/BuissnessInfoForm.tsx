@@ -12,7 +12,7 @@ type BusinessInfoFormData = {
   service: string;
   address: string;
   country: string;
-  placeholder?: string;
+
 };
 
 const schema = yup.object({
