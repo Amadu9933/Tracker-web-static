@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const YouCanTrustUs: React.FC = () => {
   return (
-    <div className="bg-[#FFF8EF] flex justify-center items-center py-16 px-4 md:px-8">
+    <div className="bg-[#FFF8EF] dark:bg-[#0d1526] flex justify-center items-center py-16 px-4 md:px-8 transition-colors duration-300">
       <div className="w-full max-w-3xl text-center">
 
         {/* Heading */}
@@ -13,7 +13,7 @@ const YouCanTrustUs: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-2xl md:text-3xl font-medium text-secondary pt-10 md:pt-16 pb-5"
+          className="text-2xl md:text-3xl font-medium text-secondary dark:text-white pt-10 md:pt-16 pb-5"
         >
           You can trust us
         </motion.h2>
@@ -24,7 +24,7 @@ const YouCanTrustUs: React.FC = () => {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-[#8E8A73] text-sm md:text-base font-inter font-medium mb-10 md:mb-14"
+          className="text-[#8E8A73] dark:text-slate-400 text-sm md:text-base font-inter font-medium mb-10 md:mb-14"
         >
           Dont take our word for it. Hear from happy users who have used
           Trackerr to transform their shipping experience.
@@ -37,7 +37,7 @@ const YouCanTrustUs: React.FC = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           whileHover={{ scale: 1.02 }}
-          className="border-2 border-[#8E9090] rounded-lg p-6 md:p-8 flex flex-col justify-center items-center bg-white shadow-sm"
+          className="border-2 border-[#8E9090] dark:border-slate-600 rounded-lg p-6 md:p-8 flex flex-col justify-center items-center bg-white dark:bg-slate-800 shadow-sm dark:shadow-lg transition-colors duration-300"
         >
           <div className="flex justify-center items-center mb-6">
             <img
@@ -47,7 +47,7 @@ const YouCanTrustUs: React.FC = () => {
             />
           </div>
 
-          <p className="text-sm md:text-base font-normal text-secondary text-center leading-relaxed">
+          <p className="text-sm md:text-base font-normal text-secondary dark:text-slate-300 text-center leading-relaxed">
             "I can't express enough how our business has transformed since I
             started using Trackerr. It's been a game-changer in every
             aspect. The seamless process of generating IDs for my
@@ -66,9 +66,9 @@ const YouCanTrustUs: React.FC = () => {
         >
           <motion.div
             whileHover={{ x: 5 }}
-            className="border-b-2 border-b-primary pb-1"
+            className="border-b-2 border-b-primary dark:border-b-orange-500 pb-1"
           >
-            <a href="" className="text-primary text-sm font-medium">
+            <a href="" className="text-primary dark:text-orange-500 text-sm font-medium">
               View All
             </a>
 

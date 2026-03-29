@@ -291,10 +291,10 @@ const Integration = () => {
 
                         {/* ID Type + ID Number */}
                         <div className="flex gap-3">
-                            <div className="flex-1">
+                            <div className="flex-1 ">
                                 <label className={labelClass} htmlFor="idType">ID Type</label>
                                 <select
-                                    className={`${inputClass} h-[42px]`}
+                                    className={`${inputClass} h-[48px]`}
                                     id="idType"
                                     aria-label="ID Type"
                                     onChange={handleInputChange}

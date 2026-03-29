@@ -6,7 +6,7 @@ const ReadyTo: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="mt-24 bg-primary flex w-full justify-between items-center relative overflow-hidden">
+    <section className="mt-24 bg-primary dark:bg-[#1a2a40] flex w-full justify-between items-center relative overflow-hidden transition-colors duration-300">
 
       {/* Text Section */}
       <motion.div
@@ -16,11 +16,11 @@ const ReadyTo: React.FC = () => {
         viewport={{ once: true }}
         className="w-full md:w-2/4 text-center md:text-left mx-10 md:ml-12 my-12"
       >
-        <h2 className="text-xl md:text-5xl font-bold">
+        <h2 className="text-xl md:text-5xl font-bold text-white dark:text-white">
           Ready to revolutionize your shipping game?
         </h2>
 
-        <p className="text-sm mt-4 mb-4">
+        <p className="text-sm mt-4 mb-4 text-white dark:text-slate-200">
           Trackerr has got you covered.
         </p>
 
@@ -28,7 +28,7 @@ const ReadyTo: React.FC = () => {
           onClick={() => navigate("/Login")}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-white text-[#FF833C] border border-[#FF833C] rounded-lg font-medium text-[16px] px-[18px] py-[12px] hover:bg-[#d6d5d4] hover:text-white transition"
+          className="bg-white dark:bg-slate-700 text-[#FF833C] dark:text-white border border-[#FF833C] dark:border-slate-600 rounded-lg font-medium text-[16px] px-[18px] py-[12px] hover:bg-[#d6d5d4] dark:hover:bg-slate-600 hover:text-white transition"
         >
           Get started
         </motion.button>

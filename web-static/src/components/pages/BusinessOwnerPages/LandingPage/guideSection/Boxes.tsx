@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 
 const Boxes: React.FC = () => {
   return (
-    <div className="flex justify-around items-center flex-col md:flex-row px-6 md:px-16">
+    <div className="flex justify-around items-center flex-col md:flex-row px-6 md:px-16
+      bg-white dark:bg-[#0b111f] transition-colors duration-300">
 
       {/* Box 1 */}
       <motion.div
@@ -17,14 +18,13 @@ const Boxes: React.FC = () => {
         <img
           src={instantTrackig}
           alt="Instant tracking"
-          className="w-[60px] h-[65px] mx-auto md:mx-0"
+          className="w-[60px] h-[65px] mx-auto md:mx-0 dark:brightness-90"
         />
-
-        <h1 className="text-center md:text-left my-4 text-2xl font-medium text-secondary">
+        <h1 className="text-center md:text-left my-4 text-2xl font-medium
+          text-secondary dark:text-white">
           Instant Tracking IDs
         </h1>
-
-        <p className="text-center md:text-left text-[#8E8A73]">
+        <p className="text-center md:text-left text-[#8E8A73] dark:text-slate-400">
           Generate unique IDs in seconds, ensuring real-time visibility for your
           parcels.
         </p>
@@ -42,14 +42,13 @@ const Boxes: React.FC = () => {
         <img
           src={setting}
           alt="Customization"
-          className="w-[60px] h-[65px] mx-auto md:mx-0"
+          className="w-[60px] h-[65px] mx-auto md:mx-0 dark:brightness-90"
         />
-
-        <h1 className="text-center md:text-left text-2xl my-4 font-medium text-secondary">
+        <h1 className="text-center md:text-left text-2xl my-4 font-medium
+          text-secondary dark:text-white">
           Customization Options
         </h1>
-
-        <p className="text-center md:text-left text-[#8E8A73]">
+        <p className="text-center md:text-left text-[#8E8A73] dark:text-slate-400">
           Tailor tracking IDs to your preferences, making them easily
           recognizable and brand-specific.
         </p>
@@ -67,18 +66,18 @@ const Boxes: React.FC = () => {
         <img
           src={seemless}
           alt="Integration"
-          className="w-[80px] h-[65px] mx-auto md:mx-0"
+          className="w-[80px] h-[65px] mx-auto md:mx-0 dark:brightness-90"
         />
-
-        <h1 className="text-center md:text-left text-2xl my-4 font-medium text-secondary">
+        <h1 className="text-center md:text-left text-2xl my-4 font-medium
+          text-secondary dark:text-white">
           Seamless Integration
         </h1>
-
-        <p className="text-center md:text-left text-[#8E8A73] pb-10">
+        <p className="text-center md:text-left text-[#8E8A73] dark:text-slate-400 pb-10">
           Connect easily with logistics platforms and manage deliveries
           efficiently.
         </p>
       </motion.div>
+
     </div>
   );
 };
