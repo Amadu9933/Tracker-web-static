@@ -9,6 +9,7 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import { loginUser } from '../../../../../api/auth';
 import MessageBox from '@components/common/reusable/messageBox';
 import { motion } from 'framer-motion';
+import TextInput from '../sharedFormComponents/TextInput';
 
 interface LoginFormData {
   email: string;
@@ -132,24 +133,14 @@ const LoginForm: React.FC = () => {
           transition={{ delay: 0.1, duration: 0.5 }}
           className="mb-6"
         >
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Email
-          </label>
-          <input
+          <TextInput
             id="email"
+            label="Email"
             type="email"
-            {...register('email')}
-            className={`mt-1 block w-full p-3 pl-4 sm:pl-16 border rounded-md placeholder:text-[#A3A38E] dark:placeholder:text-slate-400 focus:border-primary focus:ring-primary text-sm sm:text-base transition-colors bg-white dark:bg-[#03132D] text-slate-900 dark:text-slate-100
-              ${errors.email
-                ? 'border-red-500 focus:border-red-500'
-                : 'border-black dark:border-gray-600 dark:focus:border-primary'
-              }`}
-            placeholder="abc@gmail.com"
+            register={register}
+            error={errors.email}
             disabled={isLoading}
           />
-          {errors.email && (
-            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email.message}</p>
-          )}
         </motion.div>
 
         {/* Password Field */}
@@ -159,55 +150,36 @@ const LoginForm: React.FC = () => {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="relative mb-2"
         >
-          <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Password
-          </label>
-          <div className="relative">
-            <input
-              id="password"
-              type={showPassword ? 'text' : 'password'}
-              {...register('password')}
-              className={`block w-full p-3 pl-4 sm:pl-16 pr-12 border rounded-md
-                placeholder:text-[#A3A38E] dark:placeholder:text-slate-400
-                focus:border-primary focus:ring-primary
-                text-sm sm:text-base transition-colors
-                bg-white dark:bg-[#03132D]
-                text-slate-900 dark:text-slate-100
-                ${errors.password
-                  ? 'border-red-500 focus:border-red-500'
-                  : 'border-black dark:border-gray-600 dark:focus:border-primary'
-                }`}
-              placeholder="••••••••"
-              disabled={isLoading}
-            />
-
-            {/* ✅ Eye toggle button — transparent bg, no black box in dark mode */}
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-3 top-1/2 -translate-y-1/2
-                flex items-center justify-center
-                w-8 h-8 rounded-full
-                bg-transparent
-                text-slate-500 dark:text-slate-400
-                hover:text-slate-800 dark:hover:text-slate-100
-                hover:bg-slate-100 dark:hover:bg-slate-700
-                focus:outline-none focus:ring-2 focus:ring-primary
-                transition-all duration-200
-                disabled:opacity-50"
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-              disabled={isLoading}
-            >
-              {showPassword
-                ? <VisibilityOffOutlinedIcon fontSize="small" />
-                : <VisibilityOutlinedIcon fontSize="small" />
-              }
-            </button>
-          </div>
-
-          {errors.password && (
-            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.password.message}</p>
-          )}
+          <TextInput
+            id="password"
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            register={register}
+            error={errors.password}
+            disabled={isLoading}
+            rightIcon={
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="flex items-center justify-center
+                  w-8 h-8 rounded-full
+                  bg-transparent
+                  text-slate-500 dark:text-slate-400
+                  hover:text-slate-800 dark:hover:text-slate-100
+                  hover:bg-slate-100 dark:hover:bg-slate-700
+                  focus:outline-none focus:ring-2 focus:ring-primary
+                  transition-all duration-200
+                  disabled:opacity-50"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                disabled={isLoading}
+              >
+                {showPassword
+                  ? <VisibilityOffOutlinedIcon fontSize="small" />
+                  : <VisibilityOutlinedIcon fontSize="small" />
+                }
+              </button>
+            }
+          />
         </motion.div>
 
         <div className="text-right mb-4">

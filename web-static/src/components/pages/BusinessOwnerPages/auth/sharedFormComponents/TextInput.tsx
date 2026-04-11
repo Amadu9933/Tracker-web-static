@@ -51,7 +51,7 @@ const TextInput: React.FC<TextInputProps> = ({
             onBlur(e);
           }}
           className={`
-            peer w-full -pl-3 h-12 text-sm rounded-md border
+            peer w-full pl-4 h-12 text-sm rounded-md border
             bg-white dark:bg-[#111827]
             text-gray-900 dark:text-gray-100
             outline-none transition-all duration-200
@@ -72,6 +72,7 @@ const TextInput: React.FC<TextInputProps> = ({
             bg-white dark:bg-[#111827]
             pointer-events-none select-none
             transition-all duration-200 ease-in-out
+            text-gray-400 dark:text-gray-500
             ${isFloating
               ? '-top-2 text-[11px] font-medium'   // floated up — stays here permanently once value exists
               : 'top-3.5 text-sm'                   // resting inside input
