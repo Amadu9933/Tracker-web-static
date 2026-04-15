@@ -4,7 +4,7 @@ import { getWalletBalance, WalletBalance } from '../../../../api/wallet';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const CreateWallet = () => {
+const CreateWallet = ({onClick}) => {
   const [profile, setProfile] = useState<any>(null);
   const [, setProfileLoading] = useState<boolean>(true);
   const [, setProfileError] = useState<string | null>(null);
@@ -80,6 +80,7 @@ const CreateWallet = () => {
     );
   };
 
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -88,7 +89,6 @@ const CreateWallet = () => {
       className="w-full max-w-xl mx-auto my-4 sm:my-8 lg:my-12 rounded-xl bg-cyan-50 dark:bg-[#0b1221] dark:border dark:border-gray-700 shadow-md text-left p-5 sm:p-6 md:p-8"
     >
       <div className="relative pt-2 sm:pt-4">
-
         {/* Heading */}
         <motion.h1
           initial={{ opacity: 0, y: 15 }}
@@ -98,7 +98,6 @@ const CreateWallet = () => {
         >
           Reach your delivery goals faster
         </motion.h1>
-
         {/* Wallet not created notice */}
         {isWalletNotCreated && (
           <motion.div
@@ -129,6 +128,8 @@ const CreateWallet = () => {
           transition={{ delay: 0.4 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.97 }}
+          type="button"
+          onClick={()=> onClick(true)}
           className="border-2 border-primary text-primary px-4 py-2 rounded-md w-full sm:w-auto text-sm sm:text-base"
         >
           <span className="mr-2 text-lg sm:text-xl font-light">+</span>

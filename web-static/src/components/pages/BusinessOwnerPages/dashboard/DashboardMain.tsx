@@ -6,11 +6,16 @@ import CreateWallet from './CreateWallet';
 import CustomizedTables from './RecentTracking';
 import { fetchTrackingData } from '../../../../api/tracking';
 
+// Payment dialog box
+import ReusableModal from '../../../common/reusable/ReusableModal';
+import Payment from './Payment';
+
 const DashboardMain = () => {
   const { isDarkMode } = useTheme();
   const [, setTrackingData] = useState<any[]>([]); // State to hold tracking data
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [showPaymentDialog, setShowPaymentDialog] = useState<boolean>(false); // State to control payment dialog visibility
 
   // Fetch tracking data when component mounts
   useEffect(() => {
@@ -48,7 +53,18 @@ const DashboardMain = () => {
           <ParcelChart />
         </div>
         <div className="w-full md:-mt-12  md:flex-1 flex justify-center md:justify-end">
-          <CreateWallet />
+        {
+          showPaymentDialog && (
+            <ReusableModal>
+              <Payment 
+                showDialog={setShowPaymentDialog} />
+            </ReusableModal>
+          )
+        }
+        
+          <CreateWallet
+            onClick={setShowPaymentDialog}
+          />
         </div>
       </div>
       <div className="">
