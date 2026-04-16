@@ -57,7 +57,9 @@ const DashboardMain = () => {
           showPaymentDialog && (
             <ReusableModal>
               <Payment 
-                showDialog={setShowPaymentDialog} />
+                showDialog={setShowPaymentDialog}
+
+                />
             </ReusableModal>
           )
         }

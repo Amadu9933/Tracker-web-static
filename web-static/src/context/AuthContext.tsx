@@ -10,6 +10,7 @@ type User = {
 
 type AuthContextType = {
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -79,7 +80,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, email, setTrackingHistoryEmail }}>
+    <AuthContext.Provider value={{ user, setUser, token, login, logout, email, setTrackingHistoryEmail }}>
       {children}
     </AuthContext.Provider>
   );

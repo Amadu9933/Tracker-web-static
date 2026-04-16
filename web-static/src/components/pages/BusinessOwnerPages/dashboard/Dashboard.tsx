@@ -15,13 +15,16 @@ import { logoutUser } from '../../../../api/auth';
 import Logo from '../../../../assets/Logo.png';
 import CircularProgress from '../../customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 import { useTheme } from '../../../../context/ThemeContext';
+import {useAuth} from '../../../../context/AuthContext';
 
 const Dashboard: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
 
-  const [user, setUser] = useState<any>(null);
+  const {user, setUser} = useAuth();
+
+  // const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
