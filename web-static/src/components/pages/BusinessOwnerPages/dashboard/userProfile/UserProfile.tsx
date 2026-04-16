@@ -1,6 +1,6 @@
 // src/pages/BusinessOwnerPages/user/Profile.tsx
 
-import { ArrowLeft, Camera, CheckCircle, Edit, Loader } from "lucide-react";
+import { Camera, CheckCircle, Edit, Loader } from "lucide-react";
 import { Container } from "../trackingDetails/TrackingDetails";
 import { useEffect, useState } from "react";
 import axiosInstance from "@api/axiosInstance";
@@ -29,7 +29,6 @@ const UserProfile = () => {
     const [canEdit, setCanEdit] = useState<boolean>(false);
     const [tempAvatar, setTempAvatar] = useState("");
     const [loader, setLoader] = useState(false);
-    // const [status, setStatus] = useState<string>('')
     type MsgState = "red" | "green";
     const [showMsg, setShowMsg] = useState<{
         status: boolean;
@@ -45,7 +44,6 @@ const UserProfile = () => {
 
     const validatePhone = (phone: string) => {
         const pattern = /^[0-9]{10}$/;
-
         return pattern.test(phone)
     }
 
@@ -53,7 +51,6 @@ const UserProfile = () => {
         const validate = validatePhone(userData.user.phone_number);
         if (validate) {
             const formData = new FormData()
-
             formData.append('name', (userData.user.name || '').split('👌')[0]);
             formData.append('phone_number', userData.user.phone_number);
             formData.append('address', userData.user.address)
@@ -72,114 +69,47 @@ const UserProfile = () => {
                 setCanEdit(!canEdit);
                 setUpdated(!updated);
                 setLoader(!loader)
-                setShowMsg({
-                    ...showMsg,
-                    msg: "Updated successfully ✅",
-                    status: true,
-                    state: 'green'
-                })
+                setShowMsg({ ...showMsg, msg: "Updated successfully ✅", status: true, state: 'green' })
                 setTimeout(() => {
-                    setShowMsg({
-                        ...showMsg,
-                        status: false,
-                        state: 'green'
-                    });
+                    setShowMsg({ ...showMsg, status: false, state: 'green' });
                     window.location.reload()
                 }, 3000)
-
             }).catch((err: any) => {
-                setShowMsg({
-                    ...showMsg,
-                    msg: err.response?.data?.error,
-                    status: true,
-                    state: 'red'
-                })
+                setShowMsg({ ...showMsg, msg: err.response?.data?.error, status: true, state: 'red' })
                 setTimeout(() => {
-                    setShowMsg({
-                        ...showMsg,
-                        status: false,
-                        state: 'green'
-                    });
+                    setShowMsg({ ...showMsg, status: false, state: 'green' });
                 }, 6000)
-                setUserData(
-                    {
-                        ...userData,
-                        user: {
-                            ...userData.user,
-                            phone_number: userData.user.phone_number
-                        }
-                    }
-                )
+                setUserData({ ...userData, user: { ...userData.user, phone_number: userData.user.phone_number } })
             })
         } else {
-            setShowMsg({
-                ...showMsg,
-                msg: "Invalid phone number",
-                status: true,
-                state: 'red'
-            })
+            setShowMsg({ ...showMsg, msg: "Invalid phone number", status: true, state: 'red' })
             setTimeout(() => {
-                setShowMsg({
-                    ...showMsg,
-                    status: false,
-                    state: 'red'
-                });
+                setShowMsg({ ...showMsg, status: false, state: 'red' });
             }, 3000)
         }
-
     }
 
     const handleAvatarUpload = (e: any) => {
         const avatar = e.target.files[0]
-        console.log(avatar);
-
         if (!avatar.type.startsWith('image/')) {
-            setShowMsg({
-                ...showMsg,
-                msg: "Please upload a valid image",
-                status: true,
-                state: 'red'
-            })
-
-            setTimeout(() => {
-                setShowMsg({
-                    ...showMsg,
-                    status: false,
-                    state: 'red'
-                })
-            }, 6000)
+            setShowMsg({ ...showMsg, msg: "Please upload a valid image", status: true, state: 'red' })
+            setTimeout(() => { setShowMsg({ ...showMsg, status: false, state: 'red' }) }, 6000)
             return;
         }
-
-
         if (avatar) {
             const avatarUrl = URL.createObjectURL(avatar);
             setTempAvatar(avatarUrl);
-            setUserData(
-                {
-                    ...userData,
-                    user: {
-                        ...userData.user,
-                        avatar: avatar
-                    }
-                }
-            )
+            setUserData({ ...userData, user: { ...userData.user, avatar: avatar } })
         }
     }
 
     useEffect(() => {
-        axiosInstance.get(`/business-owners/${userId}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.access}`
-                }
-            }
-        )
-            .then((res: any) => {
-                setUserData(res.data)
-            }).catch(() => {
+        axiosInstance.get(`/business-owners/${userId}`, {
+            headers: { Authorization: `Bearer ${localStorage.access}` }
+        })
+            .then((res: any) => { setUserData(res.data) })
+            .catch(() => {
                 alert('Unable to load your profile details. Please refresh and try again.');
-                console.log(localStorage.access)
             });
     }, [updated])
 
@@ -187,225 +117,195 @@ const UserProfile = () => {
         ? 'text-red-500 dark:text-red-400'
         : 'text-green-500 dark:text-green-400';
 
+    const editWrapper = "rounded-2xl min-h-[3rem] flex items-center w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 shadow-sm";
+    const editInput = "w-full h-12 px-4 bg-transparent text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none";
+
+    const readonlyWrapper = "rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 min-h-[3rem] flex items-center cursor-default w-full shadow-sm";
+    const readonlyText = "text-slate-900 dark:text-slate-100";
+
+    const sectionTitle = "font-semibold text-xl text-slate-900 dark:text-slate-100";
+    const sectionSubtitle = "text-sm text-slate-500 dark:text-slate-400";
+    const actionButton = "inline-flex items-center justify-center gap-2 rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 transition hover:bg-orange-600";
+    const sectionCard = "rounded-[32px] border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-sm p-6";
+
     return (
         <div className="flex flex-col w-full text-gray-900 dark:text-gray-100">
-            <div className="flex flex-col sm:flex-row justify-between w-full gap-4 sm:gap-0">
-                <div className="flex">
-                    <div className="flex flex-col justify-center items-center mr-[1rem]">
-                        <div className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#111827] p-[0.5rem] rounded cursor-pointer"
-                            onClick={() => window.history.back()}
-                        >
-                            <ArrowLeft className="w-6 h-6 text-gray-900 dark:text-gray-100" />
-                        </div>
-                    </div>
+            <div className={sectionCard}>
+                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                     <div>
-                        <h6 className="font-bold text-[1.5rem] sm:text-[2rem] text-slate-900 dark:text-white">Profile</h6>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Manage your account information</p>
+                        <h6 className={sectionTitle}>Profile</h6>
+                        <p className={sectionSubtitle}>Manage your account details clearly and update information with confidence.</p>
                     </div>
-                </div>
-                <div className="flex justify-center items-center">
-                    {
-                        canEdit ? (
-                            <button type='button' className="flex justify-center items-center text-white py-[0.2rem] gap-2 px-[1.5rem] border border-gray-500 dark:border-gray-600 rounded-full bg-[#FF833C]"
-                                onClick={handleUpdateClick}
-                            >
-                                <Edit size={14} />
-                                Save
+                    <div className="flex flex-wrap items-center gap-3">
+                        <button type='button' className={actionButton} onClick={() => setCanEdit(!canEdit)}>
+                            <Edit size={16} />
+                            {canEdit ? 'Cancel' : 'Edit Profile'}
+                        </button>
+                        {canEdit && (
+                            <button type='button' className={actionButton} onClick={handleUpdateClick}>
+                                <Edit size={16} />
+                                {loader ? <Loader className="w-4 h-4 animate-spin" /> : 'Save Changes'}
                             </button>
-                        ) : (
-                            <button type='button' className="flex justify-center items-center text-white py-[0.2rem] gap-2 px-[1.5rem] border border-gray-500 dark:border-gray-600 rounded-full bg-[#FF833C]"
-                                onClick={() => { setCanEdit(!canEdit) }}
-                            >
-                                <Edit size={14} />
-
-                                {
-                                    loader ? (
-                                        <Loader className="w-5 h-5 animate-spin text-gray-500 dark:text-gray-300" />
-                                    ) : (
-                                        "Edit"
-                                    )
-                                }
-                            </button>
-                        )
-                    }
-
+                        )}
+                    </div>
                 </div>
             </div>
-            <section className="mt-10">
+
+            {/* Personal Information */}
+            <section className="mt-8">
                 <Container>
-                    <div className="flex justify-between">
-                        <h6 className="font-medium flex gap-2">Personal Information <CheckCircle className="text-green-500" /></h6>
-                    </div>
-                    <div className="flex flex-col md:flex-row justify-center items-center gap-10 mt-8">
-                        <div className="relative w-[8rem] h-[8rem] sm:w-[10rem] sm:h-[10rem] flex justify-center items-center flex-shrink-0">
-                            {/* Handles the image */}
-                            {
-                                canEdit && (
-                                    <div>
-                                        <label
-                                            htmlFor="avatar"
-                                            className="absolute top-5 right-15 bg-white dark:bg-[#111827] p-2 rounded-full shadow cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition"
-                                        ><Camera size={12} /></label>
-                                        <input
-                                            type="file"
-                                            className="hidden"
-                                            id="avatar"
-                                            onChange={(e) => handleAvatarUpload(e)} />
-                                    </div>
-                                )
-                            }
-                            {
-                                userData?.user?.avatar ? (
-                                    <img
-                                        src={canEdit ? tempAvatar ? tempAvatar : `${userData.user.avatar}?v=${Date.now()}` : `${userData.user.avatar}?v=${Date.now()}`}
-                                        alt="avatar"
-                                        className=" rounded-full w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] border border-orange-400 shadow-2xl"
-                                    />
-                                ) : (
-                                    <img
-                                        src={canEdit ? tempAvatar ? tempAvatar : "/src/assets/dummy-profile-pic.png" : "/src/assets/dummy-profile-pic.png"}
-                                        alt="avatar"
-                                        className=" rounded-full w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] border border-orange-400 shadow-2xl"
-                                    />
-                                )
-                            }
+                    <div className="space-y-6">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <div>
+                                <h6 className={sectionTitle}>Personal Information</h6>
+                                <p className={sectionSubtitle}>Your details are secure and can be updated anytime.</p>
+                            </div>
+                            <CheckCircle className="h-6 w-6 text-emerald-500" />
                         </div>
-                        <div className="w-full">
-                            {/* Handles the FullName, Phone and Email */}
-                            <div className="flex flex-col md:flex-row gap-5">
-                                <div className="flex flex-col flex-1">
-                                    <label className="mb-1 font-medium">Full Name</label>
-                                    {
-                                        canEdit ? (
-                                            <div className="border border-orange-400 p-1 rounded-md w-full md:w-[20rem] bg-white dark:bg-[#111827]">
-                                                <input
-                                                    type="text"
-                                                    className="w-full h-10 px-2 bg-transparent text-gray-900 dark:text-gray-100 focus:outline-none"
+
+                        <div className="flex flex-col items-center gap-8">
+                            <div className="relative inline-flex h-[11rem] w-[11rem] items-center justify-center rounded-full border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900 shadow-lg">
+                                {canEdit && (
+                                    <>
+                                        <input type="file" className="hidden" id="avatar" onChange={(e) => handleAvatarUpload(e)} />
+                                        <label htmlFor="avatar" className="absolute -bottom-3 right-0 inline-flex cursor-pointer items-center rounded-full bg-slate-900 px-3 py-3 text-xs font-semibold text-white shadow-lg transition hover:bg-slate-800">
+                                            <Camera size={14} className="" />
+
+                                        </label>
+                                    </>
+                                )}
+                                <img
+                                    src={userData?.user?.avatar ? (canEdit ? tempAvatar ? tempAvatar : `${userData.user.avatar}?v=${Date.now()}` : `${userData.user.avatar}?v=${Date.now()}`) : "/src/assets/dummy-profile-pic.png"}
+                                    alt="avatar"
+                                    className="rounded-full w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] border border-orange-400 shadow-2xl"
+                                />
+                            </div>
+
+                            <div className="w-full max-w-3xl">
+                                <div className="grid gap-5">
+                                    <div className="flex flex-col">
+                                        <label className="mb-1 font-medium">Full Name</label>
+                                        {canEdit ? (
+                                            <div className={editWrapper}>
+                                                <input type="text" className={editInput}
                                                     value={(userData?.user?.name || '').split('👌')[0]}
                                                     onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, name: e.target.value } }) }}
                                                 />
                                             </div>
                                         ) : (
-                                            <div className="border-l-4 cursor-default border-orange-400 bg-gray-200 dark:bg-[#111827] p-2 rounded-md w-full md:w-[20rem]">
-                                                <p className="pl-[0.8rem] text-gray-900 dark:text-gray-100">{
-                                                    (userData?.user?.name || '').split('👌')[0]
-                                                }</p>
+                                            <div className={readonlyWrapper}>
+                                                <p className={readonlyText}>{(userData?.user?.name || '').split('👌')[0]}</p>
                                             </div>
-                                        )
-                                    }
+                                        )}
+                                    </div>
 
-                                </div>
-                                <div className="flex flex-col flex-1">
-                                    <label className="mb-1 font-medium">Email Address</label>
-                                    <div className="border-l-4 bg-gray-200 dark:bg-[#111827] cursor-default border-orange-400 py-2 pl-[0.9rem] rounded-md w-full md:w-[20rem]">
-                                        <p className="text-gray-900 dark:text-gray-100">{userData?.user?.email || ''}</p>
+                                    <div className="flex flex-col">
+                                        <label className="mb-1 font-medium">Email Address</label>
+                                        <div className={readonlyWrapper}>
+                                            <p className={readonlyText}>{userData?.user?.email || ''}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col">
+                                        <label className="mb-1 font-medium">Phone Number</label>
+                                        {canEdit ? (
+                                            <div className={editWrapper}>
+                                                <input type="text" className={editInput}
+                                                    onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, phone_number: e.target.value } }) }}
+                                                    value={userData?.user?.phone_number}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className={readonlyWrapper}>
+                                                {userData.user?.country?.toLowerCase() === 'nigeria' && (
+                                                    <p className={readonlyText}>{`+234-${userData?.user?.phone_number}`}</p>
+                                                )}
+                                                {userData.user?.country?.toLowerCase() === 'ghana' && (
+                                                    <p className={readonlyText}>{`+233-${userData?.user?.phone_number}`}</p>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
-                            </div>
-                            <div className='flex flex-col mt-6'>
-                                <label className="mb-1 font-medium">Phone Number</label>
-                                {
-                                    canEdit ? (
-                                        <div className="border border-orange-400 p-2 pl-[0.3rem] h-[2.8rem] rounded-md w-full bg-white dark:bg-[#111827]">
-                                            <input
-                                                type="text"
-                                                className="w-full h-full bg-transparent text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none"
-                                                onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, phone_number: e.target.value } }) }}
-                                                value={userData?.user?.phone_number}
-                                            />
-                                        </div>
-                                    ) : (
-                                        <div className="border-l-4 border-orange-400 bg-gray-200 dark:bg-[#111827] p-2 pl-[0.3rem] h-[2.8rem] cursor-default rounded-md w-full">
-                                            {
-                                                userData.user?.country?.toLowerCase() === 'nigeria' && (
-                                                    <p className="text-gray-900 dark:text-gray-100"> {`+234-${userData?.user?.phone_number}`}</p>
-                                                )
-                                            }
-                                            {
-                                                userData.user?.country?.toLowerCase() === 'ghana' && (
-                                                    <p className="text-gray-900 dark:text-gray-100"> {`+233-${userData?.user?.phone_number}`}</p>
-                                                )
-                                            }
-                                        </div>
-                                    )
-                                }
-                                <div className="w-full h-[3rem] mt-1 flex justify-center">
-                                    <p className={`${messageTextClass} text-[0.8rem]`} style={{ display: showMsg.status ? 'inline' : 'none' }}>{showMsg.msg}</p>
+
+                                <div className="mt-4 flex justify-center">
+                                    <p className={`${messageTextClass} text-sm`} style={{ display: showMsg.status ? 'inline' : 'none' }}>{showMsg.msg}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </Container>
             </section>
+
+            {/* Business Information */}
             <section className="mt-5">
                 <Container>
-                    <h6 className="font-medium flex">Business Information</h6>
-                    <div className="w-full flex justify-start gap-10 mt-2">
-                        <div className="w-full">
-                            {/* Handles the FullName, Phone and Email */}
-                            <div className="flex flex-col md:flex-row gap-5 w-full">
-                                <div className="flex flex-col flex-1">
-                                    <label className="mb-1 font-medium">Business Name</label>
-                                    <div className="border-l-4 border-orange-400 cursor-default bg-gray-200 dark:bg-[#111827] p-2 rounded-md w-full md:w-[30rem]">
-                                        <p className="text-gray-900 dark:text-gray-100">{userData?.business_name || ""}</p>
-                                        {/* <input type='text' value='ABC Logistics' style={{height: "0.5rem"}}/> */}
-                                    </div>
-                                </div>
-                                <div className="flex flex-col cursor-default flex-1">
-                                    <label className="mb-1 font-medium">Service Type</label>
-                                    <div className="border-l-4 border-orange-400 bg-gray-200 dark:bg-[#111827] p-2 rounded-md w-full md:w-[29rem]">
-                                        <p className="text-gray-900 dark:text-gray-100">{userData?.service || ""}</p>
-                                    </div>
-                                </div>
+                    <div className="flex flex-col gap-2">
+                        <h6 className={sectionTitle}>Business Information</h6>
+                        <p className={sectionSubtitle}>Details about your business profile and account plan.</p>
+                    </div>
+                    <div className="grid grid-cols-1 gap-5 mt-4">
+                        <div className="flex flex-col">
+                            <label className="mb-1 font-medium">Business Name</label>
+                            <div className={readonlyWrapper}>
+                                <p className={readonlyText}>{userData?.business_name || ""}</p>
                             </div>
-                            <div className='flex flex-col mt-6'>
-                                <label className="mb-1 font-medium">Business Address</label>
+                        </div>
 
-                                {
-                                    canEdit ? (
-                                        <div className="border border-orange-400 p-2 rounded-md w-full md:w-[60rem] bg-white dark:bg-[#111827]">
-                                            <input
-                                                type="text"
-                                                className="w-full h-10 px-2 bg-transparent text-gray-900 dark:text-gray-100 focus:outline-none"
-                                                onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, address: e.target.value } }) }}
-                                                value={userData?.user?.address}
-                                            />
-                                        </div>
-                                    )
-                                        :
-                                        (
-                                            <div className="border-l-4 border-orange-400 bg-gray-200 dark:bg-[#111827] p-2 cursor-default rounded-md w-full md:w-[60rem]">
-                                                <address className="text-gray-900 dark:text-gray-100">{userData?.user?.address || ''}</address>
-                                            </div>
-                                        )
-                                }
-
-                                <div className="w-[10rem] mt-5">
-                                    <label className="mb-1 font-medium">Account Type</label>
-                                    <div className="">
-                                        <p className=" border-red-300 w-[4rem] px-[0.3rem] py-[0.1rem] text-center font-small border rounded-full bg-orange-400 text-white text-[0.6rem]">{title(userData.subscription_type)}</p>
-                                    </div>
-                                </div>
+                        <div className="flex flex-col">
+                            <label className="mb-1 font-medium">Service Type</label>
+                            <div className={readonlyWrapper}>
+                                <p className={readonlyText}>{userData?.service || ""}</p>
                             </div>
+                        </div>
+
+                        <div className="flex flex-col">
+                            <label className="mb-1 font-medium">Business Address</label>
+                            {
+                                canEdit ? (
+                                    <div className={editWrapper}>
+                                        <input type="text" className={editInput}
+                                            onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, address: e.target.value } }) }}
+                                            value={userData?.user?.address}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className={readonlyWrapper}>
+                                        <address className={readonlyText}>{userData?.user?.address || ''}</address>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
+
+                    <div className="mt-5 max-w-xs">
+                        <label className="mb-1 font-medium">Account Type</label>
+                        <div>
+                            <p className="inline-flex items-center justify-center rounded-full bg-orange-400 px-3 py-1 text-[0.75rem] font-semibold text-white">{title(userData.subscription_type)}</p>
                         </div>
                     </div>
                 </Container>
             </section>
+
+            {/* Account Information */}
             <section className='mt-5'>
                 <Container>
                     <div className='w-full'>
-                        <h6 className="font-medium flex mb-5">Account Information</h6>
-                        <div className="flex flex-col md:flex-row w-full gap-5 md:gap-0">
-                            <div className="flex flex-col w-full md:w-1/2">
+                        <div className="flex flex-col gap-2 mb-5">
+                            <h6 className={sectionTitle}>Account Information</h6>
+                            <p className={sectionSubtitle}>System details for this profile and recent activity.</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+                            <div className="flex flex-col">
                                 <label className="mb-1 font-medium">Last Updated</label>
-                                <div className="border-l-4 border-orange-400 cursor-default p-2 rounded-md w-full md:w-[20rem] bg-gray-200 dark:bg-[#111827]">
-                                    <p className="text-sm text-gray-900 dark:text-gray-100">{userData.user?.updated_on || '#No Recent Update'}</p>
+                                <div className={readonlyWrapper}>
+                                    <p className={`text-sm ${readonlyText}`}>{userData.user?.updated_on || '#No Recent Update'}</p>
                                 </div>
                             </div>
-                            <div className="flex flex-col w-full md:w-1/2 cursor-default">
+                            <div className="flex flex-col cursor-default">
                                 <label className="mb-1 font-medium">Profile ID</label>
-                                <div className="border-l-4 border-orange-400 p-2 rounded-md w-full md:w-[20rem] bg-gray-200 dark:bg-[#111827]">
-                                    <p className="text-gray-900 dark:text-gray-100">#{userData.business_owner_uuid || ''}</p>
+                                <div className={readonlyWrapper}>
+                                    <p className={readonlyText}>#{userData.business_owner_uuid || ''}</p>
                                 </div>
                             </div>
                         </div>
@@ -417,4 +317,3 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
-

@@ -6,6 +6,7 @@ type User = {
   name: string;
   avatarUrl: string;
   email: string;
+  country?: string;
 };
 
 type AuthContextType = {
