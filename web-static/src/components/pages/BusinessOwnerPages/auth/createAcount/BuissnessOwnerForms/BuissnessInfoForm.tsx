@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
 import { useFormContext } from '../../../../../../context/CreateAccountFormContext';
 import TextInput from '../../sharedFormComponents/TextInput';
+import SelectInput from '../../sharedFormComponents/Selectinput';
 import { motion } from 'framer-motion';
 
 type BusinessInfoFormData = {
@@ -12,7 +13,6 @@ type BusinessInfoFormData = {
   service: string;
   address: string;
   country: string;
-
 };
 
 const schema = yup.object({
@@ -21,6 +21,11 @@ const schema = yup.object({
   address: yup.string().required('Address is required').min(5, 'Must be at least 5 characters'),
   country: yup.string().required('Country is required').oneOf(['Ghana', 'Nigeria'], 'Please select a valid country'),
 });
+
+const countryOptions = [
+  { value: 'Ghana', label: 'Ghana' },
+  { value: 'Nigeria', label: 'Nigeria' },
+];
 
 const BusinessInfoForm: React.FC = () => {
   const { formData, updateFormData } = useFormContext();
@@ -63,7 +68,6 @@ const BusinessInfoForm: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className=' border-red-600 dark:border-red-500`'
       >
         <TextInput
           id="businessName"
@@ -104,47 +108,19 @@ const BusinessInfoForm: React.FC = () => {
         />
       </motion.div>
 
-      {/* Country Dropdown */}
+      {/* Country */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.45, duration: 0.5 }}
-        className="flex flex-col gap-1"
       >
-        <label
-          htmlFor="country"
-          className="text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
-          Country
-        </label>
-        <select
+        <SelectInput
           id="country"
-          {...register('country')}
-          defaultValue=""
-          className={`w-full border rounded-[8px] px-3 h-[48px] py-2.5 text-sm
-            bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100
-            transition-colors duration-200
-            focus:outline-none focus:ring-1 focus:ring-primary
-            ${errors.country
-              ? 'border-red-400 dark:border-red-500 focus:ring-red-400'
-              : 'border-black dark:black/50 focus:ring-primary'
-            }`}
-        >
-          <option value="" disabled className="text-gray-400 dark:text-gray-500">
-            Select your country
-          </option>
-          <option value="Ghana" className="dark:bg-[#111827] dark:text-gray-100">
-            Ghana
-          </option>
-          <option value="Nigeria" className="dark:bg-[#111827] dark:text-gray-100">
-            Nigeria
-          </option>
-        </select>
-        {errors.country && (
-          <p className="text-red-500 dark:text-red-400 text-xs mt-1">
-            {errors.country.message}
-          </p>
-        )}
+          label="Country"
+          register={register}
+          error={errors.country}
+          options={countryOptions}
+        />
       </motion.div>
 
       {/* Submit */}

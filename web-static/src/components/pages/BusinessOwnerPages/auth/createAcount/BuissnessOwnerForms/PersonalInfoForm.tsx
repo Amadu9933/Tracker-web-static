@@ -111,6 +111,8 @@ const PersonalInfoForm: React.FC = () => {
           label="Phone"
           register={register}
           error={errors.phone}
+
+
         />
       </motion.div>
 
