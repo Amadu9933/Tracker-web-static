@@ -18,7 +18,7 @@ export default function Payment({ showDialog }: any) {
     const { user } = useAuth();
 
     const getCountry = () => {
-        return user?.country;
+        return user?.user?.country;
     }
 
 
@@ -54,6 +54,9 @@ export default function Payment({ showDialog }: any) {
             console.error('Error occurred while initializing payment:', error);
             setBtnText("Proceed to Top Up")
             setPaymentError('An error occurred while processing your request. Please try again.');
+            setTimeout(() => {
+                setPaymentError(null);
+            }, 3000);
         }
     }
 
@@ -68,7 +71,7 @@ export default function Payment({ showDialog }: any) {
                 setPaymentError('Minimum deposit is ₦ 1,000')
                 setTimeout(() => {
                     setPaymentError(null)
-                }, 5000)
+                }, 2000)
             }
         } else if (getCountry() === 'ghana') {
             if (amount >= 10) {
@@ -78,7 +81,7 @@ export default function Payment({ showDialog }: any) {
                 setPaymentError('Minimum deposit is GH₵ 10')
                 setTimeout(() => {
                     setPaymentError(null)
-                }, 5000)
+                }, 2000)
             }
         }
         setShowBtn(false);
@@ -130,7 +133,7 @@ export default function Payment({ showDialog }: any) {
                             step={getCountry() === 'nigeria' ? "100" : "0.1"}
                             placeholder='0.0'
                             min={0.0}
-                            onChange={(x) => { convertToNgn(x.target.value); handleShowBtn(x.target.value); }}
+                            onChange={(x) => { convertToNgn(x.target.value) }}
                             onBlur={(x) => handleShowBtn(x.target.value)}
                             className={`w-full  rounded-md px-2 ${isDarkMode ? 'bg-transparent focus:outline-none focus:ring-0 focus:border-transparent text-center text-gray-100 placeholder:text-gray-400' : 'bg-transparent focus:outline-none focus:ring-0 focus:border-transparent text-center text-gray-900 placeholder:text-gray-400'}`}
                         />

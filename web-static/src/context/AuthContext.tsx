@@ -2,16 +2,38 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axiosInstance from '../api/axiosInstance';
 
-type User = {
+// type User = {
+//   name: string;
+//   avatarUrl: string;
+//   email: string;
+//   country?: string;
+// };
+
+// 1. Define the internal user details
+type UserDetails = {
+  id: number;
   name: string;
-  avatarUrl: string;
   email: string;
-  country?: string;
+  country: string;
+  address: string;
+  avatar: string;
+  account_type: string;
+  is_active: boolean;
+  // ... add other fields as needed
+};
+
+// 2. Define the main object (The Business/Profile object)
+type BusinessProfile = {
+  id: number;
+  business_name: string;
+  service: string;
+  subscription_type: string;
+  user: UserDetails; // This is the 'user' property you were trying to access!
 };
 
 type AuthContextType = {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: BusinessProfile | null;
+  setUser: React.Dispatch<React.SetStateAction<BusinessProfile | null>>;
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -24,7 +46,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<BusinessProfile | null>(null);
   const [email, setEmail] = useState<string | ''>('')
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('token')
