@@ -92,16 +92,16 @@ const ParcelChart: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="flex justify-between items-center mb-4" // ✅ cleaned up malformed className
+        className="flex justify-between items-center " // leaned up malformed className
       >
         <h2 className="text-sm sm:text-base font-semibold">Activity Chart</h2>
-        <FormControl variant="outlined" size="small">
+        <FormControl variant="outlined" size="small" className="">
           <Select
             value={filter}
             onChange={handleFilterChange}
             sx={{
               fontSize: { xs: '0.75rem', sm: '0.875rem' },
-              // ✅ Dark mode applied to MUI Select via sx prop
+              //  Dark mode applied to MUI Select via sx prop
               color: isDarkMode ? '#e2e8f0' : 'inherit',
               backgroundColor: isDarkMode ? '#1e293b' : '#ffffff',
               '& .MuiOutlinedInput-notchedOutline': {
@@ -175,12 +175,13 @@ const ParcelChart: React.FC = () => {
           initial={{ opacity: 0, scaleY: 0.95 }}
           animate={{ opacity: 1, scaleY: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="flex-grow min-h-[180px] sm:min-h-[220px]"
+          className="flex-grow min-h-[180px] sm:min-h-[220px] "
         >
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
               data={chartData}
               margin={{ top: 10, right: 16, left: 0, bottom: 0 }}
+
             >
               <defs>
                 <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
@@ -204,8 +205,9 @@ const ParcelChart: React.FC = () => {
                   fontSize: 11,
                   fill: isDarkMode ? '#94a3b8' : '#6b7280', // ✅ axis labels
                 }}
-                axisLine={{ stroke: isDarkMode ? '#334155' : '#e5e7eb' }} // ✅ axis line
-                tickLine={{ stroke: isDarkMode ? '#334155' : '#e5e7eb' }} // ✅ tick marks
+                axisLine={{ stroke: isDarkMode ? '#334155' : '#e5e7eb' }} //  axis line
+                tickLine={{ stroke: isDarkMode ? '#334155' : '#e5e7eb' }} // tick marks
+                padding={{ left: 10, right: 10 }}
               />
               <Tooltip
                 contentStyle={{
