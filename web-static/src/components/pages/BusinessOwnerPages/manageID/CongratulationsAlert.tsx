@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Copy from "./asset/Copy-icon.png";
+import { MdClose } from "react-icons/md";
 
 interface CongratulationsAlertProps {
     trackingID: string;
@@ -43,15 +44,13 @@ const CongratulationsAlert: React.FC<CongratulationsAlertProps> = ({ trackingID,
                 <button
                     className="
                         absolute top-4 right-6
-                        text-red-600 dark:text-red-500
-                        hover:text-red-700 dark:hover:text-red-400
-                        text-2xl font-bold
-                        transition-colors duration-200
+                        hover:opacity-70 active:scale-90
+                        transition-all duration-200
                     "
                     onClick={onClose}
                     aria-label="Close"
                 >
-                    ✕
+                    <MdClose size={20} style={{ color: '#FF833C' }} />
                 </button>
 
                 {/* Modal Content */}

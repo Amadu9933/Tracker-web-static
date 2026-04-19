@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTheme } from '../../../../context/ThemeContext';
+import { MdClose } from "react-icons/md";
 
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
@@ -104,11 +105,11 @@ export default function Payment({ showDialog }: any) {
         >
             <div className='flex justify-between w-full'>
                 <h2 className={`${isDarkMode ? 'text-gray-100' : 'text-gray-900'} text-lg`}>Top Up Wallet</h2>
-                <button
-                    type="button"
-                    onClick={() => showDialog(false)}
-                    className="text-red-600 hover:text-red-700 font-semibold"
-                >X</button>
+
+                <MdClose
+                    size={20}
+                    style={{ fontSize: '1rem', color: '#FF833C' }}
+                    onClick={() => showDialog(false)} />
             </div>
             <h3 className={`${isDarkMode ? 'text-gray-200' : 'text-gray-800'} text-sm mt-4 mb-10`}>
                 Enter the amount you'd like to add to your Trackerr wallet.
