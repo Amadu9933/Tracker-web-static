@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
 const inputClass =
-    "w-full p-2.5 sm:p-3 text-sm border border-gray-300 dark:border-gray-600 rounded-md " +
+    "w-full p-2.5  sm:p-3 text-sm border border-black dark:border-gray-600 rounded-md " +
     "placeholder:text-[#A3A38E] dark:placeholder:text-gray-500 " +
     "bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100 " +
     "focus:border-primary focus:ring-1 focus:ring-primary/40 focus:outline-none " +
@@ -226,7 +226,7 @@ const GenerateTrackingID = () => {
                         className={`bg-primary dark:bg-transparent dark:border-2 dark:border-primary
               dark:text-primary dark:hover:bg-primary dark:hover:text-white
               dark:shadow-[0_0_12px_rgba(249,115,22,0.25)]
-              text-white py-2.5 px-6 rounded font-semibold text-sm sm:text-base
+              text-white py-2.5 px-6  rounded-md font-semibold text-sm sm:text-base
               w-full sm:w-1/2 transition-all duration-200
               ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
