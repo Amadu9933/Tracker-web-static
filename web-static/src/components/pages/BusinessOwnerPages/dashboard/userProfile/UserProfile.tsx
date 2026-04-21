@@ -117,10 +117,10 @@ const UserProfile = () => {
         ? 'text-red-500 dark:text-red-400'
         : 'text-green-500 dark:text-green-400';
 
-    const editWrapper = "rounded-2xl min-h-[3rem] flex items-center w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 shadow-sm";
+    const editWrapper = "rounded-2xl min-h-[3rem] flex items-center w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-primary rounded-lg";
     const editInput = "w-full h-12 px-4 bg-transparent text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none";
 
-    const readonlyWrapper = "rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 min-h-[3rem] flex items-center cursor-default w-full shadow-sm";
+    const readonlyWrapper = "rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 min-h-[3rem] flex items-center cursor-default w-full shadow-sm";
     const readonlyText = "text-slate-900 dark:text-slate-100";
 
     const sectionTitle = "font-semibold text-xl text-slate-900 dark:text-slate-100";
@@ -190,6 +190,7 @@ const UserProfile = () => {
                                                 <input type="text" className={editInput}
                                                     value={(userData?.user?.name || '').split('👌')[0]}
                                                     onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, name: e.target.value } }) }}
+
                                                 />
                                             </div>
                                         ) : (

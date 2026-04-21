@@ -6,6 +6,7 @@ import AppRoutes from './routes/AppRoutes';
 import { AuthProvider } from './context/AuthContext';
 import { useTheme } from './context/ThemeContext';
 import { lightTheme, darkTheme } from './theme/muiTheme';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const AppContent: React.FC = () => {
   const { isDarkMode } = useTheme();
@@ -14,7 +15,9 @@ const AppContent: React.FC = () => {
     <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark">
       <MuiThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
         <CssBaseline />
-        <AppRoutes />
+        <ErrorBoundary>
+          <AppRoutes />
+        </ErrorBoundary>
       </MuiThemeProvider>
     </div>
   );

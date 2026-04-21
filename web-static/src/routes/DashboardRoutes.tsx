@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { FormProvider } from '../../src/context/CreateAccountFormContext';
 import Dashboard from '@components/pages/BusinessOwnerPages/dashboard/Dashboard';
 import CircularProgress from '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
+import { NotFound } from '@components/pages/ErrorPages';
 
 // Lazy load components
 const DashboardMain = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/DashboardMain'));
@@ -28,7 +29,7 @@ const DashboardRoutes: React.FC = () => (
           <Route path="integration" element={<Integration />} />
           <Route path="user-profile" element={<UserProfile />} />
           <Route path="trackings/:trackingID" element={<TrackingDetails />} />
-          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </Suspense>

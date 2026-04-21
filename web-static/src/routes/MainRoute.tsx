@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import CircularProgress from '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 import { FormProvider } from '../../src/context/CreateAccountFormContext';
+import { NotFound } from '@components/pages/ErrorPages';
 
 // Lazy loading public components
 const Ship = lazy(() => import('@components/NavigationBarLinksComponents/Ship'));
@@ -58,7 +59,7 @@ const MainRoutes: React.FC = () => (
         {/* Default Route */}
         <Route path="/" element={<Navigate to="/Login" replace />} />
         {/* 404 Fallback */}
-        <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   </FormProvider >

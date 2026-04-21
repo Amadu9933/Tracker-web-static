@@ -203,7 +203,7 @@ const ParcelChart: React.FC = () => {
                 interval={0}
                 tick={{
                   fontSize: 11,
-                  fill: isDarkMode ? '#94a3b8' : '#6b7280', // ✅ axis labels
+                  fill: isDarkMode ? '#94a3b8' : '#6b7280', //  axis labels
                 }}
                 axisLine={{ stroke: isDarkMode ? '#334155' : '#e5e7eb' }} //  axis line
                 tickLine={{ stroke: isDarkMode ? '#334155' : '#e5e7eb' }} // tick marks
@@ -212,7 +212,7 @@ const ParcelChart: React.FC = () => {
               <Tooltip
                 contentStyle={{
                   fontSize: '0.75rem',
-                  // ✅ Tooltip dark mode styles
+                  // Tooltip dark mode styles
                   backgroundColor: isDarkMode ? '#1e293b' : '#ffffff',
                   border: `1px solid ${isDarkMode ? '#475569' : '#e5e7eb'}`,
                   color: isDarkMode ? '#e2e8f0' : '#111827',
