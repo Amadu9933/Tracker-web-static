@@ -44,13 +44,13 @@ const CongratulationsAlert: React.FC<CongratulationsAlertProps> = ({ trackingID,
                 <button
                     className="
                         absolute top-4 right-6
-                        hover:opacity-70 active:scale-90
-                        transition-all duration-200
+
+                       
                     "
                     onClick={onClose}
                     aria-label="Close"
                 >
-                    <MdClose size={20} style={{ color: '#FF833C' }} />
+                    <MdClose size={20} style={{ color: 'red' }} />
                 </button>
 
                 {/* Modal Content */}

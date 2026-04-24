@@ -250,12 +250,7 @@ const GenerateTrackingID = () => {
             {showModal && trackingID && (
                 <CongratulationsAlert
                     trackingID={trackingID}
-                    onClose={() => {
-                        setShowModal(false);
-                        navigate(`/dashboard/trackings/${trackingID}`, {
-                            state: { parcel_number: trackingID },
-                        });
-                    }}
+                    onClose={() => setShowModal(false)}
                 />
             )}
         </motion.div>
