@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Copy from "./asset/Copy-icon.png";
 import { MdClose } from "react-icons/md";
+import {useNavigate} from 'react-router-dom'
 
 interface CongratulationsAlertProps {
     trackingID: string;
@@ -9,6 +10,7 @@ interface CongratulationsAlertProps {
 
 const CongratulationsAlert: React.FC<CongratulationsAlertProps> = ({ trackingID, onClose }) => {
     const [copied, setCopied] = useState(false);
+    const navigate = useNavigate()
 
     const handleCopy = async () => {
         try {
@@ -113,7 +115,7 @@ const CongratulationsAlert: React.FC<CongratulationsAlertProps> = ({ trackingID,
                             text-sm font-medium
                             mx-auto
                         "
-                        onClick={onClose}
+                        onClick={() => navigate(`/dashboard/trackings/${trackingID}/`)}
                     >
                         Activate
                     </button>
