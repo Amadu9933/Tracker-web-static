@@ -8,6 +8,7 @@ import axiosInstance from "@api/axiosInstance";
 import MessageBox from "@components/common/reusable/messageBox";
 import title from "@components/utils/title";
 import { motion } from "framer-motion";
+import {useAuth} from '../../../../../context/AuthContext';
 
 const Integration = () => {
     const [showDialog, setShowDialog] = useState(false);
@@ -16,6 +17,9 @@ const Integration = () => {
     const [selectedRider, setSelectedRider] = useState<any | null>(null);
     const [editRiderInfo, setEditRiderInfo] = useState({ name: '', address: '', phone: '', email: '', idType: '', idNumber: '' });
     const [msg, setMsg] = useState('');
+    const [payuMsg, setPayuMsg] = useState('');
+    const [showPayuMsgBox, setPayuMsgBox] = useState(false)
+    const {user} = useAuth();
     const [riders, setRiders] = useState<any[]>([]);
 
     const validRatings = riders.filter(r => r.rating > 0);
@@ -96,6 +100,18 @@ const Integration = () => {
             setShowRiderDeleteDialog(false);
             setTimeout(() => setMsg(''), 3000);
         });
+    };
+
+
+    // Checks if the vendor is a payu user
+    const vendorIsPayu = () => {
+        if (user?.subscription_type === 'payu' || user?.subscription_type === 'trial' && riders.length == 5) {
+            // shows dialog if the vendor is a payu or trial user and has 5 riders already
+            setPayuMsg('⚠️ You need to be a Premium subscriber to add more riders. Please upgrade your subscription to access this feature.');
+            setTimeout(() => setPayuMsg(''), 7000);
+            return;
+        }
+        setShowDialog(true);
     };
 
     const handleAddRider = () => {
@@ -245,6 +261,15 @@ const Integration = () => {
                 ))}
             </motion.section>
 
+            {/* Message Box for Payu Alert */}
+            {payuMsg && (
+                <ReusableDialog>
+                    <h3 className="font-medium text-sm text-center text-red-600 dark:text-red-300">
+                        {payuMsg}
+                    </h3>
+                </ReusableDialog>
+            ) }
+
             {/* ── Add Rider Dialog ── */}
             {showDialog && (
                 <ReusableDialog>
@@ -388,7 +413,7 @@ const Integration = () => {
                                     dark:shadow-[0_0_10px_rgba(249,115,22,0.25)]
                                     text-white text-sm font-medium px-4 py-2 rounded-lg
                                     whitespace-nowrap h-9 transition-all duration-200"
-                                onClick={() => setShowDialog(true)}
+                                onClick={() => vendorIsPayu()}
                             >
                                 <Plus className="w-4 h-4" /> Add Rider
                             </button>
