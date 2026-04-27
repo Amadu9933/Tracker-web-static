@@ -10,8 +10,8 @@ import { motion } from "framer-motion";
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
 const inputClass =
-    "w-full p-2.5  sm:p-3 text-sm border border-black dark:border-gray-600 rounded-md " +
-    "placeholder:text-[#A3A38E] dark:placeholder:text-gray-500 " +
+    "w-full py-2.5 pl-2.5 sm:py-3 text-sm border border-black dark:border-gray-600 rounded-md " +
+    "placeholder:text-[#A3-A38E]  dark:placeholder:text-gray-500 " +
     "bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100 " +
     "focus:border-primary focus:ring-1 focus:ring-primary/40 focus:outline-none " +
     "dark:focus:border-primary dark:focus:ring-primary/40 transition-colors duration-200";
@@ -25,48 +25,56 @@ const fields = [
         label: "Shipping Address",
         type: "text",
         placeholder: "e.g. 12 Accra Road, Kumasi",
+        className: ""
     },
     {
         name: "name",
         label: "Customer Name",
         type: "text",
         placeholder: "e.g. John Mensah",
+        className: ""
     },
     {
-        name: "email",
+        name: "email-",
         label: "Customer Email",
         type: "email",
         placeholder: "e.g. john@example.com",
+        className: "",
     },
     {
         name: "phone",
         label: "Phone Number",
         type: "text",
         placeholder: "e.g. 0244567890",
+        className: "",
     },
     {
         name: "productName",
         label: "Product Name",
         type: "text",
         placeholder: "e.g. Wireless Headphones",
+        className: "",
     },
     {
         name: "numberOfProducts",
         label: "Number of Products",
         type: "number",
         placeholder: "e.g. 3",
+        className: "",
     },
     {
         name: "estimatedDeliveryDate",
         label: "Estimated Delivery Date",
         type: "date",
         placeholder: "",
+        className: "border-red-400",
     },
     {
         name: "country",
         label: "Country",
         type: "text",
         placeholder: "e.g. Ghana",
+        className: "",
     },
 ];
 
@@ -166,7 +174,7 @@ const GenerateTrackingID = () => {
                     alt="Back icon"
                     onClick={() => navigate(-1)}
                     className="h-5 sm:h-6 cursor-pointer dark:invert dark:[filter:invert(1)_sepia(1)_saturate(5)_hue-rotate(2deg)_brightness(1)]
-            dark:[filter:invert(55%)_sepia(90%)_saturate(500%)_hue-rotate(1deg)_brightness(105%)]"
+                    hover:opacity-80 active:scale-95 transition-all duration-200"
                     style={{ filter: undefined }}
                 />
                 Generate Tracking I.D
@@ -184,7 +192,7 @@ const GenerateTrackingID = () => {
             {/* Form */}
             <form onSubmit={formik.handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                    {fields.map(({ name, label, type, placeholder }, index) => (
+                    {fields.map(({ name, label, type, placeholder, className }, index) => (
                         <motion.div
                             key={name}
                             initial={{ opacity: 0, y: 15 }}
@@ -199,7 +207,7 @@ const GenerateTrackingID = () => {
                                 value={formik.values[name as keyof typeof formik.values]}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                className={inputClass}
+                                className={`${inputClass} ${className ?? ""}`}
                             />
                             {formik.touched[name as keyof typeof formik.touched] &&
                                 formik.errors[name as keyof typeof formik.errors] && (
@@ -226,7 +234,7 @@ const GenerateTrackingID = () => {
                         className={`bg-primary dark:bg-transparent dark:border-2 dark:border-primary
               dark:text-primary dark:hover:bg-primary dark:hover:text-white
               dark:shadow-[0_0_12px_rgba(249,115,22,0.25)]
-              text-white py-2.5 px-6  rounded-md font-semibold text-sm sm:text-base
+              text-white py-2.5 px-6 rounded-md font-semibold text-sm sm:text-base
               w-full sm:w-1/2 transition-all duration-200
               ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
