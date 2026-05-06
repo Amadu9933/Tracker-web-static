@@ -95,7 +95,7 @@ export default function Payment({ showDialog }: any) {
         }
         const ghanaCedis = parseFloat(amount);
         if (!isNaN(ghanaCedis)) {
-            setNgnEquivalent(ghanaCedis * rate);
+            setNgnEquivalent(ghanaCedis);
         }
         return
     }
@@ -115,7 +115,7 @@ export default function Payment({ showDialog }: any) {
                 Enter the amount you'd like to add to your Trackerr wallet.
             </h3>
             <div
-                className={`flex ${getCountry() === 'nigeria' ? 'justify-center' : 'justify-between'} w-full gap-4 mb-5`}
+                className='flex justify-center w-full gap-4 mb-5'
             >
                 <div className="w-full max-w-[12rem]">
                     <h3 className={`${isDarkMode ? 'text-gray-200' : 'text-gray-800'} text-sm mb-2 text-center`}>
@@ -140,27 +140,7 @@ export default function Payment({ showDialog }: any) {
                         />
                     </div>
                 </div>
-                {getCountry() != 'nigeria' && (
-                    <>
-                        <span
-                            className='text-2xl text-gray-400 mt-6 flex justify-center items-center'
-                        >=</span>
-                        <div className="w-full max-w-[12rem]">
-                            <h3 className={`${isDarkMode ? 'text-gray-200' : 'text-gray-800'} text-sm mb-2 text-center`}>
-                                Equivalent in (NGN)
-                            </h3>
-                            <div
-                                className="flex justify-center items-center border border-orange-300 rounded-md px-3 h-[2.6rem] bg-transparent dark:bg-slate-900"
-                            >
-                                <h2
-                                    className={`${isDarkMode ? 'text-gray-100' : 'text-gray-500'} text-sm`}
-                                >
-                                    ₦ {ngnEquivalent.toFixed(2)}
-                                </h2>
-                            </div>
-                        </div>
-                    </>
-                )}
+        
 
             </div>
             {
