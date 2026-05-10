@@ -25,6 +25,7 @@ const UserProfile = () => {
         }
     });
 
+
     const [updated, setUpdated] = useState<boolean>(false);
     const [canEdit, setCanEdit] = useState<boolean>(false);
     const [tempAvatar, setTempAvatar] = useState("");

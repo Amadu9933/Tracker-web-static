@@ -8,16 +8,40 @@ import axiosInstance from "@api/axiosInstance";
 import React from "react";
 import MessageBox from "@components/common/reusable/messageBox";
 import title from "@components/utils/title";
+import { useAuth } from "../../../../../context/AuthContext";
 
-function AddressAutocomplete({ user_data, setUserData }: { user_data: any; setUserData: (u: any) => void }) {
+
+export function AddressAutocomplete({ user_data, setUserData, country }: { user_data: any; setUserData: (u: any) => void; country: string }) {
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const API_KEY = import.meta.env.VITE_HERE_API_KEY;
+    const [query, setQuery] = useState<string>('');
 
-    const fetchSuggestions = async (value: any) => {
-        if (!value) { setSuggestions([]); return; }
+
+    useEffect(() => {
+    // don't query for tiny input
+    if (!query || query.length < 5) { 
+        setSuggestions([]); 
+        return; 
+    }
+
+
+    const timeout = setTimeout(() => {
+      fetchSuggestions(query, country);
+      setQuery(''); // clear query to prevent repeated calls for the same input
+    }, 500); // 500ms debounce
+
+    // cleanup previous timer
+    return () => clearTimeout(timeout);
+    }, [query]);
+
+    const fetchSuggestions = async (value: any, country: string) => {
+
+        const countryCode = country === "nigeria" ? "NGA" : country === "ghana" ? "GHA" : "";
+        
+        
         try {
             const response = await fetch(
-                `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${encodeURIComponent(value)}&apiKey=${API_KEY}&limit=10`
+                `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${value}&apiKey=${API_KEY}&limit=10&in=countryCode:${countryCode}`
             );
             const data = await response.json();
             setSuggestions(data.items || []);
@@ -29,7 +53,8 @@ function AddressAutocomplete({ user_data, setUserData }: { user_data: any; setUs
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setUserData({ ...user_data, address: value });
-        fetchSuggestions(value);
+        setQuery(value);
+        // fetchSuggestions(value);
     };
 
     const handleSelect = (address: any) => {
@@ -121,6 +146,10 @@ export default function TrackingDetails() {
     const location = useLocation()?.state?.state?.state;
     const params = useParams();
     const parcel_number = params.trackingID || location.parcel_number;
+
+    const { user } = useAuth();
+
+    const country: string = user?.user?.country || '';
 
     const [trackingData, setTrackingData] = useState({
         customer_email: "",
@@ -394,19 +423,13 @@ export default function TrackingDetails() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="relative">
                             <label htmlFor="address" className={labelClass}>Address</label>
-                            <AddressAutocomplete user_data={user_data} setUserData={setUserData} />
+                            <AddressAutocomplete user_data={user_data} setUserData={setUserData} country={country} />
                         </div>
                         <div>
                             <label htmlFor="country" className={labelClass}>Country</label>
-                            <input
-                                type="text"
-                                id="country"
-                                className={inputClass}
-                                placeholder="e.g. Ghana"
-                                value={user_data.country}
-                                onChange={(e) => setUserData({ ...user_data, country: e.target.value })}
-                                required
-                            />
+                            <p className={inputClass + "  cursor-not-allowed bg-slate-200 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400"}>
+                                {title(country)}
+                            </p>
                         </div>
                     </div>
                 ) : (

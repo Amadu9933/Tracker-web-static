@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { ArrowBack } from "../auth/assets/Assets";
 import CongratulationsAlert from "./CongratulationsAlert";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; 
+import { useAuth } from "../../../../context/AuthContext";
+import title from "@components/utils/title";
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
@@ -35,7 +37,7 @@ const fields = [
         className: ""
     },
     {
-        name: "email-",
+        name: "email",
         label: "Customer Email",
         type: "email",
         placeholder: "e.g. john@example.com",
@@ -69,27 +71,54 @@ const fields = [
         placeholder: "",
         className: "border-red-400",
     },
-    {
-        name: "country",
-        label: "Country",
-        type: "text",
-        placeholder: "e.g. Ghana",
-        className: "",
-    },
 ];
 
-const GenerateTrackingID = () => {
-    const [trackingID, setTrackingID] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    const [showModal, setShowModal] = useState<boolean>(false);
+    const GenerateTrackingID = () => {
+        const [trackingID, setTrackingID] = useState<string | null>(null);
+        const [loading, setLoading] = useState<boolean>(false);
+        const [error, setError] = useState<string | null>(null);
+        const [showModal, setShowModal] = useState<boolean>(false);
 
-    const token = localStorage.getItem("access");
-    const navigate = useNavigate();
+        const token = localStorage.getItem("access");
+        const navigate = useNavigate();
 
+
+    const [suggestions, setSuggestions] = useState([]);
+    const [search, setSearch] = useState("");
+    const {user} = useAuth();
+
+    const countryCode = user?.user?.country === 'nigeria' ? 'NGA' : user?.user?.country === 'ghana' ? 'GHA' : '';
+
+    useEffect(() => {
+    if (search.length < 5) {
+        setSuggestions([]);
+        return;
+    }
+
+    const timeout = setTimeout(() => {
+        fetchAddresses(search);
+    }, 300);
+
+    return () => clearTimeout(timeout);
+    }, [search]);
+
+    const fetchAddresses = async (query: string) => {
+    try {
+        const response = await fetch(
+        `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${encodeURIComponent(
+            query
+        )}&in=countryCode:${countryCode}&apiKey=${import.meta.env.VITE_HERE_API_KEY}`
+        );
+
+        const data = await response.json();
+
+        setSuggestions(data.items || []);
+    } catch (error) {
+        console.error(error);
+    }
+    };
     const validationSchema = Yup.object({
         shippingAddress: Yup.string().required("Shipping address is required"),
-        country: Yup.string().required("Country is required"),
         email: Yup.string().email("Invalid email").required("Email is required"),
         name: Yup.string().required("Name is required"),
         phone: Yup.string()
@@ -125,7 +154,7 @@ const GenerateTrackingID = () => {
                     `${TRACKERR_HOST}/trackings/generate-tracking/`,
                     {
                         shipping_address: values.shippingAddress,
-                        country: values.country,
+                        country: user?.user?.country || '',
                         product: values.productName,
                         customer_email: values.email,
                         customer_name: values.name,
@@ -193,6 +222,7 @@ const GenerateTrackingID = () => {
             <form onSubmit={formik.handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     {fields.map(({ name, label, type, placeholder, className }, index) => (
+                        
                         <motion.div
                             key={name}
                             initial={{ opacity: 0, y: 15 }}
@@ -205,10 +235,32 @@ const GenerateTrackingID = () => {
                                 name={name}
                                 placeholder={placeholder}
                                 value={formik.values[name as keyof typeof formik.values]}
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    formik.handleChange(e);
+                                    if (name === "shippingAddress") {
+                                        setSearch(e.target.value);
+                                    }
+                                }}
                                 onBlur={formik.handleBlur}
                                 className={`${inputClass} ${className ?? ""}`}
                             />
+                            { name === "shippingAddress" && suggestions.length > 0 && (
+                                <div className="border rounded bg-white shadow">
+                                    {suggestions.map((item: any) => (
+                                    <div
+                                        key={item.id}
+                                        className="p-2 cursor-pointer hover:bg-gray-100"
+                                        onClick={() => {
+                                        formik.setFieldValue(name, item.address.label);
+                                        setSuggestions([]);
+                                        setSearch('');
+                                        }}
+                                    >
+                                        {item.address.label}
+                                    </div>
+                                    ))}
+                                </div>
+                                )}
                             {formik.touched[name as keyof typeof formik.touched] &&
                                 formik.errors[name as keyof typeof formik.errors] && (
                                     <p className={errorClass}>
@@ -216,7 +268,20 @@ const GenerateTrackingID = () => {
                                     </p>
                                 )}
                         </motion.div>
+                        
                     ))}
+                    <motion.div
+                            key={'country'}
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 + 5 * 0.06, duration: 0.4 }}
+                        >
+                            <label className={labelClass}>Country</label>
+                            <p
+                             className="cursor-not-allowed w-full py-2.5 pl-2.5 sm:py-3 text-sm border border-orange-400 rounded-md"
+                            >{title(user?.user?.country || '')}</p>
+                    </motion.div>
+                    
                 </div>
 
                 {/* Submit */}
