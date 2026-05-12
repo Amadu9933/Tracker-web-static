@@ -96,6 +96,116 @@ html.dark .border-[#FF833C] {
   border-color: #374151 !important;
 }
 
+/* ── Auth form inputs — full browser override ────────────────────────────── */
+.auth-text-input {
+  /* sizing — locked so browser can't vary it per state */
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  max-height: 56px !important;
+  padding: 20px 16px 6px 16px !important;
+
+  /* typography */
+  font-size: 0.9375rem !important;
+  line-height: 1.4 !important;
+  font-family: inherit !important;
+
+  /* appearance */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  border-radius: 12px !important;
+  outline: none !important;
+
+  /* colours */
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+html.dark .auth-text-input {
+  background-color: #1a2235 !important;
+  color: #f1f5f9 !important;
+}
+
+.auth-text-input::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.4 !important;
+}
+
+html.dark .auth-text-input::placeholder {
+  color: #4b5563 !important;
+  opacity: 1 !important;
+}
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Tracking form inputs ─────────────────────────────────────────────────── */
+.tracking-form-input {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  padding: 10px 12px 10px 10px !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  font-family: inherit !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+.tracking-form-input::placeholder {
+  color: #A3A38E !important;
+  opacity: 1 !important;
+  font-size: 0.875rem !important;
+}
+
+html.dark .tracking-form-input::placeholder {
+  color: #6b7280 !important;
+  opacity: 1 !important;
+}
+
+.tracking-form-input::-webkit-inner-spin-button,
+.tracking-form-input::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+.tracking-form-input[type="number"] {
+  -moz-appearance: textfield !important;
+}
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Autofill overrides ───────────────────────────────────────────────────── */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #111827 !important;
+  padding: 20px 16px 6px 16px !important;
+  font-size: 0.9375rem !important;
+  line-height: 1.4 !important;
+  height: 56px !important;
+  transition: background-color 9999s ease-in-out 0s !important;
+}
+
+html.dark input:-webkit-autofill,
+html.dark input:-webkit-autofill:hover,
+html.dark input:-webkit-autofill:focus,
+html.dark input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #111827 inset !important;
+  -webkit-text-fill-color: #f9fafb !important;
+}
+
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  visibility: hidden !important;
+  display: none !important;
+  pointer-events: none !important;
+}
+/* ─────────────────────────────────────────────────────────────────────────── */
+
 * {
   transition:
     background-color 150ms ease,

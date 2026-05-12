@@ -5,15 +5,15 @@ import axios from "axios";
 import { ArrowBack } from "../auth/assets/Assets";
 import CongratulationsAlert from "./CongratulationsAlert";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import { useAuth } from "../../../../context/AuthContext";
 import title from "@components/utils/title";
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
 const inputClass =
-    "w-full py-2.5 pl-2.5 sm:py-3 text-sm border border-black dark:border-gray-600 rounded-md " +
-    "placeholder:text-[#A3-A38E]  dark:placeholder:text-gray-500 " +
+    "tracking-form-input " +
+    "w-full border border-black dark:border-gray-600 rounded-md " +
     "bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100 " +
     "focus:border-primary focus:ring-1 focus:ring-primary/40 focus:outline-none " +
     "dark:focus:border-primary dark:focus:ring-primary/40 transition-colors duration-200";
@@ -27,7 +27,7 @@ const fields = [
         label: "Shipping Address",
         type: "text",
         placeholder: "e.g. 12 Accra Road, Kumasi",
-        className: ""
+        className: "",
     },
     {
         name: "name",
@@ -41,7 +41,7 @@ const fields = [
         label: "Customer Email",
         type: "email",
         placeholder: "e.g. john@example.com",
-        className: "",
+        className: "placeholder:pl-10 pl-20",
     },
     {
         name: "phone",
@@ -69,53 +69,53 @@ const fields = [
         label: "Estimated Delivery Date",
         type: "date",
         placeholder: "",
-        className: "border-red-400",
+        className: "",
     },
 ];
 
-    const GenerateTrackingID = () => {
-        const [trackingID, setTrackingID] = useState<string | null>(null);
-        const [loading, setLoading] = useState<boolean>(false);
-        const [error, setError] = useState<string | null>(null);
-        const [showModal, setShowModal] = useState<boolean>(false);
+const GenerateTrackingID = () => {
+    const [trackingID, setTrackingID] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+    const [showModal, setShowModal] = useState<boolean>(false);
 
-        const token = localStorage.getItem("access");
-        const navigate = useNavigate();
+    const token = localStorage.getItem("access");
+    const navigate = useNavigate();
 
 
     const [suggestions, setSuggestions] = useState([]);
     const [search, setSearch] = useState("");
-    const {user} = useAuth();
+    const { user } = useAuth();
 
     const countryCode = user?.user?.country === 'nigeria' ? 'NGA' : user?.user?.country === 'ghana' ? 'GHA' : '';
 
     useEffect(() => {
-    if (search.length < 5) {
-        setSuggestions([]);
-        return;
-    }
+        if (search.length < 5) {
+            setSuggestions([]);
+            return;
+        }
 
-    const timeout = setTimeout(() => {
-        fetchAddresses(search);
-    }, 300);
+        const timeout = setTimeout(() => {
+            fetchAddresses(search);
+        }, 300);
 
-    return () => clearTimeout(timeout);
+        return () => clearTimeout(timeout);
     }, [search]);
 
     const fetchAddresses = async (query: string) => {
-    try {
-        const response = await fetch(
-        `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${encodeURIComponent(
-            query
-        )}&in=countryCode:${countryCode}&apiKey=${import.meta.env.VITE_HERE_API_KEY}`
-        );
+        try {
+            const response = await fetch(
+                `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${encodeURIComponent(
+                    query
+                )}&in=countryCode:${countryCode}&apiKey=${import.meta.env.VITE_HERE_API_KEY}`
+            );
 
-        const data = await response.json();
+            const data = await response.json();
 
-        setSuggestions(data.items || []);
-    } catch (error) {
-        console.error(error);
-    }
+            setSuggestions(data.items || []);
+        } catch (error) {
+            console.error(error);
+        }
     };
     const validationSchema = Yup.object({
         shippingAddress: Yup.string().required("Shipping address is required"),
@@ -222,7 +222,7 @@ const fields = [
             <form onSubmit={formik.handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     {fields.map(({ name, label, type, placeholder, className }, index) => (
-                        
+
                         <motion.div
                             key={name}
                             initial={{ opacity: 0, y: 15 }}
@@ -244,23 +244,23 @@ const fields = [
                                 onBlur={formik.handleBlur}
                                 className={`${inputClass} ${className ?? ""}`}
                             />
-                            { name === "shippingAddress" && suggestions.length > 0 && (
+                            {name === "shippingAddress" && suggestions.length > 0 && (
                                 <div className="border rounded bg-white shadow">
                                     {suggestions.map((item: any) => (
-                                    <div
-                                        key={item.id}
-                                        className="p-2 cursor-pointer hover:bg-gray-100"
-                                        onClick={() => {
-                                        formik.setFieldValue(name, item.address.label);
-                                        setSuggestions([]);
-                                        setSearch('');
-                                        }}
-                                    >
-                                        {item.address.label}
-                                    </div>
+                                        <div
+                                            key={item.id}
+                                            className="p-2 cursor-pointer hover:bg-gray-100"
+                                            onClick={() => {
+                                                formik.setFieldValue(name, item.address.label);
+                                                setSuggestions([]);
+                                                setSearch('');
+                                            }}
+                                        >
+                                            {item.address.label}
+                                        </div>
                                     ))}
                                 </div>
-                                )}
+                            )}
                             {formik.touched[name as keyof typeof formik.touched] &&
                                 formik.errors[name as keyof typeof formik.errors] && (
                                     <p className={errorClass}>
@@ -268,20 +268,20 @@ const fields = [
                                     </p>
                                 )}
                         </motion.div>
-                        
+
                     ))}
                     <motion.div
-                            key={'country'}
-                            initial={{ opacity: 0, y: 15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 + 5 * 0.06, duration: 0.4 }}
-                        >
-                            <label className={labelClass}>Country</label>
-                            <p
-                             className="cursor-not-allowed w-full py-2.5 pl-2.5 sm:py-3 text-sm border border-orange-400 rounded-md"
-                            >{title(user?.user?.country || '')}</p>
+                        key={'country'}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 + 5 * 0.06, duration: 0.4 }}
+                    >
+                        <label className={labelClass}>Country</label>
+                        <p
+                            className="cursor-not-allowed w-full py-2.5 pl-2.5 sm:py-3 text-sm border border-black  rounded-md"
+                        >{title(user?.user?.country || '')}</p>
                     </motion.div>
-                    
+
                 </div>
 
                 {/* Submit */}

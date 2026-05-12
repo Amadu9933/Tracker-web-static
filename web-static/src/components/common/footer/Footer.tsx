@@ -28,6 +28,7 @@ const Footer: React.FC = () => {
     textTransform: 'none',
     width: { xs: 'contain', md: '100%' },
     marginLeft: { xs: '0', md: '0' },
+    
   };
 
   return (

@@ -30,24 +30,26 @@ const SelectInput: React.FC<SelectInputProps> = ({
 
   const isFloating = isFocused || hasValue;
 
+  const borderClass = error
+    ? 'border-red-400 dark:border-red-500'
+    : isFocused
+      ? 'border-primary dark:border-primary'
+      : 'border-gray-300 dark:border-gray-600';
+
   return (
     <div className="w-full">
-      <div className="relative group">
+      <div className="relative">
 
-        {/* Focus ring layer */}
-        <div
-          className={`
-            absolute inset-0 rounded-lg transition-all duration-200 pointer-events-none z-10
-            ${isFocused && !error
-              ? 'shadow-[0_0_0_3px_rgba(var(--color-primary-rgb),0.15)]'
-              : ''
-            }
-            ${isFocused && error
-              ? 'shadow-[0_0_0_3px_rgba(239,68,68,0.12)]'
-              : ''
-            }
-          `}
-        />
+        {/* Focus ring */}
+        {isFocused && (
+          <div
+            className={`absolute inset-0 rounded-lg pointer-events-none transition-shadow duration-200 z-10 ${
+              error
+                ? 'shadow-[0_0_0_3px_rgba(239,68,68,0.12)]'
+                : 'shadow-[0_0_0_3px_rgba(var(--color-primary-rgb),0.15)]'
+            }`}
+          />
+        )}
 
         {/* Select */}
         <select
@@ -66,18 +68,13 @@ const SelectInput: React.FC<SelectInputProps> = ({
             onBlur(e);
           }}
           className={`
-            w-full h-[56px] text-[0.9375rem] rounded-lg border
+            w-full h-14 text-[0.9375rem] rounded-lg border
             bg-white dark:bg-gray-900
-            text-gray-900 dark:text-gray-100
-            outline-none transition-all duration-200 appearance-none cursor-pointer
+            text-gray-900 dark:text-white
+            outline-none transition-colors duration-200 appearance-none cursor-pointer
             disabled:opacity-40 disabled:cursor-not-allowed
             pl-4 pr-10 pt-5 pb-1
-            ${error
-              ? 'border-red-400 dark:border-red-500 bg-red-50/30 dark:bg-red-950/10'
-              : isFocused
-                ? 'border-primary dark:border-primary'
-                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
-            }
+            ${borderClass}
           `}
         >
           <option value="" disabled hidden />
@@ -85,7 +82,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
             <option
               key={opt.value}
               value={opt.value}
-              className="dark:bg-gray-900 dark:text-gray-100"
+              className="dark:bg-gray-900 dark:text-white"
             >
               {opt.label}
             </option>
@@ -99,12 +96,12 @@ const SelectInput: React.FC<SelectInputProps> = ({
             absolute left-4 pointer-events-none select-none
             transition-all duration-200 ease-out
             ${isFloating
-              ? 'top-[8px] text-[10.5px] font-semibold tracking-wide uppercase'
-              : 'top-1/2 -translate-y-1/2 text-[0.9375rem] font-normal tracking-normal'
+              ? 'top-2 text-[10.5px] font-semibold tracking-wide uppercase'
+              : 'top-1/2 -translate-y-1/2 text-[0.9375rem] font-normal'
             }
             ${error
               ? 'text-red-400'
-              : isFloating && isFocused
+              : isFocused
                 ? 'text-primary'
                 : 'text-gray-400 dark:text-gray-500'
             }
