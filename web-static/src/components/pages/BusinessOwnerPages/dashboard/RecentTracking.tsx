@@ -6,7 +6,6 @@ import LoadingSpinner from '../../customerPages/CustomerTrackingDetails/Customer
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../../../context/ThemeContext';
 
-const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
 // ---------- Props Interface ----------
 interface CustomizedTablesProps {
@@ -112,7 +111,10 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
 
   const handleLoadMore = useCallback(() => {
     if (nextPage) {
-      const relativeUrl = nextPage.replace(`${TRACKERR_HOST}/`, '');
+      // Backend (Django) may return http:// pagination links even when the
+      // server runs https://. Strip the origin entirely and use only the
+      // path+query so axiosInstance always uses its https baseURL.
+      const relativeUrl = nextPage.replace(/^https?:\/\/[^/]+\/api\/v1\//, '');
       fetchData(relativeUrl, true);
     }
   }, [nextPage]);
