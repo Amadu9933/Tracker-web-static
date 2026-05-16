@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import axiosInstance from "@api/axiosInstance";
 import { ArrowBack } from "../auth/assets/Assets";
 import CongratulationsAlert from "./CongratulationsAlert";
@@ -9,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../../../../context/AuthContext";
 import title from "@components/utils/title";
+import { logoutUser } from "../../../../api/auth";
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
@@ -170,11 +170,10 @@ const GenerateTrackingID = () => {
                 setShowModal(true);
             } catch (error: unknown) {
                 setError(
-                    axios.isAxiosError(error)
-                        ? error.response?.data?.detail ||
                         "Oops! We couldn't generate a tracking ID right now. Please try again."
-                        : "Something unexpected happened. Please try again or contact support."
                 );
+                //log a user out
+                logoutUser();
             } finally {
                 setLoading(false);
             }
