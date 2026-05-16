@@ -94,6 +94,11 @@ const TrackingSection: React.FC = () => {
               placeholder:text-orange-700/70
               focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400
               transition-all duration-200
+              indent-[15px]
+              pt-[clamp(0.75rem,1.265rem,1.5vw)]
+              pb-[clamp(0.75rem,1.265rem,1.5vw)]
+              pr-[clamp(2.5vw,5%,2.5rem)]
+              pl-[clamp(20px,4vw,40px)]
             `}
           />
           <i className="search-icon"></i>
