@@ -1,5 +1,3 @@
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation, useParams } from "react-router-dom";
 import { User, MapPin, CheckCircle, Package, Truck, Mail, Phone } from 'lucide-react';
 import { useEffect, useState } from "react";
@@ -120,6 +118,8 @@ const inputClass = `
     text-slate-900 dark:text-slate-100
     border-slate-300 dark:border-slate-600
     placeholder:text-slate-400 dark:placeholder:text-slate-500
+    text-left
+    placeholder:text-left dark:placeholder:text-left
     focus:outline-none focus:ring-2 focus:ring-[#FF833C]/40 focus:border-[#FF833C]
     transition-colors duration-200
 `;
@@ -328,8 +328,8 @@ export default function TrackingDetails() {
                                 type="text"
                                 id="phone"
                                 className={inputClass}
-                                placeholder="0244567890"
-                                maxLength={10}
+                                placeholder="07037676797"
+                                maxLength={11}
                                 value={user_data.phone}
                                 onChange={(e) => setUserData({ ...user_data, phone: e.target.value })}
                                 required
@@ -342,8 +342,8 @@ export default function TrackingDetails() {
                             <input
                                 type="text"
                                 id="product_name"
-                                className={inputClass}
-                                placeholder="e.g. Electronics, Clothes"
+                                className={`${inputClass}`}
+                                placeholder="Electronics, Clothes"
                                 value={user_data.product_name}
                                 onChange={(e) => setUserData({ ...user_data, product_name: e.target.value })}
                                 required
@@ -425,9 +425,9 @@ export default function TrackingDetails() {
                             <label htmlFor="address" className={labelClass}>Address</label>
                             <AddressAutocomplete user_data={user_data} setUserData={setUserData} country={country} />
                         </div>
-                        <div>
+                        <div className="">
                             <label htmlFor="country" className={labelClass}>Country</label>
-                            <p className={inputClass + "  cursor-not-allowed bg-slate-200 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400"}>
+                            <p className={inputClass + "cursor-not-allowed bg-slate-200 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400"}>
                                 {title(country)}
                             </p>
                         </div>

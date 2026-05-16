@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import axiosInstance from "@api/axiosInstance";
 import { ArrowBack } from "../auth/assets/Assets";
 import CongratulationsAlert from "./CongratulationsAlert";
 import { useNavigate } from "react-router-dom";
@@ -26,42 +27,41 @@ const fields = [
         name: "shippingAddress",
         label: "Shipping Address",
         type: "text",
-        placeholder: "e.g. 12 Accra Road, Kumasi",
+        placeholder: "12 Accra Road, Kumasi",
         className: "",
     },
     {
         name: "name",
         label: "Customer Name",
         type: "text",
-        placeholder: "e.g. John Mensah",
+        placeholder: "John Mensah",
         className: ""
     },
     {
         name: "email",
         label: "Customer Email",
         type: "email",
-        placeholder: "e.g. john@example.com",
-        className: "placeholder:pl-10 pl-20",
+        placeholder: "john@example.com"
     },
     {
         name: "phone",
         label: "Phone Number",
         type: "text",
-        placeholder: "e.g. 0244567890",
+        placeholder: "07037676797",
         className: "",
     },
     {
         name: "productName",
         label: "Product Name",
         type: "text",
-        placeholder: "e.g. Wireless Headphones",
+        placeholder: "Wireless Headphones",
         className: "",
     },
     {
         name: "numberOfProducts",
         label: "Number of Products",
         type: "number",
-        placeholder: "e.g. 3",
+        placeholder: "3",
         className: "",
     },
     {
@@ -78,8 +78,6 @@ const GenerateTrackingID = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
-
-    const token = localStorage.getItem("access");
     const navigate = useNavigate();
 
 
@@ -150,7 +148,7 @@ const GenerateTrackingID = () => {
             setTrackingID(null);
 
             try {
-                const response = await axios.post(
+                const response = await axiosInstance.post(
                     `${TRACKERR_HOST}/trackings/generate-tracking/`,
                     {
                         shipping_address: values.shippingAddress,
@@ -165,7 +163,6 @@ const GenerateTrackingID = () => {
                     {
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
                         },
                     }
                 );
