@@ -1,3 +1,5 @@
+import axiosInstance from "./axiosInstance";
+
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
 export interface WalletBalance {
@@ -14,43 +16,15 @@ export const getWalletBalance = async (): Promise<WalletBalance> => {
   const token = localStorage.getItem('access');
   if (!token) throw new Error('Unauthorized: missing access token');
 
-  const resp = await fetch(`${TRACKERR_HOST}/business-owner/balance/`, {
-    method: 'GET',
+  const resp = await axiosInstance.get(`${TRACKERR_HOST}/business-owner/balance/`, {
     headers: {
-      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
   });
 
-  const contentType = resp.headers.get('content-type') ?? '';
-  const responseText = await resp.text();
-
-  if (!resp.ok) {
-    console.error(`Wallet API Error (${resp.status}):`, responseText);
-    if (contentType.includes('application/json')) {
-      try {
-        const err = JSON.parse(responseText);
-        // Extract error message - check multiple possible fields
-        const errorMsg =
-          err?.error ??
-          err?.detail ??
-          err?.message ??
-          'Failed to fetch wallet balance';
-        throw new Error(errorMsg);
-      } catch (e: any) {
-        // If parsing fails, throw the raw message
-        throw new Error(e?.message ?? 'Failed to fetch wallet balance');
-      }
-    }
-    throw new Error(`HTTP ${resp.status}: Failed to fetch wallet balance`);
-  }
-
-  if (!contentType.includes('application/json')) {
-    throw new Error('Invalid response from server (expected JSON)');
-  }
-
-  const data = JSON.parse(responseText);
+ 
+  const data = resp.data;
 
   // Try to map common response shapes to our WalletBalance interface.
   // Adjust mapping if your API returns different keys or minor units (kobo/pesewa).
