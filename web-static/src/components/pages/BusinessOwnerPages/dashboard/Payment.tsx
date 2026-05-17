@@ -6,6 +6,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 
 import { useAuth } from "../../../../context/AuthContext";
+import axiosInstance from "../../../../api/axiosInstance";
 
 export default function Payment({ showDialog }: any) {
     const { isDarkMode } = useTheme();
@@ -34,23 +35,20 @@ export default function Payment({ showDialog }: any) {
         // Proceed with top-up logic, e.g., redirect to payment gateway or call API
         console.log('Proceeding to top up with amount in NGN:', ngnEquivalent);
         try {
-            const res = await fetch(`${import.meta.env.VITE_TRACKERR_HOST}/payments/initialize`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${access_token}`,
-                    'Idempotency-Key': crypto.randomUUID() // Ensure idempotency for the top-up request
-                },
-                body: JSON.stringify({
+            const res = await axiosInstance.post(`${import.meta.env.VITE_TRACKERR_HOST}/payments/initialize`, 
+                {
                     amount: ngnEquivalent
-                })
+                }, 
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Idempotency-Key': crypto.randomUUID() // Ensure idempotency for the top-up request
+                },
             })
-            const data = await res.json();
-            if (res.ok) {
-                // redirect to payment gateway using the URL from the response
-                setBtnText("Proceed to Top Up")
-                window.location.href = data?.autorization_url
-            }
+            const data = await res.data;
+            setBtnText("Proceed to Top Up")
+            window.location.href = data?.autorization_url
+            
         } catch (error) {
             console.error('Error occurred while initializing payment:', error);
             setBtnText("Proceed to Top Up")

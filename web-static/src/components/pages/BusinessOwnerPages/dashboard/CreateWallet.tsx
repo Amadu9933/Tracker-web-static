@@ -4,7 +4,7 @@ import { getWalletBalance, WalletBalance } from '../../../../api/wallet';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const CreateWallet = ({onClick}) => {
+const CreateWallet = ({onClick}: any) => {
   const [profile, setProfile] = useState<any>(null);
   const [, setProfileLoading] = useState<boolean>(true);
   const [, setProfileError] = useState<string | null>(null);
