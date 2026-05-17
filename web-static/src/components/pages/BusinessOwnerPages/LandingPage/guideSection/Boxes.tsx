@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const Boxes: React.FC = () => {
   return (
     <div className="flex justify-around items-center flex-col md:flex-row px-6 md:px-16
-      bg-white dark:bg-[#0b111f] transition-colors duration-300">
+      bg-white dark:bg-[#0b111f] transition-colors duration-300 gap-10">
 
       {/* Box 1 */}
       <motion.div
