@@ -163,7 +163,7 @@ export default function Payment({ showDialog }: any) {
                     <button
                         type="button"
                         onClick={handleTopUp}
-                        className="w-full max-w-xs rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 transition hover:bg-orange-600"
+                        className={`w-full max-w-xs rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 transition hover:bg-orange-600 ${btnText === 'Processing...' ? 'cursor-not-allowed opacity-70' : ''}`}
                     >
                         {btnText}
                     </button>
