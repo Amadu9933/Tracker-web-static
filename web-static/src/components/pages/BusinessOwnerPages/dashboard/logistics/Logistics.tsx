@@ -9,6 +9,7 @@ import MessageBox from "@components/common/reusable/messageBox";
 import title from "@components/utils/title";
 import { motion } from "framer-motion";
 import {useAuth} from '../../../../../context/AuthContext';
+import rating, { average_riders_rating } from "@components/utils/calc_rating";
 
 const Integration = () => {
     const [showDialog, setShowDialog] = useState(false);
@@ -18,12 +19,10 @@ const Integration = () => {
     const [editRiderInfo, setEditRiderInfo] = useState({ name: '', address: '', phone: '', email: '', idType: '', idNumber: '' });
     const [msg, setMsg] = useState('');
     const [payuMsg, setPayuMsg] = useState('');
-    const [showPayuMsgBox, setPayuMsgBox] = useState(false)
     const {user} = useAuth();
     const [riders, setRiders] = useState<any[]>([]);
 
-    const validRatings = riders.filter(r => r.rating > 0);
-    const average = (validRatings.reduce((sum, r) => sum + r.rating, 0) / validRatings.length).toFixed(1);
+    const average = average_riders_rating(riders);
 
     const [riderInfo, setRiderInfo] = useState({
         name: '', address: '', phone: '', email: '', idType: '', idNumber: ''
@@ -501,7 +500,7 @@ const Integration = () => {
                                                 {rider.total_delivery}/{rider.total_assigned_orders} deliveries
                                             </p>
                                             <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                                                ⭐ {rider.rating} rating
+                                                ⭐ {rating(rider.total_delivery, rider.total_assigned_orders)} rating
                                             </p>
                                         </td>
 
