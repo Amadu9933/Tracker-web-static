@@ -7,11 +7,11 @@ import React from "react";
 import MessageBox from "@components/common/reusable/messageBox";
 import title from "@components/utils/title";
 import { useAuth } from "../../../../../context/AuthContext";
+import {v4 as uuidv4} from 'uuid'
 
 
-export function AddressAutocomplete({ user_data, setUserData, country }: { user_data: any; setUserData: (u: any) => void; country: string }) {
+export function AddressAutocomplete({ user_data, setUserData, setOptionClicked }: { user_data: any; setUserData: (u: any) => void; setOptionClicked: (x) => void;}) {
     const [suggestions, setSuggestions] = useState<any[]>([]);
-    const API_KEY = import.meta.env.VITE_HERE_API_KEY;
     const [query, setQuery] = useState<string>('');
 
 
@@ -24,7 +24,7 @@ export function AddressAutocomplete({ user_data, setUserData, country }: { user_
 
 
     const timeout = setTimeout(() => {
-      fetchSuggestions(query, country);
+      fetchSuggestions(query);
       setQuery(''); // clear query to prevent repeated calls for the same input
     }, 500); // 500ms debounce
 
@@ -32,17 +32,19 @@ export function AddressAutocomplete({ user_data, setUserData, country }: { user_
     return () => clearTimeout(timeout);
     }, [query]);
 
-    const fetchSuggestions = async (value: any, country: string) => {
+    const fetchSuggestions = async (value: any) => {
 
-        const countryCode = country === "nigeria" ? "NGA" : country === "ghana" ? "GHA" : "";
+        setOptionClicked(false);
+        const sessionToken = uuidv4()
         
         
         try {
-            const response = await fetch(
-                `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${value}&apiKey=${API_KEY}&limit=10&in=countryCode:${countryCode}`
-            );
-            const data = await response.json();
-            setSuggestions(data.items || []);
+            const BASE_URL = import.meta.env.VITE_TRACKERR_HOST
+            const url = `${BASE_URL}/map/autocomplete?q=${value}&sessionToken=${sessionToken}`;
+            const response = await axiosInstance.get(url);
+            const data = await response.data;
+    
+            setSuggestions(data || []);
         } catch (error) {
             console.error("Error fetching suggestions:", error);
         }
@@ -88,7 +90,10 @@ export function AddressAutocomplete({ user_data, setUserData, country }: { user_
                                 text-slate-800 dark:text-slate-200
                                 hover:bg-slate-100 dark:hover:bg-slate-700
                                 transition-colors duration-150"
-                            onClick={() => handleSelect(item.address?.label ?? '')}
+                            onClick={() => {
+                                handleSelect(item.address?.label ?? ''); 
+                                setOptionClicked(true)
+                            }}
                         >
                             {item.address?.label ?? ''}
                         </li>
@@ -164,6 +169,7 @@ export default function TrackingDetails() {
     });
 
     const [trackingStatus, setTrackingStatus] = useState('');
+    const [optionClicked, setOptionClicked] = useState(true)
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [rider, setRider] = useState('');
     const [showMessage, setShowMessage] = useState(false);
@@ -218,7 +224,7 @@ export default function TrackingDetails() {
             country: user_data.country.toLowerCase(),
             product_name: user_data.product_name.toLowerCase()
         }, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
+            // headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
         }).then(() => {
             setEdit(false);
             setTimeout(() => { setShowMessage(true); setTimeout(() => setShowMessage(false), 3000); }, 200);
@@ -266,15 +272,20 @@ export default function TrackingDetails() {
                                     >
                                         Cancel
                                     </button>
-                                    <button
-                                        onClick={handleShippingUpdate}
-                                        className="bg-[#FF833C] text-white text-sm px-5 py-2 rounded-lg
+                                    {
+                                        optionClicked && (
+                                            <button
+                                            onClick={handleShippingUpdate}
+                                            className="bg-[#FF833C] text-white text-sm px-5 py-2 rounded-lg
                                             hover:bg-[#e6722e] dark:hover:bg-[#ff9a5c]
                                             dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
                                             transition-all duration-200 font-medium"
-                                    >
-                                        Save Changes
-                                    </button>
+                                        >
+                                            Save Changes
+                                        </button>
+                                        )
+                                    }
+                                    
                                 </>
                             )}
                         </div>
@@ -423,7 +434,7 @@ export default function TrackingDetails() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="relative">
                             <label htmlFor="address" className={labelClass}>Address</label>
-                            <AddressAutocomplete user_data={user_data} setUserData={setUserData} country={country} />
+                            <AddressAutocomplete user_data={user_data} setUserData={setUserData} setOptionClicked={setOptionClicked}/>
                         </div>
                         <div className="">
                             <label htmlFor="country" className={labelClass}>Country</label>

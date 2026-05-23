@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { useAuth } from "../../../../context/AuthContext";
 import title from "@components/utils/title";
 import { logoutUser } from "../../../../api/auth";
+import { v4 as uuidv4 } from 'uuid';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
@@ -78,14 +79,14 @@ const GenerateTrackingID = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [optionClicked, setOptionClicked] = useState(false)
     const navigate = useNavigate();
 
 
     const [suggestions, setSuggestions] = useState([]);
     const [search, setSearch] = useState("");
     const { user } = useAuth();
-
-    const countryCode = user?.user?.country === 'nigeria' ? 'NGA' : user?.user?.country === 'ghana' ? 'GHA' : '';
+    const sessionToken = uuidv4()
 
     useEffect(() => {
         if (search.length < 5) {
@@ -94,6 +95,7 @@ const GenerateTrackingID = () => {
         }
 
         const timeout = setTimeout(() => {
+            setOptionClicked(false);
             fetchAddresses(search);
         }, 300);
 
@@ -102,15 +104,13 @@ const GenerateTrackingID = () => {
 
     const fetchAddresses = async (query: string) => {
         try {
-            const response = await fetch(
-                `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${encodeURIComponent(
-                    query
-                )}&in=countryCode:${countryCode}&apiKey=${import.meta.env.VITE_HERE_API_KEY}`
-            );
-
-            const data = await response.json();
-
-            setSuggestions(data.items || []);
+            const BASE_URL = import.meta.env.VITE_TRACKERR_HOST
+            const url = `${BASE_URL}/map/autocomplete?q=${query}&sessionToken=${sessionToken}`;
+            const response = await axiosInstance.get(url);
+        
+            const data = await response.data;
+            setSuggestions(data || []);
+            
         } catch (error) {
             console.error(error);
         }
@@ -250,6 +250,7 @@ const GenerateTrackingID = () => {
                                                 formik.setFieldValue(name, item.address.label);
                                                 setSuggestions([]);
                                                 setSearch('');
+                                                setOptionClicked(true);
                                             }}
                                         >
                                             {item.address.label}
@@ -287,20 +288,25 @@ const GenerateTrackingID = () => {
                     transition={{ delay: 0.7 }}
                     className="flex justify-center mt-6"
                 >
-                    <motion.button
-                        whileHover={{ scale: loading ? 1 : 1.02 }}
-                        whileTap={{ scale: loading ? 1 : 0.98 }}
-                        type="submit"
-                        disabled={loading}
-                        className={`bg-primary dark:bg-transparent dark:border-2 dark:border-primary
-              dark:text-primary dark:hover:bg-primary dark:hover:text-white
-              dark:shadow-[0_0_12px_rgba(249,115,22,0.25)]
-              text-white py-2.5 px-6 rounded-md font-semibold text-sm sm:text-base
-              w-full sm:w-1/2 transition-all duration-200
-              ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
-                    >
-                        {loading ? "Generating..." : "Generate Tracking ID"}
-                    </motion.button>
+                    {
+                        optionClicked && (
+                            <motion.button
+                                whileHover={{ scale: loading ? 1 : 1.02 }}
+                                whileTap={{ scale: loading ? 1 : 0.98 }}
+                                type="submit"
+                                disabled={loading}
+                                className={`bg-primary dark:bg-transparent dark:border-2 dark:border-primary
+                                dark:text-primary dark:hover:bg-primary dark:hover:text-white
+                                dark:shadow-[0_0_12px_rgba(249,115,22,0.25)]
+                                text-white py-2.5 px-6 rounded-md font-semibold text-sm sm:text-base
+                                w-full sm:w-1/2 transition-all duration-200
+                                ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+                            >
+                                {loading ? "Generating..." : "Generate Tracking ID"}
+                            </motion.button>
+                        )
+                    }
+
                 </motion.div>
             </form>
 

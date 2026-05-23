@@ -9,17 +9,46 @@ export default function LiveTrackingMap() {
   const [fullRouteGeoJSON, setFullRouteGeoJSON] = useState<any>(null);
   const [animatedRoute, setAnimatedRoute] = useState<any>(null);
   const [riderCoord, setRiderCoord] = useState<{ lng: number; lat: number } | null>(null);
+  const [bearing, setBearing] = useState<number>(0); // Dynamic navigation arrow angle
 
   const mapRef = useRef<any | null>(null);
   const hasFlownRef = useRef(false);
   const initialRouteFetched = useRef(false);
-  const previousRiderCoord = useRef<{ lng: number; lat: number } | null>(null);
+  const totalRecalculationsMade = useRef<number>(0);
 
   const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
   const DEVIATION_THRESHOLD = 0.0005;
-
   const VITE_TRACKERR_WS_HOST = import.meta.env.VITE_TRACKERR_WS_HOST;
 
+  const lastFetchedRiderLocation = useRef<{ lng: number; lat: number } | null>(null);
+  const lastRouteFetchTime = useRef<number>(0);
+
+  // Clean, premium minimalist navigation night style
+  const UBER_MAP_STYLE = "mapbox://styles/mapbox/navigation-night-v1";
+  // const UBER_MAP_STYLE_NIGHT = "mapbox://styles/mapbox/navigation-day-v1";
+
+  // Helper: Mathematical formula to calculate the compass bearing between two coordinates
+  const calculateBearing = (start: { lng: number; lat: number }, end: { lng: number; lat: number }) => {
+    const toRadians = (deg: number) => (deg * Math.PI) / 180;
+    const toDegrees = (rad: number) => (rad * 180) / Math.PI;
+
+    const startLng = toRadians(start.lng);
+    const startLat = toRadians(start.lat);
+    const endLng = toRadians(end.lng);
+    const endLat = toRadians(end.lat);
+
+    const dLng = endLng - startLng;
+
+    const y = Math.sin(dLng) * Math.cos(endLat);
+    const x =
+      Math.cos(startLat) * Math.sin(endLat) -
+      Math.sin(startLat) * Math.cos(endLat) * Math.cos(dLng);
+
+    const brng = toDegrees(Math.atan2(y, x));
+    return (brng + 360) % 360; // Returns compass degrees (0-360)
+  };
+
+  // 1. WebSocket Stream Listener
   useEffect(() => {
     const ws = new WebSocket(`${VITE_TRACKERR_WS_HOST}/ws/tracking/`);
 
@@ -33,48 +62,79 @@ export default function LiveTrackingMap() {
         const data = JSON.parse(event.data);
         const locations = data?.location_data?.locations;
 
-        console.log("WebSocket message received:", data);
         if (!locations) return;
 
         const rider = locations.rider || locations.business_owner;
         const customer = locations.customer;
 
         setTrackingData({ ...locations });
-        setRiderCoord(prev => prev ? prev : rider);
-
-        // Initial fly to rider
-        if (!hasFlownRef.current && mapRef.current) {
-          hasFlownRef.current = true;
-          mapRef.current.flyTo({ center: [rider.lng, rider.lat], zoom: 14 });
+        
+        if (!riderCoord) {
+          setRiderCoord(rider);
         }
 
-        // Initial route fetch
+        // Smoothly adjust camera
+        if (mapRef.current) {
+          if (!hasFlownRef.current) {
+            hasFlownRef.current = true;
+            mapRef.current.flyTo({ center: [rider.lng, rider.lat], zoom: 15, pitch: 45 });
+          } else {
+            mapRef.current.easeTo({ center: [rider.lng, rider.lat], duration: 1000 });
+          }
+        }
+
+        // INITIAL ROUTE FETCH
         if (!initialRouteFetched.current) {
           initialRouteFetched.current = true;
-          const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${rider.lng},${rider.lat};${customer.lng},${customer.lat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`;
-          const res = await fetch(url);
-          const json = await res.json();
-          console.log("Initial route fetch:", json);
-          if (json.routes?.length) {
-            setFullRouteGeoJSON(json.routes[0].geometry);
-            setAnimatedRoute(json.routes[0].geometry);
-          }
-        }
+          lastFetchedRiderLocation.current = rider;
+          lastRouteFetchTime.current = Date.now();
 
-        // Re-fetch route if rider deviates
-        if (fullRouteGeoJSON && distanceToRoute(fullRouteGeoJSON, rider) > DEVIATION_THRESHOLD) {
           const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${rider.lng},${rider.lat};${customer.lng},${customer.lat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`;
           const res = await fetch(url);
           const json = await res.json();
           if (json.routes?.length) {
             setFullRouteGeoJSON(json.routes[0].geometry);
             setAnimatedRoute(json.routes[0].geometry);
-            console.log("🔄 Route re-fetched due to deviation");
           }
+          return; 
         }
 
-        previousRiderCoord.current = rider;
+        // COST OPTIMIZATION GATEWAY
+        const now = Date.now();
+        const TIME_THROTTLE = 30000; 
+        const distanceFromCustomer = Math.hypot(rider.lng - customer.lng, rider.lat - customer.lat);
+        const NEAR_DESTINATION_THRESHOLD = 0.0015; 
+        const MAX_ALLOWED_RECALCULATIONS = 5;
 
+        if (
+          now - lastRouteFetchTime.current > TIME_THROTTLE && 
+          distanceFromCustomer > NEAR_DESTINATION_THRESHOLD &&
+          totalRecalculationsMade.current < MAX_ALLOWED_RECALCULATIONS
+        ) {
+          if (lastFetchedRiderLocation.current) {
+            const movementFromLastFetch = Math.hypot(
+              rider.lng - lastFetchedRiderLocation.current.lng, 
+              rider.lat - lastFetchedRiderLocation.current.lat
+            );
+
+            if (movementFromLastFetch > 0.001) {
+              if (fullRouteGeoJSON && distanceToRoute(fullRouteGeoJSON, rider) > DEVIATION_THRESHOLD) {
+                totalRecalculationsMade.current += 1;
+                lastRouteFetchTime.current = now;
+                lastFetchedRiderLocation.current = rider;
+
+                const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${rider.lng},${rider.lat};${customer.lng},${customer.lat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`;
+                const res = await fetch(url);
+                const json = await res.json();
+                if (json.routes?.length) {
+                  setFullRouteGeoJSON(json.routes[0].geometry);
+                  setAnimatedRoute(json.routes[0].geometry);
+                  console.log(`🔄 Wallet Protected: Recalculation ${totalRecalculationsMade.current}/${MAX_ALLOWED_RECALCULATIONS}`);
+                }
+              }
+            }
+          }
+        }
       } catch (err) {
         console.error("Failed to parse WebSocket data", err);
       }
@@ -84,41 +144,56 @@ export default function LiveTrackingMap() {
     return () => ws.close();
   }, [trackingNumber, fullRouteGeoJSON]);
 
+  var center = { longitude: 8.6753, latitude: 9.0820, zoom: 10 };
 
-// Determine map center based on country
- var center = { longitude: 8.6753, latitude: 9.0820, zoom: 10 }; // Default to Nigeria
-
-  // Animate rider and map smoothly
+  // 2. Interpolation and Alignment Engine
   useEffect(() => {
-    if (!riderCoord || !trackingData?.rider) return;
+    if (!trackingData?.rider || !riderCoord) return;
 
     const start = riderCoord;
     const end = trackingData.rider;
-    const steps = 30;
-    let step = 0;
+    const duration = 1000; 
+    const startTime = performance.now();
 
-    const animateMarker = () => {
-      step++;
-      const lng = start.lng + ((end.lng - start.lng) * step) / steps;
-      const lat = start.lat + ((end.lat - start.lat) * step) / steps;
+    // ─── BEARING (HEADING) LOGIC ENGINE ───
+    const distanceMoved = Math.hypot(end.lng - start.lng, end.lat - start.lat);
+
+    if (distanceMoved > 0.00001) {
+      // Scenario A: Rider is moving -> Point along the direction of physical travel
+      const moveBearing = calculateBearing(start, end);
+      setBearing(moveBearing);
+    } else if (animatedRoute?.coordinates && animatedRoute.coordinates.length > 1) {
+      // Scenario B: Rider is stationary -> Look-ahead down the polyline first street nodes
+      const currentRouteCoords = animatedRoute.coordinates;
+      const currentPosition = { lng: start.lng, lat: start.lat };
+      const nextWayPoint = { lng: currentRouteCoords[1][0], lat: currentRouteCoords[1][1] };
+      
+      const polylineBearing = calculateBearing(currentPosition, nextWayPoint);
+      setBearing(polylineBearing);
+    }
+
+    const animateMarker = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      const lng = start.lng + (end.lng - start.lng) * progress;
+      const lat = start.lat + (end.lat - start.lat) * progress;
+      
       setRiderCoord({ lng, lat });
-
-      if (mapRef.current) {
-        mapRef.current.easeTo({ center: [lng, lat], duration: 1000, easing: (t: any) => t });
-      }
 
       if (fullRouteGeoJSON) {
         const newRoute = trimRouteFromRider(fullRouteGeoJSON, { lng, lat });
         setAnimatedRoute(newRoute);
       }
 
-      if (step < steps) requestAnimationFrame(animateMarker);
+      if (progress < 1) {
+        requestAnimationFrame(animateMarker);
+      }
     };
 
-    animateMarker();
-  }, [trackingData?.rider]);
+    requestAnimationFrame(animateMarker);
+  }, [trackingData?.rider, animatedRoute?.coordinates]);
 
-  // Helper: Trim route from rider's current position
   const trimRouteFromRider = (routeGeoJSON: any, rider: { lng: number; lat: number }) => {
     if (!routeGeoJSON?.coordinates) return routeGeoJSON;
     const coords = routeGeoJSON.coordinates;
@@ -135,7 +210,6 @@ export default function LiveTrackingMap() {
     return { type: "LineString", coordinates: coords.slice(nearestIndex) };
   };
 
-  // Helper: Compute distance to route
   const distanceToRoute = (route: any, rider: { lng: number; lat: number }) => {
     if (!route?.coordinates) return Infinity;
     let minDist = Infinity;
@@ -147,34 +221,79 @@ export default function LiveTrackingMap() {
   };
 
   return (
-    <div className="w-full h-[600px]">
+    <div className="w-full h-[600px] rounded-2xl overflow-hidden shadow-2xl relative">
       <Map
         mapboxAccessToken={MAPBOX_TOKEN}
         initialViewState={center}
         ref={mapRef}
-        mapStyle="mapbox://styles/mapbox/streets-v11"
+        mapStyle={UBER_MAP_STYLE}
       >
-        {/* Route */}
-        {animatedRoute && (
-          <Source id="route" type="geojson" data={animatedRoute}>
+        {/* Render Layer Casing underneath for crisp visibility */}
+        {animatedRoute && animatedRoute.coordinates && animatedRoute.coordinates.length > 0 && (
+          <Source id="uber-route-source" type="geojson" data={animatedRoute}>
+            {/* Outer Casing/Glow */}
+            <Layer
+              id="route-casing"
+              type="line"
+              layout={{
+                "line-join": "round",
+                "line-cap": "round"
+              }}
+              paint={{
+                "line-color": "#0A2F5C", // Premium dark casing outline background
+                "line-width": 10,
+              }}
+            />
+            {/* Inner Glowing Uber Neon Blue Line */}
             <Layer
               id="route-layer"
               type="line"
-              paint={{ "line-color": "#0074D9", "line-width": 6 }}
+              layout={{
+                "line-join": "round",
+                "line-cap": "round"
+              }}
+              paint={{ 
+                "line-color": "#276EF1", // Signature Uber brand neon tracker blue
+                "line-width": 5,
+              }}
             />
           </Source>
         )}
 
-        {/* Customer */}
+        {/* Customer Destination Marker with Circle Glow */}
         {trackingData?.customer && (
-          <Marker longitude={trackingData.customer.lng} latitude={trackingData.customer.lat} color="blue" />
+          <Marker longitude={trackingData.customer.lng} latitude={trackingData.customer.lat} anchor="bottom">
+            <div className="relative flex items-center justify-center h-16 w-16">
+              <div className="absolute h-8 w-8 rounded-full bg-blue-500 opacity-40 animate-marker-glow"></div>
+              <div className="absolute h-4 w-4 rounded-full bg-blue-500/30 border border-blue-400"></div>
+              <div className="relative z-10 flex flex-col items-center">
+                {/* <div className="bg-slate-900 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg mb-1 border border-slate-700 whitespace-nowrap">
+                  Destination
+                </div> */}
+                <div className="w-4 h-4 bg-black rounded-full border-4 border-white shadow-xl flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+          </Marker>
         )}
 
-        {/* Rider */}
+        {/* Rider / Driver Default Navigation Arrow Marker */}
         {riderCoord && (
-          <Marker longitude={riderCoord.lng} latitude={riderCoord.lat} color="orange"/>
+          <Marker longitude={riderCoord.lng} latitude={riderCoord.lat} anchor="center">
+            <div className="flex items-center justify-center h-10 w-10">
+              <div className="absolute h-8 w-8 bg-black/10 rounded-full blur-sm"></div>
+              <div 
+                className="relative flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full border-2 border-white shadow-xl text-white transition-transform duration-200"
+                style={{ transform: `rotate(${bearing}deg)` }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 -translate-y-[1px]">
+                  <path d="M12 2L2 22l10-6 10 6L12 2z" />
+                </svg>
+              </div>
+            </div>
+          </Marker>
         )}
-        
       </Map>
     </div>
   );
