@@ -22,8 +22,6 @@ const CardSection: React.FC = () => {
             <MyButton
               onClick={handleClick}
               label="Get started"
-              state="Primary"
-              size="Medium"
               background="#FFEADF"
             />
           </div>

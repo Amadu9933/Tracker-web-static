@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import MessageBox from '@components/common/reusable/messageBox';
+import Toast from '@components/common/reusable/Toast';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 
@@ -172,18 +172,14 @@ const ResetPassword: React.FC = () => {
                 Reset Password
               </button>
             </div>
-            <p className='text-center'>{errorMsg}</p>
+            {errorMsg && (
+              <Toast message={errorMsg} type="error" onClose={() => setErrorMsg('')} autoDismiss={6000} />
+            )}
           </form>
         </div>
-        <div className='w-full'>
-          <MessageBox
-            message={ShowMsg}
-            size='12px'
-            marginX='5rem'
-            state='success'
-            showMessage={Boolean(ShowMsg)}
-          />
-        </div>
+        {ShowMsg && (
+          <Toast message={ShowMsg} type="success" onClose={() => setShowMsg('')} autoDismiss={6000} />
+        )}
       </div>
     </>
   );

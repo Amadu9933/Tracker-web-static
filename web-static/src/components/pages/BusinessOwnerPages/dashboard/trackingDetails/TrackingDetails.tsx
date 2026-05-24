@@ -10,7 +10,7 @@ import { useAuth } from "../../../../../context/AuthContext";
 import {v4 as uuidv4} from 'uuid'
 
 
-export function AddressAutocomplete({ user_data, setUserData, setOptionClicked }: { user_data: any; setUserData: (u: any) => void; setOptionClicked: (x) => void;}) {
+export function AddressAutocomplete({ user_data, setUserData, setOptionClicked }: { user_data: any; setUserData: (u: any) => void; setOptionClicked: (x: boolean) => void;}) {
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const [query, setQuery] = useState<string>('');
 

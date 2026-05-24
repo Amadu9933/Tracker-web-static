@@ -7,7 +7,7 @@ import { useAuth } from '../../../../../context/AuthContext';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { loginUser } from '../../../../../api/auth';
-import MessageBox from '@components/common/reusable/messageBox';
+import Toast from '@components/common/reusable/Toast';
 import { motion } from 'framer-motion';
 import TextInput from '../sharedFormComponents/TextInput';
 
@@ -37,7 +37,6 @@ const schema = yup.object().shape({
 const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [showErrorMsg, setShowErrorMsg] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { setTrackingHistoryEmail } = useAuth();
@@ -73,7 +72,6 @@ const LoginForm: React.FC = () => {
 
     setIsLoading(true);
     setErrorMsg('');
-    setShowErrorMsg(false);
 
     try {
       const response = await loginUser(data.email.trim(), data.password);
@@ -102,9 +100,6 @@ const LoginForm: React.FC = () => {
           : err?.message || 'Something went wrong. Please try again.';
 
       setErrorMsg(message);
-      setShowErrorMsg(true);
-
-      setTimeout(() => setShowErrorMsg(false), 6000);
     } finally {
       setIsLoading(false);
     }
@@ -234,13 +229,9 @@ const LoginForm: React.FC = () => {
         </p>
       </motion.form>
 
-      <MessageBox
-        message={errorMsg}
-        showMessage={showErrorMsg}
-        state="warning"
-        size="12px"
-        marginX="2rem"
-      />
+      {errorMsg && (
+        <Toast message={errorMsg} type="error" onClose={() => setErrorMsg('')} autoDismiss={6000} />
+      )}
     </>
   );
 };

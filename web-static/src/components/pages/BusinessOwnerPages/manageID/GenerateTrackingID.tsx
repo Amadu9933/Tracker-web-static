@@ -79,7 +79,6 @@ const GenerateTrackingID = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [optionClicked, setOptionClicked] = useState(false)
     const navigate = useNavigate();
 
 
@@ -95,7 +94,6 @@ const GenerateTrackingID = () => {
         }
 
         const timeout = setTimeout(() => {
-            setOptionClicked(false);
             fetchAddresses(search);
         }, 300);
 
@@ -107,10 +105,10 @@ const GenerateTrackingID = () => {
             const BASE_URL = import.meta.env.VITE_TRACKERR_HOST
             const url = `${BASE_URL}/map/autocomplete?q=${query}&sessionToken=${sessionToken}`;
             const response = await axiosInstance.get(url);
-        
+
             const data = await response.data;
             setSuggestions(data || []);
-            
+
         } catch (error) {
             console.error(error);
         }
@@ -170,7 +168,7 @@ const GenerateTrackingID = () => {
                 setShowModal(true);
             } catch (error: unknown) {
                 setError(
-                        "Oops! We couldn't generate a tracking ID right now. Please try again."
+                    "Oops! We couldn't generate a tracking ID right now. Please try again."
                 );
                 //log a user out
                 logoutUser();
@@ -250,7 +248,6 @@ const GenerateTrackingID = () => {
                                                 formik.setFieldValue(name, item.address.label);
                                                 setSuggestions([]);
                                                 setSearch('');
-                                                setOptionClicked(true);
                                             }}
                                         >
                                             {item.address.label}
@@ -288,24 +285,20 @@ const GenerateTrackingID = () => {
                     transition={{ delay: 0.7 }}
                     className="flex justify-center mt-6"
                 >
-                    {
-                        optionClicked && (
-                            <motion.button
-                                whileHover={{ scale: loading ? 1 : 1.02 }}
-                                whileTap={{ scale: loading ? 1 : 0.98 }}
-                                type="submit"
-                                disabled={loading}
-                                className={`bg-primary dark:bg-transparent dark:border-2 dark:border-primary
-                                dark:text-primary dark:hover:bg-primary dark:hover:text-white
-                                dark:shadow-[0_0_12px_rgba(249,115,22,0.25)]
-                                text-white py-2.5 px-6 rounded-md font-semibold text-sm sm:text-base
-                                w-full sm:w-1/2 transition-all duration-200
-                                ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
-                            >
-                                {loading ? "Generating..." : "Generate Tracking ID"}
-                            </motion.button>
-                        )
-                    }
+                    <motion.button
+                        whileHover={{ scale: loading ? 1 : 1.02 }}
+                        whileTap={{ scale: loading ? 1 : 0.98 }}
+                        type="submit"
+                        disabled={loading}
+                        className={`bg-primary dark:bg-transparent dark:border-2 dark:border-primary
+                        dark:text-primary dark:hover:bg-primary dark:hover:text-white
+                        dark:shadow-[0_0_12px_rgba(249,115,22,0.25)]
+                        text-white py-2.5 px-6 rounded-md font-semibold text-sm sm:text-base
+                        w-full sm:w-1/2 transition-all duration-200
+                        ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+                    >
+                        {loading ? "Generating..." : "Generate Tracking ID"}
+                    </motion.button>
 
                 </motion.div>
             </form>

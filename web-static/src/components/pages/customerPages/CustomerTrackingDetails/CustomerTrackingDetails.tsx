@@ -7,8 +7,6 @@ import LiveTrackingMap from './LiveTrackingMap';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 import CircularProgress from './CustomerNotification/CircularProgress';
-import { set } from 'react-hook-form';
-import { setLocale } from 'yup';
 
 /**
  * Renders the customer tracking details component.

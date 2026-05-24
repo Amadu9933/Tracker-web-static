@@ -4,7 +4,7 @@ import { useFormContext } from '../../../../../../context/CreateAccountFormConte
 import axiosInstance from '../../../../../../api/axiosInstance';
 
 import { Group, edit, ArrowBack } from '../../assets/Assets';
-import MessageBox from '@components/common/reusable/messageBox';
+import Toast from '@components/common/reusable/Toast';
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
@@ -230,9 +230,7 @@ const SetProfileImagePage: React.FC = () => {
         </div>
 
         {error && (
-          <p className="text-red-500 dark:text-red-400 text-xs sm:text-sm mt-2 text-center">
-            {error}
-          </p>
+          <Toast message={error} type="error" inline onClose={() => setError(null)} autoDismiss={0} />
         )}
 
         <button
@@ -245,15 +243,14 @@ const SetProfileImagePage: React.FC = () => {
           {isSubmitting ? 'Submitting...' : 'Complete Sign Up'}
         </button>
 
-        <div className="w-full">
-          <MessageBox
-            message="Account created successfully ✅"
-            showMessage={showMsg}
-            state="success"
-            size="20px"
-            marginX="1rem"
+        {showMsg && (
+          <Toast
+            message="Account created successfully"
+            type="success"
+            onClose={() => setShowMsg(false)}
+            autoDismiss={3000}
           />
-        </div>
+        )}
       </div>
     </>
   );
