@@ -47,6 +47,7 @@ const Navbar: React.FC = () => {
   }
 
   return (
+    <div className="fixed top-0 border-b border-[#E0E0E0] dark:border-[#333333] transition-colors duration-300 w-full z-50 bg-white dark:bg-[#1E1E1E]">
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -230,6 +231,7 @@ const Navbar: React.FC = () => {
         </Toolbar>
       </AppBar>
     </motion.div>
+  </div>
   );
 };
 

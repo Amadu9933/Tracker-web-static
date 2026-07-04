@@ -82,7 +82,7 @@ const contactOptions = [
   {
     icon: <Mail size={26} />,
     label: "Email Support",
-    detail: "support@trackerr.com",
+    detail: "support@trackerr.africa",
     sub: "Response within 24 hours",
   },
   {
@@ -94,7 +94,7 @@ const contactOptions = [
   {
     icon: <Phone size={26} />,
     label: "Call Us",
-    detail: "+233 (0) 55 000 0000",
+    detail: "+234-(90)-1588-0751",
     sub: "Mon – Fri, 9am – 5pm",
   },
 ];
@@ -133,7 +133,7 @@ const NeedHelp: React.FC = () => {
     <div className="bg-white dark:bg-[#0b111f] min-h-screen transition-colors duration-300">
       <Container maxWidth="lg" sx={{ paddingY: "60px" }}>
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 mt-10">
           <span className="inline-block text-xs font-semibold tracking-widest text-[#FF833C] uppercase mb-3">
             Support Center
           </span>
@@ -217,7 +217,9 @@ const NeedHelp: React.FC = () => {
             above. Don't hesitate to reach out.
           </p>
           <button className="bg-[#FF833C] hover:bg-[#e57230] text-white font-semibold px-8 py-3 rounded-full transition-colors duration-200 text-sm">
-            Contact Support
+            <a href="mailto:support@trackerr.africa" className="text-white hover:text-[#FF833C]">
+              Contact Support
+            </a>
           </button>
         </div>
       </Container>
