@@ -5,7 +5,7 @@ import { Container } from "../trackingDetails/TrackingDetails";
 import { DeleteDialog, ReusableDialog } from "@components/common/reusable/dialog";
 import { useEffect, useState } from "react";
 import axiosInstance from "@api/axiosInstance";
-import MessageBox from "@components/common/reusable/messageBox";
+import Toast from "@components/common/reusable/Toast";
 import title from "@components/utils/title";
 import { motion } from "framer-motion";
 import {useAuth} from '../../../../../context/AuthContext';
@@ -202,7 +202,7 @@ const Integration = () => {
         },
         {
             label: 'Average Rating',
-            value: isNaN(parseFloat(average)) ? '0.0' : average,
+            value: isNaN(parseFloat(String(average))) ? '0.0' : String(average),
             icon: <span>⭐</span>,
             color: 'text-gray-800 dark:text-gray-100'
         },
@@ -759,13 +759,14 @@ const Integration = () => {
                     )}
                 </Container>
 
-                <MessageBox
-                    message={msg}
-                    showMessage={msg !== ''}
-                    state={['Rider created successfully', 'Rider deleted successfully', 'Check email for login details'].includes(msg) ? 'success' : 'warning'}
-                    size="0.8rem"
-                    marginX="1rem"
-                />
+                {msg && (
+                    <Toast
+                        message={msg}
+                        type={['Rider created successfully', 'Rider deleted successfully', 'Rider updated successfully', 'Check email for login details'].includes(msg) ? 'success' : 'error'}
+                        onClose={() => setMsg('')}
+                        autoDismiss={0}
+                    />
+                )}
             </motion.section>
         </div>
     );

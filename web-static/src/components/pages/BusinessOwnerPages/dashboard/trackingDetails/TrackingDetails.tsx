@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import Dialog from "@components/common/reusable/dialog";
 import axiosInstance from "@api/axiosInstance";
 import React from "react";
-import MessageBox from "@components/common/reusable/messageBox";
+import Toast from "@components/common/reusable/Toast";
 import title from "@components/utils/title";
 import { useAuth } from "../../../../../context/AuthContext";
 import {v4 as uuidv4} from 'uuid'
 
 
-export function AddressAutocomplete({ user_data, setUserData, setOptionClicked }: { user_data: any; setUserData: (u: any) => void; setOptionClicked: (x) => void;}) {
+export function AddressAutocomplete({ user_data, setUserData, setOptionClicked }: { user_data: any; setUserData: (u: any) => void; setOptionClicked: (x: boolean) => void;}) {
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const [query, setQuery] = useState<string>('');
 
@@ -533,13 +533,14 @@ export default function TrackingDetails() {
                         )}
                     </Container>
 
-                    <MessageBox
-                        message="Updated successfully ✅"
-                        showMessage={showMessage}
-                        state="success"
-                        marginX="5rem"
-                        size="12px"
-                    />
+                    {showMessage && (
+                        <Toast
+                            message="Updated successfully"
+                            type="success"
+                            onClose={() => setShowMessage(false)}
+                            autoDismiss={4000}
+                        />
+                    )}
                 </>
             )}
         </div>
