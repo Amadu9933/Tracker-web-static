@@ -4,6 +4,7 @@ import path, { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  base: process.env.VITE_BASE_PATH || '/Tracker-web-static',
   resolve: {
     alias: {
       '@components': resolve(__dirname, 'src/components'),
