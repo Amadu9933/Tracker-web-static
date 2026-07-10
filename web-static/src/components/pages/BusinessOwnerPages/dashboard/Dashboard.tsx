@@ -187,9 +187,9 @@ const Dashboard: React.FC = () => {
                       ? 'bg-[#E3E2DC] dark:bg-gradient-to-r dark:from-gray-500 dark:to-gray-700 dark:shadow-[0_0_14px_rgba(249,115,22,0.45)] dark:ring-1 dark:ring-orange-400/50 text-[#ABABAB] dark:text-white dark:font-semibold'
                       : 'bg-primary dark:bg-[#1e2738] dark:border dark:border-orange-500/40 dark:hover:border-orange-400 dark:hover:bg-[#252d3d] text-white dark:text-orange-100 sm:-ml-5'}`}
                 >
-                  <span className="sm:hidden text-base leading-none">＋</span>
+                  {/* <span className="sm:hidden text-base leading-none">＋</span> */}
                   <span className="hidden sm:inline">Generate Tracking ID</span>
-                  <span className="sm:hidden">Track ID</span>
+                  <span className="sm:hidden text-[12px]">Generate Tracking</span>
                 </button>
               </div>
               <div className="flex items-center space-x-4">

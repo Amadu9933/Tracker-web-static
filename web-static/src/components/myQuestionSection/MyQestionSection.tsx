@@ -6,7 +6,7 @@ const QuestionSection = () => {
     <section className="py-10 md:px-5 sm:px-8 md:py-14 lg:py-16 ">
       <div className="mx-auto max-w-6xl">
 
-        <div className="flex items-center justify-center md:flex-row flex-col gap-10 text-center md:text-center">
+        <div className="flex items-center justify-center md:flex-row flex-col gap-10 text-center md:text-center px-5">
 
           {/* Text block */}
           <motion.div
@@ -22,7 +22,7 @@ const QuestionSection = () => {
 
             <p className="font-poppins font-normal text-lg sm:text-xl md:text-[20px] leading-relaxed md:leading-[36px] tracking-normal text-[#585858] mb-6">
               Check out the FAQ section for already answered questions that will give you clarity or reach out to our contact centre via email:
-              <span className="text-primary"> helptrackerr@gmail.com </span>
+              <span className="text-primary"> support@trackerr.africa </span>
               or call 00235545 for enquiry.
             </p>
           </motion.div>

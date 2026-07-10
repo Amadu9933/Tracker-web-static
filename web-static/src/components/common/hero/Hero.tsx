@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 
 const Hero: React.FC = () => {
   return (
-    <div className="hero pt-10 md:pt-40 pb-28 ">
+    <div className="hero pt-10 md:pt-40 pb-28 mt-10 lg:mt-0">
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-white font-bold text-5xl md:font-extrabold md:text-8xl text-center md:text-center mx-6 md:mx-72"
+        className="text-white font-bold text-4xl sm:text-5xl md:text-8xl text-center mx-4 sm:mx-12 md:mx-72"
       >
         Track your <br />
         parcel today!

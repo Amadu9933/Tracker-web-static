@@ -5,6 +5,7 @@ const year = new Date().getFullYear();
 
 const Footer: React.FC = () => {
   const buttonStyles = {
+    marginTop: '10px',
     backgroundColor: '#FF833C',
     color: 'white',
     borderColor: '#FF833C',
@@ -36,7 +37,7 @@ const Footer: React.FC = () => {
       <div className="mx-auto w-full max-w-6xl">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* First column */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             <h2 className="font-medium text-white text-2xl md:text-3xl">
               Join To Get Started
             </h2>
@@ -51,7 +52,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Second column */}
-          <div className="space-y-3">
+          <div className="space-y-3 border border-red-200">
             <h3 className="text-lg font-semibold text-white">Company</h3>
             <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">How it works</p>
             <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Career</p>
