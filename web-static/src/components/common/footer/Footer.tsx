@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Second column */}
-          <div className="space-y-3 border border-red-200">
+          <div className="space-y-3">
             <h3 className="text-lg font-semibold text-white">Company</h3>
             <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">How it works</p>
             <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Career</p>

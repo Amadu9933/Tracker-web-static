@@ -1,7 +1,7 @@
 import React from 'react';
 import IconButton from '@mui/material/IconButton';
-// import { Brightness4, Brightness7 } from '@mui/icons-material';
-import { Brightness4 } from '@mui/icons-material';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
+// import { Brightness4 } from '@mui/icons-material';
 import { useTheme } from '../../context/ThemeContext';
 
 const ThemeToggle: React.FC = () => {
@@ -16,9 +16,7 @@ const ThemeToggle: React.FC = () => {
                 transition: 'color 150ms ease',
             }}
         >
-            {/* enable the below when the toggle button is active  and disable the one that comes before it*/}
-            {isDarkMode ? <Brightness4 /> : <Brightness4 />}
-            {/* {isDarkMode ? <Brightness7 /> : <Brightness4 />} */}
+            {isDarkMode ? <Brightness7 /> : <Brightness4 />}
         </IconButton>
     );
 };
