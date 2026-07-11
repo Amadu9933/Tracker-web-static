@@ -140,14 +140,13 @@ const Navbar: React.FC = () => {
             </motion.div>
 
             {/* Theme Toggle */}
-            {/* comment out the below when the theme toggle is perfectly configured */}
-            {/* <motion.div
+            <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + (menuItems.length + 1) * 0.08, duration: 0.4 }}
             >
               <ThemeToggle />
-            </motion.div> */}
+            </motion.div>
           </Box>
 
           {/* Logo — mobile version  */}
