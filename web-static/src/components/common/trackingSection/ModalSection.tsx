@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useAuth } from '../../../context/AuthContext';
 import { useTheme } from '../../../context/ThemeContext';
+import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from '../../pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 
 
@@ -190,16 +191,21 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
             Email
           </label>
           <form onSubmit={handleSubmit}>
-            <div className="search-container mt-3">
+            <div className="relative mt-3 w-full">
+              <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+
               <input
-                className={`md:text-secondary md:text-[16px] text-[16px] ${isDarkMode ? 'bg-zinc-800 text-white border border-zinc-600 placeholder:text-zinc-400' : 'bg-white text-black border border-gray-300 placeholder:text-gray-500'}`}
+                className={`w-full rounded-lg border py-2 pl-10 pr-4 text-base focus:outline-none focus:ring-1 focus:ring-orange-400 ${
+                  isDarkMode
+                    ? "bg-zinc-800 text-white border-zinc-600 placeholder:text-zinc-400"
+                    : "bg-white text-black border-gray-300 placeholder:text-gray-500"
+                }`}
                 type="text"
-                placeholder="example@gmail.com"
+                placeholder="johndoe@example.com"
                 value={email}
                 onChange={handleInputChange}
-                disabled={loading} // Disable input while loading
+                disabled={loading}
               />
-              <i className="search-icon"></i>
             </div>
 
             <Button type="submit" variant="outlined" sx={buttonStyles}>
