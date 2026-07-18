@@ -38,6 +38,7 @@ const Navbar: React.FC = () => {
     { label: 'Ship', link: '/Ship' },
     { label: 'Logistics solution', link: '/LogisticSolution' },
     { label: 'Need help ?', link: '/NeedHelp' },
+    { label: 'Pricing', link: '/pricing' },
   ];
 
   const location = useLocation();

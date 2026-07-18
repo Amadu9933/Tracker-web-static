@@ -22,8 +22,10 @@ const schema = yup.object({
   country: yup.string().required('Country is required').oneOf(['Ghana', 'Nigeria'], 'Please select a valid country'),
 });
 
+
+//  Ghana will be enabled after the payment gateway is active
 const countryOptions = [
-  { value: 'Ghana', label: 'Ghana' },
+  // { value: 'Ghana', label: 'Ghana' },
   { value: 'Nigeria', label: 'Nigeria' },
 ];
 
