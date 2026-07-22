@@ -104,7 +104,7 @@ const Integration = () => {
 
     // Checks if the vendor is a payu user
     const vendorIsPayu = () => {
-        if (user?.subscription_type === 'payu' || user?.subscription_type === 'trial' && riders.length == 5) {
+        if (user?.subscription_type === 'payu' || user?.subscription_type === 'trial' && riders.length === 5) {
             // shows dialog if the vendor is a payu or trial user and has 5 riders already
             setPayuMsg('⚠️ You need to be a Premium subscriber to add more riders. Please upgrade your subscription to access this feature.');
             setTimeout(() => setPayuMsg(''), 7000);

@@ -5,6 +5,7 @@ const payuFeatures = [
   "No monthly subscription",
   "Real-time parcel tracking",
   "Live rider location updates",
+  "5 riders onboarding",
   "Customer tracking notifications",
   "Delivery history and tracking records",
 ];
@@ -14,6 +15,7 @@ const premiumFeatures = [
   "Live rider location updates",
   "Customer tracking notifications",
   "Delivery history and tracking records",
+  "Unlimited riders onboarding",
   "Unlimited tracking generation",
   "Unlimited active deliveries",
   "Advanced delivery analytics",
