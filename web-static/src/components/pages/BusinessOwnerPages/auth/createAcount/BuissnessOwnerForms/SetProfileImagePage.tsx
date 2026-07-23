@@ -168,8 +168,8 @@ const SetProfileImagePage: React.FC = () => {
 
   return (
     <>
-      <div className="mx-auto max-w-lg p-4 sm:p-8 bg-white min-h-screen transition-colors duration-200">
-        <div className="flex items-center space-x-2 pb-2 mb-6">
+      <div className="mx-auto max-w-lg p-4 sm:p-8 min-h-screen transition-colors duration-200">
+        <div className="flex items-center space-x-2 pb-2 mb-6 pt-20">
           <div onClick={() => navigate(-1)} className="-mb-2 cursor-pointer">
             <img src={ArrowBack} alt="Move back arrow" className="dark:invert" />
           </div>
