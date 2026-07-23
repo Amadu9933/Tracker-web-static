@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // ✅ Use environment variable for base URL
 
@@ -27,6 +28,7 @@ const ForgotPassword: React.FC = () => {
   const navigate = useNavigate();
   const [showMsg, setShowMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState('');
+  const [clicked, setClicked] = useState(false);
 
   const {
     register,
@@ -37,6 +39,7 @@ const ForgotPassword: React.FC = () => {
   });
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
+    setClicked(!clicked);
     try {
       const response = await axios.post(`${TRACKERR_HOST}/users/reset-password/`, {
         email: data.email,
@@ -94,7 +97,7 @@ const ForgotPassword: React.FC = () => {
             Business
           </label>
 
-          <input
+          {/* <input
             type="radio"
             id="logistics"
             name="tab"
@@ -102,10 +105,10 @@ const ForgotPassword: React.FC = () => {
             checked={activeTab === 'logistics'}
             onChange={() => setActiveTab('logistics')}
             className="mr-2 accent-black"
-          />
-          <label htmlFor="logistics" className="font-medium">
+          /> */}
+          {/* <label htmlFor="logistics" className="font-medium">
             Logistics
-          </label>
+          </label> */}
         </div>
 
         {/* Form */}
@@ -129,6 +132,14 @@ const ForgotPassword: React.FC = () => {
             )}
           </div>
 
+          {
+            clicked && (
+              <CircularProgress sx={{ height: 5 }} />
+            )
+          }
+
+          {
+            !clicked && (
           <button
             type="submit"
             className="flex justify-center items-center font-bold text-secondary mt-4"
@@ -136,6 +147,9 @@ const ForgotPassword: React.FC = () => {
             <span className="mr-2">Next</span>
             <ArrowForwardIcon sx={{ height: 16 }} />
           </button>
+          )
+          }
+
         </form>
         <p className='text-center'>{errorMsg}</p>
         <p className='text-center'>{showMsg}</p>

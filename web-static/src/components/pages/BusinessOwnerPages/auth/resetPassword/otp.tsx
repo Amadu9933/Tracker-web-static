@@ -65,7 +65,7 @@ const Otp: React.FC = () => {
                         <label htmlFor="business" className="font-medium">Business</label>
                     </div>
 
-                    <div className="flex items-center">
+                    {/* <div className="flex items-center">
                         <input
                             type="radio"
                             id="logistics"
@@ -76,7 +76,7 @@ const Otp: React.FC = () => {
                             className="mr-2 accent-primary"
                         />
                         <label htmlFor="logistics" className="font-medium">Logistics</label>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Form */}

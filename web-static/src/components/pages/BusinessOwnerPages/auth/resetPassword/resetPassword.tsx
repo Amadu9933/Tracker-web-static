@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Toast from '@components/common/reusable/Toast';
+import { CircularProgress } from '@mui/material';
 
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST; // Use environment variable for base URL
 
@@ -43,8 +44,11 @@ const ResetPassword: React.FC = () => {
 
   const [errorMsg, setErrorMsg] = useState('')
   const [ShowMsg, setShowMsg] = useState('')
+  const [clicked, setClicked] = useState(false);
 
   const onSubmit = async (data: ResetPasswordFormData) => {
+
+    setClicked(!clicked);
     try {
       const payload = {
         otp,
@@ -71,6 +75,7 @@ const ResetPassword: React.FC = () => {
 
     } catch (error: any) {
       console.error('Reset password failed:', error);
+      setClicked(false);
       setTimeout(() => {
         setErrorMsg(error?.response?.data?.error.toLowerCase() === 'otp does not exist' ? "Invalid otp ❌" : error?.response?.data?.error.toLowerCase())
         setTimeout(() => {
@@ -112,7 +117,7 @@ const ResetPassword: React.FC = () => {
               </label>
             </div>
 
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <input
                 type="radio"
                 id="logistics"
@@ -125,7 +130,7 @@ const ResetPassword: React.FC = () => {
               <label htmlFor="logistics" className="font-medium">
                 Logistics
               </label>
-            </div>
+            </div> */}
           </div>
 
           {/* Form */}
@@ -165,12 +170,24 @@ const ResetPassword: React.FC = () => {
             </div>
 
             <div className="flex justify-center">
-              <button
-                type="submit"
-                className="bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
-              >
-                Reset Password
-              </button>
+
+              {
+                !clicked && (
+                  <button
+                    type="submit"
+                    className="bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
+                  >
+                    Reset Password
+                  </button>
+                )
+              }
+
+              {
+                clicked && (
+                  <CircularProgress sx={{ height: 5 }} />
+                )
+              }
+
             </div>
             {errorMsg && (
               <Toast message={errorMsg} type="error" onClose={() => setErrorMsg('')} autoDismiss={6000} />
