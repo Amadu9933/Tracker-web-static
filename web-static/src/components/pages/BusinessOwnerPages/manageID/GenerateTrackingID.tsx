@@ -79,16 +79,20 @@ const GenerateTrackingID = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [btnClicked, setBtnClicked] = useState(false);
     const navigate = useNavigate();
-
-
     const [suggestions, setSuggestions] = useState([]);
     const [search, setSearch] = useState("");
     const { user } = useAuth();
-    const sessionToken = uuidv4()
+    const [sessionToken, setSessionToken] = useState<any>(null);
+
+
+    const handleFocus = () => {
+        setSessionToken(uuidv4());
+    };
 
     useEffect(() => {
-        if (search.length < 5) {
+        if (! sessionToken && search.length < 3) {
             setSuggestions([]);
             return;
         }
@@ -101,6 +105,7 @@ const GenerateTrackingID = () => {
     }, [search]);
 
     const fetchAddresses = async (query: string) => {
+
         try {
             const BASE_URL = import.meta.env.VITE_TRACKERR_HOST
             const url = `${BASE_URL}/map/autocomplete?q=${query}&sessionToken=${sessionToken}`;
@@ -156,7 +161,7 @@ const GenerateTrackingID = () => {
                         customer_name: values.name,
                         quantity: values.numberOfProducts.toString(),
                         delivery_date: values.estimatedDeliveryDate,
-                        phone: values.phone,
+                        phone: values.phone
                     },
                     {
                         headers: {
@@ -233,8 +238,10 @@ const GenerateTrackingID = () => {
                                     formik.handleChange(e);
                                     if (name === "shippingAddress") {
                                         setSearch(e.target.value);
+                                        setBtnClicked(false);
                                     }
                                 }}
+                                onFocus={handleFocus}
                                 onBlur={formik.handleBlur}
                                 className={`${inputClass} ${className ?? ""}`}
                             />
@@ -248,6 +255,8 @@ const GenerateTrackingID = () => {
                                                 formik.setFieldValue(name, item.address.label);
                                                 setSuggestions([]);
                                                 setSearch('');
+                                                setSessionToken(null);
+                                                setBtnClicked(true);
                                             }}
                                         >
                                             {item.address.label}
@@ -279,28 +288,34 @@ const GenerateTrackingID = () => {
                 </div>
 
                 {/* Submit */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.7 }}
-                    className="flex justify-center mt-6"
-                >
-                    <motion.button
-                        whileHover={{ scale: loading ? 1 : 1.02 }}
-                        whileTap={{ scale: loading ? 1 : 0.98 }}
-                        type="submit"
-                        disabled={loading}
-                        className={`bg-primary dark:bg-transparent dark:border-2 dark:border-primary
-                        dark:text-primary dark:hover:bg-primary dark:hover:text-white
-                        dark:shadow-[0_0_12px_rgba(249,115,22,0.25)]
-                        text-white py-2.5 px-6 rounded-md font-semibold text-sm sm:text-base
-                        w-full sm:w-1/2 transition-all duration-200
-                        ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
-                    >
-                        {loading ? "Generating..." : "Generate Tracking ID"}
-                    </motion.button>
+                {
+                    btnClicked && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.7 }}
+                            className="flex justify-center mt-6"
+                        >
+                            <motion.button
+                                whileHover={{ scale: loading ? 1 : 1.02 }}
+                                whileTap={{ scale: loading ? 1 : 0.98 }}
+                                type="submit"
+                                disabled={loading}
+                                className={`bg-primary dark:bg-transparent dark:border-2 dark:border-primary
+                                dark:text-primary dark:hover:bg-primary dark:hover:text-white
+                                dark:shadow-[0_0_12px_rgba(249,115,22,0.25)]
+                                text-white py-2.5 px-6 rounded-md font-semibold text-sm sm:text-base
+                                w-full sm:w-1/2 transition-all duration-200
+                                ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+                            >
+                                {loading ? "Generating..." : "Generate Tracking ID"}
+                            </motion.button>
 
-                </motion.div>
+                        </motion.div>
+
+                    )
+                }
+
             </form>
 
             {/* Error */}
