@@ -9,6 +9,7 @@ import { NotFound } from '@components/pages/ErrorPages';
 const DashboardMain = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/DashboardMain'));
 const Report = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/report/Report'));
 const GenerateTrackingID = lazy(() => import('@components/pages/BusinessOwnerPages/manageID/GenerateTrackingID'));
+const HowToUse = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/how_to_use/how_to_use'))
 const Logistics = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/logistics/Logistics'))
 const Integration = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/integration/Integration'))
 const UserProfile = lazy(() => import('@components/pages/BusinessOwnerPages/dashboard/userProfile/UserProfile'))
@@ -28,6 +29,7 @@ const DashboardRoutes: React.FC = () => (
           <Route path="logistics" element={<Logistics />} />
           <Route path="integration" element={<Integration />} />
           <Route path="user-profile" element={<UserProfile />} />
+          <Route path="how-to-use" element={<HowToUse />} />
           <Route path="trackings/:trackingID" element={<TrackingDetails />} />
           <Route path="*" element={<NotFound />} />
         </Route>

@@ -7,6 +7,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { getUserProfile } from '../../../../api/users';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 import GridViewIcon from '@mui/icons-material/GridView';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
@@ -113,6 +114,18 @@ const Dashboard: React.FC = () => {
             >
               <LocalShippingOutlinedIcon />
               <span className="ml-1">Logistics</span>
+            </li>
+
+            {/* Dashboard Link */}
+            <li
+              onClick={() => { navigate('/dashboard/how-to-use'); if (sidebarOpen) setSidebarOpen(false); }}
+              className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
+                ${location.pathname === '/dashboard/how-to-use'
+                  ? 'bg-orange-500 text-white dark:bg-orange-600'
+                  : 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800'}`}
+            >
+              <HelpOutlineIcon />
+              <span className="ml-1">How To Use</span>
             </li>
           </ul>
         </nav>
