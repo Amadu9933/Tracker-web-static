@@ -12,6 +12,8 @@ import {
   Zap,
 } from "lucide-react";
 
+import { FAQItem } from "./FAQItem";
+
 const faqs = [
   {
     question: "How do I track my parcel?",
@@ -26,7 +28,7 @@ const faqs = [
   {
     question: "My tracking ID isn't working. What should I do?",
     answer:
-      "Double-check that the ID is entered exactly as provided — tracking IDs are case-sensitive and include no spaces. If the issue persists after 1 hour, contact your sender to verify the ID or reach our support team.",
+      "Double-check that the ID is entered exactly as provided, tracking IDs are case-sensitive and include no spaces. If the issue persists after 1 hour, contact your sender to verify the ID or reach our support team.",
   },
   {
     question: "How do I create a shipment as a business owner?",
@@ -99,34 +101,6 @@ const contactOptions = [
   },
 ];
 
-const FAQItem: React.FC<{ question: string; answer: string }> = ({
-  question,
-  answer,
-}) => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div
-      className="border border-[#E0E0E0] dark:border-[#333333] rounded-lg overflow-hidden transition-colors duration-300"
-      onClick={() => setOpen(!open)}
-    >
-      <button className="w-full flex items-center justify-between px-5 py-4 text-left bg-white dark:bg-[#1E1E1E] hover:bg-[#F5F5F5] dark:hover:bg-[#252525] transition-colors duration-200">
-        <span className="font-medium text-[#354755] dark:text-white text-sm md:text-base">
-          {question}
-        </span>
-        <span className="ml-4 shrink-0 text-[#FF833C]">
-          {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-        </span>
-      </button>
-
-      {open && (
-        <div className="px-5 pb-5 pt-2 bg-white dark:bg-[#1E1E1E] text-[#666666] dark:text-[#B0B0B0] text-sm leading-relaxed">
-          {answer}
-        </div>
-      )}
-    </div>
-  );
-};
 
 const NeedHelp: React.FC = () => {
   return (
@@ -142,7 +116,7 @@ const NeedHelp: React.FC = () => {
           </h1>
           <p className="text-[#666666] dark:text-[#B0B0B0] text-base max-w-xl mx-auto">
             Find answers to common questions, browse our guides, or reach out to
-            our team — we're here to make your experience seamless.
+            our team, we're here to make your experience seamless.
           </p>
         </div>
 

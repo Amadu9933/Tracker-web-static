@@ -18,19 +18,19 @@ const BusinessTabComponent: React.FC<BusinessTabComponentProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div className="flex bg-white flex-col md:flex-row min-h-screen">
+    <div className="flex bg-white flex-col gap-[50px] md:flex-row min-h-screen">
 
       {/* Left image */}
       <motion.div
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
-        className="hidden md:block md:w-1/2 h-full"
+        className="hidden md:block md:w-2/5"
       >
         <img
           src={createAccont}
           alt="Create Account"
-          className="w-full h-[950px] object-cover"
+          className="w-full h-full object-cover"
         />
       </motion.div>
 

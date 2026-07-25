@@ -1,7 +1,5 @@
 import {
   Box,
-  Card,
-  CardContent,
   Chip,
   Stack,
   Typography,
@@ -15,6 +13,8 @@ import generateImage from "../../../../../assets/generate.jpeg"
 import generateId from "../../../../../assets/generateId.png"
 import shippingInfo from "../../../../../assets/shipping.png"
 import assignImage from "../../../../../assets/assign.png"
+import { DropDown } from "@components/NavigationBarLinksComponents/FAQItem";
+import GeneratingTrackingHelp from "./generatingTrackingHelp";
 
 
 const steps = [
@@ -48,6 +48,22 @@ const steps = [
   },
 ];
 
+
+const howTo = [
+  { 
+    title: "How to generate a tracking number!",
+    component: <GeneratingTrackingHelp steps={steps}/>
+  },
+  { 
+    title: "How to onboard your riders!",
+    component: <h1>Coming Soon!</h1>
+  },
+  { 
+    title: "How to use the TrackerrGo rider app!",
+    component: <h1>Coming Soon!</h1>
+  }
+]
+
 export default function HowToUse() {
   return (
     <Box maxWidth="1000px" mx="auto" p={4}>
@@ -68,76 +84,17 @@ export default function HowToUse() {
         </Typography>
       </Stack>
 
-      <Stack spacing={4}>
-        {steps.map((step, index) => (
-          <Card
-            key={index}
-            sx={{
-              borderRadius: 4,
-              border: "1px solid",
-              borderColor: "divider",
-            }}
-          >
-            <CardContent sx={{ p: 4 }}>
-              <Stack
-                direction={{ xs: "column", md: "row" }}
-                spacing={4}
-                alignItems="center"
-              >
-                <Box flex={1}>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    alignItems="center"
-                    mb={2}
-                  >
-                    {step.icon}
-
-                    <Chip
-                      label={`Step ${index + 1}`}
-                      color="primary"
-                      size="small"
-                    />
-                  </Stack>
-
-                  <Typography variant="h5" fontWeight={600} mb={2}>
-                    {step.title}
-                  </Typography>
-
-                  <Typography color="text.secondary">
-                    {step.description}
-                  </Typography>
-                </Box>
-
-                <Box
-                  flex={1}
-                  sx={{
-                    aspectRatio: "16/9",
-                    bgcolor: "#f5f5f5",
-                    borderRadius: 3,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    overflow: "hidden",
-                  }}
-                >
-                  {/* Replace with your screenshot */}
-                  <img
-                      src={step.image}
-                      alt={step.title}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
-                      }}
-                  />
-                </Box>
-              </Stack>
-            </CardContent>
-          </Card>
-        ))}
-      </Stack>
-
+      {
+        howTo.map((item) => (
+          <DropDown 
+            key={item.title}
+            header={item.title}
+            component={
+              item.component
+            }
+          />
+        ))
+      }
     </Box>
   );
 }
