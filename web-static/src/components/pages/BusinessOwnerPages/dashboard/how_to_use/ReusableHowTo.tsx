@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 
-export default function GeneratingTrackingHelp({steps}: any) {
+export default function ReusableHowTo({steps}: any) {
   return (
     <motion.div
         initial={{ opacity: 0, y: 30 }}

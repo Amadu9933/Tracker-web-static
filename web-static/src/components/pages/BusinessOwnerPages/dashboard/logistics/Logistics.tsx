@@ -41,6 +41,10 @@ const Integration = () => {
         'focus:outline-none focus:ring-2 focus:ring-orange-400/40 focus:border-orange-400 ' +
         'dark:focus:border-orange-400 dark:focus:ring-orange-400/30';
 
+    const emailClass = "w-full p-2.5 border rounded-lg text-sm transition-colors \
+    duration-200 cursor-not-allowed bg-white dark:bg-[#1e2738] text-gray-900 \
+    dark:text-gray-100 border-gray-300 dark:border-gray-600"
+
     const labelClass = 'block text-xs sm:text-sm font-medium mb-1.5 text-gray-700 dark:text-gray-300';
 
     const filteredRiders = searchTerm.trim() === ''
@@ -60,12 +64,13 @@ const Integration = () => {
 
     const createRider = (data: any) => {
         axiosInstance.post(`${TRACKERR_HOST}/logistics/signup/`, { ...data, account_type: "logistics" }, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('access')}`, "Content-Type": "application/json" }
-        }).then(() => {
+        }).then((res) => {
+            alert(res.status)
             setMsg('Rider created successfully');
             setTimeout(() => setMsg('Check email for login details'), 3000);
             setTimeout(() => setMsg(''), 6000);
         }).catch((error) => {
+            
             const errMsg = error?.response?.data?.msg;
             const errorMapping: any = {
                 email: 'Email already exists',
@@ -616,19 +621,15 @@ const Integration = () => {
                                             className={inputClass}
                                             type="text"
                                             id="name"
-                                            value={editRiderInfo.name}
+                                            value={title(editRiderInfo.name)}
                                             onChange={handleEditInputChange}
                                         />
                                     </div>
                                     <div>
                                         <label className={labelClass} htmlFor="email">Email Address</label>
-                                        <input
-                                            className={inputClass}
-                                            type="email"
-                                            id="email"
-                                            value={editRiderInfo.email}
-                                            onChange={handleEditInputChange}
-                                        />
+                                        <div
+                                            className={emailClass}
+                                        >{editRiderInfo.email}</div>
                                     </div>
                                     <div>
                                         <label className={labelClass} htmlFor="address">Address</label>
@@ -636,7 +637,7 @@ const Integration = () => {
                                             className={inputClass}
                                             type="text"
                                             id="address"
-                                            value={editRiderInfo.address}
+                                            value={title(editRiderInfo.address)}
                                             onChange={handleEditInputChange}
                                         />
                                     </div>
