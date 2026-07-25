@@ -14,8 +14,44 @@ import generateId from "../../../../../assets/generateId.png"
 import shippingInfo from "../../../../../assets/shipping.png"
 import assignImage from "../../../../../assets/assign.png"
 import { DropDown } from "@components/NavigationBarLinksComponents/FAQItem";
-import GeneratingTrackingHelp from "./generatingTrackingHelp";
+import ReusableHowTo from "./ReusableHowTo";
 
+
+import addRider1 from "../../../../../assets/logistics_1.png"
+import addRider2 from "../../../../../assets/logistics_2.png"
+import addRider3 from "../../../../../assets/logistics_3.png"
+import addRider4 from "../../../../../assets/logistics_4.png"
+
+const riderSteps = [
+  {
+    icon: <CheckCircleIcon color="secondary" />,
+    title: "",
+    description:
+      "Click the Logistics button on the Navbar",
+    image: addRider1,
+  },
+  {
+    icon: <CheckCircleIcon color="secondary" />,
+    title: "Add A Rider",
+    description:
+      "Click on the Add Rider button to open up the rider onboarding form.",
+    image: addRider2,
+  },
+  {
+    icon: <CheckCircleIcon color="secondary" />,
+    title: "Fill out the Rider Form",
+    description:
+      "Fill out the rider specific information by providing his Name, Email, Phone number, Identity information etc and click Add Rider.",
+    image: addRider3,
+  },
+  {
+    icon: <CheckCircleIcon color="success" />,
+    title: "Rider Added",
+    description:
+      "Once successful, the new rider will appear on the list of riders and their login details will be sent to their email.",
+    image: addRider4,
+  },
+];
 
 const steps = [
   {
@@ -52,11 +88,11 @@ const steps = [
 const howTo = [
   { 
     title: "How to generate a tracking number!",
-    component: <GeneratingTrackingHelp steps={steps}/>
+    component: <ReusableHowTo steps={steps}/>
   },
   { 
     title: "How to onboard your riders!",
-    component: <h1>Coming Soon!</h1>
+    component: <ReusableHowTo steps={riderSteps}/>
   },
   { 
     title: "How to use the TrackerrGo rider app!",
