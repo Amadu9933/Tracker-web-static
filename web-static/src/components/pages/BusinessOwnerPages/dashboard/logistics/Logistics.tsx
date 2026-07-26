@@ -64,8 +64,7 @@ const Integration = () => {
 
     const createRider = (data: any) => {
         axiosInstance.post(`${TRACKERR_HOST}/logistics/signup/`, { ...data, account_type: "logistics" }, {
-        }).then((res) => {
-            alert(res.status)
+        }).then(() => {
             setMsg('Rider created successfully');
             setTimeout(() => setMsg('Check email for login details'), 3000);
             setTimeout(() => setMsg(''), 6000);
@@ -75,7 +74,8 @@ const Integration = () => {
             const errorMapping: any = {
                 email: 'Email already exists',
                 phone_number: 'Phone number already exists',
-                id_number: 'ID number already exists'
+                id_number: 'ID number already exists',
+                id_error: 'ID already exists'
             };
             let foundMessage = '';
             for (const key of Object.keys(errorMapping)) {
@@ -109,7 +109,8 @@ const Integration = () => {
 
     // Checks if the vendor is a payu user
     const vendorIsPayu = () => {
-        if (user?.subscription_type === 'payu' || user?.subscription_type === 'trial' && riders.length === 5) {
+        
+        if ((user?.subscription_type === 'payu' || user?.subscription_type === 'trial') && (riders.length === 5)) {
             // shows dialog if the vendor is a payu or trial user and has 5 riders already
             setPayuMsg('⚠️ You need to be a Premium subscriber to add more riders. Please upgrade your subscription to access this feature.');
             setTimeout(() => setPayuMsg(''), 7000);
