@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ArrowLeft, Trash2, Edit, Eye, MapPin, Phone, Plus, Package } from "lucide-react";
 import { Container } from "../trackingDetails/TrackingDetails";
 import { DeleteDialog, ReusableDialog } from "@components/common/reusable/dialog";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axiosInstance from "@api/axiosInstance";
 import Toast from "@components/common/reusable/Toast";
 import title from "@components/utils/title";
@@ -30,6 +30,13 @@ const Integration = () => {
     const [riderToDelete, setRiderToDelete] = useState({ id: null, name: '' });
     const [showRiderDeleteDialog, setShowRiderDeleteDialog] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const idtypeRef = useRef<HTMLSelectElement>(null);
+    const addressRef = useRef<HTMLInputElement>(null);
+    const nameRef = useRef<HTMLInputElement>(null);
+    const phoneRef = useRef<HTMLInputElement>(null);
+    const emailRef = useRef<HTMLInputElement>(null);
+    const idNumberRef = useRef<HTMLInputElement>(null);
+
     const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
     const inputClass =
@@ -120,9 +127,50 @@ const Integration = () => {
     };
 
     const handleAddRider = () => {
-        if (Object.values(riderInfo).some(v => v === '')) {
-            alert('Please fill in all the required fields to add a rider.'); return;
+        if (!riderInfo.idType) {
+            idtypeRef.current?.focus()
+            return
         }
+
+        if (!riderInfo.name) {
+            nameRef.current?.focus()
+            return
+        }
+
+        if (!riderInfo.address) {
+            addressRef.current?.focus()
+            return
+        }
+
+        if (!riderInfo.phone) {
+            phoneRef.current?.focus()
+            return
+        }
+
+        if (!riderInfo.email) {
+            emailRef.current?.focus()
+            return
+        }
+
+        if (!riderInfo.idNumber) {
+            idNumberRef.current?.focus()
+            return
+        }
+    
+        // Validates emails and ensures at least 10 phone numbers are submitted
+        if (riderInfo.phone && riderInfo.phone.length < 10) {
+            phoneRef.current?.focus()
+            return
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(riderInfo.email)) {
+            emailRef.current?.focus()
+            return
+        }
+        
+
+
         createRider({
             name: riderInfo.name,
             address: riderInfo.address,
@@ -299,16 +347,17 @@ const Integration = () => {
                         {/* Two-column grid for name + email, address + phone */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {[
-                                { id: 'name', label: 'Rider Name', placeholder: 'e.g. John Doe' },
-                                { id: 'email', label: 'Email Address', placeholder: 'e.g. johndoe@example.com' },
-                                { id: 'address', label: 'Address', placeholder: 'e.g. 36 Accra Avenue' },
-                                { id: 'phone', label: 'Phone Number', placeholder: 'e.g. 0244567890' },
-                            ].map(({ id, label, placeholder }) => (
-                                <div key={id}>
+                                { id: 'name', label: 'Rider Name', placeholder: 'e.g. John Doe', ref: nameRef },
+                                { id: 'email', label: 'Email Address', placeholder: 'e.g. johndoe@example.com', ref: emailRef },
+                                { id: 'address', label: 'Address', placeholder: 'e.g. 36 Accra Avenue', ref: addressRef },
+                                { id: 'phone', label: 'Phone Number', placeholder: 'e.g. 09015006252', ref: phoneRef },
+                            ].map(({ id, label, placeholder, ref }) => (
+                                <div key={id} >
                                     <label className={labelClass} htmlFor={id}>{label}</label>
                                     <input
                                         className={inputClass}
                                         type="text"
+                                        ref={ref}
                                         id={id}
                                         placeholder={placeholder}
                                         aria-label={label}
@@ -321,11 +370,12 @@ const Integration = () => {
 
                         {/* ID Type + ID Number */}
                         <div className="flex gap-3">
-                            <div className="flex-1 ">
+                            <div className="flex-1">
                                 <label className={labelClass} htmlFor="idType">ID Type</label>
                                 <select
-                                    className={`${inputClass} h-[48px]`}
+                                    className={`${inputClass} h-[42px]`}
                                     id="idType"
+                                    ref={idtypeRef}
                                     aria-label="ID Type"
                                     onChange={handleInputChange}
                                     value={riderInfo.idType}
@@ -342,6 +392,7 @@ const Integration = () => {
                                 <input
                                     className={inputClass}
                                     type="text"
+                                    ref={idNumberRef}
                                     id="idNumber"
                                     placeholder="e.g. GHA-123456789"
                                     aria-label="ID Number"
