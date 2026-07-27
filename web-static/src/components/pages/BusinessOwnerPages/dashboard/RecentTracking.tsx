@@ -5,6 +5,7 @@ import CircularProgress from '../../customerPages/CustomerTrackingDetails/Custom
 import LoadingSpinner from '../../customerPages/CustomerTrackingDetails/CustomerNotification/LoadingSpinner';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../../../context/ThemeContext';
+import TrackingNumberSearchBar from './TrackingNumberSearchBar';
 
 
 // ---------- Props Interface ----------
@@ -22,6 +23,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
 }) => {
   const { isDarkMode } = useTheme();
   const [trackingData, setTrackingData] = useState<any[]>([]);
+  const [allTrackingData, setAllTrackingData] = useState<any[]>([]);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -49,6 +51,11 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
       setTrackingData((prev) =>
         append ? [...prev, ...cachedData.results] : cachedData.results
       );
+
+      setAllTrackingData((prev) =>
+        append ? [...prev, ...cachedData.results] : cachedData.results
+      );
+
       setNextPage(cachedData.next);
       setLoading(false);
       return;
@@ -59,6 +66,10 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
       const newData = data.results || [];
 
       setTrackingData((prev) =>
+        append ? [...prev, ...newData] : newData
+      );
+
+      setAllTrackingData((prev) =>
         append ? [...prev, ...newData] : newData
       );
       setNextPage(data.next);
@@ -86,6 +97,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
   useEffect(() => {
     fetchData();
   }, []);
+
 
   // ---------- Filter & Limit ----------
   const filteredData = useMemo(() => {
@@ -125,18 +137,22 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
       {/* Filter */}
       {enableFilter && (
         <div
-          className={`flex justify-between items-center mb-4 ${isDarkMode ? 'text-white' : 'text-black'
+          className={`flex justify-between gap-5 items-center mb-4 ${isDarkMode ? 'text-white' : 'text-black'
             }`}
         >
           <p className="text-secondary font-bold">History</p>
-
+  
+          <TrackingNumberSearchBar
+              setTrackingData={setTrackingData}
+              allTrackingData={allTrackingData}
+          />
           <div
             className={`flex justify-end rounded-md px-4 py-2 text-sm ${isDarkMode
               ? 'border border-zinc-700 bg-zinc-900'
               : 'border border-gray-300 bg-white'
               }`}
           >
-            <div className="mr-2">Sort by:</div>
+            <div className="mr-2 hidden sm:block">Sort by:</div>
 
             <select
               value={statusFilter}

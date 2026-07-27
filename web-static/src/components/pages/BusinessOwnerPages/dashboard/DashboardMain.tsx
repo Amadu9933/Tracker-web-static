@@ -9,6 +9,7 @@ import { fetchTrackingData } from '../../../../api/tracking';
 // Payment dialog box
 import ReusableModal from '../../../common/reusable/ReusableModal';
 import Payment from './Payment';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardMain = () => {
   const { isDarkMode } = useTheme();
@@ -16,6 +17,8 @@ const DashboardMain = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [showPaymentDialog, setShowPaymentDialog] = useState<boolean>(false); // State to control payment dialog visibility
+
+  const navigate = useNavigate()
 
   // Fetch tracking data when component mounts
   useEffect(() => {
@@ -72,7 +75,9 @@ const DashboardMain = () => {
       <div className="">
         <div className="mb-2 mt-10 text-left flex justify-between">
           <p className="text-secondary dark:text-slate-200 font-bold">Recent</p>
-          <p className="text-gray-700 dark:text-slate-300">View all</p>
+          <p className="text-gray-700 dark:text-slate-300 hover:cursor-pointer"
+            onClick={() => navigate('/dashboard/reports')}
+          >View all</p>
         </div>
 
         {loading && <p className="text-center">Loading recent trackings...</p>}
