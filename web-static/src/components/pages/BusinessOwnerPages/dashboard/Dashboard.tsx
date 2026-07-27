@@ -177,7 +177,7 @@ const Dashboard: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col -ml-6 sm:px-6 pt-5 max-w-screen-xl mx-auto">
         {/* App Bar */}
-        <div className="border-b border-[#D9D9D9] dark:border-[#2f3a4a] bg-white dark:bg-[#0b111f] mx-4 sticky top-0 z-50">
+        <div className="border-b border-[#D9D9D9] dark:border-[#2f3a4a] bg-white dark:bg-[#0b111f] mx-4 sticky top-0 z-10">
 
           <AppBar
             position="sticky"
