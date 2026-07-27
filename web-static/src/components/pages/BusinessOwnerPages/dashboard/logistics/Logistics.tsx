@@ -127,13 +127,16 @@ const Integration = () => {
     };
 
     const handleAddRider = () => {
-        if (!riderInfo.idType) {
-            idtypeRef.current?.focus()
-            return
-        }
+
 
         if (!riderInfo.name) {
             nameRef.current?.focus()
+            return
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!riderInfo.email || !emailRegex.test(riderInfo.email)) {
+            emailRef.current?.focus()
             return
         }
 
@@ -142,13 +145,13 @@ const Integration = () => {
             return
         }
 
-        if (!riderInfo.phone) {
+        if (!riderInfo.phone || riderInfo.phone.length < 10) {
             phoneRef.current?.focus()
             return
         }
 
-        if (!riderInfo.email) {
-            emailRef.current?.focus()
+        if (!riderInfo.idType) {
+            idtypeRef.current?.focus()
             return
         }
 
@@ -157,17 +160,6 @@ const Integration = () => {
             return
         }
     
-        // Validates emails and ensures at least 10 phone numbers are submitted
-        if (riderInfo.phone && riderInfo.phone.length < 10) {
-            phoneRef.current?.focus()
-            return
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(riderInfo.email)) {
-            emailRef.current?.focus()
-            return
-        }
         
 
 

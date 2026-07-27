@@ -165,12 +165,7 @@ const Dashboard: React.FC = () => {
         </div>
       </aside>
 
-      {/* Hamburger for mobile */}
-      <div className="sm:hidden absolute top-4 left-4 z-30">
-        <IconButton onClick={toggleSidebar}>
-          {sidebarOpen ? <CloseIcon /> : <MenuIcon />}
-        </IconButton>
-      </div>
+
 
       <button
         className="bg-gray-300 h-[24px]"
@@ -182,7 +177,8 @@ const Dashboard: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col -ml-6 sm:px-6 pt-5 max-w-screen-xl mx-auto">
         {/* App Bar */}
-        <div className="border-b border-[#D9D9D9] dark:border-[#2f3a4a] bg-white dark:bg-[#0b111f] mx-4">
+        <div className="border-b border-[#D9D9D9] dark:border-[#2f3a4a] bg-white dark:bg-[#0b111f] mx-4 sticky top-0">
+
           <AppBar
             position="static"
             color="default"
@@ -191,8 +187,15 @@ const Dashboard: React.FC = () => {
               backgroundColor: isDarkMode ? '#0b111f' : 'white',
             }}
           >
+            
             <Toolbar className="flex justify-between">
               <div className="flex items-center">
+              {/* Hamburger for mobile */}
+              <div className="sm:hidden">
+                <IconButton onClick={toggleSidebar}>
+                  {sidebarOpen ? <CloseIcon /> : <MenuIcon />}
+                </IconButton>
+              </div>
                 <button
                   onClick={() => navigate('/dashboard/GenerateTrackingID')}
                   className={`flex items-center gap-1.5 w-[130px] md:w-fit px-3 sm:px-4 ml-8 sm:ml-5 py-1.5 sm:py-2 leading-5 font-medium text-[12px] sm:text-[14px] rounded-[6px] cursor-pointer transition-all duration-200
