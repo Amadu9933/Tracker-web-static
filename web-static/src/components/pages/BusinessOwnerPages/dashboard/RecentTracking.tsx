@@ -6,6 +6,7 @@ import LoadingSpinner from '../../customerPages/CustomerTrackingDetails/Customer
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../../../context/ThemeContext';
 import TrackingNumberSearchBar from './TrackingNumberSearchBar';
+import axiosInstance from "@api/axiosInstance";
 
 
 // ---------- Props Interface ----------
@@ -28,6 +29,8 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('All');
+  const [filteredData, setFilteredData] = useState<any[]>([]);
+  const [searchResult, setSearchResult] = useState<any[] | null>(null);
 
   // ---------- Fetch Data ----------
   const fetchData = async (
@@ -69,9 +72,12 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
         append ? [...prev, ...newData] : newData
       );
 
-      setAllTrackingData((prev) =>
-        append ? [...prev, ...newData] : newData
-      );
+    const updatedData = append
+      ? [...allTrackingData, ...newData]
+      : newData;
+
+    setAllTrackingData(updatedData);
+    setFilteredData(updatedData);
       setNextPage(data.next);
 
       localStorage.setItem(cacheKey, JSON.stringify(data));
@@ -99,19 +105,48 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
   }, []);
 
 
-  // ---------- Filter & Limit ----------
-  const filteredData = useMemo(() => {
-    return statusFilter === 'All'
-      ? trackingData
-      : trackingData.filter(
-        (item) =>
-          item.status?.toLowerCase() === statusFilter.toLowerCase()
-      );
-  }, [trackingData, statusFilter]);
+  const getDataBasedOnStatus = async (status: any) => {
+    if (!['canceled',, 'returned', 'pending', 'delivered', 'in transit', 'assigned'].includes(status.toLowerCase())) return
+    const BASE_URL = import.meta.env.VITE_TRACKERR_HOST
+    const res = await axiosInstance.get(
+      `${BASE_URL}/trackings/?status=${status.toLowerCase()}`,
+    )
 
-  const dataToShow = useMemo(() => {
-    return limit ? filteredData.slice(0, limit) : filteredData;
-  }, [filteredData, limit]);
+    const data = res.data
+    return data?.msg
+  }
+  // ---------- Filter & Limit ----------
+  
+useEffect(() => {
+  const fetchData = async () => {
+
+    if(statusFilter === "All"){
+      setFilteredData(allTrackingData);
+      return;
+    }
+
+    const data = await getDataBasedOnStatus(statusFilter);
+    setFilteredData(data ?? []);
+  };
+
+  fetchData();
+
+}, [statusFilter, allTrackingData]);
+
+const dataToShow = useMemo(() => {
+
+  const data = searchResult !== null
+      ? searchResult
+      : filteredData;
+
+  return limit ? data.slice(0, limit) : data;
+
+}, [filteredData, searchResult, limit]);
+
+
+useEffect(() => {
+  console.log("searchResult changed:", searchResult);
+}, [searchResult]);
 
   // ---------- Handlers ----------
   const handleFilterChange = useCallback(
@@ -143,8 +178,9 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
           <p className="text-secondary font-bold">History</p>
   
           <TrackingNumberSearchBar
-              setTrackingData={setTrackingData}
-              allTrackingData={allTrackingData}
+            setSearchResult={setSearchResult}
+            allTrackingData={allTrackingData}
+            setDefaultData={setFilteredData}
           />
           <div
             className={`flex justify-end rounded-md px-4 py-2 text-sm ${isDarkMode
@@ -167,6 +203,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
               <option value="canceled">Canceled</option>
               <option value="returned">Returned</option>
               <option value="in transit">In Transit</option>
+              <option value="assigned">Assigned</option>
               <option value="pending">Pending</option>
             </select>
           </div>
@@ -234,20 +271,20 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
                   </Link>
                 </td>
 
-                <td className="px-4 py-3">
-                  {formatDateTime(item.date_of_purchase)}
+                <td className="pl-4 py-3 whitespace-nowrap">
+                  <span className='text-md'>{formatDateTime(item.date_of_purchase)}</span>
                   <div
                     className={`${isDarkMode
                       ? 'text-zinc-400'
                       : 'text-[#C6C5B9]'
                       } text-xs`}
                   >
-                    {formatDateTime(item.time_of_purchase)}
+                  {formatDateTime(item.time_of_purchase)}
                   </div>
                 </td>
 
-                <td className="px-4 py-3">
-                  {formatDateTime(item.delivery_date)}
+                <td className="pl-4 py-3">
+                  <span className='text-md md:text-md'>{formatDateTime(item.delivery_date)}</span>
                 </td>
 
                 <td
