@@ -44,7 +44,7 @@ export default function TrackingNumberSearchBar({setTrackingData, allTrackingDat
 
         <input
         type="text"
-        placeholder="Search by tracking number..."
+        placeholder="Search tracking number..."
         onChange={handleSearch}
         className="
             w-full
@@ -57,7 +57,8 @@ export default function TrackingNumberSearchBar({setTrackingData, allTrackingDat
             pr-4
             text-sm
             text-gray-800
-            placeholder:text-gray-400
+            placeholder:text-xs sm:placeholder:text-sm md:placeholder:text-base
+            placeholder:text-gray-400/40
             shadow-sm
             transition-all
             duration-200
