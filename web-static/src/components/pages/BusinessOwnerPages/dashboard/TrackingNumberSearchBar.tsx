@@ -1,39 +1,10 @@
-import axiosInstance from "@api/axiosInstance";
 import { motion } from "framer-motion";
 
-export default function TrackingNumberSearchBar({setSearchResult, allTrackingData, setDefaultData}: any) {
-//   const [search, setSearch] = useState<string>('')
-  const handleSearch = (search: any) => {
-    
-    if (!search.trim()) {
-        setDefaultData(allTrackingData);
-        setSearchResult(null)
-        return;
-    }
 
- const getSearchedTracking = async (search: any) => {
+export default function TrackingNumberSearchBar({setSearch}: any) {
+ 
+  
 
-    const BASE_URL = import.meta.env.VITE_TRACKERR_HOST
-    const res = await axiosInstance.get(
-      `${BASE_URL}/trackings/?contains=${search.toLowerCase()}`,
-    )
-
-    const data = res.data
-    return data?.msg
-
-    
-  }
-
-    getSearchedTracking(search)
-        .then((data) => {
-            if (data) {
-                console.log(data)
-                setSearchResult(data);
-            }
-        })
-        .catch((e:any) => console.log('Error fetching:', e))
-
-    };
   return (
     <div className="w-full md:w-[70%] sm:w-[50%]">
     <motion.div
@@ -61,7 +32,7 @@ export default function TrackingNumberSearchBar({setSearchResult, allTrackingDat
         <input
         type="text"
         placeholder="Search tracking number..."
-        onChange={(e)=>handleSearch(e.target.value)}
+        onChange={(e)=>setSearch(e.target.value)}
         className="
             w-full
             h-11

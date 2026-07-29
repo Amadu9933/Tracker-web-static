@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { fetchTrackingData } from '../../../../api/tracking';
 import { getStatusColor, formatDateTime } from '../../../../utils/statusUtils';
 import CircularProgress from '../../customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
@@ -16,11 +16,33 @@ interface CustomizedTablesProps {
   limit?: number | null;
 }
 
+export const fetchFilteredTrackings = async (
+  status: string,
+  search: string
+) => {
+  const params = new URLSearchParams();
+
+  if (status !== "All") {
+    params.append("status", status.toLowerCase());
+  }
+
+  if (search.trim()) {
+    params.append("contains", search.trim());
+  }
+
+  const BASE_URL = import.meta.env.VITE_TRACKERR_HOST;
+
+  const res = await axiosInstance.get(
+    `${BASE_URL}/trackings/?${params.toString()}`
+  );
+
+  return res.data.msg;
+};
+
 // ---------- Main Component ----------
 const CustomizedTables: React.FC<CustomizedTablesProps> = ({
   enableFilter = false,
   enableLoadMore = false,
-  limit = null,
 }) => {
   const { isDarkMode } = useTheme();
   const [trackingData, setTrackingData] = useState<any[]>([]);
@@ -29,9 +51,8 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('All');
-  const [filteredData, setFilteredData] = useState<any[]>([]);
   const [searchResult, setSearchResult] = useState<any[] | null>(null);
-
+  const [search, setSearch] = useState("");
   // ---------- Fetch Data ----------
   const fetchData = async (
     url = 'trackings/',
@@ -77,8 +98,7 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
       : newData;
 
     setAllTrackingData(updatedData);
-    setFilteredData(updatedData);
-      setNextPage(data.next);
+    setNextPage(data.next);
 
       localStorage.setItem(cacheKey, JSON.stringify(data));
     } catch (err: any) {
@@ -105,48 +125,26 @@ const CustomizedTables: React.FC<CustomizedTablesProps> = ({
   }, []);
 
 
-  const getDataBasedOnStatus = async (status: any) => {
-    if (!['canceled',, 'returned', 'pending', 'delivered', 'in transit', 'assigned'].includes(status.toLowerCase())) return
-    const BASE_URL = import.meta.env.VITE_TRACKERR_HOST
-    const res = await axiosInstance.get(
-      `${BASE_URL}/trackings/?status=${status.toLowerCase()}`,
-    )
-
-    const data = res.data
-    return data?.msg
-  }
+  
   // ---------- Filter & Limit ----------
   
 useEffect(() => {
-  const fetchData = async () => {
-
-    if(statusFilter === "All"){
-      setFilteredData(allTrackingData);
+  const load = async () => {
+    if (statusFilter === "All" && !search.trim()) {
+      setSearchResult(null);
       return;
     }
 
-    const data = await getDataBasedOnStatus(statusFilter);
-    setFilteredData(data ?? []);
+    const data = await fetchFilteredTrackings(statusFilter, search);
+    setSearchResult(data);
   };
 
-  fetchData();
+  load();
+}, [statusFilter, search]);
 
-}, [statusFilter, allTrackingData]);
+const dataToShow =
+    searchResult ?? allTrackingData;
 
-const dataToShow = useMemo(() => {
-
-  const data = searchResult !== null
-      ? searchResult
-      : filteredData;
-
-  return limit ? data.slice(0, limit) : data;
-
-}, [filteredData, searchResult, limit]);
-
-
-useEffect(() => {
-  console.log("searchResult changed:", searchResult);
-}, [searchResult]);
 
   // ---------- Handlers ----------
   const handleFilterChange = useCallback(
@@ -158,9 +156,7 @@ useEffect(() => {
 
   const handleLoadMore = useCallback(() => {
     if (nextPage) {
-      // Backend (Django) may return http:// pagination links even when the
-      // server runs https://. Strip the origin entirely and use only the
-      // path+query so axiosInstance always uses its https baseURL.
+   
       const relativeUrl = nextPage.replace(/^https?:\/\/[^/]+\/api\/v1\//, '');
       fetchData(relativeUrl, true);
     }
@@ -178,9 +174,7 @@ useEffect(() => {
           <p className="text-secondary font-bold">History</p>
   
           <TrackingNumberSearchBar
-            setSearchResult={setSearchResult}
-            allTrackingData={allTrackingData}
-            setDefaultData={setFilteredData}
+            setSearch={setSearch}
           />
           <div
             className={`flex justify-end rounded-md px-4 py-2 text-sm ${isDarkMode
