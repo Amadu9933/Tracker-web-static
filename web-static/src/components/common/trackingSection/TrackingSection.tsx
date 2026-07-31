@@ -20,6 +20,7 @@ const TrackingSection: React.FC = () => {
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
+      
       navigate(`/tracking/${trackingNumber}`);
     }
   };
@@ -27,7 +28,6 @@ const TrackingSection: React.FC = () => {
   return (
     <section className="track-section">
       <div className="track-container">
-
         {/* Logo */}
         <motion.img
           initial={{ opacity: 0, y: 30 }}

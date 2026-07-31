@@ -5,6 +5,7 @@ import axiosInstance from '../../../../../../api/axiosInstance';
 
 import { Group, edit, ArrowBack } from '../../assets/Assets';
 import Toast from '@components/common/reusable/Toast';
+import { TermsModal } from '@components/common/reusable/ReusableModal';
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
@@ -16,6 +17,8 @@ const SetProfileImagePage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showMsg, setShowMsg] = useState<boolean>(false);
+  const [terms, setTerms] = useState(false)
+  const [showTermsModal, setShowTermsModal] = useState(false)
   const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
   useEffect(() => {
@@ -48,9 +51,23 @@ const SetProfileImagePage: React.FC = () => {
     }
   };
 
+  const handlesetTerms = () => {
+    if (terms) {
+      formData.terms_and_condition = false;
+      setTerms(!terms)
+      return
+    }
+
+    formData.terms_and_condition = true;
+    setTerms(!terms)
+    return
+
+  }
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     setError(null);
+
 
     try {
       const payload = new FormData();
@@ -62,7 +79,9 @@ const SetProfileImagePage: React.FC = () => {
       payload.append('service', formData.service);
       payload.append('address', formData.address);
       payload.append('country', formData.country);
+      payload.append('terms_and_condition', formData.terms_and_condition? 'true' : 'false');
       payload.append('account_type', 'business');
+      
 
       if (image) {
         payload.append('avatar', image);
@@ -233,12 +252,96 @@ const SetProfileImagePage: React.FC = () => {
           <Toast message={error} type="error" inline onClose={() => setError(null)} autoDismiss={0} />
         )}
 
+      <div className="flex items-center gap-3 md:gap-6 w-full p-5">
+        
+        <input 
+          onChange={handlesetTerms}
+          type="checkbox" 
+          className="peer accent-orange-400 h-5 w-5 rounded" 
+          checked={terms}
+        />
+        <h3 className="text-sm md:text-base text-gray-700">
+          I have read and accept the <span className='text-orange-400 dark:text-orange-400 hover:cursor-pointer' onClick={() => setShowTermsModal(true)}>Terms of Use.</span>
+        </h3>
+      </div>
+
+      {/* Reusable modal */}
+
+      {showTermsModal && (
+        <TermsModal>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
+            <div className="bg-white rounded-lg shadow-lg w-[90%] max-w-lg p-6 max-h-[80vh] overflow-y-auto">
+              <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-800">
+                Terms & Conditions
+              </h2>
+
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-3">
+                Trackerr is a real-time parcel tracking application designed to provide 
+                visibility for business owners managing their logistics operations.
+              </p>
+
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-3">
+                Business owners onboard and manage their own riders. Trackerr does not 
+                employ or compensate riders, as they are solely owned and managed by 
+                individual vendors.
+              </p>
+
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-3">
+                Trackerr is not liable for the safety, loss, or damage of any parcel. 
+                Responsibility for parcel handling and delivery rests entirely with the 
+                logistics owners and their riders.
+              </p>
+
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-3">
+                Deposits made on Trackerr are strictly non‑withdrawable and non‑refundable. 
+                By using the platform, you agree to this policy.
+              </p>
+
+              <h3 className="text-md md:text-lg font-semibold mt-6 mb-3 text-gray-800">
+                Privacy Policy
+              </h3>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-3">
+                Trackerr respects your privacy. We collect and process only the information 
+                necessary to provide real-time parcel visibility and improve service quality. 
+                Trackerr does not share, sell, or disclose your personal data to third parties 
+                without your consent, except as required by law.
+              </p>
+
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
+                By continuing to use Trackerr, you acknowledge and agree to both the Terms & 
+                Conditions and the Privacy Policy outlined above.
+              </p>
+
+              <div className="flex items-center gap-3">
+                <input 
+                  type="checkbox" 
+                  className="accent-orange-500 h-5 w-5 rounded peer"
+                  onChange={handlesetTerms}
+                  checked={terms} 
+                />
+                <label className="text-sm md:text-base text-gray-700 peer-checked:text-orange-600">
+                  I have read and accept the Terms & Conditions
+                </label>
+              </div>
+              <div className="mt-6 flex justify-end">
+
+              <button className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition" 
+                    type='button' onClick={() => setShowTermsModal(!showTermsModal)}
+              >
+                  Continue
+              </button>
+            </div>
+            </div>
+          </div>
+        </TermsModal>
+      )}
+
         <button
           onClick={handleSubmit}
           className={`w-full bg-primary dark:bg-orange-500 dark:hover:bg-orange-400 text-white p-2 rounded-md mt-6 text-sm sm:text-base font-medium
             transition-all duration-200 dark:shadow-[0_0_12px_rgba(249,115,22,0.3)]
-            ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'}`}
-          disabled={isSubmitting || showMsg}
+            ${isSubmitting || !terms ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'}`}
+          disabled={isSubmitting || showMsg }
         >
           {isSubmitting ? 'Submitting...' : 'Complete Sign Up'}
         </button>

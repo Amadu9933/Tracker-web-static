@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
+
 type FormData = {
   name: string;
   email: string;
@@ -10,6 +11,7 @@ type FormData = {
   address: string;
   country: string;
   accountType: string;
+  terms_and_condition: boolean;
   profileImage: File | null;
 };
 
@@ -22,6 +24,7 @@ const initialFormData: FormData = {
   service: '',
   address: '',
   country: '',
+  terms_and_condition: true,
   profileImage: null,
   accountType: 'business',
 };
