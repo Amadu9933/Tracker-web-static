@@ -7,6 +7,7 @@ const payuFeatures = [
   "Live rider location updates",
   "5 riders onboarding",
   "Customer tracking notifications",
+  "SMS and Email notifications",
   "Delivery history and tracking records",
 ];
 
@@ -20,10 +21,9 @@ const premiumFeatures = [
   "Unlimited active deliveries",
   "Advanced delivery analytics",
   "Custom branded tracking pages",
-  "SMS notifications",
-  "Whatsapp tracking updates",
+  "SMS and Email notifications",
+  "WhatsApp tracking updates",
   "Multiple team members",
-  "API access and integrations",
   "Priority customer support",
 ];
 
@@ -142,7 +142,7 @@ export default function SubscriptionType() {
 
             <div className="mt-8">
               <span className="text-5xl font-black text-white">
-                ₦75,000
+                ₦85,000
               </span>
 
               <span className="ml-2 text-zinc-500">

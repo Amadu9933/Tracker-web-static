@@ -22,6 +22,12 @@ import addRider2 from "../../../../../assets/logistics_2.png"
 import addRider3 from "../../../../../assets/logistics_3.png"
 import addRider4 from "../../../../../assets/logistics_4.png"
 
+import trackerrGoLogin from "../../../../../assets/riderLogin.png"
+import goOnline from "../../../../../assets/goOnline.png"
+import acceptOrDecline from "../../../../../assets/acceptOrDecline.png"
+import activeDeliveries from "../../../../../assets/activeDeliveries.png"
+import deliveredOrReturned from "../../../../../assets/deliveredOrReturned.png"
+
 const riderSteps = [
   {
     icon: <CheckCircleIcon color="secondary" />,
@@ -84,6 +90,47 @@ const steps = [
   },
 ];
 
+const riderAppSteps = [
+  {
+    icon: <CheckCircleIcon color="success" />,
+    title: "Login to the TrackerrGo App",
+    description:
+      "Riders input their login credentials and click login to access the TrackerrGo app. First time users will be prompted for vehicle information and profile picture before they can access the app.",
+    image: trackerrGoLogin,
+  },
+
+  {
+    icon: <CheckCircleIcon color="success" />,
+    title: "Go Online",
+    description:
+      "Riders can use the toggle button to go online and offline. When online, riders will be notified of new deliveries and can accept or reject them.",
+    image: goOnline,
+  },
+  {
+    icon: <CheckCircleIcon color="success" />,
+    title: "Accept or Decline Deliveries",
+    description:
+      "When a new delivery is assigned to a rider, they will receive a notification.",
+    image: acceptOrDecline,
+  },
+
+  {
+    icon: <CheckCircleIcon color="success" />,
+    title: "Active Deliveries",
+    description:
+      "Once an order is accepted, the rider can view all active deliveries and their details in the Active section of the deliveries tab. Riders can start a trip by clicking the Enroute button",
+    image: activeDeliveries,
+  },
+
+    {
+    icon: <CheckCircleIcon color="success" />,
+    title: "Mark as Delivered or Returned",
+    description:
+      "Once the delivery is completed, the rider can mark the delivery as delivered or returned. This will update the status of the delivery and notify the customer. The rider can also use the call button to call the customer directly, they can also use the navigate button to get a perfect route from their location to the destination.",
+    image: deliveredOrReturned,
+  },
+]
+
 
 const howTo = [
   { 
@@ -96,7 +143,7 @@ const howTo = [
   },
   { 
     title: "How to use the TrackerrGo rider app!",
-    component: <h1>Coming Soon!</h1>
+    component: <ReusableHowTo steps={riderAppSteps}/>
   }
 ]
 
