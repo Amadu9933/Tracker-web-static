@@ -32,8 +32,8 @@ export default function SubscriptionType() {
     <section className="py-16">
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-white">
+        <div className="text-center pt-10">
+          <h1 className="text-4xl font-bold text-black dark:text-white sm:text-5xl md:text-6xl">
             Simple pricing that grows with you
           </h1>
 
