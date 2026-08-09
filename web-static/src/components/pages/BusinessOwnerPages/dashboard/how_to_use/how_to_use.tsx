@@ -22,7 +22,7 @@ import addRider2 from "../../../../../assets/logistics_2.png"
 import addRider3 from "../../../../../assets/logistics_3.png"
 import addRider4 from "../../../../../assets/logistics_4.png"
 
-import trackerrGoLogin from "../../../../../assets/riderLogin.png"
+import trackerrGoLogin from "../../../../../assets/riderlogin.png"
 import goOnline from "../../../../../assets/goOnline.png"
 import acceptOrDecline from "../../../../../assets/acceptOrDecline.png"
 import activeDeliveries from "../../../../../assets/activeDeliveries.png"
