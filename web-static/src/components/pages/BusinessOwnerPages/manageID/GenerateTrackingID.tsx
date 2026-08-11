@@ -7,7 +7,7 @@ import CongratulationsAlert from "./CongratulationsAlert";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../../../../context/AuthContext";
-import title from "@components/utils/title";
+import title from "../../../../components/utils/title";
 import { logoutUser } from "../../../../api/auth";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -135,6 +135,7 @@ const GenerateTrackingID = () => {
     const formik = useFormik({
         initialValues: {
             shippingAddress: "",
+            placeId: "",
             country: "",
             name: "",
             email: "",
@@ -155,6 +156,7 @@ const GenerateTrackingID = () => {
                     `${TRACKERR_HOST}/trackings/generate-tracking/`,
                     {
                         shipping_address: values.shippingAddress,
+                        placeId: values.placeId,
                         country: user?.user?.country || '',
                         product: values.productName,
                         customer_email: values.email,
@@ -171,12 +173,27 @@ const GenerateTrackingID = () => {
                 );
                 setTrackingID(response.data.parcel_number);
                 setShowModal(true);
-            } catch (error: unknown) {
+            } catch (error: any) {
+                if (error?.response?.status === 400 && error?.response?.data?.msg.includes('insufficient')) {
+                    const err_msg =  "Insufficient balance to generate tracking ID. Please top up your account.❌";
+                    setError(
+                        err_msg
+                    );
+
+                    setTimeout(() => {
+                        setError(null);
+                    }, 9000);
+                    return
+                };
+  
                 setError(
                     "Oops! We couldn't generate a tracking ID right now. Please try again."
                 );
-                //log a user out
-                logoutUser();
+
+                if (error?.response?.status === 401) {
+                    // If the error is 401, log the user out
+                    logoutUser();
+                }
             } finally {
                 setLoading(false);
             }
@@ -253,6 +270,7 @@ const GenerateTrackingID = () => {
                                             className="p-2 cursor-pointer hover:bg-gray-100"
                                             onClick={() => {
                                                 formik.setFieldValue(name, item.address.label);
+                                                formik.setFieldValue("placeId", item.placeId);
                                                 setSuggestions([]);
                                                 setSearch('');
                                                 setSessionToken(null);
