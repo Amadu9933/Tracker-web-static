@@ -57,9 +57,9 @@ export function AddressAutocomplete({ user_data, setUserData, setOptionClicked }
         // fetchSuggestions(value);
     };
 
-    const handleSelect = (address: any) => {
+    const handleSelect = (address: any, placeId: string) => {
         const country = (address as string).split(' ').pop()?.trim() || '';
-        setUserData({ ...user_data, address: address, country: country });
+        setUserData({ ...user_data, address: address, country: country, placeId: placeId });
         setSuggestions([]);
     };
 
@@ -91,7 +91,7 @@ export function AddressAutocomplete({ user_data, setUserData, setOptionClicked }
                                 hover:bg-slate-100 dark:hover:bg-slate-700
                                 transition-colors duration-150"
                             onClick={() => {
-                                handleSelect(item.address?.label ?? ''); 
+                                handleSelect(item.address?.label ?? '', item.placeId ?? ''); 
                                 setOptionClicked(true)
                             }}
                         >
@@ -179,7 +179,8 @@ export default function TrackingDetails() {
         phone: trackingData.customer_phone,
         address: trackingData.shipping_address,
         country: trackingData.country,
-        product_name: trackingData.product_name
+        product_name: trackingData.product_name,
+        placeId: "",
     });
 
     useEffect(() => {
@@ -190,7 +191,8 @@ export default function TrackingDetails() {
                 phone: response.data.customer_phone,
                 address: response.data.shipping_address,
                 country: response.data.country,
-                product_name: response.data.product_name
+                product_name: response.data.product_name,
+                placeId: "",
             });
             setTrackingStatus(response.data.status);
         }).catch((error: any) => {
@@ -222,7 +224,8 @@ export default function TrackingDetails() {
             customer_phone: user_data.phone.toLowerCase(),
             shipping_address: user_data.address.toLowerCase(),
             country: user_data.country.toLowerCase(),
-            product_name: user_data.product_name.toLowerCase()
+            product_name: user_data.product_name.toLowerCase(),
+            placeId: user_data.placeId
         }, {
             // headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
         }).then(() => {

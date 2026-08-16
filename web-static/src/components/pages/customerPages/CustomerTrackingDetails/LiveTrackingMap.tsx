@@ -236,6 +236,7 @@ function LiveTrackingMap() {
 
       try {
         const data      = JSON.parse(event.data);
+        console.log("WS message:", data);
         const locations = data?.location_data?.locations;
         if (!locations) return;
 
