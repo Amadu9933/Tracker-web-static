@@ -274,6 +274,7 @@ function LiveTrackingMap() {
 
         } else {
           // Subsequent coords go into the animation buffer
+          console.log('rider:', rider)
           riderBufferRef.current.push(rider);
 
           // ── Deviation check — re-fetch route only when rider is meaningfully
