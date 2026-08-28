@@ -86,7 +86,12 @@ const Integration = () => {
             };
             let foundMessage = '';
             for (const key of Object.keys(errorMapping)) {
-                if (errMsg?.[key]?.[0]) { foundMessage = errorMapping[key]; break; }
+                if (errMsg?.[key]?.[0]) { 
+                    if (errMsg[key][0] === 'Ensure this field has no more than 10 characters.') {
+                        foundMessage = 'Phone number should be 10 digits'; break;
+                    }
+                    foundMessage = errorMapping[key]; break; 
+                }
             }
             setMsg(foundMessage || 'Failed to create rider');
             setTimeout(() => setMsg(''), 3000);
@@ -339,10 +344,10 @@ const Integration = () => {
                         {/* Two-column grid for name + email, address + phone */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {[
-                                { id: 'name', label: 'Rider Name', placeholder: 'e.g. John Doe', ref: nameRef },
-                                { id: 'email', label: 'Email Address', placeholder: 'e.g. johndoe@example.com', ref: emailRef },
-                                { id: 'address', label: 'Address', placeholder: 'e.g. 36 Accra Avenue', ref: addressRef },
-                                { id: 'phone', label: 'Phone Number', placeholder: 'e.g. 09015006252', ref: phoneRef },
+                                { id: 'name', label: 'Rider Name', placeholder: 'John Doe', ref: nameRef },
+                                { id: 'email', label: 'Email Address', placeholder: 'johndoe@example.com', ref: emailRef },
+                                { id: 'address', label: 'Address', placeholder: '36 Accra Avenue', ref: addressRef },
+                                { id: 'phone', label: 'Phone Number', placeholder: '9015006252', ref: phoneRef },
                             ].map(({ id, label, placeholder, ref }) => (
                                 <div key={id} >
                                     <label className={labelClass} htmlFor={id}>{label}</label>
@@ -386,7 +391,7 @@ const Integration = () => {
                                     type="text"
                                     ref={idNumberRef}
                                     id="idNumber"
-                                    placeholder="e.g. GHA-123456789"
+                                    placeholder="GHA-123456789"
                                     aria-label="ID Number"
                                     onChange={handleInputChange}
                                     value={riderInfo.idNumber}
