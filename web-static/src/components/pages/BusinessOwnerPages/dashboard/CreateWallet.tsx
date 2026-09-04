@@ -69,7 +69,7 @@ const CreateWallet = ({onClick}: any) => {
   const getWalletDisplay = () => {
     if (balLoading) return 'Loading your account…';
     if (isWalletNotCreated) return `Hi, ${displayName()} — Your wallet is being set up`;
-    if (balError) return `Hi — ${balError}`;
+    if (balError) return `Error loading balance`;
     return (
       <>
         <span className="text-[#8B93AEF0]">Balance: </span>

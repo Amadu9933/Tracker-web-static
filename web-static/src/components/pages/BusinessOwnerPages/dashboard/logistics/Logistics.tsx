@@ -31,7 +31,7 @@ const Integration = () => {
     const [showRiderDeleteDialog, setShowRiderDeleteDialog] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const idtypeRef = useRef<HTMLSelectElement>(null);
-    const addressRef = useRef<HTMLInputElement>(null);
+    const addressRef = topupuseRef<HTMLInputElement>(null);
     const nameRef = useRef<HTMLInputElement>(null);
     const phoneRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
