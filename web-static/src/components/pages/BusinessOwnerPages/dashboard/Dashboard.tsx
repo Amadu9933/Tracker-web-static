@@ -197,9 +197,9 @@ const Dashboard: React.FC = () => {
                 </IconButton>
               </div>
                 <button
-                  onClick={() => navigate('/dashboard/GenerateTrackingID')}
+                  onClick={() => navigate('/dashboard/generate-tracking-id')}
                   className={`flex items-center gap-1.5 w-[130px] md:w-fit px-3 sm:px-4 ml-8 sm:ml-5 py-1.5 sm:py-2 leading-5 font-medium text-[12px] sm:text-[14px] rounded-[6px] cursor-pointer transition-all duration-200
-    ${location.pathname === '/dashboard/GenerateTrackingID'
+    ${location.pathname === '/dashboard/generate-tracking-id'
                       ? 'bg-[#E3E2DC] dark:bg-gradient-to-r dark:from-gray-500 dark:to-gray-700 dark:shadow-[0_0_14px_rgba(249,115,22,0.45)] dark:ring-1 dark:ring-orange-400/50 text-[#ABABAB] dark:text-white dark:font-semibold'
                       : 'bg-primary dark:bg-[#1e2738] dark:border dark:border-orange-500/40 dark:hover:border-orange-400 dark:hover:bg-[#252d3d] text-white dark:text-orange-100 sm:-ml-5'}`}
                 >
