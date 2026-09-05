@@ -27,7 +27,7 @@ const LogisticSolution: React.FC = () => {
               transition={{ duration: 0.6 }}
               className="mb-5 md:mb-10 font-bold text-3xl md:text-5xl  sm:text-4xl md:text-[64px] leading-tight md:leading-[72px] tracking-[-0.02em] text-white text-center md:text-left"
             >
-              Do you own a bike or a logistics business?
+              Do you run a business with delivery riders?
             </motion.h1>
 
             <motion.div
@@ -36,8 +36,8 @@ const LogisticSolution: React.FC = () => {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-white mb-5 md:mb-10  sm:text-lg text-sm md:text-lg"
             >
-              <p>Earn more money and reach more business owners in</p>
-              <p>need of your services by partnering with Trackerr</p>
+              <p>Track every delivery in real time, keep your customers informed and</p>
+              <p>know exactly where your parcels are from pickup to delivery.</p>
             </motion.div>
 
             <motion.div

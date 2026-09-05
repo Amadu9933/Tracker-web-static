@@ -117,8 +117,8 @@ const CreateWallet = ({onClick}: any) => {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="text-[#8B93AEF0] dark:text-slate-300 mt-3 mb-6 text-xs sm:text-sm md:text-base leading-relaxed pr-0 sm:pr-44"
         >
-          Use your trackerr card to pay for deliveries and receive 10% discount
-          on all deliveries made with the trackerr app.
+        Top up your wallet to pay for all your deliveries
+        and keep your Trackerr account ready for use.
         </motion.p>
 
         {/* Top up button */}
