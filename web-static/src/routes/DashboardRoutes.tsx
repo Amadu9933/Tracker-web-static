@@ -24,7 +24,7 @@ const DashboardRoutes: React.FC = () => (
         {/* Dashboard Layout */}
         <Route path="/" element={<Dashboard />}>
           <Route path="home" element={<DashboardMain />} />
-          <Route path="GenerateTrackingID" element={<GenerateTrackingID />} />
+          <Route path="generate-tracking-id" element={<GenerateTrackingID />} />
           <Route path="reports" element={<Report />} />
           <Route path="logistics" element={<Logistics />} />
           <Route path="integration" element={<Integration />} />

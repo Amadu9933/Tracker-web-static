@@ -35,9 +35,9 @@ const Navbar: React.FC = () => {
 
   const menuItems = [
     { label: 'Track my parcel', link: '/' },
-    { label: 'Ship', link: '/Ship' },
-    { label: 'Logistics solution', link: '/LogisticSolution' },
-    { label: 'Need help ?', link: '/NeedHelp' },
+    { label: 'Ship', link: '/ship' },
+    { label: 'Logistics solution', link: '/logistic-solution' },
+    { label: 'Need help ?', link: '/need-help' },
     { label: 'Pricing', link: '/pricing' },
   ];
 

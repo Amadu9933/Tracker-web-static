@@ -39,11 +39,11 @@ const MainRoutes: React.FC = () => (
 
       <Routes>
         {/* Public Routes */}
-        <Route path="LogisticSolution" element={<LogisticSolution />} />
-        <Route path="Ship" element={<Ship />} />
+        <Route path="logistic-solution" element={<LogisticSolution />} />
+        <Route path="ship" element={<Ship />} />
 
-        <Route path="NeedHelp" element={<NeedHelp />} />
-        <Route path="Login" element={<Login />} />
+        <Route path="need-help" element={<NeedHelp />} />
+        <Route path="login" element={<Login />} />
         <Route path="business-info" element={<BuissnessInfoForm />} />
         <Route path="set-profile" element={<SetProfileImagePage />} />
         <Route path="otp" element={<Otp />} />
