@@ -148,7 +148,7 @@ const BusinessInfoForm: React.FC = () => {
         className="text-center mt-6 pb-16 sm:pb-20 text-sm sm:text-base text-gray-700 dark:text-gray-300"
       >
         Already have an account?{' '}
-        <Link to="/Login" className="text-primary dark:text-orange-400 hover:underline">
+        <Link to="/login" className="text-primary dark:text-orange-400 hover:underline">
           Sign in
         </Link>
       </motion.div>

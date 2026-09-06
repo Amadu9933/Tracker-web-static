@@ -91,7 +91,7 @@ const LoginForm: React.FC = () => {
       reset();
       navigate('/dashboard/');
     } catch (err: any) {
-      console.error('Login failed:', err);
+      console.error('login failed:', err);
 
       const message =
         err?.message?.toLowerCase().includes('no active account') ||
