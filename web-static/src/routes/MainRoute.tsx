@@ -64,7 +64,7 @@ const MainRoutes: React.FC = () => (
         {/* Include Dashboard Routes here */}
 
         {/* Default Route */}
-        <Route path="/" element={<Navigate to="/Login" replace />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
         {/* 404 Fallback */}
         <Route path="*" element={<NotFound />} />
       </Routes>

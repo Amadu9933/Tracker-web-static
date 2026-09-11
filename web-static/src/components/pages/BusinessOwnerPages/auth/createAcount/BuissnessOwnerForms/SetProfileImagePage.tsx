@@ -129,7 +129,7 @@ const SetProfileImagePage: React.FC = () => {
       setTimeout(() => {
         setShowMsg(true);
         setTimeout(() => {
-          navigate('/Login', { state: { message: 'Login to see your dashboard' } });
+          navigate('/login', { state: { message: 'Login to see your dashboard' } });
         }, 3000);
         setTimeout(() => { setShowMsg(false); }, 2000);
       }, 2000);

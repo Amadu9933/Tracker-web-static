@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
             <p className="text-sm md:text-base text-white/80">
               Your Parcel's journey your way.
             </p>
-            <Link to="/Login" style={{ textDecoration: 'none' }}>
+            <Link to="/login" style={{ textDecoration: 'none' }}>
               <Button fullWidth variant="outlined" sx={buttonStyles}>
                 Get started
               </Button>

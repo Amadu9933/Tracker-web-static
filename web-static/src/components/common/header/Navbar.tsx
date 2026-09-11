@@ -132,7 +132,7 @@ const Navbar: React.FC = () => {
                   <NavLink
                     className="Navbar"
                     style={{ color: '#B1B2B2', marginLeft: '10px', marginTop: '-3px', height: '20px' }}
-                    to="/Login"
+                    to="login"
                   >
                     Login
                   </NavLink>
@@ -217,7 +217,7 @@ const Navbar: React.FC = () => {
                   <NavLink
                     className="Navbar"
                     style={{ ...linkStyles, marginLeft: '0.625rem', height: '40px', marginRight: '10px' }}
-                    to="/Login"
+                    to="/login"
                   >
                     Login
                   </NavLink>
