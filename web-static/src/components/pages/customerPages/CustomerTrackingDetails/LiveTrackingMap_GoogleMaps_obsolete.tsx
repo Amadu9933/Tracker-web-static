@@ -1,9 +1,27 @@
 import { useEffect, useRef, useState, memo, useCallback } from "react";
-import Map, { Source, Layer, Marker } from "react-map-gl";
-import mapboxgl from "mapbox-gl";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { useParams } from "react-router-dom";
-import "mapbox-gl/dist/mapbox-gl.css";
 import axiosInstance from "../../../../api/axiosInstance";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// NOTE ON SETUP
+// ─────────────────────────────────────────────────────────────────────────────
+// 1. npm install @react-google-maps/api
+// 2. You need a Google Maps "Map ID" (vector-rendered map) to use
+//    AdvancedMarkerElement — create one in Google Cloud Console under
+//    Maps Platform → Map Management. Raster maps (no Map ID) can't host
+//    AdvancedMarkerElement or animated tilt/heading via moveCamera.
+// 3. Env vars expected: VITE_GOOGLE_MAPS_API_KEY, VITE_GOOGLE_MAP_ID
+//
+// KNOWN PARITY GAPS vs the Mapbox version (be aware while testing):
+// - Google's JS API has no built-in "flyTo(duration)". We approximate it
+//   with a custom requestAnimationFrame camera ease (easeCamera below).
+// - Mapbox distinguishes user vs. programmatic zoom via evt.originalEvent.
+//   Google doesn't expose an equivalent for zoom, so "following" only
+//   breaks on drag here, not on scroll/pinch zoom. Flag if you need that.
+// - Polyline has no native blur, so the route "shadow" layer is a plain
+//   semi-transparent line underneath, not a blurred one.
+// ─────────────────────────────────────────────────────────────────────────────
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -21,18 +39,23 @@ interface Velocity {
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants
 // ─────────────────────────────────────────────────────────────────────────────
-const BUFFER_LIMIT          = 3;      // drain to latest if queue exceeds this
-const ANIM_DURATION         = 7000;    // ms per coordinate step
-const WS_THROTTLE_MS        = 100;    // ignore WS messages faster than this
+const BUFFER_LIMIT          = 3;
+const ANIM_DURATION         = 800;
+const WS_THROTTLE_MS        = 100;
 const DEVIATION_THRESHOLD   = 0.05;   // km (50 m) before route is re-fetched
-const REROUTE_COOLDOWN_MS   = 15000;  // minimum ms between route re-fetches
-const WS_BASE_BACKOFF_MS    = 2000;   // initial reconnect wait
-const WS_MAX_BACKOFF_MS     = 30000;  // reconnect wait cap
-const MIN_MOVEMENT_KM       = 0.003;  // ~3 m — below this treat as GPS noise, not real motion
-// const DEAD_RECKON_TICK_MS   = 1000;   // how often we extrapolate during a WS gap
-// const DEAD_RECKON_TRIGGER_MS = 4000;  // start extrapolating after this much silence
-// const DEAD_RECKON_MAX_MS    = 12000;  // give up extrapolating after this much silence
-const ETA_TICK_MS           = 1000;   // countdown resolution
+const REROUTE_COOLDOWN_MS   = 15000;
+const WS_BASE_BACKOFF_MS    = 2000;
+const WS_MAX_BACKOFF_MS     = 30000;
+const MIN_MOVEMENT_KM       = 0.003;  // ~3 m — below this treat as GPS noise
+const DEAD_RECKON_TICK_MS   = 1000;
+const DEAD_RECKON_TRIGGER_MS = 4000;
+const DEAD_RECKON_MAX_MS    = 12000;
+const ETA_TICK_MS           = 1000;
+const FLY_TO_DURATION_MS    = 1400;
+
+const GOOGLE_MAPS_LIBRARIES: ("marker")[] = ["marker"];
+const MAP_CONTAINER_STYLE = { width: "100%", height: "100%" };
+const DEFAULT_CENTER = { lat: 9.082, lng: 8.6753 };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
@@ -60,26 +83,18 @@ function haversineKm(a: Coord, b: Coord): number {
   return R * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
 }
 
-// Shortest-path lerp across the 0/360 boundary
 function lerpBearing(from: number, to: number, t: number): number {
   const diff = ((to - from + 540) % 360) - 180;
   return from + diff * t;
 }
 
-// Cubic ease-in-out
 function easeInOutCubic(t: number): number {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-/**
- * Distance in km from point p to the segment a→b, using an equirectangular
- * projection (accurate enough at the scale of a single route segment) so we
- * measure against the *road*, not just the nearest vertex. A long straight
- * stretch with sparse vertices no longer looks like a "deviation".
- */
 function pointToSegmentKm(p: Coord, a: Coord, b: Coord): number {
   const latRad = (a.lat * Math.PI) / 180;
-  const kx     = Math.cos(latRad); // longitude scale factor at this latitude
+  const kx     = Math.cos(latRad);
 
   const ax = a.lng * kx, ay = a.lat;
   const bx = b.lng * kx, by = b.lat;
@@ -110,13 +125,20 @@ function minDistToRouteKm(rider: Coord, routeCoords: number[][]): number {
   return min;
 }
 
-/** Builds the DOM element for the rider puck once. We mutate it directly
- *  afterwards (position via mapboxgl.Marker#setLngLat, heading via a style
- *  transform) instead of going through React state, so a 60fps animation
- *  never triggers a React re-render. */
+/** GeoJSON-style [lng, lat] pairs (what your /map/polyline backend returns)
+ *  → Google's {lat, lng} object format. Easy to get backwards — Google is
+ *  lat-first, GeoJSON is lng-first. */
+function toLatLngPath(coords: number[][]): google.maps.LatLngLiteral[] {
+  return coords.map(([lng, lat]) => ({ lat, lng }));
+}
+
+/** Rider puck DOM element — built once, mutated directly afterwards
+ *  (position via AdvancedMarkerElement#position, heading via a style
+ *  transform) so a 60fps animation never triggers a React re-render. */
 function createRiderElement(): { root: HTMLDivElement; rotor: HTMLDivElement } {
   const root = document.createElement("div");
   root.style.willChange = "transform";
+  root.style.transform  = "translate(-50%, -50%)"; // AdvancedMarkerElement anchors top-left by default
 
   const rotor = document.createElement("div");
   rotor.style.transition = "transform 0.25s ease-out";
@@ -132,19 +154,57 @@ function createRiderElement(): { root: HTMLDivElement; rotor: HTMLDivElement } {
   return { root, rotor };
 }
 
+function createDestinationElement(): HTMLDivElement {
+  const root = document.createElement("div");
+  root.style.transform = "translate(-50%, -50%)";
+  root.className = "relative flex items-center justify-center";
+  root.innerHTML = `
+    <div class="absolute h-16 w-16 rounded-full bg-blue-400/20 animate-ping"></div>
+    <div class="absolute h-9 w-9 rounded-full bg-blue-500/25"></div>
+    <div class="w-5 h-5 bg-blue-500 rounded-full border-[2.5px] border-white shadow-xl"></div>`;
+  return root;
+}
+
+/** Custom camera "flyTo" — Google's JS API has no built-in eased flight with
+ *  duration, so we interpolate center/zoom/tilt ourselves. Requires a
+ *  vector map (Map ID) for tilt to have any visible effect. */
+function easeCamera(
+  map: google.maps.Map,
+  target: { lat: number; lng: number; zoom: number; tilt?: number },
+  durationMs = FLY_TO_DURATION_MS
+) {
+  const startCenter = map.getCenter();
+  if (!startCenter) {
+    map.moveCamera({ center: target, zoom: target.zoom, tilt: target.tilt ?? 0 });
+    return;
+  }
+  const start = {
+    lat: startCenter.lat(),
+    lng: startCenter.lng(),
+    zoom: map.getZoom() ?? target.zoom,
+    tilt: (map as any).getTilt?.() ?? 0,
+  };
+  const t0 = performance.now();
+
+  const step = (now: number) => {
+    const raw  = Math.min((now - t0) / durationMs, 1);
+    const ease = easeInOutCubic(raw);
+    map.moveCamera({
+      center: {
+        lat: start.lat + (target.lat - start.lat) * ease,
+        lng: start.lng + (target.lng - start.lng) * ease,
+      },
+      zoom: start.zoom + (target.zoom - start.zoom) * ease,
+      tilt: start.tilt + ((target.tilt ?? 0) - start.tilt) * ease,
+    });
+    if (raw < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Sub-components
 // ─────────────────────────────────────────────────────────────────────────────
-const DestinationMarker = memo(function DestinationMarker() {
-  return (
-    <div className="relative flex items-center justify-center">
-      <div className="absolute h-16 w-16 rounded-full bg-blue-400/20 animate-ping" />
-      <div className="absolute h-9  w-9  rounded-full bg-blue-500/25" />
-      <div className="w-5 h-5 bg-blue-500 rounded-full border-[2.5px] border-white shadow-xl" />
-    </div>
-  );
-});
-
 const RecenterButton = memo(function RecenterButton({ onClick }: { onClick: () => void }) {
   return (
     <button
@@ -172,24 +232,41 @@ const RecenterButton = memo(function RecenterButton({ onClick }: { onClick: () =
 function LiveTrackingMap() {
   const { trackingNumber } = useParams<{ trackingNumber: string }>();
 
+  const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  const GOOGLE_MAP_ID       = import.meta.env.VITE_GOOGLE_MAPS_ID;
+  const WS_HOST             = import.meta.env.VITE_TRACKERR_WS_HOST;
+  const API_HOST            = import.meta.env.VITE_TRACKERR_HOST;
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+    mapIds: GOOGLE_MAP_ID ? [GOOGLE_MAP_ID] : undefined,
+    libraries: GOOGLE_MAPS_LIBRARIES,
+  });
+
   const [etaMinutes, setEtaMinutes] = useState<number | null>(null);
   const [distanceKm, setDistanceKm] = useState<number | null>(null);
   const [connected,  setConnected]  = useState(false);
   const [routeGeo,   setRouteGeo]   = useState<any>(null);
   const [rerouting,  setRerouting]  = useState(false);
-  const [hasRider,   setHasRider]   = useState(false); // becomes true once the puck exists
-  const [following,  setFollowing]  = useState(true);  // camera auto-follows rider
+  const [hasRider,   setHasRider]   = useState(false);
+  const [following,  setFollowing]  = useState(true);
 
-  const mapRef              = useRef<any>(null);
-  const mapLoadedRef        = useRef(false);
+  const mapInstanceRef      = useRef<google.maps.Map | null>(null);
   const hasFlownRef         = useRef(false);
   const followingRef        = useRef(true);
   const userInteractingRef  = useRef(false);
 
-  // Imperative rider puck — bypasses React for 60fps updates
-  const riderMarkerRef      = useRef<mapboxgl.Marker | null>(null);
-  const riderRotorElRef     = useRef<HTMLDivElement | null>(null);
+  // Imperative rider puck
+  const riderMarkerRef       = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
+  const riderRotorElRef      = useRef<HTMLDivElement | null>(null);
   const pendingFirstRiderRef = useRef<Coord | null>(null);
+
+  // Destination puck
+  const destMarkerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
+
+  // Route polyline (created once, path updated on reroute)
+  const routeLineRef       = useRef<google.maps.Polyline | null>(null);
+  const routeLineShadowRef = useRef<google.maps.Polyline | null>(null);
 
   // Animation state in refs — never triggers re-renders
   const riderBufferRef      = useRef<Coord[]>([]);
@@ -197,29 +274,25 @@ function LiveTrackingMap() {
   const currentBearingRef   = useRef(0);
   const lastWsUpdateTime    = useRef(0);
 
-  // Dead reckoning — keeps the puck moving smoothly through brief WS gaps
+  // Dead reckoning
   const lastMessageTimeRef  = useRef(Date.now());
   const lastVelocityRef     = useRef<Velocity | null>(null);
   const prevRiderForVelocityRef = useRef<{ coord: Coord; t: number } | null>(null);
 
-  // ETA — ticks down independently of when the last route/WS update landed
-  const etaTargetRef        = useRef<number | null>(null); // epoch ms of expected arrival
+  // ETA countdown
+  const etaTargetRef = useRef<number | null>(null);
 
   // Route re-fetch control
-  const routeGeoRef         = useRef<any>(null);
-  const customerRef         = useRef<Coord | null>(null);
-  const lastRerouteTime     = useRef(0);
-  const isFetchingRoute     = useRef(false);
+  const routeGeoRef        = useRef<any>(null);
+  const customerRef        = useRef<Coord | null>(null);
+  const lastRerouteTime    = useRef(0);
+  const isFetchingRoute    = useRef(false);
 
   // WebSocket reconnection
-  const wsRef               = useRef<WebSocket | null>(null);
-  const reconnectAttempt    = useRef(0);
-  const reconnectTimer      = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const intentionalClose    = useRef(false);
-
-  const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
-  const WS_HOST      = import.meta.env.VITE_TRACKERR_WS_HOST;
-  const API_HOST     = import.meta.env.VITE_TRACKERR_HOST;
+  const wsRef             = useRef<WebSocket | null>(null);
+  const reconnectAttempt  = useRef(0);
+  const reconnectTimer    = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const intentionalClose  = useRef(false);
 
   useEffect(() => {
     followingRef.current = following;
@@ -227,20 +300,23 @@ function LiveTrackingMap() {
 
   // ── Rider puck lifecycle ───────────────────────────────────────────────────
   const ensureRiderMarker = useCallback((at: Coord) => {
-    const map = mapRef.current?.getMap?.();
-    if (!map || riderMarkerRef.current) return;
+    const map = mapInstanceRef.current;
+    if (!map || riderMarkerRef.current || !window.google?.maps?.marker) return;
 
     const { root, rotor } = createRiderElement();
     riderRotorElRef.current = rotor;
-    riderMarkerRef.current = new mapboxgl.Marker({ element: root, anchor: "center" })
-      .setLngLat([at.lng, at.lat])
-      .addTo(map);
+    riderMarkerRef.current = new google.maps.marker.AdvancedMarkerElement({
+      map,
+      position: { lat: at.lat, lng: at.lng },
+      content: root,
+      zIndex: 10,
+    });
 
     setHasRider(true);
 
     if (!hasFlownRef.current) {
       hasFlownRef.current = true;
-      map.flyTo({ center: [at.lng, at.lat], zoom: 16, pitch: 50, bearing: 0, duration: 1400 });
+      easeCamera(map, { lat: at.lat, lng: at.lng, zoom: 16, tilt: 50 });
     }
   }, []);
 
@@ -248,7 +324,9 @@ function LiveTrackingMap() {
   const snapTo = (pos: Coord) => {
     riderBufferRef.current = [];
     currentPosRef.current  = pos;
-    riderMarkerRef.current?.setLngLat([pos.lng, pos.lat]);
+    if (riderMarkerRef.current) {
+      riderMarkerRef.current.position = { lat: pos.lat, lng: pos.lng };
+    }
   };
 
   // ── Route fetch — shared between initial load and reroute ─────────────────
@@ -300,9 +378,7 @@ function LiveTrackingMap() {
       ws.send(JSON.stringify({ parcel_number: trackingNumber }));
     };
 
-    ws.onerror = () => {
-      // onclose always fires after onerror, so reconnection is handled there
-    };
+    ws.onerror = () => {};
 
     ws.onclose = () => {
       setConnected(false);
@@ -313,7 +389,6 @@ function LiveTrackingMap() {
         WS_MAX_BACKOFF_MS
       );
       reconnectAttempt.current += 1;
-
       reconnectTimer.current = setTimeout(() => connect(), backoff);
     };
 
@@ -333,7 +408,6 @@ function LiveTrackingMap() {
 
         customerRef.current = customer;
 
-        // Track velocity for dead-reckoning through WS gaps
         if (prevRiderForVelocityRef.current) {
           const dt = (now - prevRiderForVelocityRef.current.t) / 1000;
           if (dt > 0.2) {
@@ -346,7 +420,6 @@ function LiveTrackingMap() {
         prevRiderForVelocityRef.current = { coord: rider, t: now };
         lastMessageTimeRef.current = now;
 
-        // ETA + distance (pure math — no API call)
         const km = haversineKm(rider, customer);
         setDistanceKm(km);
         if (!routeGeoRef.current) {
@@ -355,10 +428,9 @@ function LiveTrackingMap() {
           setEtaMinutes(Math.round(estMinutes));
         }
 
-        // ── First coordinate: SNAP, don't animate ──────────────────────────
         if (!currentPosRef.current) {
           currentPosRef.current = rider;
-          if (mapLoadedRef.current) {
+          if (mapInstanceRef.current) {
             ensureRiderMarker(rider);
           } else {
             pendingFirstRiderRef.current = rider;
@@ -367,9 +439,6 @@ function LiveTrackingMap() {
         } else {
           riderBufferRef.current.push(rider);
 
-          // ── Deviation check — re-fetch only if meaningfully off-route and
-          //    the cooldown has elapsed. Checked against segments, not just
-          //    vertices, so long straight roads don't false-trigger. ────────
           const cooledDown = now - lastRerouteTime.current > REROUTE_COOLDOWN_MS;
           const hasRoute   = routeGeoRef.current?.coordinates?.length > 0;
 
@@ -390,21 +459,21 @@ function LiveTrackingMap() {
   useEffect(() => {
     intentionalClose.current = false;
 
-    hasFlownRef.current      = false;
-    currentPosRef.current    = null;
-    riderBufferRef.current   = [];
+    hasFlownRef.current       = false;
+    currentPosRef.current     = null;
+    riderBufferRef.current    = [];
     currentBearingRef.current = 0;
-    routeGeoRef.current      = null;
-    customerRef.current      = null;
-    lastRerouteTime.current  = 0;
-    isFetchingRoute.current  = false;
-    etaTargetRef.current     = null;
+    routeGeoRef.current       = null;
+    customerRef.current       = null;
+    lastRerouteTime.current   = 0;
+    isFetchingRoute.current   = false;
+    etaTargetRef.current      = null;
     lastMessageTimeRef.current = Date.now();
-    lastVelocityRef.current  = null;
+    lastVelocityRef.current   = null;
     prevRiderForVelocityRef.current = null;
     pendingFirstRiderRef.current = null;
 
-    riderMarkerRef.current?.remove();
+    riderMarkerRef.current && (riderMarkerRef.current.map = null);
     riderMarkerRef.current  = null;
     riderRotorElRef.current = null;
 
@@ -424,7 +493,7 @@ function LiveTrackingMap() {
     };
   }, [connect]);
 
-  // ── ETA countdown — independent of WS/route cadence, so it never "sticks" ─
+  // ── ETA countdown ──────────────────────────────────────────────────────────
   useEffect(() => {
     const id = setInterval(() => {
       if (etaTargetRef.current != null) {
@@ -435,26 +504,26 @@ function LiveTrackingMap() {
     return () => clearInterval(id);
   }, []);
 
-  // ── Dead reckoning — extrapolate through brief WS silence ─────────────────
-  // useEffect(() => {
-  //   const id = setInterval(() => {
-  //     const silence = Date.now() - lastMessageTimeRef.current;
-  //     if (
-  //       silence > DEAD_RECKON_TRIGGER_MS &&
-  //       silence < DEAD_RECKON_MAX_MS &&
-  //       lastVelocityRef.current &&
-  //       currentPosRef.current &&
-  //       riderBufferRef.current.length === 0
-  //     ) {
-  //       const dtSec = DEAD_RECKON_TICK_MS / 1000;
-  //       riderBufferRef.current.push({
-  //         lng: currentPosRef.current.lng + lastVelocityRef.current.dLngPerSec * dtSec,
-  //         lat: currentPosRef.current.lat + lastVelocityRef.current.dLatPerSec * dtSec,
-  //       });
-  //     }
-  //   }, DEAD_RECKON_TICK_MS);
-  //   return () => clearInterval(id);
-  // }, []);
+  // ── Dead reckoning ──────────────────────────────────────────────────────────
+  useEffect(() => {
+    const id = setInterval(() => {
+      const silence = Date.now() - lastMessageTimeRef.current;
+      if (
+        silence > DEAD_RECKON_TRIGGER_MS &&
+        silence < DEAD_RECKON_MAX_MS &&
+        lastVelocityRef.current &&
+        currentPosRef.current &&
+        riderBufferRef.current.length === 0
+      ) {
+        const dtSec = DEAD_RECKON_TICK_MS / 1000;
+        riderBufferRef.current.push({
+          lng: currentPosRef.current.lng + lastVelocityRef.current.dLngPerSec * dtSec,
+          lat: currentPosRef.current.lat + lastVelocityRef.current.dLatPerSec * dtSec,
+        });
+      }
+    }, DEAD_RECKON_TICK_MS);
+    return () => clearInterval(id);
+  }, []);
 
   // ── Animation Engine — mutates the marker directly, no React state ────────
   useEffect(() => {
@@ -480,10 +549,11 @@ function LiveTrackingMap() {
       const start   = currentPosRef.current ?? next;
       const movedKm = haversineKm(start, next);
 
-      // Below GPS-noise floor — don't spin the heading over nothing
       if (movedKm < MIN_MOVEMENT_KM) {
         currentPosRef.current = next;
-        riderMarkerRef.current?.setLngLat([next.lng, next.lat]);
+        if (riderMarkerRef.current) {
+          riderMarkerRef.current.position = { lat: next.lat, lng: next.lng };
+        }
         animFrame = requestAnimationFrame(processNext);
         return;
       }
@@ -492,8 +562,8 @@ function LiveTrackingMap() {
 
       const targetBearing = calcBearing(start, next);
       const startBearing  = currentBearingRef.current;
-      const t0            = performance.now();
-      const map            = mapRef.current?.getMap?.();
+      const t0             = performance.now();
+      const map             = mapInstanceRef.current;
 
       const animate = (now: number) => {
         const raw  = Math.min((now - t0) / ANIM_DURATION, 1);
@@ -508,14 +578,15 @@ function LiveTrackingMap() {
         currentBearingRef.current  = smoothBearing;
         currentPosRef.current      = interpolated;
 
-        riderMarkerRef.current?.setLngLat([interpolated.lng, interpolated.lat]);
+        if (riderMarkerRef.current) {
+          riderMarkerRef.current.position = { lat: interpolated.lat, lng: interpolated.lng };
+        }
         if (riderRotorElRef.current) {
           riderRotorElRef.current.style.transform = `rotate(${smoothBearing}deg)`;
         }
 
-        // Camera follows only while the user hasn't taken over the map
         if (followingRef.current && !userInteractingRef.current && map) {
-          map.easeTo({ center: [interpolated.lng, interpolated.lat], duration: 0 });
+          map.setCenter({ lat: interpolated.lat, lng: interpolated.lng });
         }
 
         if (raw < 1) {
@@ -533,44 +604,92 @@ function LiveTrackingMap() {
     return () => cancelAnimationFrame(animFrame);
   }, []);
 
+  // ── Route polyline — create once, update path on reroute ──────────────────
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map || !routeGeo?.coordinates) return;
+
+    const path = toLatLngPath(routeGeo.coordinates);
+
+    if (!routeLineRef.current) {
+      routeLineShadowRef.current = new google.maps.Polyline({
+        map,
+        path,
+        strokeColor: "#000000",
+        strokeOpacity: 0.2,
+        strokeWeight: 10,
+        zIndex: 1,
+      });
+      routeLineRef.current = new google.maps.Polyline({
+        map,
+        path,
+        strokeColor: "#3B82F6",
+        strokeOpacity: 0.9,
+        strokeWeight: 5,
+        zIndex: 2,
+      });
+    } else {
+      routeLineShadowRef.current?.setPath(path);
+      routeLineRef.current.setPath(path);
+    }
+  }, [routeGeo]);
+
+  // ── Destination marker — created once a route exists, updated if it moves ─
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    const destination =
+      routeGeo?.coordinates?.length > 0
+        ? routeGeo.coordinates[routeGeo.coordinates.length - 1]
+        : null;
+    if (!map || !destination || !window.google?.maps?.marker) return;
+
+    const pos = { lat: destination[1], lng: destination[0] };
+
+    if (!destMarkerRef.current) {
+      destMarkerRef.current = new google.maps.marker.AdvancedMarkerElement({
+        map,
+        position: pos,
+        content: createDestinationElement(),
+        zIndex: 5,
+      });
+    } else {
+      destMarkerRef.current.position = pos;
+    }
+  }, [routeGeo]);
+
   // ── Map lifecycle / user-gesture detection ────────────────────────────────
-  const handleMapLoad = () => {
-    mapLoadedRef.current = true;
+  const handleMapLoad = (map: google.maps.Map) => {
+    mapInstanceRef.current = map;
     const initial = currentPosRef.current ?? pendingFirstRiderRef.current;
     if (initial) ensureRiderMarker(initial);
   };
 
-  // mapboxgl only sets `originalEvent` on genuine user gestures, not on
-  // programmatic flyTo/easeTo calls — so this won't false-trigger when we
-  // move the camera ourselves.
-  const handleUserGestureStart = (evt: any) => {
-    if (evt?.originalEvent) {
-      userInteractingRef.current = true;
-      setFollowing(false);
-    }
+  // Google's JS API only reliably distinguishes user-initiated drags this
+  // way — there's no equivalent to Mapbox's evt.originalEvent for zoom, so
+  // scroll/pinch zoom won't break "following" here (see header note).
+  const handleDragStart = () => {
+    userInteractingRef.current = true;
+    setFollowing(false);
   };
 
   const handleRecenter = () => {
-    const map = mapRef.current?.getMap?.();
+    const map = mapInstanceRef.current;
     if (map && currentPosRef.current) {
       userInteractingRef.current = false;
       setFollowing(true);
-      map.easeTo({ center: [currentPosRef.current.lng, currentPosRef.current.lat], zoom: 16, duration: 600 });
+      easeCamera(map, { lat: currentPosRef.current.lat, lng: currentPosRef.current.lng, zoom: 16 }, 600);
     }
   };
 
-  // Cleanup the imperative marker on full unmount
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
-      riderMarkerRef.current?.remove();
+      riderMarkerRef.current && (riderMarkerRef.current.map = null);
+      destMarkerRef.current && (destMarkerRef.current.map = null);
+      routeLineRef.current?.setMap(null);
+      routeLineShadowRef.current?.setMap(null);
     };
   }, []);
-
-  // ── Derived ───────────────────────────────────────────────────────────────
-  const destination =
-    routeGeo?.coordinates?.length > 0
-      ? routeGeo.coordinates[routeGeo.coordinates.length - 1]
-      : null;
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
@@ -620,46 +739,26 @@ function LiveTrackingMap() {
         {connected ? "Live" : "Reconnecting…"}
       </div>
 
-      {/* Recenter control — only shown once the user has panned/zoomed away */}
       {hasRider && !following && <RecenterButton onClick={handleRecenter} />}
 
-      {/* Map */}
-      <Map
-        mapboxAccessToken={MAPBOX_TOKEN}
-        initialViewState={{ longitude: 8.6753, latitude: 9.082, zoom: 10 }}
-        ref={mapRef}
-        mapStyle="mapbox://styles/mapbox/streets-v12"
-        attributionControl={false}
-        onLoad={handleMapLoad}
-        onDragStart={handleUserGestureStart}
-        onZoomStart={handleUserGestureStart}
-      >
-        {routeGeo?.coordinates && (
-          <Source id="route" type="geojson" data={routeGeo}>
-            <Layer
-              id="route-shadow"
-              type="line"
-              layout={{ "line-cap": "round", "line-join": "round" }}
-              paint={{ "line-color": "#000000", "line-width": 10, "line-opacity": 0.25, "line-blur": 4 }}
-            />
-            <Layer
-              id="route-line"
-              type="line"
-              layout={{ "line-cap": "round", "line-join": "round" }}
-              paint={{ "line-color": "#3B82F6", "line-width": 5, "line-opacity": 0.9 }}
-            />
-          </Source>
-        )}
-
-       
-        {destination && (
-          <Marker longitude={destination[0]} latitude={destination[1]} anchor="center">
-            <DestinationMarker />
-          </Marker>
-        )}
-
-        {/* Rider puck is added/moved imperatively via riderMarkerRef — not rendered here */}
-      </Map>
+      {isLoaded ? (
+        <GoogleMap
+          mapContainerStyle={MAP_CONTAINER_STYLE}
+          center={DEFAULT_CENTER}
+          zoom={10}
+          options={{
+            mapId: GOOGLE_MAP_ID,
+            disableDefaultUI: true,
+            gestureHandling: "greedy",
+          }}
+          onLoad={handleMapLoad}
+          onDragStart={handleDragStart}
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center bg-neutral-100 text-neutral-400 text-sm">
+          Loading map…
+        </div>
+      )}
     </div>
   );
 }
