@@ -95,14 +95,15 @@ const CustomerTrackingDetails: React.FC = () => {
     <div className="  justify-right ">
 
       <div className="flex justify-center mb-10 ">
-        <Link to="/">
+        <Link to="/login">
           <img
             className="md:w-[48px] md:h-[48px] w-6 h-6 md:mt-0 mt-[6px] mr-4"
             src={Back}
             alt="return"
           />
         </Link>
-        <h1 className="font-bold  text-[#354755] md:text-[3.5rem] text-2xl ">
+        <h1 className="font-bold  
+        t-[#354755] md:text-[3.5rem] text-2xl ">
           Track your parcel today!
         </h1>
 
@@ -137,10 +138,10 @@ const CustomerTrackingDetails: React.FC = () => {
               src={Carbon}
               alt=""
             />
-            <h1 className="md:text-[2rem] text-[1.125rem] font-medium text-[#37372D]">
+            <h1 className="md:text-[2rem] text-[1.125rem] font-medium text-[#37372D] ">
               Parcel Tracking
             </h1>
-            <p className="md:text-[1rem] text-[12px] text-[#37372D] font-normal pt-2">
+            <p className="md:text-[1rem]   text-[12px] font-normal pt-2">
               Your Parcel is on its way to you!
             </p>
           </div>

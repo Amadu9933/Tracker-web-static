@@ -54,26 +54,46 @@ const Footer: React.FC = () => {
           {/* Second column */}
           <div className="space-y-3">
             <h3 className="text-lg font-semibold text-white">Company</h3>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">How it works</p>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Career</p>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Legal</p>
+            <Link to="/how-it-works" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              How it works
+            </Link>
+            <Link to="/career" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Career
+            </Link>
+            <Link to="/legal" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Legal
+            </Link>
           </div>
 
           {/* Third column */}
           <div className="space-y-3">
             <h3 className="text-lg font-semibold text-white">Help</h3>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Privacy Policy</p>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Refund Policy</p>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Track Your Order</p>
+            <Link to="/privacy-policy" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Privacy Policy
+            </Link>
+            <Link to="/refund-policy" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Refund Policy
+            </Link>
+            <Link to="/track-your-order" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Track Your Order
+            </Link>
           </div>
 
           {/* Fourth column */}
           <div className="space-y-3">
             <h3 className="text-lg font-semibold text-white">Support</h3>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Feedback</p>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Contact Us</p>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Customer Service</p>
-            <p className="text-sm text-white/80 hover:text-white cursor-pointer transition-colors">Terms & condition</p>
+            <Link to="/feedback" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Feedback
+            </Link>
+            <Link to="/contact-us" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Contact Us
+            </Link>
+            <Link to="/customer-service" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Customer Service
+            </Link>
+            <Link to="/terms-and-condition" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Terms &amp; condition
+            </Link>
           </div>
         </div>
 

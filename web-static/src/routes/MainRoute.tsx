@@ -30,8 +30,16 @@ const Pricing = lazy(
       '@components/pages/pricingPage/SubscriptionType'
     )
 );
-
-
+const Career = lazy(() => import('@components/common/footer/links/Career'));
+const HowItWorks = lazy(() => import('@components/common/footer/links/HowItWorks'));
+const Legal = lazy(() => import('@components/common/footer/links/Legal'));
+const PrivacyPolicy = lazy(() => import('@components/common/footer/links/PrivacyPolicy'));
+const RefundPolicy = lazy(() => import('@components/common/footer/links/Refund'));
+const TrackYourOrder = lazy(() => import('@components/common/footer/links/TrackYourOrder'));
+const Feedback = lazy(() => import('@components/common/footer/links/Feedback'));
+const ContactUs = lazy(() => import('@components/common/footer/links/ContactUs'));
+const CustomerService = lazy(() => import('@components/common/footer/links/CustomerService'));
+const TermsAndCondition = lazy(() => import('@components/common/footer/links/TermsAndCondition'));
 
 const MainRoutes: React.FC = () => (
   <FormProvider>
@@ -50,6 +58,16 @@ const MainRoutes: React.FC = () => (
         <Route path="reset-password/:otp" element={<ResetPassword />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="pricing" element={<Pricing />} />
+        <Route path="career" element={<Career />} />
+        <Route path="how-it-works" element={<HowItWorks />} />
+        <Route path="legal" element={<Legal />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="refund-policy" element={<RefundPolicy />} />
+        <Route path="track-your-order" element={<TrackYourOrder />} />
+        <Route path="feedback" element={<Feedback />} />
+        <Route path="contact-us" element={<ContactUs />} />
+        <Route path="customer-service" element={<CustomerService />} />
+        <Route path="terms-and-condition" element={<TermsAndCondition />} />
 
         <Route path="sign-up" element={<TabComponent renderTabContent={() => <PersonalInfoForm />} />} />
 
