@@ -6,8 +6,11 @@ import {
 } from '../../../assets/asset';
 
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const CustomerDidYouKnow: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="  md:h-1/4 md:mt-56   md:px-0 px-7 text-secondary  ">
       {/* container  */}
@@ -46,6 +49,7 @@ const CustomerDidYouKnow: React.FC = () => {
 
           <Button
             variant="outlined"
+            onClick={() => navigate('/', { state: { focusTrackingInput: true } })}
             sx={{
               color: '#FF833C',
               borderColor: '#FF833C',

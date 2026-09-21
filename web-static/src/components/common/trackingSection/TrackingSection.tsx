@@ -1,6 +1,6 @@
 // TrackingSection.tsx
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './TrackingSection.css';
 import { Carbon } from '../../../assets/asset';
 import ModalSection from './ModalSection';
@@ -13,6 +13,14 @@ const TrackingSection: React.FC = () => {
 
   const [trackingNumber, setTrackingNumber] = useState<string>('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const trackingInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (location.state?.focusTrackingInput) {
+      trackingInputRef.current?.focus();
+    }
+  }, [location.state]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTrackingNumber(event.target.value);
@@ -36,6 +44,7 @@ const TrackingSection: React.FC = () => {
           src={Carbon}
           alt="Logo"
           className="carbon-delivery"
+          onClick={() => navigate('/')}
         />
 
         {/* Heading */}
@@ -77,6 +86,7 @@ const TrackingSection: React.FC = () => {
           className="search-container mt-3"
         >
           <input
+            ref={trackingInputRef}
             style={{ backgroundColor: '#fdefe8' }}
             type="text"
             placeholder="Enter tracking number and press Enter"

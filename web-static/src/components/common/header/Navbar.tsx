@@ -14,11 +14,13 @@ import { logo, profileIcon } from '../../../assets/asset';
 import { motion } from "framer-motion";
 import ThemeToggle from '../ThemeToggle';
 import { useTheme } from '../../../context/ThemeContext';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { isDarkMode } = useTheme();
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -73,7 +75,7 @@ const Navbar: React.FC = () => {
             style={{ flexGrow: 1 }}
             className="hidden md:flex"
           >
-            <img src={logo} alt="Logo" className="nav-logo" />
+            <img src={logo} alt="Logo" className="nav-logo" onClick={() => navigate('/')} />
           </motion.div>
 
           {/* Nav links — desktop */}
@@ -158,7 +160,7 @@ const Navbar: React.FC = () => {
             style={{ flexGrow: 1 }}
             className="flex  md:hidden"
           >
-            <img src={logo} alt="Logo" className="nav-logo" />
+            <img src={logo} alt="Logo" className="nav-logo" onClick={() => navigate('/')} />
           </motion.div>
 
           {/* Mobile menu */}
