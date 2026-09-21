@@ -59,7 +59,6 @@ const Integration = () => {
         : riders.filter(rider => rider.user.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
     useEffect(() => {
-        document.title = "Logistics - Tracker";
         axiosInstance.get(`${TRACKERR_HOST}/logistics/business-owners/riders/`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
         }).then((response) => {

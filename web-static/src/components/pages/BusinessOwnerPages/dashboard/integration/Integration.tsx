@@ -1,10 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const Integration: React.FC = () => {
-    useEffect(() => {
-        document.title = 'Integration - Tracker';
-    }, []);
-
     return (
         <div className="sm:m-[80px]">
             <h1 className="text-2xl font-bold">Integration</h1>

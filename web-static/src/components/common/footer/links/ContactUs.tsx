@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const ContactUs: React.FC = () => (
   <div className="mx-auto max-w-6xl px-4 py-14 mt-16 md:px-8">
@@ -24,8 +25,22 @@ const ContactUs: React.FC = () => (
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-          <h2 className="text-xl font-semibold text-slate-900">Phone</h2>
-          <p className="mt-3 text-base text-slate-700">+234 90 1588 0751</p>
+          <h2 className="text-xl font-semibold text-slate-900">Phone / WhatsApp</h2>
+          <a
+            href="tel:+2349015880751"
+            className="mt-3 block text-base text-orange-600 underline-offset-4 hover:underline"
+          >
+            +234 90 1588 0751
+          </a>
+          <a
+            href="https://wa.me/2349015880751"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 flex items-center gap-2 text-base text-green-600 underline-offset-4 hover:underline"
+          >
+            <FaWhatsapp aria-hidden="true" />
+            Message us on WhatsApp
+          </a>
         </div>
       </div>
     </div>

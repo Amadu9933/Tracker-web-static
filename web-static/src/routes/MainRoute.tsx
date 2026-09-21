@@ -38,7 +38,6 @@ const RefundPolicy = lazy(() => import('@components/common/footer/links/Refund')
 const TrackYourOrder = lazy(() => import('@components/common/footer/links/TrackYourOrder'));
 const Feedback = lazy(() => import('@components/common/footer/links/Feedback'));
 const ContactUs = lazy(() => import('@components/common/footer/links/ContactUs'));
-const CustomerService = lazy(() => import('@components/common/footer/links/CustomerService'));
 const TermsAndCondition = lazy(() => import('@components/common/footer/links/TermsAndCondition'));
 
 const MainRoutes: React.FC = () => (
@@ -66,7 +65,6 @@ const MainRoutes: React.FC = () => (
         <Route path="track-your-order" element={<TrackYourOrder />} />
         <Route path="feedback" element={<Feedback />} />
         <Route path="contact-us" element={<ContactUs />} />
-        <Route path="customer-service" element={<CustomerService />} />
         <Route path="terms-and-condition" element={<TermsAndCondition />} />
 
         <Route path="sign-up" element={<TabComponent renderTabContent={() => <PersonalInfoForm />} />} />

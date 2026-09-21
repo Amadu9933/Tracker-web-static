@@ -1,9 +1,22 @@
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import TermsAndConditions from '../reusable/TermsAndConditions';
 
 const year = new Date().getFullYear();
 
 const Footer: React.FC = () => {
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+
+  const termsAndConditionsModalOpen = () => {
+    setShowTermsModal(true);
+  };
+
+  const closeTermsModal = () => {
+    setShowTermsModal(false);
+  };
+
   const buttonStyles = {
     marginTop: '10px',
     backgroundColor: '#FF833C',
@@ -88,9 +101,6 @@ const Footer: React.FC = () => {
             <Link to="/contact-us" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
               Contact Us
             </Link>
-            <Link to="/customer-service" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
-              Customer Service
-            </Link>
             <Link to="/terms-and-condition" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
               Terms &amp; condition
             </Link>
@@ -103,12 +113,24 @@ const Footer: React.FC = () => {
             Trackerr &copy; {year}. All rights reserved
           </p>
           <div className="flex items-center gap-4">
-            <p className="text-xs md:text-sm text-white/70 hover:text-white cursor-pointer transition-colors">Privacy</p>
-            <p className="text-xs md:text-sm text-white/70 hover:text-white cursor-pointer transition-colors">Terms</p>
-            <p className="text-xs md:text-sm text-white/70 hover:text-white cursor-pointer transition-colors">Cookies</p>
+            <button
+              type="button"
+              className="text-xs md:text-sm text-white/70 hover:text-white cursor-pointer transition-colors"
+              onClick={termsAndConditionsModalOpen}
+            >
+              Cookies
+            </button>
           </div>
         </div>
       </div>
+
+      {showTermsModal && (
+        <TermsAndConditions
+          terms={termsAccepted}
+          onToggle={() => setTermsAccepted((accepted) => !accepted)}
+          onClose={closeTermsModal}
+        />
+      )}
     </footer>
   );
 };
