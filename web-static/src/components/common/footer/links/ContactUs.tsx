@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ContactUs: React.FC = () => (
-  <div className="mx-auto max-w-6xl px-4 py-14 md:px-8">
+  <div className="mx-auto max-w-6xl px-4 py-14 mt-16 md:px-8">
     <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
       <div className="border-b border-slate-200 bg-slate-50 px-6 py-8 md:px-10">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-orange-600">
@@ -25,7 +25,7 @@ const ContactUs: React.FC = () => (
 
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <h2 className="text-xl font-semibold text-slate-900">Phone</h2>
-          <p className="mt-3 text-base text-slate-700">+234 800 000 0000</p>
+          <p className="mt-3 text-base text-slate-700">+234 90 1588 0751</p>
         </div>
       </div>
     </div>

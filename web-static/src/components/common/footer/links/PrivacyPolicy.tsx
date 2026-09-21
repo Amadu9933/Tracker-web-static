@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PrivacyPolicy: React.FC = () => (
-  <div className="mx-auto max-w-6xl px-4 py-14 md:px-8">
+  <div className="mx-auto max-w-6xl px-4 py-14 mt-16  md:px-8">
     <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
       <div className="border-b border-slate-200 bg-slate-50 px-6 py-8 md:px-10">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-orange-600">

@@ -8,7 +8,7 @@ const refundHighlights = [
 ];
 
 const Refund: React.FC = () => (
-  <div className="mx-auto max-w-5xl px-4 py-16 text-slate-800 md:px-8">
+  <div className="mx-auto max-w-5xl px-4 py-16 mt-16  text-slate-800 md:px-8">
     <div className="overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-slate-200">
       <div className="bg-gradient-to-r from-orange-50 to-white px-6 py-8 md:px-10 md:py-10">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">
