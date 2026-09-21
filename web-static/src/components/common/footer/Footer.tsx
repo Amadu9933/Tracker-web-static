@@ -1,23 +1,14 @@
-import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import TermsAndConditions from '../reusable/TermsAndConditions';
 
 const year = new Date().getFullYear();
 
 const Footer: React.FC = () => {
-  const [showTermsModal, setShowTermsModal] = useState(false);
-  const [termsAccepted, setTermsAccepted] = useState(false);
 
-  const termsAndConditionsModalOpen = () => {
-    setShowTermsModal(true);
-  };
 
-  const closeTermsModal = () => {
-    setShowTermsModal(false);
-  };
+  
 
-  const buttonStyles = {
+  const buttonStyles = { 
     marginTop: '10px',
     backgroundColor: '#FF833C',
     color: 'white',
@@ -87,9 +78,7 @@ const Footer: React.FC = () => {
             <Link to="/refund-policy" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
               Refund Policy
             </Link>
-            <Link to="/track-your-order" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
-              Track Your Order
-            </Link>
+           
           </div>
 
           {/* Fourth column */}
@@ -116,7 +105,7 @@ const Footer: React.FC = () => {
             <button
               type="button"
               className="text-xs md:text-sm text-white/70 hover:text-white cursor-pointer transition-colors"
-              onClick={termsAndConditionsModalOpen}
+              
             >
               Cookies
             </button>
@@ -124,13 +113,7 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {showTermsModal && (
-        <TermsAndConditions
-          terms={termsAccepted}
-          onToggle={() => setTermsAccepted((accepted) => !accepted)}
-          onClose={closeTermsModal}
-        />
-      )}
+      
     </footer>
   );
 };
