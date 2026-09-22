@@ -74,8 +74,8 @@ const DashboardMain = () => {
       </div>
       <div className="">
         <div className="mb-2 mt-10 text-left flex justify-between">
-          <p className="text-secondary dark:text-slate-200 font-bold">Recent</p>
-          <p className="text-gray-700 dark:text-slate-300 hover:cursor-pointer"
+          <p className="text-secondary  font-bold">Recent</p>
+          <p className="text-gray-700  hover:cursor-pointer"
             onClick={() => navigate('/dashboard/reports')}
           >View all</p>
         </div>

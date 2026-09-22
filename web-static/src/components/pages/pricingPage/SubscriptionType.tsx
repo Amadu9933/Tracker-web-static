@@ -33,7 +33,7 @@ export default function SubscriptionType() {
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
         <div className="text-center pt-10">
-          <h1 className="text-4xl font-bold text-black dark:text-white sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-bold text-black  sm:text-5xl md:text-6xl">
             Simple pricing that grows with you
           </h1>
 

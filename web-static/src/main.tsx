@@ -5,6 +5,8 @@ import App from './App';
 import './index.css';
 import { ThemeProvider } from './context/ThemeContext';
 
+document.documentElement.classList.remove('dark');
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider>

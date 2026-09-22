@@ -13,8 +13,8 @@ const SecondaryButton = ({ label, onClick, color = '#ffffff', background = 'whit
       style={{ color, backgroundColor: background }}
       className="
         inline-flex items-center justify-center
-        bg-primary hover:bg-primary  dark:bg-orange-500 dark:hover:bg-orange-400
-          dark:shadow-[0_0_12px_rgba(249,115,22,0.3)]
+        bg-primary hover:bg-primary   
+          
         font-semibold
         text-sm sm:text-base
         px-6 py-2.5

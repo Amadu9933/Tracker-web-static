@@ -101,17 +101,17 @@ const contactOptions = [
 
 const NeedHelp: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-[#0b111f] min-h-screen transition-colors duration-300">
+    <div className="bg-white  min-h-screen transition-colors duration-300">
       <Container maxWidth="lg" sx={{ paddingY: "60px" }}>
         {/* Header */}
         <div className="text-center mb-12 mt-10">
           <span className="inline-block text-xs font-semibold tracking-widest text-[#FF833C] uppercase mb-3">
             Support Center
           </span>
-          <h1 className="text-3xl md:text-4xl font-bold text-[#354755] dark:text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#354755]  mb-4">
             How can we help you?
           </h1>
-          <p className="text-[#666666] dark:text-[#B0B0B0] text-base max-w-xl mx-auto">
+          <p className="text-[#666666]  text-base max-w-xl mx-auto">
             Find answers to common questions, browse our guides, or reach out to
             our team, we're here to make your experience seamless.
           </p>
@@ -122,18 +122,18 @@ const NeedHelp: React.FC = () => {
           {contactOptions.map((opt) => (
             <div
               key={opt.label}
-              className="flex flex-col items-center text-center bg-[#F5F5F5] dark:bg-[#1E1E1E] border border-[#E0E0E0] dark:border-[#333333] rounded-xl p-6 hover:shadow-md transition-all duration-200 cursor-pointer group"
+              className="flex flex-col items-center text-center bg-[#F5F5F5]  border border-[#E0E0E0]  rounded-xl p-6 hover:shadow-md transition-all duration-200 cursor-pointer group"
             >
               <div className="text-[#FF833C] mb-3 group-hover:scale-110 transition-transform duration-200">
                 {opt.icon}
               </div>
-              <h3 className="font-semibold text-[#354755] dark:text-white mb-1">
+              <h3 className="font-semibold text-[#354755]  mb-1">
                 {opt.label}
               </h3>
-              <p className="text-[#354755] dark:text-[#FF833C] font-medium text-sm mb-1">
+              <p className="text-[#354755]  font-medium text-sm mb-1">
                 {opt.detail}
               </p>
-              <p className="text-[#666666] dark:text-[#B0B0B0] text-xs">
+              <p className="text-[#666666]  text-xs">
                 {opt.sub}
               </p>
             </div>
@@ -142,20 +142,20 @@ const NeedHelp: React.FC = () => {
 
         {/* Quick Links */}
         <div className="mb-16">
-          <h2 className="text-xl md:text-2xl font-semibold text-[#354755] dark:text-white mb-6 text-center">
+          <h2 className="text-xl md:text-2xl font-semibold text-[#354755]  mb-6 text-center">
             Browse by Topic
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {quickLinks.map((link) => (
               <div
                 key={link.title}
-                className="flex flex-col bg-white dark:bg-[#1E1E1E] border border-[#E0E0E0] dark:border-[#333333] rounded-xl p-5 hover:border-[#FF833C] dark:hover:border-[#FF833C] transition-all duration-200 cursor-pointer group"
+                className="flex flex-col bg-white  border border-[#E0E0E0]  rounded-xl p-5 hover:border-[#FF833C]  transition-all duration-200 cursor-pointer group"
               >
                 <div className="text-[#FF833C] mb-3">{link.icon}</div>
-                <h3 className="font-semibold text-[#354755] dark:text-white text-sm mb-1 group-hover:text-[#FF833C] dark:group-hover:text-[#FF833C] transition-colors duration-200">
+                <h3 className="font-semibold text-[#354755]  text-sm mb-1 group-hover:text-[#FF833C]  transition-colors duration-200">
                   {link.title}
                 </h3>
-                <p className="text-[#666666] dark:text-[#B0B0B0] text-xs leading-relaxed">
+                <p className="text-[#666666]  text-xs leading-relaxed">
                   {link.desc}
                 </p>
               </div>
@@ -165,10 +165,10 @@ const NeedHelp: React.FC = () => {
 
         {/* FAQ Section */}
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl md:text-2xl font-semibold text-[#354755] dark:text-white mb-2 text-center">
+          <h2 className="text-xl md:text-2xl font-semibold text-[#354755]  mb-2 text-center">
             Frequently Asked Questions
           </h2>
-          <p className="text-[#666666] dark:text-[#B0B0B0] text-sm text-center mb-8">
+          <p className="text-[#666666]  text-sm text-center mb-8">
             Click a question to expand the answer.
           </p>
           <div className="flex flex-col gap-3">
@@ -179,11 +179,11 @@ const NeedHelp: React.FC = () => {
         </div>
 
         {/* Still need help CTA */}
-        <div className="mt-16 text-center bg-[#354755] dark:bg-[#1E1E1E] rounded-2xl py-12 px-6 border border-transparent dark:border-[#333333]">
+        <div className="mt-16 text-center bg-[#354755]  rounded-2xl py-12 px-6 border border-transparent ">
           <h2 className="text-2xl font-bold text-white mb-3">
             Still need help?
           </h2>
-          <p className="text-[#B3C3CF] dark:text-[#B0B0B0] text-sm mb-6 max-w-md mx-auto">
+          <p className="text-[#B3C3CF]  text-sm mb-6 max-w-md mx-auto">
             Our support team is ready to assist you with any issue not covered
             above. Don't hesitate to reach out.
           </p>

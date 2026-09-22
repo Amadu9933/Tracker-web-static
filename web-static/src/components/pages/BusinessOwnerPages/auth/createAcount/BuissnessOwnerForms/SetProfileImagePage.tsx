@@ -190,21 +190,21 @@ const SetProfileImagePage: React.FC = () => {
       <div className="mx-auto max-w-lg p-4 sm:p-8 min-h-screen transition-colors duration-200">
         <div className="flex items-center space-x-2 pb-2 mb-6 pt-20">
           <div onClick={() => navigate(-1)} className="-mb-2 cursor-pointer">
-            <img src={ArrowBack} alt="Move back arrow" className="dark:invert" />
+            <img src={ArrowBack} alt="Move back arrow" className="" />
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-gray-900 dark:text-white">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-gray-900 ">
             Create Account
           </h1>
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between mb-10 gap-2">
-          <p className="font-medium text-sm sm:text-lg text-gray-800 dark:text-gray-200">
+          <p className="font-medium text-sm sm:text-lg text-gray-800 ">
             Profile Information
           </p>
-          <p className="text-[#82826A] dark:text-gray-400 font-medium text-sm">Step 3 of 3</p>
+          <p className="text-[#82826A]  font-medium text-sm">Step 3 of 3</p>
         </div>
 
-        <p className="text-left text-gray-600 dark:text-gray-400 text-sm sm:text-base">
+        <p className="text-left text-gray-600  text-sm sm:text-base">
           Please upload a picture of your business logo or product to complete account setup (optional).
         </p>
 
@@ -214,7 +214,7 @@ const SetProfileImagePage: React.FC = () => {
             <img
               src={Group}
               alt="Group Icon"
-              className="w-full h-full object-cover rounded-full dark:opacity-60"
+              className="w-full h-full object-cover rounded-full "
             />
 
             {preview && (
@@ -227,13 +227,13 @@ const SetProfileImagePage: React.FC = () => {
 
             <label
               htmlFor="fileInput"
-              className="absolute -top-2 -right-2 bg-white dark:bg-[#1e2738] border border-transparent dark:border-gray-600 p-1 rounded-full shadow-md cursor-pointer hover:scale-110 transition-transform duration-150"
+              className="absolute -top-2 -right-2 bg-white  border border-transparent  p-1 rounded-full shadow-md cursor-pointer hover:scale-110 transition-transform duration-150"
               style={{ width: '30px', height: '30px' }}
             >
               <img
                 src={edit}
                 alt="Edit Icon"
-                className="w-full h-full object-contain dark:invert"
+                className="w-full h-full object-contain "
               />
             </label>
           </div>
@@ -261,7 +261,7 @@ const SetProfileImagePage: React.FC = () => {
           checked={terms}
         />
         <h3 className="text-sm md:text-base text-gray-700">
-          I have read and accept the <span className='text-orange-400 dark:text-orange-400 hover:cursor-pointer' onClick={() => setShowTermsModal(true)}>Terms of Use.</span>
+          I have read and accept the <span className='text-orange-400  hover:cursor-pointer' onClick={() => setShowTermsModal(true)}>Terms of Use.</span>
         </h3>
       </div>
 
@@ -338,8 +338,8 @@ const SetProfileImagePage: React.FC = () => {
 
         <button
           onClick={handleSubmit}
-          className={`w-full bg-primary dark:bg-orange-500 dark:hover:bg-orange-400 text-white p-2 rounded-md mt-6 text-sm sm:text-base font-medium
-            transition-all duration-200 dark:shadow-[0_0_12px_rgba(249,115,22,0.3)]
+          className={`w-full bg-primary   text-white p-2 rounded-md mt-6 text-sm sm:text-base font-medium
+            transition-all duration-200 
             ${isSubmitting || !terms ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'}`}
           disabled={isSubmitting || showMsg }
         >

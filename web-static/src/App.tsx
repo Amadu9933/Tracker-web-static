@@ -4,16 +4,13 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import AppRoutes from './routes/AppRoutes';
 import { AuthProvider } from './context/AuthContext';
-import { useTheme } from './context/ThemeContext';
-import { lightTheme, darkTheme } from './theme/muiTheme';
+import { lightTheme } from './theme/muiTheme';
 import ErrorBoundary from './components/ErrorBoundary';
 
 const AppContent: React.FC = () => {
-  const { isDarkMode } = useTheme();
-
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark">
-      <MuiThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+    <div className="min-h-screen bg-background-light text-text-primary-light">
+      <MuiThemeProvider theme={lightTheme}>
         <CssBaseline />
         <ErrorBoundary>
           <AppRoutes />

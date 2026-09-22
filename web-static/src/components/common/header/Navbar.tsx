@@ -12,14 +12,11 @@ import './Navbar.css';
 import { useLocation } from "react-router-dom";
 import { logo, profileIcon } from '../../../assets/asset';
 import { motion } from "framer-motion";
-import ThemeToggle from '../ThemeToggle';
-import { useTheme } from '../../../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { isDarkMode } = useTheme();
   const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -50,7 +47,7 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <div className="fixed top-0 border-b border-[#E0E0E0] dark:border-[#333333] transition-colors duration-300 w-full z-50 bg-white dark:bg-[#1E1E1E]">
+    <div className="fixed top-0 border-b border-[#E0E0E0]  transition-colors duration-300 w-full z-50 bg-white ">
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -60,7 +57,7 @@ const Navbar: React.FC = () => {
       <AppBar
         position="static"
         sx={{
-          backgroundColor: isDarkMode ? 'background.paper' : 'white',
+          backgroundColor: 'white',
           borderColor: 'divider',
           boxShadow: 'none',
         }}
@@ -128,7 +125,7 @@ const Navbar: React.FC = () => {
                     style={{
                       height: '20px',
                       width: '20px',
-                      filter: isDarkMode ? 'brightness(0) invert(1)' : 'none'
+                      filter: 'none'
                     }}
                   />
                   <NavLink
@@ -142,14 +139,6 @@ const Navbar: React.FC = () => {
               </Box>
             </motion.div>
 
-            {/* Theme Toggle */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + (menuItems.length + 1) * 0.08, duration: 0.4 }}
-            >
-              <ThemeToggle />
-            </motion.div>
           </Box>
 
           {/* Logo — mobile version  */}
@@ -172,7 +161,7 @@ const Navbar: React.FC = () => {
               aria-expanded={open ? 'true' : undefined}
               onClick={handleClick}
               sx={{
-                color: isDarkMode ? 'white' : 'inherit',
+                color: 'inherit',
               }}
             >
               <MenuIcon />
@@ -187,7 +176,7 @@ const Navbar: React.FC = () => {
               transformOrigin={{ vertical: 'top', horizontal: 'left' }}
             >
               <MenuItem onClick={handleClose}>
-                <CloseIcon sx={{ color: isDarkMode ? 'white' : 'inherit' }} />
+                <CloseIcon sx={{ color: 'inherit' }} />
               </MenuItem>
               {menuItems.map((item, index) => (
                 <MenuItem key={index}>
@@ -213,7 +202,7 @@ const Navbar: React.FC = () => {
                     style={{
                       height: '20px',
                       width: '20px',
-                      filter: isDarkMode ? 'brightness(0) invert(1)' : 'none'
+                      filter: 'none'
                     }}
                   />
                   <NavLink
@@ -225,9 +214,6 @@ const Navbar: React.FC = () => {
                   </NavLink>
                 </Box>
               </MenuItem >
-              <MenuItem >
-                <ThemeToggle />
-              </MenuItem>
             </Menu>
           </Box>
 

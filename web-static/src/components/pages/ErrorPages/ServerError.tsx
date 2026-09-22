@@ -5,7 +5,7 @@ export const ServerError = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-background-light to-white dark:from-background-dark dark:to-gray-900 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-gradient-to-br from-background-light to-white   flex items-center justify-center px-4">
             <div className="text-center max-w-md">
 
                 {/* Error Code */}
@@ -14,10 +14,10 @@ export const ServerError = () => {
                 </div>
 
                 {/* Title & Message */}
-                <h2 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
+                <h2 className="text-3xl font-bold text-text-primary-light  mb-4">
                     Internal Server Error
                 </h2>
-                <p className="text-lg text-text-secondary-light dark:text-text-secondary-dark mb-8">
+                <p className="text-lg text-text-secondary-light  mb-8">
                     Something went wrong on our end. We are working to fix it.
                     Please try again in a few moments.
                 </p>
@@ -60,7 +60,7 @@ export const ServerError = () => {
                     </Button>
                 </div>
 
-                <div className="mt-10 text-sm text-text-secondary-light dark:text-text-secondary-dark">
+                <div className="mt-10 text-sm text-text-secondary-light ">
                     If this keeps happening, please contact support.
                 </div>
             </div>

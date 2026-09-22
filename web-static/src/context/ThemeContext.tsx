@@ -1,8 +1,7 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, ReactNode } from 'react';
 
 interface ThemeContextType {
     isDarkMode: boolean;
-    toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -12,33 +11,13 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-
     useEffect(() => {
-        // Check localStorage first
-        const storedTheme = localStorage.getItem('trackerr-theme');
-        if (storedTheme) {
-            const isDark = storedTheme === 'dark';
-            setIsDarkMode(isDark);
-            document.documentElement.classList.toggle('dark', isDark);
-        } else {
-            // Fall back to OS preference
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setIsDarkMode(prefersDark);
-            document.documentElement.classList.toggle('dark', prefersDark);
-            localStorage.setItem('trackerr-theme', prefersDark ? 'dark' : 'light');
-        }
+        document.documentElement.classList.remove('dark');
+        localStorage.removeItem('trackerr-theme');
     }, []);
 
-    const toggleTheme = () => {
-        const newIsDark = !isDarkMode;
-        setIsDarkMode(newIsDark);
-        document.documentElement.classList.toggle('dark', newIsDark);
-        localStorage.setItem('trackerr-theme', newIsDark ? 'dark' : 'light');
-    };
-
     return (
-        <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+        <ThemeContext.Provider value={{ isDarkMode: false }}>
             {children}
         </ThemeContext.Provider>
     );

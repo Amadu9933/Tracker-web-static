@@ -68,22 +68,22 @@ const TextInput: React.FC<TextInputProps> = ({
           }}
           className={`
             peer w-full text-[0.9375rem] rounded-md border
-            bg-white dark:bg-gray-900
-            text-gray-900 dark:text-white
-            placeholder:text-gray-300 dark:placeholder:text-gray-600
+            bg-white 
+            text-gray-900 
+            placeholder:text-gray-300 
             outline-none transition-all duration-200
             disabled:opacity-40 disabled:cursor-not-allowed
             pt-5 pb-1
             [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_white]
-            dark:[&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#111827]
+            
             [&:-webkit-autofill]:[-webkit-text-fill-color:theme(colors.gray.900)]
-            dark:[&:-webkit-autofill]:[-webkit-text-fill-color:theme(colors.white)]
+            
             ${rightIcon ? 'pl-4 pr-11' : 'pl-4 pr-4'}
             ${error
-              ? 'border-red-400 dark:border-red-500 bg-red-50/30 dark:bg-red-950/10'
+              ? 'border-red-400  bg-red-50/30 '
               : isFocused
-                ? 'border-primary dark:border-primary'
-                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                ? 'border-primary '
+                : 'border-gray-200  hover:border-gray-300 '
             }
           `}
         />
@@ -103,8 +103,8 @@ const TextInput: React.FC<TextInputProps> = ({
               : isFloating && isFocused
                 ? 'text-primary'
                 : isFloating
-                  ? 'text-gray-400 dark:text-gray-500'
-                  : 'text-gray-400 dark:text-gray-500'
+                  ? 'text-gray-400 '
+                  : 'text-gray-400 '
             }
           `}
         >
@@ -113,7 +113,7 @@ const TextInput: React.FC<TextInputProps> = ({
 
         {/* Right Icon */}
         {rightIcon && (
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 dark:text-gray-500">
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 ">
             {rightIcon}
           </div>
         )}

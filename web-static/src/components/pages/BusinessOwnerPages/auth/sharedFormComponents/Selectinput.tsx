@@ -31,10 +31,10 @@ const SelectInput: React.FC<SelectInputProps> = ({
   const isFloating = isFocused || hasValue;
 
   const borderClass = error
-    ? 'border-red-400 dark:border-red-500'
+    ? 'border-red-400 '
     : isFocused
-      ? 'border-primary dark:border-primary'
-      : 'border-gray-300 dark:border-gray-600';
+      ? 'border-primary '
+      : 'border-gray-300 ';
 
   return (
     <div className="w-full">
@@ -69,8 +69,8 @@ const SelectInput: React.FC<SelectInputProps> = ({
           }}
           className={`
             w-full h-14 text-[0.9375rem] rounded-lg border
-            bg-white dark:bg-gray-900
-            text-gray-900 dark:text-white
+            bg-white 
+            text-gray-900 
             outline-none transition-colors duration-200 appearance-none cursor-pointer
             disabled:opacity-40 disabled:cursor-not-allowed
             pl-4 pr-10 pt-5 pb-1
@@ -82,7 +82,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
             <option
               key={opt.value}
               value={opt.value}
-              className="dark:bg-gray-900 dark:text-white"
+              className=" "
             >
               {opt.label}
             </option>
@@ -103,7 +103,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
               ? 'text-red-400'
               : isFocused
                 ? 'text-primary'
-                : 'text-gray-400 dark:text-gray-500'
+                : 'text-gray-400 '
             }
           `}
         >
@@ -111,7 +111,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
         </label>
 
         {/* Chevron icon */}
-        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400 dark:text-gray-500">
+        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400 ">
           <svg
             className={`w-4 h-4 transition-transform duration-200 ${isFocused ? 'rotate-180' : ''}`}
             viewBox="0 0 16 16"

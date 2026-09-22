@@ -62,10 +62,10 @@ const PersonalInfoForm: React.FC = () => {
         transition={{ delay: 0.1, duration: 0.5 }}
         className="flex flex-col sm:flex-row justify-between mb-8 sm:mb-10 gap-1 sm:gap-2"
       >
-        <p className="font-medium text-base sm:text-lg text-gray-900 dark:text-gray-100">
+        <p className="font-medium text-base sm:text-lg text-gray-900 ">
           Personal Information
         </p>
-        <p className="text-[#82826A] dark:text-gray-400 font-medium text-xs sm:text-sm">
+        <p className="text-[#82826A]  font-medium text-xs sm:text-sm">
           Step 1 of 3
         </p>
       </motion.div>
@@ -137,9 +137,9 @@ const PersonalInfoForm: React.FC = () => {
               style={{ padding: 4 }}
             >
               {showPassword ? (
-                <VisibilityOff className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 dark:text-gray-400" />
+                <VisibilityOff className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 " />
               ) : (
-                <Visibility className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 dark:text-gray-400" />
+                <Visibility className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 " />
               )}
             </IconButton>
           }
@@ -151,7 +151,7 @@ const PersonalInfoForm: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="text-secondary dark:text-gray-400 text-xs sm:text-sm pb-4 sm:pb-8"
+        className="text-secondary  text-xs sm:text-sm pb-4 sm:pb-8"
       >
         Password MUST contain at least one uppercase, one lowercase, one number
       </motion.p>
@@ -164,8 +164,8 @@ const PersonalInfoForm: React.FC = () => {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         type="submit"
-        className="w-full bg-primary dark:bg-orange-500 dark:hover:bg-orange-400
-          dark:shadow-[0_0_12px_rgba(249,115,22,0.3)] text-white py-2.5 px-4
+        className="w-full bg-primary  
+           text-white py-2.5 px-4
           rounded-md text-sm sm:text-base font-medium transition-all duration-200"
       >
         Continue
@@ -176,10 +176,10 @@ const PersonalInfoForm: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
-        className="text-center mt-6 pb-16 sm:pb-20 text-sm sm:text-base text-gray-700 dark:text-gray-300"
+        className="text-center mt-6 pb-16 sm:pb-20 text-sm sm:text-base text-gray-700 "
       >
         Already have an account?{' '}
-        <Link to="/login" className="text-primary dark:text-orange-400 hover:underline">
+        <Link to="/login" className="text-primary  hover:underline">
           Sign in
         </Link>
       </motion.div>

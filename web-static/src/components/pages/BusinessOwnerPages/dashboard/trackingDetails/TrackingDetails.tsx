@@ -71,24 +71,24 @@ export function AddressAutocomplete({ user_data, setUserData, setOptionClicked }
                 onChange={handleChange}
                 placeholder="Enter address..."
                 className="border rounded-lg w-full px-3 py-2.5 text-sm
-                    bg-white dark:bg-[#1E293B]
-                    text-slate-900 dark:text-slate-100
-                    border-slate-300 dark:border-slate-600
-                    placeholder:text-slate-400 dark:placeholder:text-slate-500
+                    bg-white 
+                    text-slate-900 
+                    border-slate-300 
+                    placeholder:text-slate-400 
                     focus:outline-none focus:ring-2 focus:ring-[#FF833C]/40 focus:border-[#FF833C]
                     transition-colors duration-200"
                 required
             />
             {suggestions.length > 0 && (
                 <ul className="mt-1 border rounded-lg shadow-lg z-50 absolute w-full
-                    bg-white dark:bg-[#1E293B]
-                    border-slate-200 dark:border-slate-600">
+                    bg-white 
+                    border-slate-200 ">
                     {suggestions.map((item: any, index: number) => (
                         <li
                             key={index}
                             className="p-2 cursor-pointer text-sm
-                                text-slate-800 dark:text-slate-200
-                                hover:bg-slate-100 dark:hover:bg-slate-700
+                                text-slate-800 
+                                hover:bg-slate-100 
                                 transition-colors duration-150"
                             onClick={() => {
                                 handleSelect(item.address?.label ?? '', item.placeId ?? ''); 
@@ -107,10 +107,10 @@ export function AddressAutocomplete({ user_data, setUserData, setOptionClicked }
 export function Container({ children }: { children: React.ReactNode }) {
     return (
         <div className="p-5 flex flex-col gap-4
-            bg-white dark:bg-[#0F172A]
-            text-slate-900 dark:text-slate-100
-            rounded-xl shadow-sm dark:shadow-none mt-4
-            border border-slate-100 dark:border-slate-700
+            bg-white 
+            text-slate-900 
+            rounded-xl shadow-sm  mt-4
+            border border-slate-100 
             transition-colors duration-200">
             {children}
         </div>
@@ -119,31 +119,31 @@ export function Container({ children }: { children: React.ReactNode }) {
 
 const inputClass = `
     border rounded-lg px-3 py-2.5 text-sm w-full
-    bg-white dark:bg-[#1E293B]
-    text-slate-900 dark:text-slate-100
-    border-slate-300 dark:border-slate-600
-    placeholder:text-slate-400 dark:placeholder:text-slate-500
+    bg-white 
+    text-slate-900 
+    border-slate-300 
+    placeholder:text-slate-400 
     text-left
-    placeholder:text-left dark:placeholder:text-left
+    placeholder:text-left 
     focus:outline-none focus:ring-2 focus:ring-[#FF833C]/40 focus:border-[#FF833C]
     transition-colors duration-200
 `;
 
-const labelClass = "block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide";
+const labelClass = "block text-xs font-semibold text-slate-500  mb-1.5 uppercase tracking-wide";
 
 const statusBadge = (status: string) => {
     const base = "text-[0.65rem] font-bold rounded-full px-3 py-1 border";
     switch (status) {
         case 'pending':
-            return `${base} bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300 border-yellow-300 dark:border-yellow-700`;
+            return `${base} bg-yellow-100  text-yellow-800  border-yellow-300 `;
         case 'assigned':
         case 'in transit':
-            return `${base} bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 border-green-300 dark:border-green-700`;
+            return `${base} bg-green-100  text-green-800  border-green-300 `;
         case 'returned':
         case 'canceled':
-            return `${base} bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 border-red-300 dark:border-red-700`;
+            return `${base} bg-red-100  text-red-700  border-red-300 `;
         default:
-            return `${base} bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-400`;
+            return `${base} bg-slate-100  text-slate-600  border-slate-400`;
     }
 };
 
@@ -238,16 +238,16 @@ export default function TrackingDetails() {
     };
 
     return (
-        <div className="p-4 min-h-screen bg-slate-50 dark:bg-[#0B1120] transition-colors duration-300">
+        <div className="p-4 min-h-screen bg-slate-50  transition-colors duration-300">
 
             {/* ── Header ── */}
             <Container>
                 <section className="flex justify-between items-center">
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+                        <h1 className="text-2xl font-bold text-slate-900 ">
                             Tracking Details
                         </h1>
-                        <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">
+                        <p className="text-slate-500  text-sm mt-0.5">
                             Manage tracking assignment and delivery status
                         </p>
                     </div>
@@ -258,8 +258,8 @@ export default function TrackingDetails() {
                                 <button
                                     onClick={() => setEdit(true)}
                                     className="bg-[#FF833C] text-white text-sm px-5 py-2 rounded-lg
-                                        hover:bg-[#e6722e] dark:hover:bg-[#ff9a5c]
-                                        dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
+                                        hover:bg-[#e6722e] 
+                                        
                                         transition-all duration-200 font-medium"
                                 >
                                     Edit
@@ -268,9 +268,9 @@ export default function TrackingDetails() {
                                 <>
                                     <button
                                         onClick={() => setEdit(false)}
-                                        className="text-slate-600 dark:text-slate-300 text-sm px-5 py-2 rounded-lg
-                                            border border-slate-300 dark:border-slate-600
-                                            hover:bg-slate-100 dark:hover:bg-slate-700
+                                        className="text-slate-600  text-sm px-5 py-2 rounded-lg
+                                            border border-slate-300 
+                                            hover:bg-slate-100 
                                             transition-all duration-200 font-medium"
                                     >
                                         Cancel
@@ -280,8 +280,8 @@ export default function TrackingDetails() {
                                             <button
                                             onClick={handleShippingUpdate}
                                             className="bg-[#FF833C] text-white text-sm px-5 py-2 rounded-lg
-                                            hover:bg-[#e6722e] dark:hover:bg-[#ff9a5c]
-                                            dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
+                                            hover:bg-[#e6722e] 
+                                            
                                             transition-all duration-200 font-medium"
                                         >
                                             Save Changes
@@ -299,12 +299,12 @@ export default function TrackingDetails() {
             {/* ── Customer + Package Details ── */}
             <Container>
                 {/* Parcel number + status row */}
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-700">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 ">
                     <div>
-                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400  mb-0.5">
                             Parcel Number
                         </p>
-                        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                        <h2 className="text-lg font-bold text-slate-900 ">
                             {trackingData.parcel_number}
                         </h2>
                     </div>
@@ -368,30 +368,30 @@ export default function TrackingDetails() {
                     /* View mode: clean info cards */
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
                         {/* Email */}
-                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                            <div className="mt-0.5 p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 ">
+                            <div className="mt-0.5 p-1.5 rounded-md bg-orange-100 ">
                                 <Mail className="h-3.5 w-3.5 text-[#FF833C]" />
                             </div>
                             <div className="min-w-0">
-                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400  mb-0.5">
                                     Email
                                 </p>
-                                <p className="text-sm text-slate-800 dark:text-slate-200 truncate">
+                                <p className="text-sm text-slate-800  truncate">
                                     {user_data.email || '—'}
                                 </p>
                             </div>
                         </div>
 
                         {/* Phone */}
-                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                            <div className="mt-0.5 p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 ">
+                            <div className="mt-0.5 p-1.5 rounded-md bg-orange-100 ">
                                 <Phone className="h-3.5 w-3.5 text-[#FF833C]" />
                             </div>
                             <div>
-                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400  mb-0.5">
                                     Phone
                                 </p>
-                                <p className="text-sm text-slate-800 dark:text-slate-200">
+                                <p className="text-sm text-slate-800 ">
                                     {user_data.phone
                                         ? `${trackingData.country === "Nigeria" ? "+234" : "+233"}${user_data.phone}`
                                         : '—'}
@@ -400,15 +400,15 @@ export default function TrackingDetails() {
                         </div>
 
                         {/* Package */}
-                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                            <div className="mt-0.5 p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 ">
+                            <div className="mt-0.5 p-1.5 rounded-md bg-orange-100 ">
                                 <Package className="h-3.5 w-3.5 text-[#FF833C]" />
                             </div>
                             <div className="min-w-0">
-                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400  mb-0.5">
                                     Package
                                 </p>
-                                <p className="text-sm text-slate-800 dark:text-slate-200 truncate">
+                                <p className="text-sm text-slate-800  truncate">
                                     {productName.length > 1
                                         ? `${productName[0].trim()} +${productName.length - 1} more`
                                         : productName[0]
@@ -424,11 +424,11 @@ export default function TrackingDetails() {
 
             {/* ── Delivery Address ── */}
             <Container>
-                <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-700">
-                    <div className="p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                <div className="flex items-center gap-2 pb-3 border-b border-slate-100 ">
+                    <div className="p-1.5 rounded-md bg-orange-100 ">
                         <MapPin className="h-4 w-4 text-[#FF833C]" />
                     </div>
-                    <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                    <h2 className="text-base font-bold text-slate-900 ">
                         Delivery Address
                     </h2>
                 </div>
@@ -441,26 +441,26 @@ export default function TrackingDetails() {
                         </div>
                         <div className="">
                             <label htmlFor="country" className={labelClass}>Country</label>
-                            <p className={inputClass + "cursor-not-allowed bg-slate-200 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400"}>
+                            <p className={inputClass + "cursor-not-allowed bg-slate-200  text-slate-500 "}>
                                 {title(country)}
                             </p>
                         </div>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-1">
+                        <div className="p-3 rounded-lg bg-slate-50 ">
+                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400  mb-1">
                                 Address
                             </p>
-                            <p className="text-sm text-slate-700 dark:text-slate-300">
+                            <p className="text-sm text-slate-700 ">
                                 {user_data.address || '—'}
                             </p>
                         </div>
-                        <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-1">
+                        <div className="p-3 rounded-lg bg-slate-50 ">
+                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400  mb-1">
                                 Country
                             </p>
-                            <p className="text-sm text-slate-700 dark:text-slate-300">
+                            <p className="text-sm text-slate-700 ">
                                 {user_data.country || '—'}
                             </p>
                         </div>
@@ -472,11 +472,11 @@ export default function TrackingDetails() {
             {!edit && (
                 <>
                     <Container>
-                        <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-700">
-                            <div className="p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30">
+                        <div className="flex items-center gap-2 pb-3 border-b border-slate-100 ">
+                            <div className="p-1.5 rounded-md bg-orange-100 ">
                                 <Truck className="h-4 w-4 text-[#FF833C]" />
                             </div>
-                            <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                            <h2 className="text-base font-bold text-slate-900 ">
                                 Rider Assignment
                             </h2>
                         </div>
@@ -492,14 +492,14 @@ export default function TrackingDetails() {
 
                         {trackingStatus === 'pending' && (
                             <div className="flex flex-col items-center gap-3 py-2">
-                                <p className="text-slate-500 dark:text-slate-400 text-sm text-center">
+                                <p className="text-slate-500  text-sm text-center">
                                     Assign this delivery to an available rider below
                                 </p>
                                 <button
                                     onClick={handleAssignClick}
                                     className="w-full sm:w-auto px-8 py-2.5 bg-[#FF833C] text-white rounded-lg
-                                        hover:bg-[#e6722e] dark:hover:bg-[#ff9a5c]
-                                        dark:shadow-[0_0_12px_rgba(255,131,60,0.3)]
+                                        hover:bg-[#e6722e] 
+                                        
                                         transition-all duration-200
                                         flex items-center justify-center gap-2
                                         text-sm font-medium"
@@ -511,15 +511,15 @@ export default function TrackingDetails() {
 
                         {trackingStatus !== 'pending' && trackingStatus !== "" && trackingStatus !== "canceled" && (
                             <div className="flex flex-col items-center gap-2 py-4">
-                                <CheckCircle size={56} className="text-green-500 dark:text-green-400" />
-                                <p className="text-sm text-slate-500 dark:text-slate-400">
+                                <CheckCircle size={56} className="text-green-500 " />
+                                <p className="text-sm text-slate-500 ">
                                     Delivery has been assigned
                                 </p>
-                                <div className="mt-1 px-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-center">
-                                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-0.5">
+                                <div className="mt-1 px-4 py-2 rounded-lg bg-slate-50  text-center">
+                                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-400  mb-0.5">
                                         Assignee
                                     </p>
-                                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                                    <h3 className="text-sm font-semibold text-slate-800 ">
                                         {trackingData.rider_name && trackingData.rider_phone
                                             ? `🏍️ ${title(trackingData.rider_name)} — ${trackingData.rider_phone}`
                                             : rider
@@ -530,7 +530,7 @@ export default function TrackingDetails() {
                         )}
 
                         {trackingStatus === 'canceled' && (
-                            <p className="text-sm text-red-500 dark:text-red-400 text-center py-2">
+                            <p className="text-sm text-red-500  text-center py-2">
                                 This delivery has been canceled.
                             </p>
                         )}

@@ -67,7 +67,7 @@ const TrackingSection: React.FC = () => {
           <div className="my-parcels">
             <p
               onClick={handleOpen}
-              className='dark:underline dark:underline-offset-4 cursor-pointer text-sm sm:text-base text-orange-700/70 dark:text-orange-400/80 transition-colors duration-200 hover:text-orange-700/90 dark:hover:text-orange-400'
+              className='  cursor-pointer text-sm sm:text-base text-orange-700/70  transition-colors duration-200 hover:text-orange-700/90 '
 
 
             >
@@ -97,7 +97,7 @@ const TrackingSection: React.FC = () => {
               w-full px-4 py-3.5
               bg-[#fdefe8] text-gray-800 
               border border-orange-200 rounded-xl
-              text-sm sm:text-base dark:border dark:border-orange-700/50 dark:bg-[#303030] dark:text-gray-200
+              text-sm sm:text-base    
               placeholder:text-xs sm:placeholder:text-sm md:placeholder:text-base
               placeholder:text-orange-700/70
               focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400

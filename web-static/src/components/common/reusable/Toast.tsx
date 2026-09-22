@@ -27,29 +27,29 @@ const CONFIG: Record<
 > = {
   success: {
     Icon: CheckCircle,
-    iconColor: "text-[#16a34a] dark:text-[#4ade80]",
-    bg: "bg-[#f0fdf4] dark:bg-[#14532d]/25",
+    iconColor: "text-[#16a34a] ",
+    bg: "bg-[#f0fdf4] ",
     border: "border-l-[#16a34a]",
     progress: "#16a34a",
   },
   error: {
     Icon: XCircle,
-    iconColor: "text-[#ef4444] dark:text-[#f87171]",
-    bg: "bg-[#fef2f2] dark:bg-[#450a0a]/25",
+    iconColor: "text-[#ef4444] ",
+    bg: "bg-[#fef2f2] ",
     border: "border-l-[#ef4444]",
     progress: "#ef4444",
   },
   warning: {
     Icon: AlertTriangle,
-    iconColor: "text-[#ff833c] dark:text-[#fb923c]",
-    bg: "bg-[#fff7ed] dark:bg-[#431407]/25",
+    iconColor: "text-[#ff833c] ",
+    bg: "bg-[#fff7ed] ",
     border: "border-l-[#ff833c]",
     progress: "#ff833c",
   },
   info: {
     Icon: Info,
-    iconColor: "text-[#3b82f6] dark:text-[#60a5fa]",
-    bg: "bg-[#eff6ff] dark:bg-[#1e3a5f]/25",
+    iconColor: "text-[#3b82f6] ",
+    bg: "bg-[#eff6ff] ",
     border: "border-l-[#3b82f6]",
     progress: "#3b82f6",
   },
@@ -113,7 +113,7 @@ const Toast: React.FC<ToastProps> = ({
           <div
             className={`
               relative flex items-start gap-3 px-4 py-3 rounded-lg overflow-hidden
-              border border-gray-200 dark:border-[#2a2a2a] border-l-4 ${border}
+              border border-gray-200  border-l-4 ${border}
               ${bg} shadow-md transition-colors duration-200
             `}
           >
@@ -123,7 +123,7 @@ const Toast: React.FC<ToastProps> = ({
             </span>
 
             {/* Message */}
-            <p className="flex-1 text-sm text-gray-800 dark:text-gray-200 leading-snug">
+            <p className="flex-1 text-sm text-gray-800  leading-snug">
               {message}
             </p>
 
@@ -132,7 +132,7 @@ const Toast: React.FC<ToastProps> = ({
               <button
                 onClick={dismiss}
                 aria-label="Dismiss"
-                className="shrink-0 mt-0.5 text-gray-400 hover:text-gray-700 dark:hover:text-gray-100 transition-colors duration-150"
+                className="shrink-0 mt-0.5 text-gray-400 hover:text-gray-700  transition-colors duration-150"
               >
                 <X size={14} />
               </button>

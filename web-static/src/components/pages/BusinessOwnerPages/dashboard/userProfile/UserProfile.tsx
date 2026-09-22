@@ -115,22 +115,22 @@ const UserProfile = () => {
     }, [updated])
 
     const messageTextClass = showMsg.state === 'red'
-        ? 'text-red-500 dark:text-red-400'
-        : 'text-green-500 dark:text-green-400';
+        ? 'text-red-500 '
+        : 'text-green-500 ';
 
-    const editWrapper = "rounded-2xl min-h-[3rem] flex items-center w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-primary rounded-lg";
-    const editInput = "w-full h-12 px-4 bg-transparent text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none";
+    const editWrapper = "rounded-2xl min-h-[3rem] flex items-center w-full bg-white  border border-slate-200  rounded-lg";
+    const editInput = "w-full h-12 px-4 bg-transparent text-slate-900  placeholder:text-slate-400 focus:outline-none";
 
-    const readonlyWrapper = "rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 min-h-[3rem] flex items-center cursor-default w-full shadow-sm";
-    const readonlyText = "text-slate-900 dark:text-slate-100";
+    const readonlyWrapper = "rounded-lg border border-slate-200  bg-slate-50  px-4 min-h-[3rem] flex items-center cursor-default w-full shadow-sm";
+    const readonlyText = "text-slate-900 ";
 
-    const sectionTitle = "font-semibold text-xl text-slate-900 dark:text-slate-100";
-    const sectionSubtitle = "text-sm text-slate-500 dark:text-slate-400";
+    const sectionTitle = "font-semibold text-xl text-slate-900 ";
+    const sectionSubtitle = "text-sm text-slate-500 ";
     const actionButton = "inline-flex items-center justify-center gap-2 rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 transition hover:bg-orange-600";
-    const sectionCard = "rounded-[32px] border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-sm p-6";
+    const sectionCard = "rounded-[32px] border border-slate-200  bg-white  shadow-sm p-6";
 
     return (
-        <div className="flex flex-col w-full text-gray-900 dark:text-gray-100">
+        <div className="flex flex-col w-full text-gray-900 ">
             <div className={sectionCard}>
                 <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                     <div>
@@ -165,7 +165,7 @@ const UserProfile = () => {
                         </div>
 
                         <div className="flex flex-col items-center gap-8">
-                            <div className="relative inline-flex h-[11rem] w-[11rem] items-center justify-center rounded-full border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900 shadow-lg">
+                            <div className="relative inline-flex h-[11rem] w-[11rem] items-center justify-center rounded-full border border-slate-200 bg-slate-50   shadow-lg">
                                 {canEdit && (
                                     <>
                                         <input type="file" className="hidden" id="avatar" onChange={(e) => handleAvatarUpload(e)} />

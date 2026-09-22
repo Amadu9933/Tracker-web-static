@@ -5,7 +5,7 @@ import TopContainer from './TopContainer';
 
 const BusinessOwnerLandingPage: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-[#0b111f] transition-colors duration-300">
+    <div className="bg-white  transition-colors duration-300">
       <ScopedCssBaseline />
       <Container maxWidth="xl" sx={{ padding: '0 !important' }}>
         <div
@@ -17,14 +17,14 @@ const BusinessOwnerLandingPage: React.FC = () => {
           }}
         >
           {/* Overlay — lighter in dark mode */}
-          <div className="absolute inset-0 bg-[#B3C3CF33] dark:bg-[#0b111f66] opacity-20 dark:opacity-40 ml-[30%]" />
+          <div className="absolute inset-0 bg-[#B3C3CF33]  opacity-20  ml-[30%]" />
 
           <div className="relative w-full h-full">
             {/* Decorative box — dimmed in dark mode */}
             <img
               src={smallBox}
               alt="ellipse"
-              className="mt-12 ml-10 h-20 w-24 absolute dark:opacity-30"
+              className="mt-12 ml-10 h-20 w-24 absolute "
             />
             <TopContainer />
           </div>

@@ -120,7 +120,7 @@ export default function Payment({ showDialog }: any) {
                         Amount in {getCountry() === 'nigeria' ? "(NGN)" : "(GHS)"}
                     </h3>
                     <div
-                        className="flex justify-center items-center border border-orange-300 rounded-md px-3 py-2 bg-transparent dark:bg-slate-900"
+                        className="flex justify-center items-center border border-orange-300 rounded-md px-3 py-2 bg-transparent "
                     >
                         <span
                             className={`${isDarkMode ? 'text-gray-300' : 'text-gray-500'} text-sm mr-3`}
@@ -148,12 +148,12 @@ export default function Payment({ showDialog }: any) {
             }
 
             <div
-                className="flex flex-col sm:flex-row items-start sm:items-center mt-6 bg-orange-100 dark:bg-slate-700 w-full rounded-lg p-4 mb-5 gap-3 min-w-0"
+                className="flex flex-col sm:flex-row items-start sm:items-center mt-6 bg-orange-100  w-full rounded-lg p-4 mb-5 gap-3 min-w-0"
             >
                 <div className="flex-shrink-0">
                     <FontAwesomeIcon icon={faTriangleExclamation} style={{ fontSize: '1rem', color: '#FF833C' }} />
                 </div>
-                <h3 className="text-sm text-gray-500 dark:text-gray-200 break-words whitespace-normal min-w-0">
+                <h3 className="text-sm text-gray-500  break-words whitespace-normal min-w-0">
                     The total amount at checkout may vary slightly due to applicable taxes, processing fees, or exchange rate fluctuations.
                 </h3>
             </div>

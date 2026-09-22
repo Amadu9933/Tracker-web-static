@@ -5,20 +5,20 @@ export const NotFound = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-background-light to-white dark:from-background-dark dark:to-gray-900 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-gradient-to-br from-background-light to-white   flex items-center justify-center px-4">
             <div className="text-center max-w-md">
                 {/* Error Code */}
                 <div className="mb-8">
-                    <h1 className="text-9xl font-bold   text-primary dark:text-slate-200">
+                    <h1 className="text-9xl font-bold   text-primary ">
                         404
                     </h1>
                 </div>
 
                 {/* Message */}
-                <h2 className="text-3xl font-bold text-text-secondary-light dark:text-text-primary-dark mb-4">
+                <h2 className="text-3xl font-bold text-text-secondary-light  mb-4">
                     This parcel took a wrong turn!
                 </h2>
-                <p className="text-lg text-text-secondary-light dark:text-text-secondary-dark mb-8">
+                <p className="text-lg text-text-secondary-light  mb-8">
                     Sorry, the page you're looking for doesn't exist or has been moved. Let's get you back on track!
                 </p>
 

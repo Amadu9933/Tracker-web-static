@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="footer pt-8 px-4 md:pt-12 md:px-10 lg:px-32 bg-secondary dark:bg-background-dark">
+    <footer className="footer pt-8 px-4 md:pt-12 md:px-10 lg:px-32 bg-secondary ">
       <div className="mx-auto w-full max-w-6xl">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* First column */}

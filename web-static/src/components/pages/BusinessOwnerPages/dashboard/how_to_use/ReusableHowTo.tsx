@@ -14,7 +14,7 @@ export default function ReusableHowTo({steps}: any) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 bg-white dark:bg-[#0b111f] text-left text-[#48463A] dark:text-gray-100 transition-colors duration-200"
+        className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 bg-white  text-left text-[#48463A]  transition-colors duration-200"
     >
     <Stack spacing={4}>
         {steps.map((step: any, index: any) => (
@@ -52,7 +52,7 @@ export default function ReusableHowTo({steps}: any) {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1, duration: 0.5 }}
-                        className="text-lg sm:text-xl text-secondary dark:text-gray-100 font-semibold mb-4 flex items-center gap-2"
+                        className="text-lg sm:text-xl text-secondary  font-semibold mb-4 flex items-center gap-2"
                     >
                         {step.title}
                     </motion.h2>

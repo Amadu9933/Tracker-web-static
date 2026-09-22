@@ -85,7 +85,7 @@ const ParcelChart: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="h-full flex flex-col bg-white dark:bg-[#0F172A] dark:border dark:border-gray-700 rounded-xl text-secondary dark:text-slate-200 p-3 sm:p-4"
+      className="h-full flex flex-col bg-white    rounded-xl text-secondary  p-3 sm:p-4"
     >
       {/* Header */}
       <motion.div
@@ -152,7 +152,7 @@ const ParcelChart: React.FC = () => {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-red-500 dark:text-red-300 text-xs sm:text-sm text-center"
+          className="text-red-500  text-xs sm:text-sm text-center"
         >
           {error}
         </motion.p>
@@ -163,7 +163,7 @@ const ParcelChart: React.FC = () => {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-xs sm:text-sm text-center text-gray-500 dark:text-gray-300"
+          className="text-xs sm:text-sm text-center text-gray-500 "
         >
           Loading chart...
         </motion.p>
@@ -246,7 +246,7 @@ const ParcelChart: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300"
+          className="text-center text-xs sm:text-sm text-gray-500 "
         >
           No data available.
         </motion.p>

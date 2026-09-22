@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Avatar, IconButton, CircularProgress as MuiCircularProgress } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import ThemeToggle from '@components/common/ThemeToggle';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { getUserProfile } from '../../../../api/users';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
@@ -15,13 +14,11 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import { logoutUser } from '../../../../api/auth';
 import Logo from '../../../../assets/Logo.png';
 import CircularProgress from '../../customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
-import { useTheme } from '../../../../context/ThemeContext';
 import {useAuth} from '../../../../context/AuthContext';
 
 const Dashboard: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isDarkMode } = useTheme();
 
   const {user, setUser} = useAuth();
 
@@ -66,7 +63,7 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="flex relative">
+    <div className="flex relative min-h-screen bg-white text-gray-900">
       {/* Backdrop for mobile when sidebar is open */}
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-10 sm:hidden" onClick={toggleSidebar} />
@@ -74,7 +71,7 @@ const Dashboard: React.FC = () => {
 
       {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'} transform transition-transform duration-200 ease-in-out
-        fixed sm:relative inset-y-0 left-0 w-56 sm:w-[220px] bg-gray-200 dark:bg-[#111827] text-secondary dark:text-gray-200 pl-[28px] flex flex-col justify-between z-20`}>
+        fixed sm:relative inset-y-0 left-0 w-56 sm:w-[220px] bg-gray-200 text-secondary pl-[28px] flex flex-col justify-between z-20`}>
         <nav className="flex flex-col">
           <h2>
             <img className="h-7 my-[32px] w-20" src={Logo} alt="logo" onClick={() => navigate('/')} />
@@ -85,8 +82,8 @@ const Dashboard: React.FC = () => {
               onClick={() => { navigate('/dashboard/home'); if (sidebarOpen) setSidebarOpen(false); }}
               className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
                 ${location.pathname === '/dashboard/home'
-                  ? 'bg-orange-500 text-white dark:bg-orange-600'
-                  : 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800'}`}
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-transparent text-gray-900 hover:bg-gray-300'}`}
             >
               <GridViewIcon />
               <span className="ml-1">Dashboard</span>
@@ -97,8 +94,8 @@ const Dashboard: React.FC = () => {
               onClick={() => { navigate('/dashboard/reports'); if (sidebarOpen) setSidebarOpen(false); }}
               className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
                 ${location.pathname === '/dashboard/reports'
-                  ? 'bg-orange-500 text-white dark:bg-orange-600'
-                  : 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800'}`}
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-transparent text-gray-900 hover:bg-gray-300'}`}
             >
               <WatchLaterOutlinedIcon />
               <span className="ml-1">Report</span>
@@ -109,8 +106,8 @@ const Dashboard: React.FC = () => {
               onClick={() => { navigate('/dashboard/logistics'); if (sidebarOpen) setSidebarOpen(false); }}
               className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
                 ${location.pathname === '/dashboard/logistics'
-                  ? 'bg-orange-500 text-white dark:bg-orange-600'
-                  : 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800'}`}
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-transparent text-gray-900 hover:bg-gray-300'}`}
             >
               <LocalShippingOutlinedIcon />
               <span className="ml-1">Logistics</span>
@@ -121,8 +118,8 @@ const Dashboard: React.FC = () => {
               onClick={() => { navigate('/dashboard/how-to-use'); if (sidebarOpen) setSidebarOpen(false); }}
               className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
                 ${location.pathname === '/dashboard/how-to-use'
-                  ? 'bg-orange-500 text-white dark:bg-orange-600'
-                  : 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800'}`}
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-transparent text-gray-900 hover:bg-gray-300'}`}
             >
               <HelpOutlineIcon />
               <span className="ml-1">How To Use</span>
@@ -138,8 +135,8 @@ const Dashboard: React.FC = () => {
               onClick={() => { navigate('/dashboard/user-profile'); if (sidebarOpen) setSidebarOpen(false); }}
               className={`flex w-40 p-2 text-[14px] rounded-[8px] cursor-pointer mb-[32px] items-center gap-2
                 ${location.pathname === '/dashboard/user-profile'
-                  ? 'bg-orange-500 text-white dark:bg-orange-600'
-                  : 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-slate-800'}`}
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-transparent text-gray-900 hover:bg-gray-300'}`}
             >
               <Avatar src={`${user?.user?.avatar}?v=${Date.now()}` || undefined} sx={{ height: 20, width: 20 }} />
               <span className="ml-1">Profile</span>
@@ -150,10 +147,10 @@ const Dashboard: React.FC = () => {
               onClick={handleLogout}
               aria-disabled={loggingOut}
               className={`flex w-40 p-2 text-[14px] rounded-[8px] mb-[32px] items-center gap-2
-                bg-transparent text-gray-900 dark:text-gray-100
+                bg-transparent text-gray-900
                 ${loggingOut
                   ? 'opacity-50 cursor-not-allowed'
-                  : 'cursor-pointer hover:bg-gray-300 dark:hover:bg-slate-800'}`}
+                  : 'cursor-pointer hover:bg-gray-300'}`}
             >
               {loggingOut
                 ? <MuiCircularProgress size={20} thickness={5} sx={{ color: 'inherit' }} />
@@ -171,20 +168,20 @@ const Dashboard: React.FC = () => {
         className="bg-gray-300 h-[24px]"
         onClick={() => navigate(-1)}
       >
-        <ChevronLeftOutlinedIcon />
+        <ChevronLeftOutlinedIcon   />
       </button>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col -ml-6 sm:px-6 pt-5 max-w-screen-xl mx-auto">
         {/* App Bar */}
-        <div className="border-b border-[#D9D9D9] dark:border-[#2f3a4a] bg-white dark:bg-[#0b111f] mx-4 sticky top-0 z-10">
+        <div className="border-b border-[#D9D9D9] bg-white mx-4 sticky top-0 z-10">
 
           <AppBar
             position="sticky"
             color="default"
             elevation={0}
             sx={{
-              backgroundColor: isDarkMode ? '#0b111f' : 'white',
+              backgroundColor: 'white',
             }}
           >
             
@@ -200,8 +197,8 @@ const Dashboard: React.FC = () => {
                   onClick={() => navigate('/dashboard/generate-tracking-id')}
                   className={`flex items-center gap-1.5 w-[130px] md:w-fit px-3 sm:px-4 ml-8 sm:ml-5 py-1.5 sm:py-2 leading-5 font-medium text-[12px] sm:text-[14px] rounded-[6px] cursor-pointer transition-all duration-200
     ${location.pathname === '/dashboard/generate-tracking-id'
-                      ? 'bg-[#E3E2DC] dark:bg-gradient-to-r dark:from-gray-500 dark:to-gray-700 dark:shadow-[0_0_14px_rgba(249,115,22,0.45)] dark:ring-1 dark:ring-orange-400/50 text-[#ABABAB] dark:text-white dark:font-semibold'
-                      : 'bg-primary dark:bg-[#1e2738] dark:border dark:border-orange-500/40 dark:hover:border-orange-400 dark:hover:bg-[#252d3d] text-white dark:text-orange-100 sm:-ml-5'}`}
+                      ? 'bg-[#E3E2DC] text-[#ABABAB]'
+                      : 'bg-primary text-white sm:-ml-5'}`}
                 >
                   {/* <span className="sm:hidden text-base leading-none">＋</span> */}
                   <span className="hidden sm:inline">Generate Tracking ID</span>
@@ -209,10 +206,9 @@ const Dashboard: React.FC = () => {
                 </button>
               </div>
               <div className="flex items-center space-x-4">
-                <div><ThemeToggle /></div>
                 <IconButton>
                   <NotificationsNoneOutlinedIcon
-                    sx={{ color: isDarkMode ? '#94a3b8' : 'inherit' }}
+                    sx={{ color: 'inherit' }}
                   />
                 </IconButton>
                 <div className="flex items-center space-x-2">
@@ -220,7 +216,7 @@ const Dashboard: React.FC = () => {
                     src={`${user?.user?.avatar}?v=${Date.now()}` || undefined}
                     sx={{ height: 20, width: 20 }}
                   />
-                  <span className="text-gray-700 dark:text-gray-200 font-semibold hidden sm:inline">
+                  <span className="text-gray-700 font-semibold hidden sm:inline">
                     {loading ? 'Loading...' : error ? 'Error' : `Welcome, ${user?.user?.name || 'User'}`}
                   </span>
                 </div>

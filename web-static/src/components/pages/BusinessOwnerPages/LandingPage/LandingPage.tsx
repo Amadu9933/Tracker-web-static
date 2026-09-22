@@ -10,7 +10,7 @@ import Footer from '@common/footer/Footer';
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-[#0b111f] transition-colors duration-300">
+    <div className="bg-white  transition-colors duration-300">
       <div className="w-full min-h-[750px]">
         {' '}
         <Hero />
@@ -24,7 +24,7 @@ const LandingPage: React.FC = () => {
       </div>
       <ReadyTo />
       <YouCanTrustUs />
-      <div className="py-24 px-10 md:px-24 bg-white dark:bg-[#0b111f] transition-colors duration-300">
+      <div className="py-24 px-10 md:px-24 bg-white  transition-colors duration-300">
         {/* <MyQuestionSection /> */}
         <QuestionSection />
       </div>

@@ -13,7 +13,7 @@ const Layout: React.FC = () => {
   const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark">
+    <div className="min-h-screen bg-background-light text-text-primary-light">
       {!shouldHideNavbar && (
         <header>
           <Navbar />

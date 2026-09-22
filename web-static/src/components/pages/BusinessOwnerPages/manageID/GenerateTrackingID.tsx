@@ -15,13 +15,13 @@ const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
 const inputClass =
     "tracking-form-input " +
-    "w-full border border-black dark:border-gray-600 rounded-md " +
-    "bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100 " +
+    "w-full border border-black  rounded-md " +
+    "bg-white  text-gray-900  " +
     "focus:border-primary focus:ring-1 focus:ring-primary/40 focus:outline-none " +
-    "dark:focus:border-primary dark:focus:ring-primary/40 transition-colors duration-200";
+    "  transition-colors duration-200";
 
-const labelClass = "block text-sm sm:text-base font-medium mb-1 text-gray-700 dark:text-gray-300";
-const errorClass = "text-red-500 dark:text-red-400 text-xs mt-1";
+const labelClass = "block text-sm sm:text-base font-medium mb-1 text-gray-700 ";
+const errorClass = "text-red-500  text-xs mt-1";
 
 const fields = [
     {
@@ -205,20 +205,20 @@ const GenerateTrackingID = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 bg-white dark:bg-[#0b111f] text-left text-[#48463A] dark:text-gray-100 transition-colors duration-200"
+            className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 bg-white  text-left text-[#48463A]  transition-colors duration-200"
         >
             {/* Header */}
             <motion.h2
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.5 }}
-                className="text-lg sm:text-xl text-secondary dark:text-gray-100 font-semibold mb-4 flex items-center gap-2"
+                className="text-lg sm:text-xl text-secondary  font-semibold mb-4 flex items-center gap-2"
             >
                 <img
                     src={ArrowBack}
                     alt="Back icon"
                     onClick={() => navigate(-1)}
-                    className="h-5 sm:h-6 cursor-pointer dark:invert dark:[filter:invert(1)_sepia(1)_saturate(5)_hue-rotate(2deg)_brightness(1)]
+                    className="h-5 sm:h-6 cursor-pointer  
                     hover:opacity-80 active:scale-95 transition-all duration-200"
                     style={{ filter: undefined }}
                 />
@@ -229,7 +229,7 @@ const GenerateTrackingID = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-xs text-[#ABABAB] dark:text-gray-500 my-6 sm:my-10 font-semibold uppercase tracking-wide"
+                className="text-xs text-[#ABABAB]  my-6 sm:my-10 font-semibold uppercase tracking-wide"
             >
                 Customer details
             </motion.p>
@@ -319,9 +319,9 @@ const GenerateTrackingID = () => {
                                 whileTap={{ scale: loading ? 1 : 0.98 }}
                                 type="submit"
                                 disabled={loading}
-                                className={`bg-primary dark:bg-transparent dark:border-2 dark:border-primary
-                                dark:text-primary dark:hover:bg-primary dark:hover:text-white
-                                dark:shadow-[0_0_12px_rgba(249,115,22,0.25)]
+                                className={`bg-primary   
+                                  
+                                
                                 text-white py-2.5 px-6 rounded-md font-semibold text-sm sm:text-base
                                 w-full sm:w-1/2 transition-all duration-200
                                 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
@@ -341,7 +341,7 @@ const GenerateTrackingID = () => {
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="mt-4 text-red-500 dark:text-red-400 text-xs sm:text-sm text-center"
+                    className="mt-4 text-red-500  text-xs sm:text-sm text-center"
                 >
                     {error}
                 </motion.p>
