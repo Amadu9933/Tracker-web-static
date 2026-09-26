@@ -110,7 +110,7 @@ export default function Payment({ showDialog }: any) {
                     onClick={() => showDialog(false)} />
             </div>
             <h3 className={`${isDarkMode ? 'text-gray-200' : 'text-gray-800'} text-sm mt-4 mb-10`}>
-                Enter the amount you'd like to add to your Trackerr wallet.
+                Enter the amount you'd like to add to your TrackerrGo wallet.
             </h3>
             <div
                 className='flex justify-center w-full gap-4 mb-5'

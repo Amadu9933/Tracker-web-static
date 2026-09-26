@@ -61,9 +61,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const fetchUser = async () => {
       if (token) {
         try {
-          const response = await axiosInstance.get('/user-profile', {
-            headers: { Authorization: `Bearer ${token}` },
-          });
+          const response = await axiosInstance.get('/user-profile');
           setUser(response.data);
         } catch (error) {
           console.error('Failed to fetch user data:', error);
@@ -86,9 +84,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setToken(token);
 
       // Fetch and store user data
-      const userResponse = await axiosInstance.get('/user-profile', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const userResponse = await axiosInstance.get('/user-profile');
       setUser(userResponse.data);
     } catch (error) {
       console.error('Login failed:', error);

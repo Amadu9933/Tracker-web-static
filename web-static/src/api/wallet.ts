@@ -16,12 +16,7 @@ export const getWalletBalance = async (): Promise<WalletBalance> => {
   const token = localStorage.getItem('access');
   if (!token) throw new Error('Unauthorized: missing access token');
 
-  const resp = await axiosInstance.get(`${TRACKERR_HOST}/business-owner/balance/`, {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-  });
+  const resp = await axiosInstance.get(`${TRACKERR_HOST}/business-owner/balance/`);
 
  
   const data = resp.data;
