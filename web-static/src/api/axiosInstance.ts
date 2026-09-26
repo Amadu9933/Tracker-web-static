@@ -1,69 +1,88 @@
 import axios from 'axios';
+
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
 const axiosInstance = axios.create({
-  baseURL: `${TRACKERR_HOST}/`, // Use the API root for all endpoints
+  baseURL: `${TRACKERR_HOST}/`,
   timeout: 30000,
   headers: {
     Accept: 'application/json',
   },
 });
 
-// ✅ Request interceptor to add Authorization header
+let refreshPromise: any = null;
+
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('access');
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// ✅ Response interceptor to handle 401 errors and token refresh
 axiosInstance.interceptors.response.use(
   (response) => response,
+
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
-
 
       try {
         const refreshToken = localStorage.getItem('refresh');
+
         if (!refreshToken) {
-          // No refresh token, redirect to login
-          localStorage.removeItem('access');
-          localStorage.removeItem('refresh');
-          localStorage.removeItem('userId');
-          window.location.href = '/login';
-          return Promise.reject(error);
+          throw new Error('No refresh token');
         }
 
-        // Try to refresh the token
-        const response = await axios.post(
-          `${TRACKERR_HOST}/auth/token/refresh/`,
-          { refresh: refreshToken }
-        );
+        // If another request is already refreshing,
+        // wait for that refresh instead of starting another one.
+        if (!refreshPromise) {
+          refreshPromise = axios
+            .post(
+              `${TRACKERR_HOST}/auth/token/refresh/`,
+              { refresh: refreshToken }
+            )
+            .then((response) => {
+              const newAccessToken = response.data.access;
+              const newRefreshToken = response.data.refresh;
 
-        const newAccessToken = response.data.access;
-        const newRefreshToken = response.data.refresh;
-        localStorage.setItem('access', newAccessToken);
-        localStorage.setItem('refresh', newRefreshToken);
+              localStorage.setItem('access', newAccessToken);
 
-        // Retry original request with new token
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+              if (newRefreshToken) {
+                localStorage.setItem('refresh', newRefreshToken);
+              }
+
+              return newAccessToken;
+            })
+            .finally(() => {
+              refreshPromise = null;
+            });
+        }
+
+        const newAccessToken = await refreshPromise;
+
+        originalRequest.headers.Authorization =
+          `Bearer ${newAccessToken}`;
+
         return axiosInstance(originalRequest);
+
       } catch (refreshError) {
-        // Refresh failed, redirect to login
         localStorage.removeItem('access');
         localStorage.removeItem('refresh');
         localStorage.removeItem('userId');
+
         window.location.href = '/login';
+
         return Promise.reject(refreshError);
       }
     }
