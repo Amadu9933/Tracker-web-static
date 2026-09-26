@@ -6,7 +6,7 @@ const Career: React.FC = () => {
       <section className="mx-auto flex min-h-[60vh] max-w-4xl items-center justify-center">
         <div className="w-full rounded-[28px] border border-slate-200 bg-white px-6 py-16 text-center shadow-sm md:px-12">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">
-            Careers at Trackerr
+            Careers at TrackerrGo
           </p>
           <h1 className="mt-5 text-4xl font-bold leading-tight text-slate-900 md:text-5xl">
             No open roles at the moment

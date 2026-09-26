@@ -21,7 +21,7 @@ const ReadyTo: React.FC = () => {
         </h2>
 
         <p className="text-sm mt-4 mb-4 text-white ">
-          Trackerr has got you covered.
+          TrackerrGo has got you covered.
         </p>
 
         <motion.button

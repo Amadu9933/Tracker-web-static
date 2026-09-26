@@ -1,10 +1,10 @@
 import React from 'react';
 
 const refundHighlights = [
-  'Trackerr does not accept liability for parcel loss, delay, damage, or theft during transit or delivery.',
+  'TrackerrGo does not accept liability for parcel loss, delay, damage, or theft during transit or delivery.',
   'Responsibility for parcel handling, dispatch, and final delivery remains with the logistics owner and their riders.',
   'All deposits and prepaid amounts are non-refundable once payment has been made and service has been initiated.',
-  'Refund requests are only reviewed for platform-level payment errors or service issues directly caused by Trackerr.',
+  'Refund requests are only reviewed for platform-level payment errors or service issues directly caused by TrackerrGo.',
 ];
 
 const Refund: React.FC = () => (
@@ -21,7 +21,7 @@ const Refund: React.FC = () => (
 
       <div className="space-y-6 px-6 py-8 text-sm leading-7 text-slate-700 md:px-10">
         <p>
-          Trackerr provides a tracking and logistics visibility platform. We are not
+          TrackerrGo provides a tracking and logistics visibility platform. We are not
           liable for the safety, loss, delay, or damage of any parcel during transit
           or delivery. Responsibility for parcel handling, dispatch, and final
           delivery remains with the logistics owner and their riders.
@@ -41,14 +41,14 @@ const Refund: React.FC = () => (
         <div className="rounded-2xl border border-orange-100 bg-orange-50 p-5">
           <h2 className="text-lg font-semibold text-slate-900">Important note</h2>
           <p className="mt-2">
-            Deposits made on Trackerr are strictly non-withdrawable and non-refundable.
+            Deposits made on TrackerrGo are strictly non-withdrawable and non-refundable.
             Any refund review is limited to platform errors or incorrect charges
-            caused directly by Trackerr and not by rider or logistics operations.
+            caused directly by TrackerrGo and not by rider or logistics operations.
           </p>
         </div>
 
         <p>
-          If a payment was charged incorrectly by Trackerr itself, customers may
+          If a payment was charged incorrectly by TrackerrGo itself, customers may
           contact support with the relevant transaction details for review. Issues
           caused by parcel movement, rider behavior, or third-party logistics
           operations are not eligible for refund.

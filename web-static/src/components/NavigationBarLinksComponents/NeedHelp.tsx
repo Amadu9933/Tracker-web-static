@@ -45,10 +45,10 @@ const faqs = [
   {
     question: "Is my tracking data secure?",
     answer:
-      "Absolutely. Trackerr uses encrypted tracking IDs and role-based access control so only authorised parties can view shipment details. We never share your data with third parties.",
+      "Absolutely. TrackerrGo uses encrypted tracking IDs and role-based access control so only authorised parties can view shipment details. We never share your data with third parties.",
   },
   {
-    question: "How do I top up my Trackerr wallet?",
+    question: "How do I top up my TrackerrGo wallet?",
     answer:
       "Go to your Dashboard, select 'Wallet', and click 'Top Up'. We support major debit/credit cards and mobile money. Funds reflect instantly and are used to create new shipments.",
   },
@@ -58,7 +58,7 @@ const quickLinks = [
   {
     icon: <BookOpen size={22} />,
     title: "Getting Started Guide",
-    desc: "New to Trackerr? Follow our step-by-step setup guide.",
+    desc: "New to TrackerrGo? Follow our step-by-step setup guide.",
   },
   {
     icon: <Package size={22} />,
@@ -73,7 +73,7 @@ const quickLinks = [
   {
     icon: <Zap size={22} />,
     title: "API Integration",
-    desc: "Integrate Trackerr into your existing systems with our REST API.",
+    desc: "Integrate TrackerrGo into your existing systems with our REST API.",
   },
 ];
 
@@ -81,7 +81,7 @@ const contactOptions = [
   {
     icon: <Mail size={26} />,
     label: "Email Support",
-    detail: "support@trackerr.africa",
+    detail: "support@trackerrgo.com",
     sub: "Response within 24 hours",
   },
   {
@@ -188,7 +188,7 @@ const NeedHelp: React.FC = () => {
             above. Don't hesitate to reach out.
           </p>
           <button className="bg-[#FF833C] hover:bg-[#e57230] text-white font-semibold px-8 py-3 rounded-full transition-colors duration-200 text-sm">
-            <a href="mailto:support@trackerr.africa" className="text-white hover:text-[#FF833C]">
+            <a href="mailto:support@trackerrgo.com" className="text-white hover:text-[#FF833C]">
               Contact Support
             </a>
           </button>

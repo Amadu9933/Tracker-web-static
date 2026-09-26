@@ -44,7 +44,7 @@ const CustomerDidYouKnow: React.FC = () => {
         <div className="md:w-[100%] md:px-[30%] md:mt-9 md:absolute text-center">
           <h1 className="mb-7 font-medium text-2xl">Did You Know?</h1>
           <p className="font-inter mb-4 text-base ">
-            Trackerr offers tracking services using tracking IDs generated for shipments managed through our platform. Just enter your parcel ID and click enter to view real-time delivery updates, rider location, and shipment status.
+            TrackerrGo offers tracking services using tracking IDs generated for shipments managed through our platform. Just enter your parcel ID and click enter to view real-time delivery updates, rider location, and shipment status.
           </p>
 
           <Button

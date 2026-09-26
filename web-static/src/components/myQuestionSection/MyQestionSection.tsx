@@ -22,7 +22,7 @@ const QuestionSection = () => {
 
             <p className="font-poppins font-normal text-lg sm:text-xl md:text-[20px] leading-relaxed md:leading-[36px] tracking-normal text-[#585858] mb-6">
               Check out the FAQ section for already answered questions that will give you clarity or reach out to our contact centre via email:
-              <span className="text-primary"> support@trackerr.africa </span>
+              <span className="text-primary"> support@trackerrgo.com </span>
           
             </p>
           </motion.div>

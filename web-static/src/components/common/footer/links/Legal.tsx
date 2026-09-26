@@ -20,7 +20,7 @@ const Legal: React.FC = () => (
 
       <div className="space-y-6 px-6 py-8 text-sm leading-7 text-slate-700 md:px-10">
         <p>
-          Trackerr is committed to operating with transparency and accountability.
+          TrackerrGo is committed to operating with transparency and accountability.
           We maintain clear business policies, protect customer rights, and uphold
           the standards expected in modern digital logistics.
         </p>

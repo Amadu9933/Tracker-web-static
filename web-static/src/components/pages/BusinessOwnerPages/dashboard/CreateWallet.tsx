@@ -118,7 +118,7 @@ const CreateWallet = ({onClick}: any) => {
           className="text-[#8B93AEF0]  mt-3 mb-6 text-xs sm:text-sm md:text-base leading-relaxed pr-0 sm:pr-44"
         >
         Top up your wallet to pay for all your deliveries
-        and keep your Trackerr account ready for use.
+        and keep your TrackerrGo account ready for use.
         </motion.p>
 
         {/* Top up button */}

@@ -17,10 +17,10 @@ const ContactUs: React.FC = () => (
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <h2 className="text-xl font-semibold text-slate-900">Email</h2>
           <a
-            href="mailto:support@trackerr.africa"
+            href="mailto:support@trackerrgo.com"
             className="mt-3 block text-base text-orange-600 underline-offset-4 hover:underline"
           >
-            support@trackerr.africa
+            support@trackerrgo.com
           </a>
         </div>
 

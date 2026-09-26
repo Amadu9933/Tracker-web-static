@@ -27,7 +27,7 @@ const YouCanTrustUs: React.FC = () => {
           className="text-[#8E8A73]  text-sm md:text-base font-inter font-medium mb-10 md:mb-14"
         >
           Dont take our word for it. Hear from happy users who have used
-          Trackerr to transform their shipping experience.
+          TrackerrGo to transform their shipping experience.
         </motion.p>
 
         {/* Testimonial Card */}
@@ -49,7 +49,7 @@ const YouCanTrustUs: React.FC = () => {
 
           <p className="text-sm md:text-base font-normal text-secondary  text-center leading-relaxed">
             "I can't express enough how our business has transformed since I
-            started using Trackerr. It's been a game-changer in every
+            started using TrackerrGo. It's been a game-changer in every
             aspect. The seamless process of generating IDs for my
             customers and connecting with dispatchers to deliver in
             real-time is on a 100%."

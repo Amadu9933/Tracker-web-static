@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
         {/* Bottom bar */}
         <div className="mt-8 border-t border-white/20 pt-6 pb-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs md:text-sm text-white/70 text-center sm:text-left">
-            Trackerr &copy; {year}. All rights reserved
+            TrackerrGo &copy; {year}. All rights reserved
           </p>
           <div className="flex items-center gap-4">
             <button

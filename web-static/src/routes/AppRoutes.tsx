@@ -55,7 +55,7 @@ const RouteTitle: React.FC = () => {
           ? 'Customer Notification'
           : 'Page Not Found';
 
-    document.title = `Trackerr | ${exactTitle ?? fallbackTitle}`;
+    document.title = `TrackerrGo | ${exactTitle ?? fallbackTitle}`;
   }, [pathname]);
 
   return null;
