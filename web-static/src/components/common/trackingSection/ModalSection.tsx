@@ -93,20 +93,6 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
    * @param {string} _email - The email to be used in the simulation. Currently not used.
    * @return {Promise<{success: boolean}>} A Promise that resolves with an object containing a boolean indicating success or rejects with an Error object indicating a failure to fetch data.
    */
-  const mockFetchRequest = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Simulate a network request failure
-        if (Math.random() < 0.5) {
-          console.log('Simulating network request failure');
-          reject(new Error('Failed to fetch data'));
-        } else {
-          console.log('Simulating successful network request');
-          resolve({ success: true });
-        }
-      }, 1000);
-    });
-  };
 
   /**
    * Handles the form submission for viewing order history.
@@ -115,27 +101,20 @@ const TrackingModal: React.FC<TrackingModalProps> = ({ open, handleClose }) => {
    * @return {Promise<void>} A Promise that resolves when the form submission is complete.
    */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('Form submitted');
     e.preventDefault();
     if (!email) {
-      console.log('Email is empty');
       alert('Oops! Please enter your email address to continue.');
       return;
     }
 
-    console.log('Setting loading state to true');
     setLoading(true);
     setError(null);
 
     try {
-      console.log('Mocking network request');
-      await mockFetchRequest();
-      console.log('Navigating to /customer-notification/${email}');
-
       navigate(`/customer-notification/${email}`);
     } catch (err) {
       console.log('Error fetching data:', err);
-      setError('Failed to fetch data. Please try again.');
+      setError('Failed to fetch data. Please try again!.');
     } finally {
       console.log('Setting loading state to false');
 
