@@ -74,7 +74,7 @@ export default function SubscriptionType() {
 
             <div className="mt-8">
               <span className="text-5xl font-black text-white">
-                ₦300
+                ₦200
               </span>
 
               <span className="ml-2 text-zinc-500">
@@ -142,7 +142,7 @@ export default function SubscriptionType() {
 
             <div className="mt-8">
               <span className="text-5xl font-black text-white">
-                ₦150,000
+                ₦100,000
               </span>
 
               <span className="ml-2 text-zinc-500">
