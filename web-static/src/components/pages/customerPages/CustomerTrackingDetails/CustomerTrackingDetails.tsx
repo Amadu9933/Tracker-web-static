@@ -1,7 +1,7 @@
 import { Back, Carbon } from '../../../../assets/asset';
 import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import {useParams, useNavigate } from 'react-router-dom';
 import DetailTable from './DetailTable';
 import LiveTrackingMap from './LiveTrackingMap';
 
