@@ -1,7 +1,7 @@
 import { Back, Carbon } from '../../../../assets/asset';
 import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import DetailTable from './DetailTable';
 import LiveTrackingMap from './LiveTrackingMap';
 
@@ -23,6 +23,8 @@ const CustomerTrackingDetails: React.FC = () => {
   const [origin, setOrigin] = useState<{ lat: number; lng: number } | null>(null);
   const [destination, setDestination] = useState<{ lat: number; lng: number } | null>(null);
   const [canTrack, setCanTrack] = useState<any>(null);
+
+  const navigate = useNavigate()
 
   const openMap = () => {
     setMapOpened((prev) => !prev);
@@ -95,13 +97,12 @@ const CustomerTrackingDetails: React.FC = () => {
     <div className="  justify-right ">
 
       <div className="flex justify-center mb-10 ">
-        <Link to="/login">
           <img
-            className="md:w-[48px] md:h-[48px] w-6 h-6 md:mt-0 mt-[6px] mr-4"
+            onClick={() => navigate(-1)}
+            className="md:w-[48px] md:h-[48px] w-6 h-6 md:mt-0 mt-[6px] mr-4 hover:cursor-pointer"
             src={Back}
             alt="return"
           />
-        </Link>
         <h1 className="font-bold  
         t-[#354755] md:text-[3.5rem] text-2xl ">
           Track your parcel today!

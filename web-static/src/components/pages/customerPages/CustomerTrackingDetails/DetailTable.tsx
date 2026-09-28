@@ -67,7 +67,7 @@ const DetailTable: React.FC<DetailTableProps> = ({ setStatus, setCanTrack }) => 
           setError(null);
         } else {
           if (error.status === 404) {
-            setError('Invalid tracking number provided.');
+            setError(`${trackingNumber?.toUpperCase()} is invalid!`);
             return;
           }
           setError(
@@ -81,7 +81,7 @@ const DetailTable: React.FC<DetailTableProps> = ({ setStatus, setCanTrack }) => 
     if (trackingNumber) {
       fetchTrackingDetails();
     } else {
-      setError('Invalid tracking number provided.');
+      setError(`${trackingNumber?.toUpperCase()} is invalid!`);
     }
   }, [trackingNumber]);
 
