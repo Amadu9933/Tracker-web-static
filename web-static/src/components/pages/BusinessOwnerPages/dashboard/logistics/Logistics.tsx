@@ -346,7 +346,7 @@ const Integration = () => {
                                 { id: 'name', label: 'Rider Name', placeholder: 'John Doe', ref: nameRef },
                                 { id: 'email', label: 'Email Address', placeholder: 'johndoe@example.com', ref: emailRef },
                                 { id: 'address', label: 'Address', placeholder: '36 Accra Avenue', ref: addressRef },
-                                { id: 'phone', label: 'Phone Number', placeholder: '9015006252', ref: phoneRef },
+                                { id: 'phone', label: 'Phone Number', placeholder: '09015006252', ref: phoneRef },
                             ].map(({ id, label, placeholder, ref }) => (
                                 <div key={id} >
                                     <label className={labelClass} htmlFor={id}>{label}</label>
