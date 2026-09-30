@@ -8,6 +8,7 @@ import DashboardRoutes from './DashboardRoutes'; // Dashboard routes
 import UserRoute from './UserRoute'; // User-specific routes
 import TrackYourParcel from '@components/NavigationBarLinksComponents/TrackYourParcel';
 import CircularProgress from '@components/pages/customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
+import DeleteAccount from '@components/pages/customerPages/AccountDeletion';
 
 const Loading = () => <CircularProgress />;
 
@@ -31,6 +32,7 @@ const pageTitles: Record<string, string> = {
   '/business-info': 'Business Information',
   '/set-profile': 'Set Profile',
   '/otp': 'Verification',
+  '/delete-account': 'Account Deletion',
   '/forgot-password': 'Forgot Password',
   '/customer': 'Customer Tracking',
   '/dashboard/home': 'Dashboard',
@@ -68,6 +70,7 @@ const AppRoutes: React.FC = () => (
       {/* 🔹 Public Pages (Inside Layout) */}
       <Route path="/" element={<Layout />}>
         <Route index element={<TrackYourParcel />} />
+        <Route path='/delete-account' element={<DeleteAccount />} />
         <Route path="/*" element={<MainRoutes />} />
         <Route path="customer/*" element={<CustomerRoutes />} />
         <Route element={<ProtectedRoute />}>
