@@ -11,7 +11,7 @@ const Hero: React.FC = () => {
         className="text-white font-bold text-4xl sm:text-5xl md:text-8xl text-center mx-4 sm:mx-12 md:mx-72"
       >
         Track your <br />
-        parcel today!
+        parcel today!!
       </motion.h1>
       <motion.h4
         initial={{ opacity: 0, y: 30 }}
