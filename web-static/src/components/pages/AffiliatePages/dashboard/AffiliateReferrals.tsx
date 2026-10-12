@@ -55,13 +55,12 @@ const AffiliateReferrals: React.FC = () => {
           </span>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[900px] border-collapse text-left">
+          <table className="w-full min-w-[800px] border-collapse text-left">
             <thead className="bg-slate-50">
               <tr>
                 {[
                   'Business name',
                   'Country',
-                  'Email',
                   'Joined on',
                   'Tracking numbers',
                   'Coins earned',
@@ -90,9 +89,6 @@ const AffiliateReferrals: React.FC = () => {
                     {row.country ?? '—'}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-slate-500">
-                    {row.email ?? '—'}
-                  </td>
-                  <td className="px-4 py-3.5 text-sm text-slate-500">
                     {row.created_at
                       ? new Date(row.created_at).toLocaleDateString()
                       : '—'}
@@ -116,7 +112,7 @@ const AffiliateReferrals: React.FC = () => {
                 <tr>
                   <td
                     className="px-5 py-12 text-center text-sm text-slate-500"
-                    colSpan={7}
+                    colSpan={6}
                   >
                     No referrals yet. Share your code to bring your first
                     business on board.
@@ -127,7 +123,7 @@ const AffiliateReferrals: React.FC = () => {
                 <tr>
                   <td
                     className="px-5 py-12 text-center text-sm text-slate-500"
-                    colSpan={7}
+                    colSpan={6}
                   >
                     Loading referrals...
                   </td>
