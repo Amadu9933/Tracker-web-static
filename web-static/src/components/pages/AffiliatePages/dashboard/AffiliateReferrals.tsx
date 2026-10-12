@@ -92,8 +92,13 @@ const AffiliateReferrals: React.FC = () => {
                     {row.country ?? '—'}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-slate-500">
-                    {row.date_joined
-                      ? new Date(row.date_joined).toLocaleDateString()
+                    {(row.date_joined ?? row.created_at) &&
+                    !Number.isNaN(
+                      new Date(row.date_joined ?? row.created_at!).getTime()
+                    )
+                      ? new Date(
+                          row.date_joined ?? row.created_at!
+                        ).toLocaleDateString()
                       : '—'}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-slate-600">
