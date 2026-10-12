@@ -19,6 +19,7 @@ type UserDetails = {
   avatar: string;
   account_type: string;
   is_active: boolean;
+  is_verified: boolean;
   // ... add other fields as needed
 };
 
