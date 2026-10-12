@@ -28,6 +28,7 @@ export interface AffiliateReferral {
   country?: string;
   status?: string;
   date_joined?: string;
+  created_at?: string;
   tracking_numbers?: number;
   coins_earned?: number;
 }
