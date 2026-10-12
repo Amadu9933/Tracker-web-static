@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Mail } from 'lucide-react';
+import { ArrowLeft, Mail, UserRound } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { requestAffiliateOtp } from '../../../../api/affiliate';
+import {
+  createAffiliate,
+  requestAffiliateOtp,
+} from '../../../../api/affiliate';
 import logo from '../../../../assets/Logo.png';
 
 const AffiliateLogin: React.FC = () => {
+  const [fullName, setFullName] = useState('');
+  const [signupCreated, setSignupCreated] = useState(false);
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -17,8 +22,14 @@ const AffiliateLogin: React.FC = () => {
     setError('');
     setBusy(true);
     try {
+      if (isSignup && !signupCreated) {
+        await createAffiliate(email.trim(), fullName.trim());
+        setSignupCreated(true);
+      }
       await requestAffiliateOtp(email.trim());
-      navigate('/affiliate/verify-otp', { state: { email: email.trim() } });
+      navigate('/affiliate/verify-otp', {
+        state: { email: email.trim() },
+      });
     } catch (err) {
       setError(
         err instanceof Error ? err.message : 'Unable to send verification code.'
@@ -64,6 +75,29 @@ const AffiliateLogin: React.FC = () => {
         </p>
 
         <form className="mt-7" onSubmit={submit}>
+          {isSignup && (
+            <>
+              <label
+                className="mb-2 block text-sm font-semibold"
+                htmlFor="affiliate-full-name"
+              >
+                Full name
+              </label>
+              <div className="mb-5 flex items-center gap-3 rounded border border-slate-300 px-3.5 transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15">
+                <UserRound size={18} className="shrink-0 text-slate-400" />
+                <input
+                  id="affiliate-full-name"
+                  className="min-w-0 flex-1 border-0 bg-transparent py-3.5 text-sm outline-none placeholder:text-slate-400"
+                  type="text"
+                  placeholder="Your full name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  required
+                  autoComplete="name"
+                />
+              </div>
+            </>
+          )}
           <label
             className="mb-2 block text-sm font-semibold"
             htmlFor="affiliate-email"

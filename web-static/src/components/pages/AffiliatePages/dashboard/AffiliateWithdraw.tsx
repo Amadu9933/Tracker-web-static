@@ -9,6 +9,7 @@ import {
 import {
   getAffiliateSummary,
   getAffiliateWithdrawals,
+  isAffiliatePreviewMode,
   requestAffiliateWithdrawal,
 } from '../../../../api/affiliate';
 import type { AffiliateWithdrawal } from '../../../../types/affiliate';
@@ -21,13 +22,16 @@ const AffiliateWithdraw: React.FC = () => {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [availableCoins, setAvailableCoins] = useState<number | null>(null);
+  const [pendingWithdrawal, setPendingWithdrawal] = useState(false);
+  const previewMode = isAffiliatePreviewMode();
   const [history, setHistory] = useState<AffiliateWithdrawal[]>([]);
 
   useEffect(() => {
     getAffiliateSummary()
-      .then((summary) =>
-        setAvailableCoins(Number(summary.available_coins ?? 0))
-      )
+      .then((summary) => {
+        setAvailableCoins(Number(summary.available_coins ?? 0));
+        setPendingWithdrawal(Boolean(summary.pending_withdrawal));
+      })
       .catch((e) =>
         setError(
           e instanceof Error ? e.message : 'Could not load coin balance.'
@@ -76,6 +80,7 @@ const AffiliateWithdraw: React.FC = () => {
 
   const canWithdraw =
     availableCoins !== null && availableCoins >= MINIMUM_WITHDRAWAL_COINS;
+  const canSubmitRequest = previewMode && canWithdraw && !pendingWithdrawal;
   const statusStyle = (status: string) => {
     const normalized = status.toLowerCase();
     if (
@@ -117,6 +122,20 @@ const AffiliateWithdraw: React.FC = () => {
         </div>
       )}
 
+      {canWithdraw && pendingWithdrawal && !previewMode && (
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          The API reports a withdrawal request is already pending.
+        </div>
+      )}
+
+      {canWithdraw && !previewMode && !pendingWithdrawal && (
+        <div className="rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-900">
+          Your balance meets the minimum. Withdrawal submission and history
+          endpoints are not currently documented, so this page cannot submit a
+          real request yet.
+        </div>
+      )}
+
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(320px,0.8fr)]">
         <section className="rounded-lg border border-slate-100 bg-white p-5 shadow-sm shadow-slate-900/[0.03] sm:p-7">
           <div className="flex items-start justify-between gap-4">
@@ -149,54 +168,56 @@ const AffiliateWithdraw: React.FC = () => {
               ? 'You have reached the minimum balance.'
               : `Minimum: ${MINIMUM_WITHDRAWAL_COINS.toLocaleString()} coins`}
           </p>
-          <form
-            className="mt-6 border-t border-slate-100 pt-5"
-            onSubmit={submit}
-          >
-            <label
-              className="grid gap-2 text-sm font-semibold"
-              htmlFor="withdraw-amount"
+          {previewMode && (
+            <form
+              className="mt-6 border-t border-slate-100 pt-5"
+              onSubmit={submit}
             >
-              Coins to withdraw
-            </label>
-            <div className="mt-2 flex items-center rounded border border-slate-300 px-3.5 transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15">
-              <Coins size={17} className="text-amber-500" />
-              <input
-                id="withdraw-amount"
-                className="min-w-0 flex-1 border-0 bg-transparent px-3 py-3 text-sm outline-none"
-                type="number"
-                min="1"
-                max={availableCoins ?? undefined}
-                step="1"
-                placeholder="Enter coin amount"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                required
-                disabled={!canWithdraw || busy}
-              />
-            </div>
-            {message && (
-              <p
-                className="mt-3 flex items-center gap-2 text-sm text-emerald-700"
-                role="status"
+              <label
+                className="grid gap-2 text-sm font-semibold"
+                htmlFor="withdraw-amount"
               >
-                <CheckCircle2 size={17} />
-                {message}
-              </p>
-            )}
-            {error && (
-              <p className="mt-3 text-sm text-red-700" role="alert">
-                {error}
-              </p>
-            )}
-            <button
-              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:brightness-95 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500 sm:w-auto"
-              disabled={busy || !canWithdraw}
-            >
-              <ArrowDownToLine size={17} />
-              {busy ? 'Submitting...' : 'Request withdrawal'}
-            </button>
-          </form>
+                Coins to withdraw
+              </label>
+              <div className="mt-2 flex items-center rounded border border-slate-300 px-3.5 transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15">
+                <Coins size={17} className="text-amber-500" />
+                <input
+                  id="withdraw-amount"
+                  className="min-w-0 flex-1 border-0 bg-transparent px-3 py-3 text-sm outline-none"
+                  type="number"
+                  min="1"
+                  max={availableCoins ?? undefined}
+                  step="1"
+                  placeholder="Enter coin amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  required
+                  disabled={!canSubmitRequest || busy}
+                />
+              </div>
+              {message && (
+                <p
+                  className="mt-3 flex items-center gap-2 text-sm text-emerald-700"
+                  role="status"
+                >
+                  <CheckCircle2 size={17} />
+                  {message}
+                </p>
+              )}
+              {error && (
+                <p className="mt-3 text-sm text-red-700" role="alert">
+                  {error}
+                </p>
+              )}
+              <button
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:brightness-95 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500 sm:w-auto"
+                disabled={busy || !canSubmitRequest}
+              >
+                <ArrowDownToLine size={17} />
+                {busy ? 'Submitting...' : 'Request withdrawal'}
+              </button>
+            </form>
+          )}
         </section>
 
         <section className="overflow-hidden rounded-lg border border-slate-100 bg-white shadow-sm shadow-slate-900/[0.03]">
@@ -204,7 +225,9 @@ const AffiliateWithdraw: React.FC = () => {
             <div>
               <h3 className="font-bold">Withdrawal history</h3>
               <p className="mt-0.5 text-xs text-slate-500">
-                Track your previous requests
+                {previewMode
+                  ? 'Sample withdrawal records'
+                  : 'Not available in the documented API'}
               </p>
             </div>
             <Clock3 size={18} className="text-slate-400" />
@@ -249,7 +272,9 @@ const AffiliateWithdraw: React.FC = () => {
                       className="px-4 py-10 text-center text-sm text-slate-500"
                       colSpan={3}
                     >
-                      No withdrawal requests yet.
+                      {previewMode
+                        ? 'No sample withdrawal requests.'
+                        : 'Withdrawal history is not provided by the current API.'}
                     </td>
                   </tr>
                 )}

@@ -9,6 +9,48 @@ import type {
 const API = '/affiliate/';
 const PREVIEW_KEY = 'affiliate-preview-mode';
 
+const getApiMessage = (error: unknown, fallback: string): string => {
+  const data = (error as { response?: { data?: Record<string, unknown> } })
+    ?.response?.data;
+  const message = data?.msg ?? data?.detail ?? data?.error;
+  if (typeof message === 'string') return message;
+  if (message && typeof message === 'object') {
+    const nested = (message as { error?: unknown }).error;
+    if (nested && typeof nested === 'object') {
+      const firstError = Object.values(nested as Record<string, unknown>)[0];
+      if (Array.isArray(firstError) && typeof firstError[0] === 'string') {
+        return firstError[0];
+      }
+    }
+  }
+  return error instanceof Error ? error.message : fallback;
+};
+
+const normalizeAffiliateAccount = (data: any): AffiliateAccount => {
+  const affiliate =
+    data?.msg?.affiliate ?? data?.msg ?? data?.affiliate ?? data ?? {};
+  return {
+    id: affiliate.id ?? affiliate.email,
+    name: affiliate.full_name ?? affiliate.name ?? '',
+    email: affiliate.email ?? '',
+    referral_code: affiliate.referral_code ?? '',
+    total_coins_withdrawn: Number(affiliate.total_coins_withdrawn ?? 0),
+    is_active: affiliate.is_active ?? false,
+  };
+};
+
+const normalizeReferral = (
+  referral: any,
+  index: number
+): AffiliateReferral => ({
+  id: referral.id ?? `${referral.business_name ?? 'referral'}-${index}`,
+  business_name: referral.business_name ?? 'Business referral',
+  country: referral.country,
+  status: referral.status,
+  tracking_numbers: Number(referral.tracking_numbers ?? 0),
+  coins_earned: Number(referral.total_earned ?? referral.coins_earned ?? 0),
+});
+
 export const isAffiliatePreviewMode = (): boolean =>
   import.meta.env.DEV &&
   (new URLSearchParams(window.location.search).get('preview') === '1' ||
@@ -113,7 +155,29 @@ const previewWithdrawals: AffiliateWithdrawal[] = [
 ];
 
 export const requestAffiliateOtp = async (email: string): Promise<void> => {
-  await axiosInstance.post(`${API}auth/login/`, { email });
+  try {
+    await axiosInstance.post(`${API}request-otp/`, { email });
+  } catch (error) {
+    throw new Error(
+      getApiMessage(error, 'Unable to send the verification code.')
+    );
+  }
+};
+
+export const createAffiliate = async (
+  email: string,
+  fullName: string
+): Promise<void> => {
+  try {
+    await axiosInstance.post(`${API}create/`, {
+      email,
+      full_name: fullName,
+    });
+  } catch (error) {
+    throw new Error(
+      getApiMessage(error, 'Unable to create your affiliate account.')
+    );
+  }
 };
 
 export const verifyAffiliateOtp = async (
@@ -124,28 +188,57 @@ export const verifyAffiliateOtp = async (
   refresh?: string;
   affiliate?: AffiliateAccount;
 }> => {
-  const { data } = await axiosInstance.post(`${API}auth/verify-otp/`, {
-    email,
-    otp,
-  });
-  if (data.access) localStorage.setItem('access', data.access);
-  if (data.refresh) localStorage.setItem('refresh', data.refresh);
-  if (data.affiliate?.id)
-    localStorage.setItem('userId', String(data.affiliate.id));
-  return data;
+  try {
+    const { data } = await axiosInstance.post(`${API}authenticate/`, {
+      email,
+      otp,
+    });
+    const access = data.access ?? data.token;
+    if (!access)
+      throw new Error('The API response did not include an access token.');
+    localStorage.setItem('access', access);
+    if (data.refresh) localStorage.setItem('refresh', data.refresh);
+    return { ...data, access };
+  } catch (error) {
+    throw new Error(
+      getApiMessage(error, 'The verification code could not be verified.')
+    );
+  }
 };
 
 export const getAffiliateAccount = async (): Promise<AffiliateAccount> =>
   isAffiliatePreviewMode()
     ? previewAccount
-    : (await axiosInstance.get(`${API}account/`)).data;
+    : normalizeAffiliateAccount((await axiosInstance.get(`${API}user/`)).data);
 
-export const updateAffiliateAccount = async (
-  updates: Partial<AffiliateAccount>
-): Promise<AffiliateAccount> =>
-  isAffiliatePreviewMode()
-    ? { ...previewAccount, ...updates }
-    : (await axiosInstance.patch(`${API}account/`, updates)).data;
+export const saveAffiliateBankAccount = async (
+  bankName: string,
+  accountNumber: string
+): Promise<AffiliateAccount> => {
+  if (isAffiliatePreviewMode()) {
+    return {
+      ...previewAccount,
+      payout_bank: bankName,
+      payout_account: accountNumber,
+    };
+  }
+
+  try {
+    const account = await getAffiliateAccount();
+    const { data } = await axiosInstance.post(`${API}bank-account/`, {
+      bank_name: bankName,
+      account_number: accountNumber,
+    });
+    const saved = data?.msg ?? data;
+    return {
+      ...account,
+      payout_bank: saved.bank_name ?? bankName,
+      payout_account: saved.account_number ?? accountNumber,
+    };
+  } catch (error) {
+    throw new Error(getApiMessage(error, 'Unable to save bank details.'));
+  }
+};
 
 export const getAffiliateSummary =
   async (): Promise<AffiliateDashboardSummary> =>
@@ -157,12 +250,29 @@ export const getAffiliateSummary =
           total_coins_withdrawn: 5000,
           available_coins: 6156,
         }
-      : (await axiosInstance.get(`${API}dashboard/`)).data;
+      : (async () => {
+          const [referralsResponse, account] = await Promise.all([
+            axiosInstance.get(`${API}referrals/`),
+            getAffiliateAccount(),
+          ]);
+          const totals =
+            referralsResponse.data?.msg ?? referralsResponse.data ?? {};
+          return {
+            total_referrals: Number(totals.total_businesses ?? 0),
+            total_tracking_numbers: Number(totals.total_tracking_numbers ?? 0),
+            total_coins_earned: Number(totals.total_coins_earned ?? 0),
+            total_coins_withdrawn: Number(account.total_coins_withdrawn ?? 0),
+            available_coins: Number(totals.available_coins ?? 0),
+            pending_withdrawal: Boolean(totals.pending_withdrawal),
+          };
+        })();
 
 export const getAffiliateReferrals = async (): Promise<AffiliateReferral[]> => {
   if (isAffiliatePreviewMode()) return previewReferrals;
   const { data } = await axiosInstance.get(`${API}referrals/`);
-  return Array.isArray(data) ? data : (data.results ?? data.referrals ?? []);
+  const referrals =
+    data?.msg?.referrals ?? data?.referrals ?? data?.results ?? data;
+  return Array.isArray(referrals) ? referrals.map(normalizeReferral) : [];
 };
 
 export const requestAffiliateWithdrawal = async (
@@ -176,22 +286,19 @@ export const requestAffiliateWithdrawal = async (
       created_at: new Date().toISOString(),
     };
   }
-  const { data } = await axiosInstance.post(`${API}withdrawals/`, { coins });
-  return { ...data, coins: Number(data.coins ?? data.amount ?? coins) };
+  void coins;
+  throw new Error(
+    'Withdrawal requests are not available in the documented affiliate API yet.'
+  );
 };
 
 export const getAffiliateWithdrawals = async (): Promise<
   AffiliateWithdrawal[]
 > => {
-  if (isAffiliatePreviewMode()) return previewWithdrawals;
-  const { data } = await axiosInstance.get(`${API}withdrawals/`);
-  const withdrawals = Array.isArray(data)
-    ? data
-    : (data.results ?? data.withdrawals ?? []);
-  return withdrawals.map(
-    (withdrawal: AffiliateWithdrawal & { amount?: number }) => ({
-      ...withdrawal,
-      coins: Number(withdrawal.coins ?? withdrawal.amount ?? 0),
-    })
-  );
+  return isAffiliatePreviewMode() ? previewWithdrawals : [];
+};
+
+export const logoutAffiliate = async (): Promise<void> => {
+  if (isAffiliatePreviewMode()) return;
+  await axiosInstance.post(`${API}logout/`);
 };

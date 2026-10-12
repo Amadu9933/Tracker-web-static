@@ -14,7 +14,10 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import logo from '../../../../assets/Logo.png';
-import { isAffiliatePreviewMode } from '../../../../api/affiliate';
+import {
+  isAffiliatePreviewMode,
+  logoutAffiliate,
+} from '../../../../api/affiliate';
 
 const navigation = [
   {
@@ -46,12 +49,18 @@ const AffiliateLayout: React.FC = () => {
   React.useEffect(() => {
     if (previewRequested) sessionStorage.setItem('affiliate-preview-mode', '1');
   }, [previewRequested]);
-  const logout = () => {
-    localStorage.removeItem('access');
-    localStorage.removeItem('refresh');
-    localStorage.removeItem('userId');
-    sessionStorage.removeItem('affiliate-preview-mode');
-    navigate('/affiliate/login');
+  const logout = async () => {
+    try {
+      await logoutAffiliate();
+    } catch {
+      // Clear the local session even if the logout endpoint is unavailable.
+    } finally {
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+      localStorage.removeItem('userId');
+      sessionStorage.removeItem('affiliate-preview-mode');
+      navigate('/affiliate/login');
+    }
   };
   if (!localStorage.getItem('access') && !previewMode) {
     return <Navigate to="/affiliate/login" replace />;

@@ -14,13 +14,11 @@ import {
   getAffiliateAccount,
   getAffiliateReferrals,
   getAffiliateSummary,
-  getAffiliateWithdrawals,
 } from '../../../../api/affiliate';
 import type {
   AffiliateAccount,
   AffiliateDashboardSummary,
   AffiliateReferral,
-  AffiliateWithdrawal,
 } from '../../../../types/affiliate';
 import CountryFlag from '../CountryFlag';
 
@@ -31,7 +29,6 @@ const AffiliateDashboard: React.FC = () => {
   const [error, setError] = useState('');
   const [account, setAccount] = useState<AffiliateAccount | null>(null);
   const [referrals, setReferrals] = useState<AffiliateReferral[]>([]);
-  const [withdrawals, setWithdrawals] = useState<AffiliateWithdrawal[]>([]);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -45,9 +42,6 @@ const AffiliateDashboard: React.FC = () => {
       .catch(() => undefined);
     getAffiliateReferrals()
       .then(setReferrals)
-      .catch(() => undefined);
-    getAffiliateWithdrawals()
-      .then(setWithdrawals)
       .catch(() => undefined);
   }, []);
 
@@ -63,13 +57,7 @@ const AffiliateDashboard: React.FC = () => {
   };
 
   const availableCoins = Number(summary?.available_coins ?? 0);
-  const totalCoinsWithdrawn = Number(
-    summary?.total_coins_withdrawn ??
-      withdrawals.reduce(
-        (total, withdrawal) => total + Number(withdrawal.coins ?? 0),
-        0
-      )
-  );
+  const totalCoinsWithdrawn = Number(summary?.total_coins_withdrawn ?? 0);
   const metrics = [
     {
       label: 'Businesses joined',

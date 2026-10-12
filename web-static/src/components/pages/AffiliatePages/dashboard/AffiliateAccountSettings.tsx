@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Building2, CheckCircle2, LockKeyhole, UserRound } from 'lucide-react';
 import {
   getAffiliateAccount,
-  updateAffiliateAccount,
+  saveAffiliateBankAccount,
 } from '../../../../api/affiliate';
 import type { AffiliateAccount } from '../../../../types/affiliate';
 
@@ -11,6 +11,7 @@ const AffiliateAccountSettings: React.FC = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [bankDetailsSubmitted, setBankDetailsSubmitted] = useState(false);
   useEffect(() => {
     getAffiliateAccount()
       .then(setAccount)
@@ -25,8 +26,14 @@ const AffiliateAccountSettings: React.FC = () => {
     setMessage('');
     setBusy(true);
     try {
-      setAccount(await updateAffiliateAccount(account));
-      setMessage('Your bank details were saved successfully.');
+      setAccount(
+        await saveAffiliateBankAccount(
+          account.payout_bank ?? '',
+          account.payout_account ?? ''
+        )
+      );
+      setMessage('Your bank details were submitted successfully.');
+      setBankDetailsSubmitted(true);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unable to save settings.');
     } finally {
@@ -67,7 +74,7 @@ const AffiliateAccountSettings: React.FC = () => {
           Account settings
         </h2>
         <p className="mt-1 text-sm text-slate-500">
-          Update your payout details to receive your earnings.
+          Submit your bank details for affiliate payouts.
         </p>
       </section>
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_320px]">
@@ -82,7 +89,8 @@ const AffiliateAccountSettings: React.FC = () => {
             <div>
               <h3 className="font-bold">Bank details</h3>
               <p className="mt-0.5 text-xs text-slate-500">
-                Used for affiliate withdrawals
+                Used for affiliate withdrawals. The API does not currently
+                provide a way to load or edit saved bank details.
               </p>
             </div>
           </div>
@@ -92,10 +100,7 @@ const AffiliateAccountSettings: React.FC = () => {
               <input
                 className={inputClass}
                 value={account.name ?? ''}
-                onChange={(e) =>
-                  setAccount({ ...account, name: e.target.value })
-                }
-                required
+                readOnly
               />
             </label>
             <label className="grid gap-2 text-sm font-semibold">
@@ -113,6 +118,7 @@ const AffiliateAccountSettings: React.FC = () => {
                 className={inputClass}
                 placeholder="Enter your bank name"
                 value={account.payout_bank ?? ''}
+                disabled={bankDetailsSubmitted}
                 onChange={(e) =>
                   setAccount({ ...account, payout_bank: e.target.value })
                 }
@@ -127,6 +133,7 @@ const AffiliateAccountSettings: React.FC = () => {
                 autoComplete="off"
                 placeholder="Enter account number"
                 value={account.payout_account ?? ''}
+                disabled={bankDetailsSubmitted}
                 onChange={(e) =>
                   setAccount({ ...account, payout_account: e.target.value })
                 }
@@ -150,9 +157,13 @@ const AffiliateAccountSettings: React.FC = () => {
           )}
           <button
             className="mt-6 inline-flex items-center justify-center rounded bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:brightness-95 disabled:cursor-wait disabled:opacity-60"
-            disabled={busy}
+            disabled={busy || bankDetailsSubmitted}
           >
-            {busy ? 'Saving...' : 'Save changes'}
+            {busy
+              ? 'Submitting...'
+              : bankDetailsSubmitted
+                ? 'Bank details submitted'
+                : 'Submit bank details'}
           </button>
         </form>
 
