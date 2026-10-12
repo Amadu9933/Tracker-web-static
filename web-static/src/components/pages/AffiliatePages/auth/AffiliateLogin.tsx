@@ -31,9 +31,17 @@ const AffiliateLogin: React.FC = () => {
         state: { email: email.trim() },
       });
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : 'Unable to send verification code.'
-      );
+      const message =
+        err instanceof Error
+          ? err.message
+          : 'Unable to send verification code.';
+      if (/otp.*already.*sent|already.*sent.*otp/i.test(message)) {
+        navigate('/affiliate/verify-otp', {
+          state: { email: email.trim(), otpAlreadySent: true },
+        });
+        return;
+      }
+      setError(message);
     } finally {
       setBusy(false);
     }

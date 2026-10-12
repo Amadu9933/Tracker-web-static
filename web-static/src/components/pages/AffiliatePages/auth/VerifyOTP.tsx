@@ -12,7 +12,12 @@ const OTP_LENGTH = 6;
 const VerifyOTP: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const email = (location.state as { email?: string } | null)?.email ?? '';
+  const routeState = location.state as {
+    email?: string;
+    otpAlreadySent?: boolean;
+  } | null;
+  const email = routeState?.email ?? '';
+  const otpAlreadySent = routeState?.otpAlreadySent ?? false;
   const [digits, setDigits] = useState<string[]>(Array(OTP_LENGTH).fill(''));
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -105,7 +110,9 @@ const VerifyOTP: React.FC = () => {
           Verify your email
         </h1>
         <p className="mt-2 text-center text-sm leading-6 text-slate-500">
-          We’ve sent a 6-digit code to
+          {otpAlreadySent
+            ? 'A code is already active. Check your email for the latest 6-digit code sent to'
+            : 'We’ve sent a 6-digit code to'}
           <br />
           <strong className="font-semibold text-slate-800">
             {email || 'your email address'}
