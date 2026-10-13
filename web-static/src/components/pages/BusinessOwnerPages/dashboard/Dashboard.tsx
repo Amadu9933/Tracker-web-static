@@ -12,11 +12,39 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { logoutUser } from '../../../../api/auth';
+import { IoCheckmarkCircle } from "react-icons/io5";
 import Logo from '../../../../assets/Logo.png';
 import CircularProgress from '../../customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 import {useAuth} from '../../../../context/AuthContext';
 import VerificationModal from '@components/common/VerifyModal';
 import axiosInstance from '../../../../api/axiosInstance';
+
+
+export function VerifiedBadge({ size = 20, color = "#1877F2" }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 48 48"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Verified"
+      role="img"
+    >
+      <path
+        d="M24 2 L30 6 L37 5 L40 12 L46 17 L43 24 L46 31 L40 36 L37 43 L30 42 L24 46 L18 42 L11 43 L8 36 L2 31 L5 24 L2 17 L8 12 L11 5 L18 6 Z"
+        fill={color}
+      />
+      <path
+        d="M14 24 L21 31 L34 17"
+        stroke="white"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </svg>
+  );
+}
 
 const Dashboard: React.FC = () => {
   const location = useLocation();
@@ -249,14 +277,15 @@ const Dashboard: React.FC = () => {
                     sx={{ color: 'inherit' }}
                   />
                 </IconButton>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-3">
                   <Avatar
                     src={`${user?.user?.avatar}?v=${Date.now()}` || undefined}
                     sx={{ height: 20, width: 20 }}
                   />
                   <span className="text-gray-700 font-semibold hidden sm:inline">
-                    {loading ? 'Loading...' : error ? 'Error' : `Welcome, ${user?.user?.name || 'User'}`}
+                    {loading ? 'Loading...' : error ? 'Error' : `Welcome, ${user?.user?.name?.split(' ')[0] || 'User'}`}
                   </span>
+                  {user?.user?.is_verified ? <VerifiedBadge /> : ''}
                 </div>
               </div>
             </Toolbar>

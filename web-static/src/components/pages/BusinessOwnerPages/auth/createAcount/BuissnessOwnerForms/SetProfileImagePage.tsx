@@ -7,12 +7,15 @@ import { Group, edit, ArrowBack } from '../../assets/Assets';
 import Toast from '@components/common/reusable/Toast';
 import { TermsModal } from '@components/common/reusable/ReusableModal';
 
+import { motion } from 'framer-motion';
+
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
 const SetProfileImagePage: React.FC = () => {
   const { formData } = useFormContext();
   const navigate = useNavigate();
   const [image, setImage] = useState<File | null>(null);
+  const [referralCode, setReferralCode] = useState<string>('')
   const [preview, setPreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -81,6 +84,7 @@ const SetProfileImagePage: React.FC = () => {
       payload.append('country', formData.country);
       payload.append('terms_and_condition', formData.terms_and_condition? 'true' : 'false');
       payload.append('account_type', 'business');
+      payload.append('referral_code', referralCode)
       
 
       if (image) {
@@ -251,6 +255,20 @@ const SetProfileImagePage: React.FC = () => {
         {error && (
           <Toast message={error} type="error" inline onClose={() => setError(null)} autoDismiss={0} />
         )}
+        {/* Referral Code */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >   
+          <input
+            type="text"
+            value={referralCode}
+            onChange={(e) => setReferralCode(e.target.value)}
+            placeholder="Enter referral code"
+            className="w-full rounded-lg border border-orange-300 bg-white px-4 py-3 text-left text-gray-900 placeholder:text-left placeholder:text-gray-400 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+          />
+        </motion.div>
 
       <div className="flex items-center gap-3 md:gap-6 w-full p-5">
         
