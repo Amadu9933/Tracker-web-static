@@ -12,7 +12,6 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { logoutUser } from '../../../../api/auth';
-import { IoCheckmarkCircle } from "react-icons/io5";
 import Logo from '../../../../assets/Logo.png';
 import CircularProgress from '../../customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 import {useAuth} from '../../../../context/AuthContext';
