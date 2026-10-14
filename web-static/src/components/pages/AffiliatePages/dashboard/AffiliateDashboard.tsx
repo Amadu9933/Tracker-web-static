@@ -271,8 +271,8 @@ const AffiliateDashboard: React.FC = () => {
                     {referral.country ?? '—'}
                   </td>
                   <td className="px-5 py-3.5 text-sm text-slate-500">
-                    {referral.created_at
-                      ? new Date(referral.created_at).toLocaleDateString()
+                    {referral.date_joined
+                      ? new Date(referral.date_joined).toLocaleDateString()
                       : '—'}
                   </td>
                   <td className="px-5 py-3.5 text-sm text-slate-600">
