@@ -84,7 +84,7 @@ const SetProfileImagePage: React.FC = () => {
       payload.append('country', formData.country);
       payload.append('terms_and_condition', formData.terms_and_condition? 'true' : 'false');
       payload.append('account_type', 'business');
-      payload.append('referral_code', referralCode)
+      payload.append('referral_code', referralCode.toLowerCase())
       
 
       if (image) {
