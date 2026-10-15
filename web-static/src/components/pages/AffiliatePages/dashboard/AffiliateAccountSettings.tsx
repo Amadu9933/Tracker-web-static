@@ -5,6 +5,7 @@ import {
   saveAffiliateBankAccount,
 } from '../../../../api/affiliate';
 import type { AffiliateAccount } from '../../../../types/affiliate';
+import { formatPersonName } from '../nameFormatting';
 
 const AffiliateAccountSettings: React.FC = () => {
   const [account, setAccount] = useState<AffiliateAccount | null>(null);
@@ -95,23 +96,18 @@ const AffiliateAccountSettings: React.FC = () => {
             </div>
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
-            <label className="grid gap-2 text-sm font-semibold">
-              Full name
-              <input
-                className={inputClass}
-                value={account.name ?? ''}
-                readOnly
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-semibold">
-              Email address
-              <input
-                className={inputClass}
-                type="email"
-                value={account.email ?? ''}
-                readOnly
-              />
-            </label>
+            <div className="grid gap-2 text-sm font-semibold">
+              <span>Full name</span>
+              <p className="flex min-h-[46px] items-center text-sm font-normal text-slate-700">
+                {formatPersonName(account.name) || '—'}
+              </p>
+            </div>
+            <div className="grid gap-2 text-sm font-semibold">
+              <span>Email address</span>
+              <p className="flex min-h-[46px] items-center break-all text-sm font-normal text-slate-700">
+                {account.email || '—'}
+              </p>
+            </div>
             <label className="grid gap-2 text-sm font-semibold">
               Bank name
               <input
@@ -129,7 +125,7 @@ const AffiliateAccountSettings: React.FC = () => {
               Account number
               <input
                 className={inputClass}
-                type="password"
+                type="text"
                 autoComplete="off"
                 placeholder="Enter account number"
                 value={account.payout_account ?? ''}

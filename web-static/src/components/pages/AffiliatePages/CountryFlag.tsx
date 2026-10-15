@@ -48,32 +48,21 @@ const CountryFlag: React.FC<{ country?: string }> = ({ country }) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <title>{country || 'Unknown country'}</title>
-      {code === 'GH' || code === 'NG' ? (
+      {code === 'NG' ? (
         <>
-          <rect
-            width="28"
-            height="20"
-            fill={code === 'GH' ? '#006B3F' : '#fff'}
+          <rect width="9.33" height="20" fill="#008751" />
+          <rect x="9.33" width="9.34" height="20" fill="#fff" />
+          <rect x="18.67" width="9.33" height="20" fill="#008751" />
+        </>
+      ) : code === 'GH' ? (
+        <>
+          <rect width="28" height="20" fill="#006B3F" />
+          <rect width="28" height="6.67" fill="#CE1126" />
+          <rect y="6.67" width="28" height="6.66" fill="#FCD116" />
+          <path
+            d="m14 7.7 1.1 3.1 3.3.1-2.6 2 1 3.1-2.8-1.8-2.8 1.8 1-3.1-2.6-2 3.3-.1z"
+            fill="#000"
           />
-          <rect
-            width="28"
-            height="6.67"
-            fill={code === 'GH' ? '#CE1126' : '#008751'}
-          />
-          {code === 'GH' ? (
-            <>
-              <rect y="6.67" width="28" height="6.66" fill="#FCD116" />
-              <path
-                d="m14 7.7 1.1 3.1 3.3.1-2.6 2 1 3.1-2.8-1.8-2.8 1.8 1-3.1-2.6-2 3.3-.1z"
-                fill="#000"
-              />
-            </>
-          ) : (
-            <rect x="9.33" width="9.34" height="20" fill="#fff" />
-          )}
-          {code === 'NG' && (
-            <rect y="13.33" width="28" height="6.67" fill="#008751" />
-          )}
         </>
       ) : code === 'RW' ? (
         <>

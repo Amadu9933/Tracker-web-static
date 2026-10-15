@@ -21,8 +21,14 @@ import type {
   AffiliateReferral,
 } from '../../../../types/affiliate';
 import CountryFlag from '../CountryFlag';
+import {
+  capitalizeFirstLetter,
+  formatPersonName,
+} from '../nameFormatting';
 
 const AffiliateDashboard: React.FC = () => {
+  const formatBusinessName = (name?: string) =>
+    capitalizeFirstLetter(name) || 'Business referral';
   const [summary, setSummary] = useState<AffiliateDashboardSummary | null>(
     null
   );
@@ -97,7 +103,10 @@ const AffiliateDashboard: React.FC = () => {
             Your affiliate journey
           </p>
           <h2 className="mt-1 text-2xl font-bold sm:text-3xl">
-            Welcome back{account?.name ? `, ${account.name.split(' ')[0]}` : ''}
+            Welcome back
+            {account?.name
+              ? `, ${formatPersonName(account.name).split(' ')[0]}`
+              : ''}
             !
           </h2>
           <p className="mt-1 text-sm text-slate-500">
@@ -263,9 +272,7 @@ const AffiliateDashboard: React.FC = () => {
                 <tr className="hover:bg-slate-50/70" key={referral.id}>
                   <td className="px-5 py-3.5 text-sm font-semibold">
                     <CountryFlag country={referral.country} />
-                    {referral.business_name ??
-                      referral.name ??
-                      'Business referral'}
+                    {formatBusinessName(referral.business_name ?? referral.name)}
                   </td>
                   <td className="px-5 py-3.5 text-sm text-slate-500">
                     {referral.country ?? '—'}

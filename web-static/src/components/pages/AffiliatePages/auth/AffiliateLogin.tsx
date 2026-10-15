@@ -134,7 +134,13 @@ const AffiliateLogin: React.FC = () => {
             className="mt-5 flex w-full items-center justify-center gap-2 rounded bg-primary px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-95 disabled:cursor-wait disabled:opacity-60"
             disabled={busy}
           >
-            {busy ? 'Sending code...' : 'Send OTP'}
+            {busy
+              ? isSignup
+                ? 'Registering...'
+                : 'Sending code...'
+              : isSignup
+                ? 'Sign up'
+                : 'Send OTP'}
           </button>
         </form>
         <p className="mt-6 text-center text-sm text-slate-500">

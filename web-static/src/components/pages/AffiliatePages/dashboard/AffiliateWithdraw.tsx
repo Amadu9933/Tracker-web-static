@@ -14,7 +14,7 @@ import {
 } from '../../../../api/affiliate';
 import type { AffiliateWithdrawal } from '../../../../types/affiliate';
 
-const MINIMUM_WITHDRAWAL_COINS = 1500;
+const MINIMUM_WITHDRAWAL_COINS = 5000;
 
 const AffiliateWithdraw: React.FC = () => {
   const [amount, setAmount] = useState('');
@@ -51,7 +51,7 @@ const AffiliateWithdraw: React.FC = () => {
     }
     if (availableCoins === null || availableCoins < MINIMUM_WITHDRAWAL_COINS) {
       setError(
-        'Withdrawals are available once your balance reaches 1,500 coins.'
+        'Withdrawals are available once your balance reaches 5,000 coins.'
       );
       return;
     }
@@ -111,7 +111,7 @@ const AffiliateWithdraw: React.FC = () => {
           <AlertCircle className="mt-0.5 shrink-0 text-primary" size={19} />
           <div>
             <p className="text-sm font-bold">
-              Minimum withdrawal balance is 1,500 coins.
+              Minimum withdrawal balance is 5,000 coins.
             </p>
             <p className="mt-1 text-sm text-orange-800">
               You need{' '}

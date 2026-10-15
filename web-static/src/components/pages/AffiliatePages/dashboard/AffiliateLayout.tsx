@@ -15,9 +15,12 @@ import {
 } from 'react-router-dom';
 import logo from '../../../../assets/Logo.png';
 import {
+  getAffiliateAccount,
   isAffiliatePreviewMode,
   logoutAffiliate,
 } from '../../../../api/affiliate';
+import type { AffiliateAccount } from '../../../../types/affiliate';
+import { formatPersonName } from '../nameFormatting';
 
 const navigation = [
   {
@@ -46,6 +49,10 @@ const AffiliateLayout: React.FC = () => {
     import.meta.env.DEV &&
     new URLSearchParams(location.search).get('preview') === '1';
   const previewMode = isAffiliatePreviewMode();
+  const [account, setAccount] = React.useState<AffiliateAccount | null>(null);
+  React.useEffect(() => {
+    getAffiliateAccount().then(setAccount).catch(() => undefined);
+  }, []);
   React.useEffect(() => {
     if (previewRequested) sessionStorage.setItem('affiliate-preview-mode', '1');
   }, [previewRequested]);
@@ -122,10 +129,10 @@ const AffiliateLayout: React.FC = () => {
               </span>
             )}
             <span className="grid h-9 w-9 place-items-center rounded-full bg-[#dbeafe] text-sm font-bold text-[#24518a]">
-              A
+              {account?.name?.charAt(0).toLocaleUpperCase() ?? 'A'}
             </span>
             <span className="hidden text-sm font-semibold sm:inline">
-              Affiliate
+              {formatPersonName(account?.name) || 'Affiliate Partner'}
             </span>
           </div>
         </header>
