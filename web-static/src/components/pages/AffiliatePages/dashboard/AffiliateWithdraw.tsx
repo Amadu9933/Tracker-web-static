@@ -124,15 +124,14 @@ const AffiliateWithdraw: React.FC = () => {
 
       {canWithdraw && pendingWithdrawal && !previewMode && (
         <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          The API reports a withdrawal request is already pending.
+          You already have a withdrawal request in progress.
         </div>
       )}
 
       {canWithdraw && !previewMode && !pendingWithdrawal && (
         <div className="rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-900">
-          Your balance meets the minimum. Withdrawal submission and history
-          endpoints are not currently documented, so this page cannot submit a
-          real request yet.
+          Withdrawal requests are temporarily unavailable. Please check back
+          later.
         </div>
       )}
 
@@ -224,11 +223,11 @@ const AffiliateWithdraw: React.FC = () => {
           <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
             <div>
               <h3 className="font-bold">Withdrawal history</h3>
-              <p className="mt-0.5 text-xs text-slate-500">
-                {previewMode
-                  ? 'Sample withdrawal records'
-                  : 'Not available in the documented API'}
-              </p>
+              {previewMode && (
+                <p className="mt-0.5 text-xs text-slate-500">
+                  Sample withdrawal records
+                </p>
+              )}
             </div>
             <Clock3 size={18} className="text-slate-400" />
           </div>
@@ -274,7 +273,7 @@ const AffiliateWithdraw: React.FC = () => {
                     >
                       {previewMode
                         ? 'No sample withdrawal requests.'
-                        : 'Withdrawal history is not provided by the current API.'}
+                        : 'Your withdrawal history will appear here.'}
                     </td>
                   </tr>
                 )}
