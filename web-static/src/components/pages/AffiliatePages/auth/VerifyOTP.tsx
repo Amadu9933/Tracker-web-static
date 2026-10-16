@@ -9,6 +9,13 @@ import logo from '../../../../assets/Logo.png';
 
 const OTP_LENGTH = 6;
 
+const capitalizeErrorMessage = (message: string): string => {
+  const trimmed = message.trim();
+  return trimmed
+    ? `${trimmed.charAt(0).toLocaleUpperCase()}${trimmed.slice(1)}`
+    : message;
+};
+
 const VerifyOTP: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,7 +46,11 @@ const VerifyOTP: React.FC = () => {
       navigate('/affiliate/dashboard', { replace: true });
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : 'The code could not be verified.'
+        capitalizeErrorMessage(
+          err instanceof Error
+            ? err.message
+            : 'The code could not be verified.'
+        )
       );
     } finally {
       setBusy(false);
@@ -83,7 +94,9 @@ const VerifyOTP: React.FC = () => {
       setResendMessage('A new verification code has been sent.');
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : 'Unable to resend the code.'
+        capitalizeErrorMessage(
+          err instanceof Error ? err.message : 'Unable to resend the code.'
+        )
       );
     } finally {
       setResending(false);
