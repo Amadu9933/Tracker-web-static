@@ -81,8 +81,8 @@ const AffiliateLayout: React.FC = () => {
       <aside className="flex flex-col bg-[#142c44] px-4 py-5 text-white md:min-h-screen md:px-4 md:py-6">
         <NavLink
           className="mb-6 flex items-center rounded px-3 py-2"
-          to="/affiliate/dashboard"
-          aria-label="Affiliate dashboard"
+          to="/affiliate"
+          aria-label="Affiliate home"
         >
           <img
             className="h-8 w-auto brightness-0 invert"

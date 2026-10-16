@@ -90,8 +90,7 @@ const AffiliateAccountSettings: React.FC = () => {
             <div>
               <h3 className="font-bold">Bank details</h3>
               <p className="mt-0.5 text-xs text-slate-500">
-                Used for affiliate withdrawals. The API does not currently
-                provide a way to load or edit saved bank details.
+                Used for affiliate withdrawals.
               </p>
             </div>
           </div>

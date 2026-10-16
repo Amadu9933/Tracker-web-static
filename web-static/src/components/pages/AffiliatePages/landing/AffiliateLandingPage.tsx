@@ -48,18 +48,6 @@ const AffiliateLandingPage: React.FC = () => (
         >
           Benefits
         </a>
-        <Link
-          className="rounded px-3 py-2 text-sm font-semibold text-slate-700 hover:text-primary"
-          to="/affiliate/login"
-        >
-          Login
-        </Link>
-        <Link
-          className="rounded bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-95"
-          to="/affiliate/signup"
-        >
-          Sign up
-        </Link>
       </nav>
     </header>
 

@@ -42,7 +42,7 @@ const CountryFlag: React.FC<{ country?: string }> = ({ country }) => {
   return (
     <svg
       aria-label={`${country || 'Unknown country'} flag`}
-      className="mr-2 inline-block h-5 w-7 shrink-0 align-middle rounded-sm shadow-sm ring-1 ring-black/10"
+      className="mr-1.5 inline-block h-4 w-[22px] shrink-0 align-middle rounded-sm shadow-sm ring-1 ring-black/10"
       role="img"
       viewBox="0 0 28 20"
       xmlns="http://www.w3.org/2000/svg"
