@@ -27,23 +27,32 @@ const getApiMessage = (error: unknown, fallback: string): string => {
 };
 
 const normalizeAffiliateAccount = (data: any): AffiliateAccount => {
+  const response = data?.msg ?? data ?? {};
   const affiliate =
-    data?.msg?.affiliate ?? data?.msg ?? data?.affiliate ?? data ?? {};
-  const bankDetails = affiliate.bank_details ?? {};
+    response?.affiliate ??
+    response?.user ??
+    data?.affiliate ??
+    data?.user ??
+    response;
+  const bankDetails =
+    affiliate?.bank_details ?? response?.bank_details ?? data?.bank_details ?? {};
   return {
-    id: affiliate.id ?? affiliate.email,
-    name: affiliate.full_name ?? affiliate.name ?? '',
-    email: affiliate.email ?? '',
-    referral_code: affiliate.referral_code ?? '',
+    id: affiliate?.id ?? affiliate?.email,
+    name: affiliate?.full_name ?? affiliate?.name ?? '',
+    email: affiliate?.email ?? '',
+    referral_code: affiliate?.referral_code ?? '',
     payout_bank:
-      bankDetails.bank_name ?? affiliate.bank_name ?? affiliate.payout_bank ?? '',
+      bankDetails.bank_name ??
+      affiliate?.bank_name ??
+      affiliate?.payout_bank ??
+      '',
     payout_account:
       bankDetails.account_number ??
-      affiliate.account_number ??
-      affiliate.payout_account ??
+      affiliate?.account_number ??
+      affiliate?.payout_account ??
       '',
-    total_coins_withdrawn: Number(affiliate.total_coins_withdrawn ?? 0),
-    is_active: affiliate.is_active ?? false,
+    total_coins_withdrawn: Number(affiliate?.total_coins_withdrawn ?? 0),
+    is_active: affiliate?.is_active ?? false,
   };
 };
 
@@ -55,7 +64,8 @@ const normalizeReferral = (
   business_name: referral.business_name ?? 'Business referral',
   country: referral.country,
   status: referral.status,
-  date_joined: referral.date_joined ?? referral.created_at,
+  date_joined: referral.date_joined,
+  created_at: referral.created_at,
   tracking_numbers: Number(referral.tracking_numbers ?? 0),
   coins_earned: Number(referral.total_earned ?? referral.coins_earned ?? 0),
 });

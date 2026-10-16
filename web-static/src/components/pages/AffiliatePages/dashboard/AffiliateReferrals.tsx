@@ -3,32 +3,17 @@ import { CircleHelp, UsersRound } from 'lucide-react';
 import { getAffiliateReferrals } from '../../../../api/affiliate';
 import type { AffiliateReferral } from '../../../../types/affiliate';
 import CountryFlag from '../CountryFlag';
-import { capitalizeFirstLetter } from '../nameFormatting';
+import {
+  capitalizeFirstLetter,
+  formatJoinedDate,
+} from '../nameFormatting';
 
 const AffiliateReferrals: React.FC = () => {
-  const emptyValue = '\u2014';
   const [rows, setRows] = useState<AffiliateReferral[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const formatBusinessName = (name?: string) =>
     capitalizeFirstLetter(name) || 'Business referral';
-  const formatJoinedDate = (value?: string) => {
-    if (!value) return emptyValue;
-
-    // Keep date-only values on the same calendar day across time zones.
-    const dateOnly = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
-    const date = dateOnly
-      ? new Date(Number(dateOnly[1]), Number(dateOnly[2]) - 1, Number(dateOnly[3]))
-      : new Date(value);
-
-    if (
-      Number.isNaN(date.getTime()) ||
-      (dateOnly && date.getDate() !== Number(dateOnly[3]))
-    ) {
-      return emptyValue;
-    }
-    return date.toLocaleDateString();
-  };
   useEffect(() => {
     getAffiliateReferrals()
       .then(setRows)
@@ -107,10 +92,10 @@ const AffiliateReferrals: React.FC = () => {
                     {formatBusinessName(row.business_name ?? row.name)}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-slate-600">
-                    {capitalizeFirstLetter(row.country) || emptyValue}
+                    {capitalizeFirstLetter(row.country) || '\u2014'}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-slate-500">
-                    {formatJoinedDate(row.date_joined)}
+                    {formatJoinedDate(row.date_joined, row.created_at)}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-slate-600">
                     {Number(row.tracking_numbers ?? 0).toLocaleString()}

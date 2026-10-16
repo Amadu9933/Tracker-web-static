@@ -7,6 +7,13 @@ import {
 } from '../../../../api/affiliate';
 import logo from '../../../../assets/Logo.png';
 
+const capitalizeErrorMessage = (message: string): string => {
+  const trimmed = message.trim();
+  return trimmed
+    ? `${trimmed.charAt(0).toLocaleUpperCase()}${trimmed.slice(1)}`
+    : message;
+};
+
 const AffiliateLogin: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const navigate = useNavigate();
@@ -55,7 +62,7 @@ const AffiliateLogin: React.FC = () => {
         });
         return;
       }
-      setError(message);
+      setError(capitalizeErrorMessage(message));
     } finally {
       setBusy(false);
     }

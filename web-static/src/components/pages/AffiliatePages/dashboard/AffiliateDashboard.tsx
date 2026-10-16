@@ -23,6 +23,7 @@ import type {
 import CountryFlag from '../CountryFlag';
 import {
   capitalizeFirstLetter,
+  formatJoinedDate,
   formatPersonName,
 } from '../nameFormatting';
 
@@ -275,12 +276,13 @@ const AffiliateDashboard: React.FC = () => {
                     {formatBusinessName(referral.business_name ?? referral.name)}
                   </td>
                   <td className="px-5 py-3.5 text-sm text-slate-500">
-                    {referral.country ?? '—'}
+                    {capitalizeFirstLetter(referral.country) || '\u2014'}
                   </td>
                   <td className="px-5 py-3.5 text-sm text-slate-500">
-                    {referral.date_joined
-                      ? new Date(referral.date_joined).toLocaleDateString()
-                      : '—'}
+                    {formatJoinedDate(
+                      referral.date_joined,
+                      referral.created_at
+                    )}
                   </td>
                   <td className="px-5 py-3.5 text-sm text-slate-600">
                     {referral.tracking_numbers ?? 0}
