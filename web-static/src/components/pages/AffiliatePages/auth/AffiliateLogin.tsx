@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowLeft, Mail, UserRound } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -9,33 +9,47 @@ import logo from '../../../../assets/Logo.png';
 
 const AffiliateLogin: React.FC = () => {
   const [fullName, setFullName] = useState('');
-  const [signupCreated, setSignupCreated] = useState(false);
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [busy, setBusy] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isSignup = location.pathname.endsWith('/signup');
+  const routeState = location.state as {
+    email?: string;
+    registrationSuccess?: boolean;
+  } | null;
+  const registrationSuccess =
+    !isSignup && Boolean(routeState?.registrationSuccess);
+  const [email, setEmail] = useState(routeState?.email ?? '');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (registrationSuccess) setEmail(routeState?.email ?? '');
+  }, [location.key, registrationSuccess, routeState?.email]);
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError('');
     setBusy(true);
     try {
-      if (isSignup && !signupCreated) {
-        await createAffiliate(email.trim(), fullName.trim());
-        setSignupCreated(true);
+      const normalizedEmail = email.trim();
+      if (isSignup) {
+        await createAffiliate(normalizedEmail, fullName.trim());
+        navigate('/affiliate/login', {
+          replace: true,
+          state: { email: normalizedEmail, registrationSuccess: true },
+        });
+        return;
       }
-      await requestAffiliateOtp(email.trim());
+      await requestAffiliateOtp(normalizedEmail);
       navigate('/affiliate/verify-otp', {
-        state: { email: email.trim() },
+        state: { email: normalizedEmail },
       });
     } catch (err) {
       const message =
         err instanceof Error
           ? err.message
           : 'Unable to send verification code.';
-      if (/otp.*already.*sent|already.*sent.*otp/i.test(message)) {
+      if (!isSignup && /otp.*already.*sent|already.*sent.*otp/i.test(message)) {
         navigate('/affiliate/verify-otp', {
           state: { email: email.trim(), otpAlreadySent: true },
         });
@@ -79,8 +93,19 @@ const AffiliateLogin: React.FC = () => {
           {isSignup ? 'Become an affiliate' : 'Welcome back'}
         </h1>
         <p className="mt-2 text-center text-sm leading-6 text-slate-500">
-          Enter your email address and we’ll send you a secure one-time code.
+          {isSignup
+            ? 'Create your affiliate account to start earning rewards.'
+            : 'Enter your email address to receive a secure one-time login code.'}
         </p>
+
+        {registrationSuccess && (
+          <p
+            className="mt-5 rounded border border-emerald-200 bg-emerald-50 px-3.5 py-3 text-sm text-emerald-800"
+            role="status"
+          >
+            Registration successful. Click Login to continue.
+          </p>
+        )}
 
         <form className="mt-7" onSubmit={submit}>
           {isSignup && (
@@ -140,7 +165,7 @@ const AffiliateLogin: React.FC = () => {
                 : 'Sending code...'
               : isSignup
                 ? 'Sign up'
-                : 'Send OTP'}
+                : 'Login'}
           </button>
         </form>
         <p className="mt-6 text-center text-sm text-slate-500">
