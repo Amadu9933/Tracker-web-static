@@ -23,9 +23,9 @@ import type {
 import CountryFlag from '../CountryFlag';
 import {
   capitalizeFirstLetter,
-  formatJoinedDate,
   formatPersonName,
 } from '../nameFormatting';
+import title from '@components/utils/title';
 
 const AffiliateDashboard: React.FC = () => {
   const formatBusinessName = (name?: string) =>
@@ -271,7 +271,7 @@ const AffiliateDashboard: React.FC = () => {
             <tbody className="divide-y divide-slate-100">
               {referrals.slice(0, 5).map((referral) => (
                 <tr className="hover:bg-slate-50/70" key={referral.id}>
-                  <td className="px-5 py-3.5 text-sm font-semibold">
+                  <td className="px-5 py-3.5 text-sm font-semibold flex items-center">
                     <CountryFlag country={referral.country} />
                     {formatBusinessName(referral.business_name ?? referral.name)}
                   </td>
@@ -279,10 +279,9 @@ const AffiliateDashboard: React.FC = () => {
                     {capitalizeFirstLetter(referral.country) || '\u2014'}
                   </td>
                   <td className="px-5 py-3.5 text-sm text-slate-500">
-                    {formatJoinedDate(
-                      referral.date_joined,
-                      referral.created_at
-                    )}
+                    {
+                      referral.date_joined
+                    }
                   </td>
                   <td className="px-5 py-3.5 text-sm text-slate-600">
                     {referral.tracking_numbers ?? 0}
@@ -294,7 +293,7 @@ const AffiliateDashboard: React.FC = () => {
                     <span
                       className={`rounded-full px-2.5 py-1 text-xs font-semibold ${['active', 'completed'].includes((referral.status ?? 'pending').toLowerCase()) ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}
                     >
-                      {referral.status ?? 'Pending'}
+                      {title(referral?.status!) ?? 'Pending'}
                     </span>
                   </td>
                 </tr>

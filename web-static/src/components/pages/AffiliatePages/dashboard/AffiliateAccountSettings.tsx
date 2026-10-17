@@ -6,6 +6,7 @@ import {
 } from '../../../../api/affiliate';
 import type { AffiliateAccount } from '../../../../types/affiliate';
 import { formatPersonName } from '../nameFormatting';
+import title from '@components/utils/title';
 
 const AffiliateAccountSettings: React.FC = () => {
   const [account, setAccount] = useState<AffiliateAccount | null>(null);
@@ -112,7 +113,7 @@ const AffiliateAccountSettings: React.FC = () => {
               <input
                 className={inputClass}
                 placeholder="Enter your bank name"
-                value={account.payout_bank ?? ''}
+                value={title(account?.payout_bank!) ?? ''}
                 disabled={bankDetailsSubmitted}
                 onChange={(e) =>
                   setAccount({ ...account, payout_bank: e.target.value })

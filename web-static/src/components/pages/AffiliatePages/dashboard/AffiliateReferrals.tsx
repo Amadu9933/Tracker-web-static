@@ -4,9 +4,9 @@ import { getAffiliateReferrals } from '../../../../api/affiliate';
 import type { AffiliateReferral } from '../../../../types/affiliate';
 import CountryFlag from '../CountryFlag';
 import {
-  capitalizeFirstLetter,
-  formatJoinedDate,
+  capitalizeFirstLetter
 } from '../nameFormatting';
+import title from '@components/utils/title';
 
 const AffiliateReferrals: React.FC = () => {
   const [rows, setRows] = useState<AffiliateReferral[]>([]);
@@ -87,7 +87,7 @@ const AffiliateReferrals: React.FC = () => {
                   className="transition-colors hover:bg-slate-50/70"
                   key={row.id}
                 >
-                  <td className="px-4 py-3.5 text-sm font-semibold">
+                  <td className="px-4 py-3.5 text-sm font-semibold flex items-center">
                     <CountryFlag country={row.country} />
                     {formatBusinessName(row.business_name ?? row.name)}
                   </td>
@@ -95,7 +95,7 @@ const AffiliateReferrals: React.FC = () => {
                     {capitalizeFirstLetter(row.country) || '\u2014'}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-slate-500">
-                    {formatJoinedDate(row.date_joined, row.created_at)}
+                    {row.date_joined}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-slate-600">
                     {Number(row.tracking_numbers ?? 0).toLocaleString()}
@@ -107,7 +107,7 @@ const AffiliateReferrals: React.FC = () => {
                     <span
                       className={`rounded-full px-2.5 py-1 text-xs font-semibold ${['active', 'completed'].includes((row.status ?? 'pending').toLowerCase()) ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}
                     >
-                      {row.status ?? 'Pending'}
+                      {title(row.status!) ?? 'Pending'}
                     </span>
                   </td>
                 </tr>
