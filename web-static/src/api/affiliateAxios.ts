@@ -10,8 +10,6 @@ const affliateAxiosInstance = axios.create({
   },
 });
 
-let refreshPromise: any = null;
-
 affliateAxiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('affiliate_access');
