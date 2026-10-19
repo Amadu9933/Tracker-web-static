@@ -12,8 +12,7 @@ const AffiliateReferrals: React.FC = () => {
   const [rows, setRows] = useState<AffiliateReferral[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const formatBusinessName = (name?: string) =>
-    capitalizeFirstLetter(name) || 'Business referral';
+  
   useEffect(() => {
     getAffiliateReferrals()
       .then(setRows)
@@ -89,7 +88,7 @@ const AffiliateReferrals: React.FC = () => {
                 >
                   <td className="px-4 py-3.5 text-sm font-semibold flex items-center">
                     <CountryFlag country={row.country} />
-                    {formatBusinessName(row.business_name ?? row.name)}
+                    {title(row.business_name! ?? row.name)}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-slate-600">
                     {capitalizeFirstLetter(row.country) || '\u2014'}

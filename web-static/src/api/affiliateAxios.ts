@@ -13,7 +13,7 @@ const affliateAxiosInstance = axios.create({
 affliateAxiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('affiliate_access');
-
+    
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

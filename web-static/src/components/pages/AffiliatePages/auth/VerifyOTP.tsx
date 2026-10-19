@@ -91,6 +91,7 @@ const VerifyOTP: React.FC = () => {
     setResendMessage('');
     try {
       await requestAffiliateOtp(email);
+      
       setResendMessage('A new verification code has been sent.');
     } catch (err) {
       setError(

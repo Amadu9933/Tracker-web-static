@@ -173,8 +173,19 @@ const previewWithdrawals: AffiliateWithdrawal[] = [
   { id: 'W-1003', coins: 1000, status: 'Completed', created_at: '2026-07-20' },
 ];
 
-export const requestAffiliateOtp = async (email: string): Promise<void> => {
+export const requestAffiliateOtp = async (email: string): Promise<void | string> => {
   try {
+    const access = localStorage.getItem('affiliate_access');
+    const user_email = localStorage.getItem('affiliate_user_email');
+  
+    if ((access && user_email) && (user_email?.toLowerCase() === email?.toLowerCase())) {
+      window.location.assign('/affiliate/dashboard');
+      return "dashboard"
+    } 
+    // remove stored data before firing a new request
+    localStorage.removeItem('affiliate_access');
+    localStorage.removeItem('affiliate_user_email');
+
     await affliateAxiosInstance.post(`${API}request-otp/`, { email });
   } catch (error) {
     throw new Error(
@@ -216,6 +227,7 @@ export const verifyAffiliateOtp = async (
     if (!access)
       throw new Error('The API response did not include an access token.');
     localStorage.setItem('affiliate_access', access);
+    localStorage.setItem('affiliate_user_email', email);
     if (data.refresh) localStorage.setItem('affiliate_refresh', data.refresh);
     return { ...data, access };
   } catch (error) {

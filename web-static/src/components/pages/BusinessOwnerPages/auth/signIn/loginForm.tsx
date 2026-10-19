@@ -73,8 +73,12 @@ const LoginForm: React.FC = () => {
     setIsLoading(true);
     setErrorMsg('');
 
+    const email = data.email.trim()
+    const password = data.password
+
     try {
-      const response = await loginUser(data.email.trim(), data.password);
+
+      const response = await loginUser(email, password);
       const { access, refresh, account_type } = response;
 
       if (account_type === 'logistics') {
@@ -86,7 +90,8 @@ const LoginForm: React.FC = () => {
 
       localStorage.setItem('trackerrgo_access', access);
       localStorage.setItem('trackerrgo_refresh', refresh);
-      setTrackingHistoryEmail(data.email.trim());
+
+      setTrackingHistoryEmail(email);
 
       reset();
       navigate('/dashboard/');

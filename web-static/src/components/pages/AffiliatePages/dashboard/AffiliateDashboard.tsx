@@ -28,8 +28,7 @@ import {
 import title from '@components/utils/title';
 
 const AffiliateDashboard: React.FC = () => {
-  const formatBusinessName = (name?: string) =>
-    capitalizeFirstLetter(name) || 'Business referral';
+ 
   const [summary, setSummary] = useState<AffiliateDashboardSummary | null>(
     null
   );
@@ -273,7 +272,7 @@ const AffiliateDashboard: React.FC = () => {
                 <tr className="hover:bg-slate-50/70" key={referral.id}>
                   <td className="px-5 py-3.5 text-sm font-semibold flex items-center">
                     <CountryFlag country={referral.country} />
-                    {formatBusinessName(referral.business_name ?? referral.name)}
+                    {title(referral.business_name! ?? referral.name)}
                   </td>
                   <td className="px-5 py-3.5 text-sm text-slate-500">
                     {capitalizeFirstLetter(referral.country) || '\u2014'}

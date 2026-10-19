@@ -47,7 +47,10 @@ const AffiliateLogin: React.FC = () => {
         });
         return;
       }
-      await requestAffiliateOtp(normalizedEmail);
+      const is_logged_in = await requestAffiliateOtp(normalizedEmail);
+
+      if (is_logged_in) return
+
       navigate('/affiliate/verify-otp', {
         state: { email: normalizedEmail },
       });

@@ -78,6 +78,10 @@ const Footer: React.FC = () => {
             <Link to="/refund-policy" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
               Refund Policy
             </Link>
+
+            <Link to="/affiliate" className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
+              Earn With Trackerrgo
+            </Link>
            
           </div>
 
