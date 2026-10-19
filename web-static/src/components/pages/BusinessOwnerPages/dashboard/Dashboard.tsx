@@ -222,7 +222,7 @@ const Dashboard: React.FC = () => {
       </aside>
 
       {
-        !user?.user?.is_verified && !loading && (
+        !user?.user?.is_verified && user?.user?.name && !loading && (
          <VerificationModal
           onVerify={verifyBusiness}
          />
