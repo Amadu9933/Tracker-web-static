@@ -2,13 +2,13 @@ const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
 // ─── Token Helpers ─────────────────────────────────────────────────────────────
 
-export const getAccessToken = () => localStorage.getItem('access');
-export const getUserId = () => localStorage.getItem('userId');
+export const getAccessToken = () => localStorage.getItem('trackerrgo_access');
+export const getUserId = () => localStorage.getItem('trackerrgo_userId');
 
 const saveTokens = (access: string, refresh: string, userId: string) => {
-  localStorage.setItem('access', access);
-  localStorage.setItem('refresh', refresh);
-  localStorage.setItem('userId', userId);
+  localStorage.setItem('trackerrgo_access', access);
+  localStorage.setItem('trackerrgo_refresh', refresh);
+  localStorage.setItem('trackerrgo_userId', userId);
 };
 
 /**
@@ -27,9 +27,9 @@ const clearUserCache = (userId: string | null) => {
   }
 
   // Always clear auth tokens
-  localStorage.removeItem('access');
-  localStorage.removeItem('refresh');
-  localStorage.removeItem('userId');
+  localStorage.removeItem('trackerrgo_access');
+  localStorage.removeItem('trackerrgo_refresh');
+  localStorage.removeItem('trackerrgo_userId');
 };
 
 // ─── Login ─────────────────────────────────────────────────────────────────────
@@ -54,7 +54,7 @@ export const loginUser = async (email: string, password: string) => {
 // ─── Logout ────────────────────────────────────────────────────────────────────
 
 export const logoutUser = async () => {
-  const refresh = localStorage.getItem('refresh');
+  const refresh = localStorage.getItem('trackerrgo_refresh');
   const userId = getUserId();
 
   if (refresh) {

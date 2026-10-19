@@ -10,10 +10,10 @@ export interface WalletBalance {
 /**
  * Fetch the business owner wallet balance.
  * Endpoint used in curl: https://trackerr.updates247.ng/api/v1/business-owner/balance/
- * Ensure Authorization: Bearer <token> is provided (token from localStorage 'access').
+ * Ensure Authorization: Bearer <token> is provided (token from localStorage 'trackerrgo_access').
  */
 export const getWalletBalance = async (): Promise<WalletBalance> => {
-  const token = localStorage.getItem('access');
+  const token = localStorage.getItem('trackerrgo_access');
   if (!token) throw new Error('Unauthorized: missing access token');
 
   const resp = await axiosInstance.get(`${TRACKERR_HOST}/business-owner/balance/`);

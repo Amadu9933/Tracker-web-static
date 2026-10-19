@@ -1,4 +1,4 @@
-import axiosInstance from './axiosInstance';
+import affliateAxiosInstance from './affiliateAxios';
 import type {
   AffiliateAccount,
   AffiliateDashboardSummary,
@@ -175,7 +175,7 @@ const previewWithdrawals: AffiliateWithdrawal[] = [
 
 export const requestAffiliateOtp = async (email: string): Promise<void> => {
   try {
-    await axiosInstance.post(`${API}request-otp/`, { email });
+    await affliateAxiosInstance.post(`${API}request-otp/`, { email });
   } catch (error) {
     throw new Error(
       getApiMessage(error, 'Unable to send the verification code.')
@@ -188,7 +188,7 @@ export const createAffiliate = async (
   fullName: string
 ): Promise<void> => {
   try {
-    await axiosInstance.post(`${API}create/`, {
+    await affliateAxiosInstance.post(`${API}create/`, {
       email,
       full_name: fullName,
     });
@@ -208,15 +208,15 @@ export const verifyAffiliateOtp = async (
   affiliate?: AffiliateAccount;
 }> => {
   try {
-    const { data } = await axiosInstance.post(`${API}authenticate/`, {
+    const { data } = await affliateAxiosInstance.post(`${API}authenticate/`, {
       email,
       otp,
     });
     const access = data.access ?? data.token;
     if (!access)
       throw new Error('The API response did not include an access token.');
-    localStorage.setItem('access', access);
-    if (data.refresh) localStorage.setItem('refresh', data.refresh);
+    localStorage.setItem('affiliate_access', access);
+    if (data.refresh) localStorage.setItem('affiliate_refresh', data.refresh);
     return { ...data, access };
   } catch (error) {
     throw new Error(
@@ -228,7 +228,7 @@ export const verifyAffiliateOtp = async (
 export const getAffiliateAccount = async (): Promise<AffiliateAccount> =>
   isAffiliatePreviewMode()
     ? previewAccount
-    : normalizeAffiliateAccount((await axiosInstance.get(`${API}user/`)).data);
+    : normalizeAffiliateAccount((await affliateAxiosInstance.get(`${API}user/`)).data);
 
 export const saveAffiliateBankAccount = async (
   bankName: string,
@@ -244,7 +244,7 @@ export const saveAffiliateBankAccount = async (
 
   try {
     const account = await getAffiliateAccount();
-    const { data } = await axiosInstance.post(`${API}bank-account/`, {
+    const { data } = await affliateAxiosInstance.post(`${API}bank-account/`, {
       bank_name: bankName,
       account_number: accountNumber,
     });
@@ -271,7 +271,7 @@ export const getAffiliateSummary =
         }
       : (async () => {
           const [referralsResponse, account] = await Promise.all([
-            axiosInstance.get(`${API}referrals/`),
+            affliateAxiosInstance.get(`${API}referrals/`),
             getAffiliateAccount(),
           ]);
           const totals =
@@ -288,7 +288,7 @@ export const getAffiliateSummary =
 
 export const getAffiliateReferrals = async (): Promise<AffiliateReferral[]> => {
   if (isAffiliatePreviewMode()) return previewReferrals;
-  const { data } = await axiosInstance.get(`${API}referrals/`);
+  const { data } = await affliateAxiosInstance.get(`${API}referrals/`);
   const referrals =
     data?.msg?.referrals ?? data?.referrals ?? data?.results ?? data;
   return Array.isArray(referrals) ? referrals.map(normalizeReferral) : [];
@@ -319,5 +319,5 @@ export const getAffiliateWithdrawals = async (): Promise<
 
 export const logoutAffiliate = async (): Promise<void> => {
   if (isAffiliatePreviewMode()) return;
-  await axiosInstance.post(`${API}logout/`);
+  await affliateAxiosInstance.post(`${API}logout/`);
 };

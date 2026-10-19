@@ -62,14 +62,14 @@ const AffiliateLayout: React.FC = () => {
     } catch {
       // Clear the local session even if the logout endpoint is unavailable.
     } finally {
-      localStorage.removeItem('access');
-      localStorage.removeItem('refresh');
-      localStorage.removeItem('userId');
+      localStorage.removeItem('affiliate_access');
+      localStorage.removeItem('affiliate_refresh');
+      localStorage.removeItem('affiliate_userId');
       sessionStorage.removeItem('affiliate-preview-mode');
       navigate('/affiliate/login');
     }
   };
-  if (!localStorage.getItem('access') && !previewMode) {
+  if (!localStorage.getItem('affiliate_access') && !previewMode) {
     return <Navigate to="/affiliate/login" replace />;
   }
   const currentPage =

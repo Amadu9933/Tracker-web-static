@@ -12,7 +12,7 @@ const LoginTabComponent: React.FC = () => {
   const [checkAuth, setCheckAuth] = useState(false);
 
   useEffect(() => {
-    if (window.localStorage.getItem('access')) {
+    if (window.localStorage.getItem('trackerrgo_access')) {
       setCheckAuth(true);
       window.location.href = '/dashboard/';
     }
