@@ -17,6 +17,7 @@ import AffiliateDashboard from '@components/pages/AffiliatePages/dashboard/Affil
 import AffiliateReferrals from '@components/pages/AffiliatePages/dashboard/AffiliateReferrals';
 import AffiliateAccountSettings from '@components/pages/AffiliatePages/dashboard/AffiliateAccountSettings';
 import AffiliateWithdraw from '@components/pages/AffiliatePages/dashboard/AffiliateWithdraw';
+import AffiliateBenefits from '@components/pages/AffiliatePages/benefits/Benefits';
 
 const Loading = () => <CircularProgress />;
 
@@ -51,6 +52,7 @@ const pageTitles: Record<string, string> = {
   '/dashboard/user-profile': 'User Profile',
   '/dashboard/how-to-use': 'How To Use',
   '/affiliate': 'Affiliate Program',
+  '/affiliate/benefits': 'Benefits',
   '/affiliate/login': 'Affiliate Login',
   '/affiliate/signup': 'Affiliate Sign Up',
   '/affiliate/verify-otp': 'Affiliate Verification',
@@ -71,7 +73,7 @@ const RouteTitle: React.FC = () => {
         ? 'Tracking Details'
         : pathname.startsWith('/customer-notification/')
           ? 'Customer Notification'
-          : 'Page Not Found';
+          : 'Real-Time Delivery';
 
     document.title = `TrackerrGo | ${exactTitle ?? fallbackTitle}`;
   }, [pathname]);
@@ -86,6 +88,7 @@ const AppRoutes: React.FC = () => (
       <Route path="/affiliate" element={<AffiliateLandingPage />} />
       <Route path="/affiliate/login" element={<AffiliateLogin />} />
       <Route path="/affiliate/signup" element={<AffiliateLogin />} />
+      <Route path="/affiliate/benefits" element={<AffiliateBenefits />}/>
       <Route path="/affiliate/verify-otp" element={<VerifyOTP />} />
       <Route path="/affiliate/dashboard" element={<AffiliateLayout />}>
         <Route index element={<AffiliateDashboard />} />

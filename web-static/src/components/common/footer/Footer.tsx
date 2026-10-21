@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import TrackerrGoSocials from '../reusable/trackerrgosocials';
 
 const year = new Date().getFullYear();
 
@@ -105,6 +106,7 @@ const Footer: React.FC = () => {
           <p className="text-xs md:text-sm text-white/70 text-center sm:text-left">
             TrackerrGo &copy; {year}. All rights reserved
           </p>
+          <TrackerrGoSocials />
           <div className="flex items-center gap-4">
             <button
               type="button"
