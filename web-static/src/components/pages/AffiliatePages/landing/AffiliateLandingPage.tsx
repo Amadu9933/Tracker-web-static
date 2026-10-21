@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logo from '../../../../assets/Logo.png';
+import ReusableAffiliateHeader from '../header/ReusableHeader';
 
 const benefits = [
   {
@@ -31,25 +32,7 @@ const benefits = [
 
 const AffiliateLandingPage: React.FC = () => (
   <main className="min-h-screen overflow-hidden bg-[#fffaf6] text-slate-900">
-    <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-      <Link to="/affiliate" aria-label="TrackerrGo affiliate home">
-        <img className="h-9 w-auto" src={logo} alt="TrackerrGo" />
-      </Link>
-      <nav className="flex items-center gap-3 sm:gap-6">
-        <a
-          className="hidden text-sm font-medium text-slate-600 hover:text-primary sm:inline"
-          href="#how-it-works"
-        >
-          How it works
-        </a>
-        <a
-          className="hidden text-sm font-medium text-slate-600 hover:text-primary sm:inline"
-          href="#benefits"
-        >
-          Benefits
-        </a>
-      </nav>
-    </header>
+    <ReusableAffiliateHeader />
 
     <section className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pb-16 pt-10 sm:px-8 md:min-h-[570px] md:grid-cols-[1fr_0.9fr] md:pb-24 md:pt-16">
       <div className="relative z-10">
@@ -62,7 +45,7 @@ const AffiliateLandingPage: React.FC = () => (
           <span className="text-primary">Earn coins.</span>
         </h1>
         <p className="mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
-          Share your unique referral code and earn coins whenever a business you
+          Share your unique referral code and earn 10 coins whenever a business you
           refer generates a tracking number.
         </p>
         <div id="benefits" className="mt-7 grid gap-4 sm:grid-cols-3">

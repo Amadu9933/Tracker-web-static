@@ -1,4 +1,4 @@
-import { Check, Crown, Sparkles } from "lucide-react";
+import { Check, Crown, Sparkles, Star } from "lucide-react";
 
 const payuFeatures = [
   "Pay only when you generate a tracking link",
@@ -8,6 +8,8 @@ const payuFeatures = [
   "5 riders onboarding",
   "Customer tracking notifications",
   "SMS and Email notifications",
+  "WhatsApp tracking updates",
+  "OTP-Verified Delivery",
   "Delivery history and tracking records",
 ];
 
@@ -19,10 +21,27 @@ const premiumFeatures = [
   "Unlimited riders onboarding",
   "Unlimited tracking generation",
   "Unlimited active deliveries",
+  "SMS and Email notifications",
+  "WhatsApp tracking updates",
+  "OTP-Verified Delivery",
+  "Multiple team members",
+  "Priority customer support",
+];
+
+const premiumProFeatures = [
+  "Real-time parcel tracking",
+  "Live rider location updates",
+  "Customer tracking notifications",
+  "Delivery history and tracking records",
+  "Unlimited riders onboarding",
+  "Unlimited tracking generation",
+  "Unlimited active deliveries",
   "Advanced delivery analytics",
+  "API Integration",
   "Custom branded tracking pages",
   "SMS and Email notifications",
   "WhatsApp tracking updates",
+  "OTP-Verified Delivery",
   "Multiple team members",
   "Priority customer support",
 ];
@@ -74,7 +93,7 @@ export default function SubscriptionType() {
 
             <div className="mt-8">
               <span className="text-5xl font-black text-white">
-                ₦200
+                ₦250
               </span>
 
               <span className="ml-2 text-zinc-500">
@@ -113,8 +132,6 @@ export default function SubscriptionType() {
 
           </div>
 
-
-
           {/* PREMIUM */}
           <div className="relative rounded-3xl border border-zinc-800 bg-zinc-900 p-8">
 
@@ -142,7 +159,7 @@ export default function SubscriptionType() {
 
             <div className="mt-8">
               <span className="text-5xl font-black text-white">
-                ₦100,000
+                ₦120,000
               </span>
 
               <span className="ml-2 text-zinc-500">
@@ -176,6 +193,71 @@ export default function SubscriptionType() {
               <p className="mt-1 text-sm text-zinc-400">
                 We are building advanced features for larger logistics teams.
                 Existing PAYU users will be able to upgrade when it launches.
+              </p>
+            </div>
+
+          </div>
+
+          {/* PREMIUM PRO */}
+          <div className="relative rounded-3xl border border-zinc-800 bg-zinc-900 p-8">
+
+            <div className="absolute right-6 top-6 rounded-full bg-zinc-800 px-3 py-1 text-xs font-bold text-zinc-300">
+              ON REQUEST
+            </div>
+
+
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10">
+                <Star className="text-amber-400" size={22} />
+              </div>
+
+              <h2 className="text-2xl font-bold text-white">
+                PREMIUM PRO 
+              </h2>
+            </div>
+
+
+            <p className="mt-5 text-zinc-400">
+              Designed for logistics companies that need API Integration, unlimited tracking
+              capacity and advanced business tools.
+            </p>
+
+
+            <div className="mt-8">
+              <span className="text-5xl font-black text-white">
+                ₦225,000
+              </span>
+
+              <span className="ml-2 text-zinc-500">
+                / month
+              </span>
+            </div>
+
+
+            <div className="mt-8 space-y-4">
+              {premiumProFeatures.map((feature) => (
+                <div
+                  key={feature}
+                  className="flex gap-3 text-zinc-300"
+                >
+                  <Check
+                    size={19}
+                    className="mt-0.5 text-amber-400"
+                  />
+
+                  <span>{feature}</span>
+                </div>
+              ))}
+            </div>
+
+
+            <div className="mt-10 rounded-2xl border border-dashed border-zinc-700 p-4">
+              <p className="font-semibold text-white">
+                Premium Pro will only available on request
+              </p>
+
+              <p className="mt-1 text-sm text-zinc-400">
+               Please contact our sales team.
               </p>
             </div>
 
