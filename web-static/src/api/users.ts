@@ -1,8 +1,8 @@
 const TRACKERR_HOST = import.meta.env.VITE_TRACKERR_HOST;
 
 export const getUserProfile = async () => {
-  const token = localStorage.getItem('access'); // Retrieve the token
-  const userId = localStorage.getItem('userId'); // Retrieve stored user ID
+  const token = localStorage.getItem('trackerrgo_access'); // Retrieve the token
+  const userId = localStorage.getItem('trackerrgo_userId'); // Retrieve stored user ID
   const cacheKey = `userProfile:${userId}`;
 
   if (!token || !userId) {

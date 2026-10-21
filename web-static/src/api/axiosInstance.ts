@@ -14,7 +14,7 @@ let refreshPromise: any = null;
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('access');
+    const token = localStorage.getItem('trackerrgo_access');
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem('refresh');
+        const refreshToken = localStorage.getItem('trackerrgo_refresh');
 
         if (!refreshToken) {
           throw new Error('No refresh token');
@@ -56,10 +56,10 @@ axiosInstance.interceptors.response.use(
               const newAccessToken = response.data.access;
               const newRefreshToken = response.data.refresh;
 
-              localStorage.setItem('access', newAccessToken);
+              localStorage.setItem('trackerrgo_access', newAccessToken);
 
               if (newRefreshToken) {
-                localStorage.setItem('refresh', newRefreshToken);
+                localStorage.setItem('trackerrgo_refresh', newRefreshToken);
               }
 
               return newAccessToken;
@@ -77,9 +77,9 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest);
 
       } catch (refreshError) {
-        localStorage.removeItem('access');
-        localStorage.removeItem('refresh');
-        localStorage.removeItem('userId');
+        localStorage.removeItem('trackerrgo_access');
+        localStorage.removeItem('trackerrgo_refresh');
+        localStorage.removeItem('trackerrgo_userId');
 
         window.location.href = '/login';
 

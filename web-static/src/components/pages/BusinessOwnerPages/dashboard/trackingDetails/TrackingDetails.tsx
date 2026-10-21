@@ -227,7 +227,7 @@ export default function TrackingDetails() {
             product_name: user_data.product_name.toLowerCase(),
             placeId: user_data.placeId
         }, {
-            // headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
+            // headers: { Authorization: `Bearer ${localStorage.getItem('trackerrgo_access')}` }
         }).then(() => {
             setEdit(false);
             setTimeout(() => { setShowMessage(true); setTimeout(() => setShowMessage(false), 3000); }, 200);

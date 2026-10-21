@@ -55,7 +55,7 @@ export default function Dialog({
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access")}`,
+            Authorization: `Bearer ${localStorage.getItem("trackerrgo_access")}`,
           },
         }
       );
@@ -142,7 +142,7 @@ export default function Dialog({
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access")}`,
+          Authorization: `Bearer ${localStorage.getItem("trackerrgo_access")}`,
         },
       })
       .then((response) => {

@@ -44,17 +44,17 @@ html.dark .track-container h2 {
   margin-top: 4vh; /* Adjust margin based on viewport height */
   font-family: 'Inter', sans-serif;
 }
-input::placeholder {
+.track-section input::placeholder {
   padding-left: 0px;
 }
-input:focus {
+.track-section input:focus {
   border-color: #040404;
 }
 .search-icon {
   margin-left: 10px;
 }
 
-input:focus {
+.track-section input:focus {
   border: 1px solid #354755;
 }
 /* input[type='text'] {

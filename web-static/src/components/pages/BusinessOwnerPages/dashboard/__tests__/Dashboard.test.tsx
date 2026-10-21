@@ -1,7 +1,6 @@
 // src/components/pages/businessOwnerPages/dashboard/__tests__/Dashboard.test.tsx
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { Dashboard } from '../Dashboard';
+import Dashboard from '../Dashboard';
 import * as userApi from '@api/users'; // Mock the user API
 
 // Mock the getUserProfile API function
