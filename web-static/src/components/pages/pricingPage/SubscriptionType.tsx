@@ -253,11 +253,11 @@ export default function SubscriptionType() {
 
             <div className="mt-10 rounded-2xl border border-dashed border-zinc-700 p-4">
               <p className="font-semibold text-white">
-                Premium Pro will only available on request
+                Premium Pro will only be available on request.
               </p>
 
               <p className="mt-1 text-sm text-zinc-400">
-               Please contact our sales team.
+               Please contact our <a href="mailto:support@trackerrgo.com" className="text-blue-400 underline">sales team</a>.
               </p>
             </div>
 
