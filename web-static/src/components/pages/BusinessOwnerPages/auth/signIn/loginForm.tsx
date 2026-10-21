@@ -73,20 +73,25 @@ const LoginForm: React.FC = () => {
     setIsLoading(true);
     setErrorMsg('');
 
+    const email = data.email.trim()
+    const password = data.password
+
     try {
-      const response = await loginUser(data.email.trim(), data.password);
+
+      const response = await loginUser(email, password);
       const { access, refresh, account_type } = response;
 
       if (account_type === 'logistics') {
-        localStorage.removeItem('access');
-        localStorage.removeItem('refresh');
-        localStorage.removeItem('userId');
+        localStorage.removeItem('trackerrgo_access');
+        localStorage.removeItem('trackerrgo_refresh');
+        localStorage.removeItem('trackerrgo_userId');
         throw new Error('Only business owners are allowed to log in.');
       }
 
-      localStorage.setItem('access', access);
-      localStorage.setItem('refresh', refresh);
-      setTrackingHistoryEmail(data.email.trim());
+      localStorage.setItem('trackerrgo_access', access);
+      localStorage.setItem('trackerrgo_refresh', refresh);
+
+      setTrackingHistoryEmail(email);
 
       reset();
       navigate('/dashboard/');

@@ -187,12 +187,13 @@ const UserProfile = () => {
                                     <div className="flex flex-col">
                                         <label className="mb-1 font-medium">Full Name</label>
                                         {canEdit ? (
-                                            <div className={editWrapper}>
-                                                <input type="text" className={editInput}
+                                            <div className={readonlyWrapper}>
+                                                {/* <input type="text" className={editInput}
                                                     value={(userData?.user?.name || '').split('👌')[0]}
                                                     onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, name: e.target.value } }) }}
 
-                                                />
+                                                /> */}
+                                                <p className={readonlyText}>{(userData?.user?.name || '').split('👌')[0]}</p>
                                             </div>
                                         ) : (
                                             <div className={readonlyWrapper}>
@@ -211,11 +212,12 @@ const UserProfile = () => {
                                     <div className="flex flex-col">
                                         <label className="mb-1 font-medium">Phone Number</label>
                                         {canEdit ? (
-                                            <div className={editWrapper}>
-                                                <input type="text" className={editInput}
+                                            <div className={readonlyWrapper}>
+                                                <p className={readonlyText}>{userData?.user?.phone_number || ''}</p>
+                                                {/* <input type="text" className={editInput}
                                                     onChange={(e) => { setUserData({ ...userData, user: { ...userData.user, phone_number: e.target.value } }) }}
                                                     value={userData?.user?.phone_number}
-                                                />
+                                                /> */}
                                             </div>
                                         ) : (
                                             <div className={readonlyWrapper}>

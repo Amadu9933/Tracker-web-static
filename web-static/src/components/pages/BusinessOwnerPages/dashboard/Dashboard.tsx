@@ -15,6 +15,35 @@ import { logoutUser } from '../../../../api/auth';
 import Logo from '../../../../assets/Logo.png';
 import CircularProgress from '../../customerPages/CustomerTrackingDetails/CustomerNotification/CircularProgress';
 import {useAuth} from '../../../../context/AuthContext';
+import VerificationModal from '@components/common/VerifyModal';
+import axiosInstance from '../../../../api/axiosInstance';
+
+
+export function VerifiedBadge({ size = 20, color = "#1877F2" }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 48 48"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Verified"
+      role="img"
+    >
+      <path
+        d="M24 2 L30 6 L37 5 L40 12 L46 17 L43 24 L46 31 L40 36 L37 43 L30 42 L24 46 L18 42 L11 43 L8 36 L2 31 L5 24 L2 17 L8 12 L11 5 L18 6 Z"
+        fill={color}
+      />
+      <path
+        d="M14 24 L21 31 L34 17"
+        stroke="white"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </svg>
+  );
+}
 
 const Dashboard: React.FC = () => {
   const location = useLocation();
@@ -27,6 +56,7 @@ const Dashboard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [loggingOut, setLoggingOut] = useState<boolean>(false);
+  const BASE_URL = import.meta.env.VITE_TRACKERR_HOST
 
   const toggleSidebar = () => setSidebarOpen((s) => !s);
 
@@ -41,12 +71,40 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  const verifyBusiness = async (phoneCode: number, emailCode: number, setVerifying: any, setErr: any) => {
+
+    try{
+      const res = axiosInstance.post(
+        `${BASE_URL}/users/account-verify/`,
+        {
+          phoneCode: phoneCode,
+          emailCode: emailCode
+        }
+      )
+
+      if ((await (res)).status === 200) {
+        setVerifying(false);
+        window.location.reload();
+        return
+      } 
+    } catch (e: any) {
+      if (e.response) {
+        setErr(e.response.data.msg || "Error Verifying Your Account!");
+      }
+      setVerifying(false)
+      setTimeout(()=> {
+        setErr('')
+      }, 4000)  
+    }
+  }
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         const userProfile = await getUserProfile();
         console.log('Fetched User Data:', userProfile);
         setUser(userProfile);
+        console.log(userProfile)
       } catch (err) {
         setError('Unable to load your profile details. Please refresh the page or try logging in again.');
         console.error('Error fetching user details:', err);
@@ -58,9 +116,11 @@ const Dashboard: React.FC = () => {
     fetchUserProfile();
   }, []);
 
+
   if (loading) {
     return <CircularProgress />;
   }
+
 
   return (
     <div className="flex relative min-h-screen bg-white text-gray-900">
@@ -68,8 +128,7 @@ const Dashboard: React.FC = () => {
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-10 sm:hidden" onClick={toggleSidebar} />
       )}
-
-      {/* Sidebar */}
+      
       <aside className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'} transform transition-transform duration-200 ease-in-out
         fixed sm:relative inset-y-0 left-0 w-56 sm:w-[220px] bg-gray-200 text-secondary pl-[28px] flex flex-col justify-between z-20`}>
         <nav className="flex flex-col">
@@ -162,7 +221,13 @@ const Dashboard: React.FC = () => {
         </div>
       </aside>
 
-
+      {
+        !user?.user?.is_verified && user?.user?.name && !loading && (
+         <VerificationModal
+          onVerify={verifyBusiness}
+         />
+        ) 
+      }
 
       <button
         className="bg-gray-300 h-[24px]"
@@ -211,14 +276,15 @@ const Dashboard: React.FC = () => {
                     sx={{ color: 'inherit' }}
                   />
                 </IconButton>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-3">
                   <Avatar
                     src={`${user?.user?.avatar}?v=${Date.now()}` || undefined}
                     sx={{ height: 20, width: 20 }}
                   />
                   <span className="text-gray-700 font-semibold hidden sm:inline">
-                    {loading ? 'Loading...' : error ? 'Error' : `Welcome, ${user?.user?.name || 'User'}`}
+                    {loading ? 'Loading...' : error ? 'Error' : `Welcome, ${user?.user?.name?.split(' ')[0] || 'User'}`}
                   </span>
+                  {user?.user?.is_verified ? <VerifiedBadge /> : ''}
                 </div>
               </div>
             </Toolbar>

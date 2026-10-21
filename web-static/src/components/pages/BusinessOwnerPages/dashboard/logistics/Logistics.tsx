@@ -60,7 +60,7 @@ const Integration = () => {
 
     useEffect(() => {
         axiosInstance.get(`${TRACKERR_HOST}/logistics/business-owners/riders/`, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
+            headers: { Authorization: `Bearer ${localStorage.getItem('trackerrgo_access')}` }
         }).then((response) => {
             setRiders(response?.data?.msg || []);
         }).catch((error) => {
@@ -104,7 +104,7 @@ const Integration = () => {
 
     const handleRiderDelete = () => {
         axiosInstance.delete(`${TRACKERR_HOST}/logistics/riders/${riderToDelete.id}/`, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
+            headers: { Authorization: `Bearer ${localStorage.getItem('trackerrgo_access')}` }
         }).then(() => {
             setMsg('Rider deleted successfully');
             setShowRiderDeleteDialog(false);
@@ -218,7 +218,7 @@ const Integration = () => {
             identity_card_type: editRiderInfo.idType,
             id_number: editRiderInfo.idNumber
         }, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('access')}`, "Content-Type": "application/json" }
+            headers: { Authorization: `Bearer ${localStorage.getItem('trackerrgo_access')}`, "Content-Type": "application/json" }
         }).then(() => {
             setMsg('Rider updated successfully');
             setShowEditDialog(false);

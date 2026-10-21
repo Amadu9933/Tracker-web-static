@@ -16,8 +16,8 @@ export const loginUser = async (email: string, password: string) => {
     const data = await response.json();
 
     // 🔹 Store access & refresh tokens
-    localStorage.setItem('access', data.access);
-    localStorage.setItem('refresh', data.refresh);
+    localStorage.setItem('trackerrgo_access', data.access);
+    localStorage.setItem('trackerrgo_refresh', data.refresh);
 
     // 🔹 Fetch user details separately to get `id`
     const userResponse = await fetch(

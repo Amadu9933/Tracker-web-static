@@ -19,7 +19,7 @@ const CustomerDidYouKnow: React.FC = () => {
         <div className="md:block md:ml-[143px] md:w-44 flex justify-between ">
           <div className="md:w-36 md:h-36 md:rounded-full w-16 h-16 rounded-full">
             <img
-              className="md:w-36 md:h-36 md:rounded-full w-16 h-16 rounded-full"
+              className=" md:w-36 md:h-36 md:rounded-full w-12 h-12 rounded-full"
               src={firstImage}
               alt=""
             />

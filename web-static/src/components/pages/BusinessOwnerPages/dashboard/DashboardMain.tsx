@@ -23,7 +23,7 @@ const DashboardMain = () => {
   // Fetch tracking data when component mounts
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem('access'); // ✅ Get token from localStorage
+      const token = localStorage.getItem('trackerrgo_access'); // ✅ Get token from localStorage
 
       if (!token) {
         setError('No token found. Please log in again.');

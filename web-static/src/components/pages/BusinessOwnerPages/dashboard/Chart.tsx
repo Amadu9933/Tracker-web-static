@@ -39,7 +39,7 @@ const ParcelChart: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    const token = localStorage.getItem('access');
+    const token = localStorage.getItem('trackerrgo_access');
     if (!token) {
       setError('Authentication token missing. Please login again.');
       setLoading(false);

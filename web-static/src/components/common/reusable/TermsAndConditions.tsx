@@ -1,6 +1,8 @@
 import React from 'react';
 import { TermsModal } from './ReusableModal';
 
+
+
 interface TermsAndConditionsProps {
   terms: boolean;
   onToggle: () => void;

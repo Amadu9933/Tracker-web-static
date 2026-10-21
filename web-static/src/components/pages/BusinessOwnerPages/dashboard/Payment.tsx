@@ -27,7 +27,7 @@ export default function Payment({ showDialog }: any) {
     const handleTopUp = async () => {
         if (btnText === 'Processing...') return; // Prevent multiple clicks
         setBtnText('Processing...');
-        const access_token = localStorage.getItem('access');
+        const access_token = localStorage.getItem('trackerrgo_access');
         if (!access_token) {
             setPaymentError('No access token found. Please logout and login again.')
             return;

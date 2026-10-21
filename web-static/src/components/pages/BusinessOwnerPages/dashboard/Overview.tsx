@@ -51,7 +51,7 @@ const Overview = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const token = localStorage.getItem('access');
+      const token = localStorage.getItem('trackerrgo_access');
       if (!token) {
         setStatsLoading(false);
         return;
