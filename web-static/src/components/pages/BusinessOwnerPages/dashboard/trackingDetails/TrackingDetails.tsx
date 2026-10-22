@@ -304,8 +304,8 @@ export default function TrackingDetails() {
                         <p className="text-xs font-semibold uppercase tracking-wide text-slate-400  mb-0.5">
                             Parcel Number
                         </p>
-                        <h2 className="text-lg font-bold text-slate-900 ">
-                            {trackingData.parcel_number}
+                        <h2 className="text-lg font-bold text-sky-700">
+                            <a href={`/tracking/${trackingData.parcel_number}`} target="_blank">{trackingData.parcel_number}</a>
                         </h2>
                     </div>
                     {trackingStatus && (
