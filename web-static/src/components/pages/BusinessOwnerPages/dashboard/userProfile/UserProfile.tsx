@@ -42,7 +42,6 @@ const UserProfile = () => {
     })
 
     const userId = localStorage.trackerrgo_userId;
-    alert(userId)
 
     const validatePhone = (phone: string) => {
         const pattern = /^[0-9]{10}$/;
