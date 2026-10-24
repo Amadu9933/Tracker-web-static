@@ -333,3 +333,26 @@ export const logoutAffiliate = async (): Promise<void> => {
   if (isAffiliatePreviewMode()) return;
   await affliateAxiosInstance.post(`${API}logout/`);
 };
+
+
+export const getAllBanks = async () => {
+  const res = await affliateAxiosInstance.get(`${API}all-banks/`)
+  if (res.status != 200) return []
+
+  const banks = await res?.data.banks
+  return banks
+}
+
+export const getVerifiedAccountName = async (account_number: string, code: string) => {
+  const res = await affliateAxiosInstance.post(
+    `${API}all-banks/`, {
+      account_number: account_number,
+      bank_code: code
+    }
+  )
+
+  if (res.status === 200) {
+    return await res?.data.name
+  }
+  return ''
+}

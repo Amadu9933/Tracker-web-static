@@ -3,6 +3,8 @@ import { Building2, CheckCircle2, LockKeyhole, UserRound } from 'lucide-react';
 import {
   getAffiliateAccount,
   saveAffiliateBankAccount,
+  getAllBanks,
+  getVerifiedAccountName
 } from '../../../../api/affiliate';
 import type { AffiliateAccount } from '../../../../types/affiliate';
 import { formatPersonName } from '../nameFormatting';
@@ -13,7 +15,27 @@ const AffiliateAccountSettings: React.FC = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [allBanks, setAllBanks] = useState<any>([]);
+  const [verifiedName, setVerifiedName] = useState("");
+  const [trigger, setTrigger] = useState(false);
+  const [filteredBanks, setFilteredBanks] = useState([]);
+  const [bankChosen, setBankChosen] = useState(false);
   const [bankDetailsSubmitted, setBankDetailsSubmitted] = useState(false);
+  
+  useEffect(() => {
+    getAllBanks()
+    .then((data) => setAllBanks(data))
+    .catch(() => setAllBanks([]))
+  }, [])
+
+  useEffect(() => {
+    if (!trigger) return
+    if (account?.payout_account?.length! >= 9) {
+      getAccountName()
+      setBankChosen(false)
+    }
+  }, [bankChosen==true, account?.payout_account])
+  
   useEffect(() => {
     getAffiliateAccount()
       .then(setAccount)
@@ -21,6 +43,28 @@ const AffiliateAccountSettings: React.FC = () => {
         setError(e instanceof Error ? e.message : 'Could not load account.')
       );
   }, []);
+
+  const getAccountName = () => {
+    const bank_name = account?.payout_bank
+    const account_num = account?.payout_account
+
+
+    const bank = allBanks.filter((e: any) => e.name.toLowerCase() === bank_name?.toLowerCase())
+    const bank_code = bank ? bank[0].code : false
+    
+    if (bank_code) {
+      getVerifiedAccountName(String(account_num), bank_code).then((e: string) => {
+        setVerifiedName(e)
+        setTimeout(() => {
+          setVerifiedName('')
+        }, 5000)
+      })
+    }
+  }
+
+
+
+
   const save = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!account) return;
@@ -35,6 +79,7 @@ const AffiliateAccountSettings: React.FC = () => {
         )
       );
       setMessage('Your bank details were submitted successfully.');
+      setVerifiedName('');
       setBankDetailsSubmitted(true);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unable to save settings.');
@@ -112,11 +157,14 @@ const AffiliateAccountSettings: React.FC = () => {
               Bank name
               <input
                 className={inputClass}
-                placeholder="Enter your bank name"
+                placeholder="Guaranty Trust Bank"
                 value={title(account?.payout_bank!) ?? ''}
                 disabled={bankDetailsSubmitted}
-                onChange={(e) =>
-                  setAccount({ ...account, payout_bank: e.target.value })
+                onChange={(e) => {
+                  setAccount({ ...account, payout_bank: e.target.value });
+                  setFilteredBanks(allBanks.filter((b: any) => b?.name.toLowerCase().includes(e.target.value.toLowerCase())))
+                  setTrigger(true);
+                }
                 }
                 required
               />
@@ -131,12 +179,36 @@ const AffiliateAccountSettings: React.FC = () => {
                 value={account.payout_account ?? ''}
                 disabled={bankDetailsSubmitted}
                 onChange={(e) =>
-                  setAccount({ ...account, payout_account: e.target.value })
+                  {setAccount({ ...account, payout_account: e.target.value })
+                  setTrigger(true);}
                 }
                 required
               />
             </label>
+            
           </div>
+          
+          {filteredBanks && (
+          <div>
+            {
+              filteredBanks.map(
+                (b: any) => (
+                  <div key={b.name} onClick={ () => {
+                    setAccount({...account, payout_bank: b.name});
+                    setFilteredBanks([])
+                    setBankChosen(true)
+                  }} className="hover:cursor-pointer hover:bg-orange-100 relative border w-[330px] rounded border border-slate-300 bg-white px-3.5 py-3 text-sm font-normal outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/15 read-only:bg-slate-50">
+                    {b.name}
+                  </div>
+                )
+              )
+            
+            }
+          </div>
+          )
+          }
+          
+        
           {message && (
             <p
               className="mt-5 flex items-center gap-2 text-sm text-emerald-700"
@@ -151,16 +223,27 @@ const AffiliateAccountSettings: React.FC = () => {
               {error}
             </p>
           )}
-          <button
-            className="mt-6 inline-flex items-center justify-center rounded bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:brightness-95 disabled:cursor-wait disabled:opacity-60"
-            disabled={busy || bankDetailsSubmitted}
-          >
-            {busy
-              ? 'Submitting...'
-              : bankDetailsSubmitted
+          <div className="flex flex-col gap-3 md:flex-row md:items-end mt-3">
+            <button
+              className="w-full md:w-auto inline-flex items-center justify-center rounded bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:brightness-95 disabled:cursor-wait disabled:opacity-60"
+              disabled={busy || bankDetailsSubmitted}
+            >
+              {busy
+                ? 'Submitting...'
+                : bankDetailsSubmitted
                 ? 'Bank details submitted'
                 : 'Submit bank details'}
-          </button>
+            </button>
+
+            <div className="w-full md:flex-1 ml:50 ">
+              {verifiedName && (
+                  <p className="flex min-h-[38px]  w-1/2 items-center justify-center rounded border border-green-300 bg-green-50 px-2 py-3 text-center text-sm font-medium text-slate-700">
+                    {verifiedName}
+                  </p>
+              )}
+
+            </div>
+          </div>
         </form>
 
         <aside className="space-y-4">
