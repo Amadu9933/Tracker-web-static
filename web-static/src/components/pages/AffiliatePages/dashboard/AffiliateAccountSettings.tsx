@@ -21,6 +21,7 @@ const AffiliateAccountSettings: React.FC = () => {
   const [filteredBanks, setFilteredBanks] = useState([]);
   const [bankChosen, setBankChosen] = useState(false);
   const [bankDetailsSubmitted, setBankDetailsSubmitted] = useState(false);
+  const [showFiltered, setShowFiltered] = useState(false);
   
   useEffect(() => {
     getAllBanks()
@@ -164,6 +165,7 @@ const AffiliateAccountSettings: React.FC = () => {
                   setAccount({ ...account, payout_bank: e.target.value });
                   setFilteredBanks(allBanks.filter((b: any) => b?.name.toLowerCase().includes(e.target.value.toLowerCase())))
                   setTrigger(true);
+                  setShowFiltered(true);
                 }
                 }
                 required
@@ -188,7 +190,7 @@ const AffiliateAccountSettings: React.FC = () => {
             
           </div>
           
-          {filteredBanks && (
+          {filteredBanks && showFiltered && (
           <div>
             {
               filteredBanks.map(
@@ -197,6 +199,7 @@ const AffiliateAccountSettings: React.FC = () => {
                     setAccount({...account, payout_bank: b.name});
                     setFilteredBanks([])
                     setBankChosen(true)
+                    setShowFiltered(false)
                   }} className="hover:cursor-pointer hover:bg-orange-100 relative border w-[330px] rounded border border-slate-300 bg-white px-3.5 py-3 text-sm font-normal outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/15 read-only:bg-slate-50">
                     {b.name}
                   </div>
