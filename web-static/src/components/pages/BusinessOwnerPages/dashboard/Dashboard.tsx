@@ -123,7 +123,7 @@ const Dashboard: React.FC = () => {
 
 
   return (
-    <div className="flex relative min-h-screen bg-white text-gray-900">
+    <div className="flex relative min-h-screen w-full max-w-full overflow-x-hidden bg-white text-gray-900">
       {/* Backdrop for mobile when sidebar is open */}
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-10 sm:hidden" onClick={toggleSidebar} />
@@ -230,16 +230,16 @@ const Dashboard: React.FC = () => {
       }
 
       <button
-        className="bg-gray-300 h-[24px]"
+        className="absolute left-0 top-5 z-10 bg-gray-300 h-[24px] sm:static"
         onClick={() => navigate(-1)}
       >
         <ChevronLeftOutlinedIcon   />
       </button>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col -ml-6 sm:px-6 pt-5 max-w-screen-xl mx-auto">
+      <main className="min-w-0 w-full flex-1 flex flex-col px-2 sm:px-6 pt-5 max-w-screen-xl mx-auto">
         {/* App Bar */}
-        <div className="border-b border-[#D9D9D9] bg-white mx-4 sticky top-0 z-10">
+        <div className="min-w-0 border-b border-[#D9D9D9] bg-white mx-1 sm:mx-4 sticky top-0 z-10">
 
           <AppBar
             position="sticky"
@@ -260,7 +260,7 @@ const Dashboard: React.FC = () => {
               </div>
                 <button
                   onClick={() => navigate('/dashboard/generate-tracking-id')}
-                  className={`flex items-center gap-1.5 w-[130px] md:w-fit px-3 sm:px-4 ml-8 sm:ml-5 py-1.5 sm:py-2 leading-5 font-medium text-[12px] sm:text-[14px] rounded-[6px] cursor-pointer transition-all duration-200
+                  className={`flex items-center gap-1.5 w-[130px] md:w-fit px-3 sm:px-4 ml-2 sm:ml-5 py-1.5 sm:py-2 leading-5 font-medium text-[12px] sm:text-[14px] rounded-[6px] cursor-pointer transition-all duration-200
     ${location.pathname === '/dashboard/generate-tracking-id'
                       ? 'bg-[#E3E2DC] text-[#ABABAB]'
                       : 'bg-primary text-white sm:-ml-5'}`}
@@ -292,7 +292,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Dynamic Page Content */}
-        <div className="p-6">
+        <div className="min-w-0 p-4 sm:p-6">
           <Outlet />
         </div>
       </main>
