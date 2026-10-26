@@ -472,8 +472,62 @@ const Integration = () => {
                         </div>
                     </div>
 
+                    {/* Mobile rider cards keep key details and actions readable without a wide table. */}
+                    <div className="space-y-3 sm:hidden">
+                        {filteredRiders.length === 0 ? (
+                            <div className="rounded-xl border border-gray-200 bg-white py-8 text-center text-sm text-gray-400">
+                                No riders found.
+                            </div>
+                        ) : filteredRiders.map((rider) => (
+                            <article key={rider.id} className="min-w-0 rounded-xl border border-gray-200 bg-white p-3 shadow-sm">
+                                <div className="flex min-w-0 items-start justify-between gap-2">
+                                    <div className="flex min-w-0 items-center gap-2">
+                                        <span className="flex-shrink-0 rounded-full border border-orange-400 p-1.5">
+                                            <FontAwesomeIcon icon={faUser} style={{ fontSize: '0.7rem', color: '#FF833C' }} />
+                                        </span>
+                                        <div className="min-w-0">
+                                            <p className="truncate text-sm font-semibold text-gray-800">{title(rider.user.name)}</p>
+                                            <p className="text-[11px] text-gray-500">Rider</p>
+                                        </div>
+                                    </div>
+                                    {rider.status.toLowerCase() === 'busy' ? (
+                                        <span className="flex-shrink-0 rounded-full border border-red-300 bg-red-50 px-2 py-0.5 text-[11px] font-medium text-red-500">{rider.status}</span>
+                                    ) : rider.status.toLowerCase() === 'inactive' ? (
+                                        <span className="flex-shrink-0 rounded-full border border-gray-300 bg-gray-50 px-2 py-0.5 text-[11px] font-medium text-gray-500">{rider.status}</span>
+                                    ) : (
+                                        <span className="flex-shrink-0 rounded-full border border-green-300 bg-green-50 px-2 py-0.5 text-[11px] font-medium text-green-600">{rider.status}</span>
+                                    )}
+                                </div>
+
+                                <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 border-y border-gray-100 py-3">
+                                    <div className="min-w-0">
+                                        <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-gray-400">Contact</p>
+                                        <p className="flex items-center gap-1 text-xs text-gray-600"><Phone className="h-3 w-3 flex-shrink-0" /><span className="truncate">{rider.user.country === 'nigeria' ? '+234' : '+233'}-{rider?.user?.phone_number}</span></p>
+                                        <p className="mt-1 break-all text-[11px] text-gray-500">{rider.user.email}</p>
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-gray-400">Location</p>
+                                        <p className="flex items-start gap-1 text-xs text-gray-600"><MapPin className="mt-0.5 h-3 w-3 flex-shrink-0 text-orange-400" /><span className="break-words">{title(rider.user.address)}</span></p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center justify-between gap-2 pt-2">
+                                    <div>
+                                        <p className="text-xs font-semibold text-gray-700">{rider.total_delivery}/{rider.total_assigned_orders} deliveries</p>
+                                        <p className="mt-0.5 text-[11px] text-gray-400">⭐ {rating(rider.total_delivery, rider.total_assigned_orders)} rating</p>
+                                    </div>
+                                    <div className="flex flex-shrink-0 items-center gap-1">
+                                        <button aria-label={`View ${rider.user.name}`} className="rounded-lg p-2 text-gray-500 hover:bg-orange-50 hover:text-orange-500" onClick={() => handleViewRider(rider)}><Eye size={16} /></button>
+                                        <button aria-label={`Edit ${rider.user.name}`} className="rounded-lg p-2 text-gray-500 hover:bg-orange-50 hover:text-orange-500" onClick={() => handleEditRider(rider)}><Edit size={16} /></button>
+                                        <button aria-label={`Delete ${rider.user.name}`} className="rounded-lg p-2 text-red-400 hover:bg-red-50" onClick={() => handleRiderDeleteConfirmation(rider.id, rider.user.name)}><Trash2 size={16} /></button>
+                                    </div>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+
                     {/* Table */}
-                    <div className="overflow-x-auto border  rounded-xl">
+                    <div className="hidden overflow-x-auto rounded-xl border sm:block">
                         <table className="min-w-full text-sm">
                             <thead>
                                 <tr className="bg-gray-50 ">
